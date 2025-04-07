@@ -17,4 +17,4 @@ _Schrijf hier iets over jezelf_
 _The Game is ons team goed verlopen. We zijn zelfs genomineerd voor de **Game of the Year** award. Wij waren dusdanig tevreden over onze samenwerking dat ons team vrijwel intact is gebleven. We hadden een teamgenoot die moeite had om prive leven met school te combineren, hierdoor hadden we best veel last-minute haperingen die opgelost moesten worden. Deze zorgde voor best veel stress._
 
 ### Project: Webshop
-_We hebben een nieuw teamlid voor dit project, Francesco. Wij vermoeden dat hij zeer goed zal aansluiten op ons werktempo. Hij neemt al erg veel initiatief. Ik (Lisa) verwacht dat we een paar dagen voor het eind van de sprint klaar zijn met bouwen waardoor we ons kunnen focussen op deployen (opleveren), voorbereiden van de presentaties en ons portfolio._
+_We hebben een nieuw teamlid voor dit project, Francesco. Wij vermoeden dat hij zeer goed zal aansluiten op ons werktempo. Hij neemt al erg veel initiatief. Ik (Lisa) verwacht dat we een paar dagen voor het eind van iedere sprint klaar zijn met bouwen waardoor we ons kunnen focussen op deployen (opleveren), voorbereiden van de presentaties en ons portfolio._
