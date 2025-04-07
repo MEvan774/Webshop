@@ -11,7 +11,7 @@ _Schrijf hier iets over jezelf_
 ### Milan Breuren
 _Schrijf hier iets over jezelf_
 ### Francesco Pavlović
-_Schrijf hier iets over jezelf_
+_Mijn naam is Francesco, ik ben een afvaller van de universiteit. Graag ben ik bezig met elk flank van ons project en hoop ik mezelf bloot te stellen aan zoveel mogelijk verschillende situaties._
 
 ### Project: The Game
 _The Game is ons team goed verlopen. We zijn zelfs genomineerd voor de **Game of the Year** award. Wij waren dusdanig tevreden over onze samenwerking dat ons team vrijwel intact is gebleven. We hadden een teamgenoot die moeite had om prive leven met school te combineren, hierdoor hadden we best veel last-minute haperingen die opgelost moesten worden. Deze zorgde voor best veel stress._
