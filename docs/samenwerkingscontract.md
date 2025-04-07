@@ -101,8 +101,7 @@ Indien de persoon na deze 14 dagen zichzelf nog niet bewezen heeft zal hij/zij u
 Door dit contract te ondertekenen, verklaren wij ons te houden aan de afspraken en elkaar te ondersteunen.
 | Naam teamlid  | Handtekening | Datum  |
 |---------------|--------------|--------|
-|     Lisa      |   LHAKHOFF   |  |
-|     Anne      |     AVB      |  |
-|   Francesco   |     FGP      |  |
-|    Milan      |   MBreuren   |  |
-|               |              |  |
+|     Lisa      |   LHAKHOFF   | 07-04-25 |
+|     Anne      |     AVB      | 07-04-25 |
+|   Francesco   |     FGP      | 07-04-25 |
+|    Milan      |   MBreuren   | 07-04-25 |
