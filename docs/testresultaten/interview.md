@@ -10,7 +10,7 @@ title: Gebruikersinterview
   - [Doelgroep](#doelgroep)
   - [Bronnen](#-bronnen)
   - [Interviewvragen](#interviewvragen)
-  = [Planning](#-planning-interviews)
+  - [Planning](#-planning-interviews)
 - [Stap 2: Interviews](#stap-2-interviews)
 - [Stap 3: Analyse & Rapport](#stap-3-analyse--rapport)
 - [Stap 4: Reflectie](#stap-4-reflectie)
