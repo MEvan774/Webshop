@@ -1,6 +1,6 @@
 ## De processen van de webshop:
 - Klantenregistratie (Anne)
-- Inloggen
+- Inloggen (Anne)
 - Uitloggen
 - Producten bestellen
 - Producten afrekenen en coupons gebruiken
