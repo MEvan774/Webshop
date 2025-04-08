@@ -41,7 +41,7 @@ We gaan gedurende **3 sprints** aan de slag met het ontwerpen, realiseren en tes
 Als team is het belangrijk om **gezamenlijke leerdoelen** op te stellen, gemeenschappelijke valkuilen zijn:
 
 - Timemanagement
-- Uitstelgedrag
+- Uitstelgedrag  
 Om deze valkuilen op te vangen zorgen we dat we elkaar pushen om sneller te beginnen met werken en om van elkaar de werkuren te monitoren door de check-in & check-out in Discord.
 Het gezamenlijke leerdoel voor sprint 4: Zo snel mogelijk alle administratieve elementen afronden zodat er genoeg tijd in coderen/programmeren gestopt kan worden.
 
