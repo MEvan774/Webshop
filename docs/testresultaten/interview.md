@@ -46,7 +46,34 @@ Welke functionaliteiten vinden gebruikers belangrijk in een gebruiksvriendelijke
 
 ### 🎤 Stap 2: Interviews
 
+- [ ] Minimaal 3 interviews afnemen
+- [ ] Notities of opnames maken
+- [ ] Inzichten verzamelen
+
 ### 📊 Stap 3: Analyse & Rapport
 
+#### Overeenkomsten
+- 
+- 
+- 
+- 
+
+#### Verschillen
+- 
+- 
+- 
+- 
+
+#### Conclusie
+- 
+- 
+- 
+- 
+
 ### 🔄 Stap 4: Reflectie
+- [ ] Reflectie schrijven op aanpak en proces
+- [ ] Feedback van team verzamelen en verwerken
+- [ ] Feedback docent verwerken
+- [ ] Screenshots maken van proces, verwerking en feedback
+- [ ] Toevoegen aan portfolio (LU-7)
 
