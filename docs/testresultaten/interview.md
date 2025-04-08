@@ -43,8 +43,8 @@ Welke functionaliteiten vinden gebruikers belangrijk in een gebruiksvriendelijke
 2. Hoe beoordeel je of een webwinkel betrouwbaar is? Let je er uberhaupt op?
 3. Gebruik je liever mobiel of een desktop/laptop om online te shoppen?
 4. Wat voor dingen in een webwinkel vind je storend?
-5. Welke functionaliteiten vind je belangrijk?
-6. Welke betaalmethode gebruik je het meeste?
+5. Welke functionaliteiten vind je belangrijk? Bijv: een wenslijst, winkelmandje?
+6. Welke betaalmethode gebruik je het meeste? Bijv: Ideal, creditcard, PayPal of Klarna?
 
 #### 📅 Planning Interviews
 | Interview | Persoon | Datum   | Status  |
