@@ -26,8 +26,16 @@ Welke functionaliteiten vinden gebruikers belangrijk in een gebruiksvriendelijke
 - Interesse in tech, e-commerce of marketing.
 
 #### 🔗 Bronnen
-##### 📖 Literatuur
+##### 📖 Literatuur (Op aanraden van ChatGPT)
+1. Nielsen Norman Group – *E-commerce UX Guidelines* (2023)
+2. Baymard Institute – *Top 10 Checkout Usability Issues*
+3. Google Think – *UX Principles for Mobile Webshops*
+
 ##### 🖥️ Bestaande webshops
+- [Bol.com](https://www.bol.com/)
+- [Amazon.com](https://www.amazon.com/)
+- [Uwantisell.nl](https://www.uwantisell.nl/)
+- [G2A](https://www.g2a.com/)
 
 #### ❓ Interviewvragen
 1. Wanneer je online winkelt, wat is het eerste waar je naar kijkt?
