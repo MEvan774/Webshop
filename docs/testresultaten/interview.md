@@ -21,9 +21,10 @@ title: Gebruikersinterview
 Welke functionaliteiten vinden gebruikers belangrijk in een gebruiksvriendelijke en effectieve webshop?
 
 #### 👥 Doelgroep
+- Gamers
 - Leeftijd 20 - 40
 - Mensen die vaak bij webwinkels bestellen
-- Interesse in tech, e-commerce of marketing.
+- Mensen met interesse in tech, e-commerce of marketing.
 
 #### 🔗 Bronnen
 ##### 📖 Literatuur (Op aanraden van ChatGPT)
@@ -39,7 +40,7 @@ Welke functionaliteiten vinden gebruikers belangrijk in een gebruiksvriendelijke
 
 #### ❓ Interviewvragen
 1. Wanneer je online winkelt, wat is het eerste waar je naar kijkt?
-2. Hoe beoordeel je of een webwinkel betrouwbaar is?
+2. Hoe beoordeel je of een webwinkel betrouwbaar is? Let je er uberhaupt op?
 3. Gebruik je liever mobiel of een desktop/laptop om online te shoppen?
 4. Wat voor dingen in een webwinkel vind je storend?
 5. Welke functionaliteiten vind je belangrijk?
