@@ -25,9 +25,9 @@ Welke functionaliteiten vinden gebruikers belangrijk in een gebruiksvriendelijke
 - Mensen die vaak bij webwinkels bestellen
 - Interesse in tech, e-commerce of marketing.
 
-#### 📖 Bronnen
-##### Literatuur
-##### Bestaande webshops
+#### 🔗 Bronnen
+##### 📖 Literatuur
+##### 🖥️ Bestaande webshops
 
 #### ❓ Interviewvragen
 1. Wanneer je online winkelt, wat is het eerste waar je naar kijkt?
