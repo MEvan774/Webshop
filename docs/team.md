@@ -9,7 +9,7 @@ _Mijn naam is Lisa, 29 jarige doorstroom studente. Met een passie voor backend h
 ### Anne Bakker
 _Schrijf hier iets over jezelf_
 ### Milan Breuren
-_Schrijf hier iets over jezelf_
+_Mijn naam is Milan, ik wil het papiertje halen om geld te verdienen._
 ### Francesco Pavlović
 _Mijn naam is Francesco, ik ben een afvaller van de universiteit. Graag ben ik bezig met elk flank van ons project en hoop ik mezelf bloot te stellen aan zoveel mogelijk verschillende situaties._
 
