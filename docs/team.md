@@ -7,7 +7,7 @@ title: Team
 ### Lisa Hakhoff
 _Mijn naam is Lisa, 29 jarige doorstroom studente. Met een passie voor backend hoop ik processen 'achter de schermen' te realiseren._
 ### Anne Bakker
-_Schrijf hier iets over jezelf_
+_Mijn naam is Anne, ik ben een 19 jarige student die van de HAVO afkomt. Ik heb weinig ervaring maar ben een snelle werker en kan goed reflecteren op mijn werk._
 ### Milan Breuren
 _Mijn naam is Milan, ik wil het papiertje halen om geld te verdienen._
 ### Francesco Pavlović
