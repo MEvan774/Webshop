@@ -32,10 +32,10 @@ Welke functionaliteiten vinden gebruikers belangrijk in een gebruiksvriendelijke
 3. Google Think – *UX Principles for Mobile Webshops*
 
 ##### 🖥️ Bestaande webshops
-- [Bol.com](https://www.bol.com/)
-- [Amazon.com](https://www.amazon.com/)
-- [Uwantisell.nl](https://www.uwantisell.nl/)
-- [G2A](https://www.g2a.com/)
+- [Bol.com](https://www.bol.com/) - *Algemene webshop*
+- [Amazon.com](https://www.amazon.com/) - *Algemene webshop*
+- [Uwantisell.nl](https://www.uwantisell.nl/) - *Kleding webshop*
+- [G2A](https://www.g2a.com/) - *Videogame webshop d.m.v. digitale keys*
 
 #### ❓ Interviewvragen
 1. Wanneer je online winkelt, wat is het eerste waar je naar kijkt?
