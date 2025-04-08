@@ -1,11 +1,5 @@
 ---
-title: Classe Diagram
-children:
-    - index.md
-    - erd.md
-    - eerd.md
-    - mermaid.md
-    - flowchart.md
+title: Class Diagram
 ---
 
 **TODO:** Werk op deze pagina het *Technisch ontwerp* van het team uit.
