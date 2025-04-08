@@ -1,10 +1,10 @@
 ---
-title: Technisch ontwerp
+title: Flow chart
 children:
+    - index.md
     - erd.md
     - eerd.md
     - mermaid.md
-    - flowchart.md
     - classdiagram.md
 ---
 

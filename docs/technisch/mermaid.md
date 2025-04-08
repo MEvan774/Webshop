@@ -1,9 +1,9 @@
 ---
-title: Technisch ontwerp
+title: Mermaid Chart
 children:
+    - index.md
     - erd.md
     - eerd.md
-    - mermaid.md
     - flowchart.md
     - classdiagram.md
 ---

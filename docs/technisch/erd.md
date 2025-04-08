@@ -1,7 +1,7 @@
 ---
-title: Technisch ontwerp
+title: ERD
 children:
-    - erd.md
+    - index.md
     - eerd.md
     - mermaid.md
     - flowchart.md
