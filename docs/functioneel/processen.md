@@ -1,5 +1,5 @@
 ## De processen van de webshop:
-- Klantenregistratie
+- Klantenregistratie (Anne)
 - Inloggen
 - Uitloggen
 - Producten bestellen
