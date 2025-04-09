@@ -2,6 +2,7 @@
 - Klantenregistratie (Anne)
 - Inloggen (Anne)
 - Uitloggen
+- Account verwijderen
 - Producten bestellen
 - Producten afrekenen en coupons gebruiken
 - Producten verzenden (digitaal)
