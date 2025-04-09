@@ -4,7 +4,7 @@
 - Uitloggen (Anne)
 - Account verwijderen (Anne)
 - Producten bestellen
-- Producten afrekenen en coupons gebruiken
+- Producten afrekenen en coupons gebruiken (Francesco)
 - Producten verzenden (digitaal)
 - Contact opnemen met de klantenservice
-- Producten toevoegen aan wishlist (mogelijk)
+- Producten toevoegen aan wishlist (mogelijk) (Francesco)
