@@ -22,7 +22,7 @@ Welke functionaliteiten vinden gebruikers belangrijk in een gebruiksvriendelijke
 
 #### 👥 Doelgroep
 - Gamers
-- Leeftijd 20 - 40
+- Leeftijd 18 - 70
 - Mensen die vaak bij webwinkels bestellen
 - Mensen met interesse in tech, e-commerce of marketing.
 
@@ -47,11 +47,11 @@ Welke functionaliteiten vinden gebruikers belangrijk in een gebruiksvriendelijke
 6. Welke betaalmethode gebruik je het meeste? Bijv: Ideal, creditcard, PayPal of Klarna?
 
 #### 📅 Planning Interviews
-| Interview | Persoon | Datum   | Status  |
-|-----------|---------|---------|---------|
-| 1         |   |   | 🕒 gepland |
-| 2         |   |   | 🕒 gepland |
-| 3         |   |   | 🕒 gepland |
+| Ronde | Persoon | Datum   |    Status  |
+|-------|---------|---------|------------|
+| 1     |  Belén  |  10-04  | 🕒 gepland |
+| 2     |   |   | niet gepland |
+| 3     |   |   | niet gepland |
 
 ### 🎤 Stap 2: Interviews
 
