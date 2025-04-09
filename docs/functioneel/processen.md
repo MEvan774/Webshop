@@ -1,8 +1,8 @@
 ## De processen van de webshop:
 - Klantenregistratie (Anne)
 - Inloggen (Anne)
-- Uitloggen
-- Account verwijderen
+- Uitloggen (Anne)
+- Account verwijderen (Anne)
 - Producten bestellen
 - Producten afrekenen en coupons gebruiken
 - Producten verzenden (digitaal)
