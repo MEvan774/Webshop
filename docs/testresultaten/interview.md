@@ -28,9 +28,9 @@ Welke functionaliteiten vinden gebruikers belangrijk in een gebruiksvriendelijke
 
 #### 🔗 Bronnen
 ##### 📖 Literatuur (Op aanraden van ChatGPT)
-1. Nielsen Norman Group – *E-commerce UX Guidelines* (2023)
-2. Baymard Institute – *Top 10 Checkout Usability Issues*
-3. Google Think – *UX Principles for Mobile Webshops*
+1. Nielsen Norman Group – [*E-commerce UX Guidelines*](https://www.nngroup.com/articles/ecommerce-product-pages/)
+2. Baymard Institute – [*Top 10 Checkout Usability Issues*](https://baymard.com/blog/current-state-of-checkout-ux)
+3. Google Think – [*UX Principles for Mobile Webshops*](https://www.thinkwithgoogle.com/_qs/documents/2081/Mobile_App_UX_Principles_3.pdf)
 
 ##### 🖥️ Bestaande webshops
 - [Bol.com](https://www.bol.com/) - *Algemene webshop*
