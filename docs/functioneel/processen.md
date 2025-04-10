@@ -3,8 +3,8 @@
 - Inloggen (Anne)
 - Uitloggen (Anne)
 - Account verwijderen (Anne)
-- Producten bestellen
+- Producten bestellen (Milan)
 - Producten afrekenen en coupons gebruiken (Francesco)
-- Producten verzenden (digitaal)
-- Contact opnemen met de klantenservice
+- Producten verzenden (digitaal) (Lisa)
+- Contact opnemen met de klantenservice (Lisa)
 - Producten toevoegen aan wishlist (mogelijk) (Francesco)
