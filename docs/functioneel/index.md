@@ -152,3 +152,19 @@ Voor elk proces is er een bijbehorend BPMN-diagram dat de verschillende stappen,
   - CSS op basis van de huisstijl van LucaStars
   - **Voorbeeld wireframe van inlogscherm**:
     ![Inlogscherm Wireframe](link_naar_wireframe.png)
+
+## Belangrijkste Beloftes en Wensen van de Product Owner
+De product owner heeft een aantal wensen geuit voor de webshop, die van invloed zullen zijn op het ontwerp en de functionaliteit:
+
+- **Spellen zijn online** en moeten binnen 2 uur spelen en binnen 2 weken beschikbaar zijn.
+- De **webshop moet in het Nederlands** zijn, met een mogelijkheid voor toekomstige tweetaligheid.
+- **Kleurenschema en Fonts** moeten consistent zijn en passen bij de stijl van LucaStars.
+- **Abonnementen** kunnen worden toegevoegd, maar zijn geen prioriteit.
+- **Betaald spel** moet een link naar het spel bevatten na aankoop.
+- **Bevestiging via e-mail** na aankoop met een link naar het spel.
+- **Profieloverzicht** moet spellen en links naar spellen tonen.
+- **Wensenlijst en favorieten** moeten beschikbaar zijn voor gebruikers.
+- **Nieuwsbrief** is optioneel.
+- **Recensies**: Gebruikers moeten spellen kunnen beoordelen met sterren en later met tekst.
+- **Dubbel kopen**: Het moet onmogelijk zijn om hetzelfde spel twee keer te kopen, tenzij als cadeau.
+- **Klantenservice**: Dit is geen must voor de eerste versie, maar kan later worden toegevoegd.
