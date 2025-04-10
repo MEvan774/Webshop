@@ -50,8 +50,8 @@ Welke functionaliteiten vinden gebruikers belangrijk in een gebruiksvriendelijke
 | Ronde | Persoon | Datum   |    Status  |
 |-------|---------|---------|------------|
 | 1     |  Belén  |  10-04  | 🕒 gepland |
-| 2     |   |   | niet gepland |
-| 3     |   |   | niet gepland |
+| 2     |  Imca   |  10-04  | 🕒 gepland |
+| 3     |  Marjan |  10-04  | 🕒 gepland |
 
 ### 🎤 Stap 2: Interviews
 
