@@ -85,6 +85,7 @@ De architectuur van de webshop volgt de **Model-View-Controller (MVC)** structuu
 **Frontend**: De frontend is "dun", wat betekent dat de logica voornamelijk in de backend zit. De frontend houdt zich vooral bezig met het weergeven van data die wordt opgehaald via API-aanroepen.
 
 ### Visueel Class Diagram
+```plaintext
 +---------------------+            +-----------------------+
 |        User         |<---------->|     Bestelling        |
 |---------------------|            |-----------------------|
