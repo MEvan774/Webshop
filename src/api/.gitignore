@@ -1,2 +1,4 @@
 /sessions
 /temp
+.env
+.env.production
