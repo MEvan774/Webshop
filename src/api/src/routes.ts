@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { WelcomeController } from "./controllers/WelcomeController";
 import { requireValidSessionMiddleware, sessionMiddleware } from "./middleware/sessionMiddleware";
+import { UserController } from "./controllers/UserController";
 
 // Create a router
 export const router: Router = Router();
@@ -12,6 +13,7 @@ router.get("/", (_, res) => {
 
 // Forward endpoints to other routers
 const welcomeController: WelcomeController = new WelcomeController();
+const userController: UserController = new UserController();
 
 // NOTE: After this line, all endpoints will check for a session.
 router.use(sessionMiddleware);
@@ -42,3 +44,5 @@ router.post("/cart/add", (_req, _res) => {
 router.get("/cart", (_req, _res) => {
     throw new Error("Return a list of products in the cart and the total price");
 });
+
+router.get("/users", (req, res) => userController.getData(req, res));

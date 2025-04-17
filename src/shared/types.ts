@@ -23,3 +23,13 @@ export type SecretResponse = {
     /** ID of the user */
     userId: string;
 };
+
+export type UserResult = {
+    userId: number;
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+    dob: string;
+    gender: string;
+};
