@@ -16,6 +16,7 @@ export class NavigationComponent extends HTMLElement {
             <nav>
                 <a href="/index.html">Home</a>
                 <a href="/example.html">Example</a>
+                <a href="/register.html">Registreren</a>
             </nav>
         `;
 
