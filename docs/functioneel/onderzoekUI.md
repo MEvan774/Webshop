@@ -6,3 +6,4 @@
 
 ### Steam
 - Grote plaatjes voor uitgelichte spellen
+- Alles in dezelfde kleuren, waardoor het meer aantrekkelijk er uit ziet.
