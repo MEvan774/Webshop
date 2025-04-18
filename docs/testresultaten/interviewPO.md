@@ -24,6 +24,7 @@ Waar: Op de HVA campus
 - De backlog moet gevuld worden.
 - Recensies coor spellen met eerst sterren, later met tekst
 - Twee keer kopen niet mogelijk maken, maar misschien later wel als cadeau.
+- De huidskleur, haarkleur en oogkleur van de gebruiker wordt opgeslagen.
 
 #### Niet verplicht
 - Retour waarschijnlijk als er minder dan 2 uur gespeeld is en minder dan 2 weken geleden gekocht.
