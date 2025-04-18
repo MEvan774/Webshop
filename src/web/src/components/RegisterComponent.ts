@@ -1,3 +1,4 @@
+import { UserResult } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
 import { RegisterService } from "@web/services/RegisterService";
 
@@ -11,18 +12,34 @@ export class RegisterComponent extends HTMLElement {
         if (!this.shadowRoot) {
             return;
         }
-
-        // Roep de testQuery aan om de gebruikers op te halen
         const userId: number | undefined = await new RegisterService().testQuery();
+        if (userId !== undefined) {
+            const userService: RegisterService = new RegisterService();
+            const users: UserResult[] = await userService.getAllUsers();
+            const user: UserResult | undefined = users.find(user => user.userId === userId);
+            const element: HTMLElement = html`
+                <div>
+                    <h2>Gebruiker ID: ${userId}</h2>
+                    <p><strong>Naam:</strong> ${user ? user.firstname + " " + user.lastname : "Onbekend"}</p>
+                    <p><strong>Email:</strong> ${user ? user.email : "Onbekend"}</p>
+                    <p><strong>Geboortedatum:</strong> ${user ? user.dob : "Onbekend"}</p>
+                    <p><strong>Geslacht:</strong> ${user ? user.gender : "Onbekend"}</p>
+                </div>
+            `;
 
-        const element: HTMLElement = html`
-            <div>
-                <h2>Gebruiker ID: ${userId}</h2>
-            </div>
-        `;
-
-        this.shadowRoot.firstChild?.remove();
-        this.shadowRoot.append(element);
+            this.shadowRoot.firstChild?.remove();
+            this.shadowRoot.append(element);
+        }
+        else {
+            // Weergeven wanneer geen gebruiker wordt gevonden
+            const element: HTMLElement = html`
+                <div>
+                    <h2>Geen gebruiker gevonden of niet ingelogd</h2>
+                </div>
+            `;
+            this.shadowRoot.firstChild?.remove();
+            this.shadowRoot.append(element);
+        }
     }
 
     // private render(): void {

@@ -8,7 +8,6 @@ export class UserController {
     public async getData(req: Request, res: Response): Promise<void> {
         try {
             const users: UserResult[] = await this._userService.getAllUsers();
-
             res.status(200).json(users);
         }
         catch (e: unknown) {
