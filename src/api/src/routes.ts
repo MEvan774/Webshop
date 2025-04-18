@@ -45,4 +45,4 @@ router.get("/cart", (_req, _res) => {
     throw new Error("Return a list of products in the cart and the total price");
 });
 
-router.get("/users", (req, res) => userController.getData(req, res));
+router.get("/user", (req, res) => userController.getData(req, res));

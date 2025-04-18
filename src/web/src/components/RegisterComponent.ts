@@ -1,9 +1,9 @@
 import { html } from "@web/helpers/webComponents";
+import { RegisterService } from "@web/services/RegisterService";
 
 export class RegisterComponent extends HTMLElement {
     public async connectedCallback(): Promise<void> {
         this.attachShadow({ mode: "open" });
-
         await this.render();
     }
 
@@ -12,15 +12,12 @@ export class RegisterComponent extends HTMLElement {
             return;
         }
 
-        // Fetch all users when the component is connected
-        const users = await this.getUsers();
+        // Roep de testQuery aan om de gebruikers op te halen
+        const userId: number | undefined = await new RegisterService().testQuery();
 
         const element: HTMLElement = html`
             <div>
-                <h2>Gebruikers</h2>
-                <ul>
-                    ${users.map(user => html`<li>${user.firstname} ${user.lastname}</li>`).join('')}
-                </ul>
+                <h2>Gebruiker ID: ${userId}</h2>
             </div>
         `;
 
