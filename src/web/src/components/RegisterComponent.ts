@@ -7,47 +7,13 @@ export class RegisterComponent extends HTMLElement {
         this.render();
     }
 
-    // private async render(): Promise<void> {
-    //     if (!this.shadowRoot) {
-    //         return;
-    //     }
-    //     const userId: number | undefined = await new RegisterService().testQuery();
-    //     if (userId !== undefined) {
-    //         const userService: RegisterService = new RegisterService();
-    //         const users: UserResult[] = await userService.getAllUsers();
-    //         const user: UserResult | undefined = users.find(user => user.userId === userId);
-    //         const element: HTMLElement = html`
-    //             <div>
-    //                 <h2>Gebruiker ID: ${userId}</h2>
-    //                 <p><strong>Naam:</strong> ${user ? user.firstname + " " + user.lastname : "Onbekend"}</p>
-    //                 <p><strong>Email:</strong> ${user ? user.email : "Onbekend"}</p>
-    //                 <p><strong>Geboortedatum:</strong> ${user ? user.dob : "Onbekend"}</p>
-    //                 <p><strong>Geslacht:</strong> ${user ? user.gender : "Onbekend"}</p>
-    //             </div>
-    //         `;
-
-    //         this.shadowRoot.firstChild?.remove();
-    //         this.shadowRoot.append(element);
-    //     }
-    //     else {
-    //         // Weergeven wanneer geen gebruiker wordt gevonden
-    //         const element: HTMLElement = html`
-    //             <div>
-    //                 <h2>Geen gebruiker gevonden of niet ingelogd</h2>
-    //             </div>
-    //         `;
-    //         this.shadowRoot.firstChild?.remove();
-    //         this.shadowRoot.append(element);
-    //     }
-    // }
-
     private render(): void {
         if (!this.shadowRoot) {
             return;
         }
 
         const element: HTMLElement = html`
-        <div>
+        <div class="registerForm">
             <form>
                 <label for="voornaam">Voornaam:</label><br>
                 <input type="text" id="fname" name="fname" value="Voornaam" class="fname"><br>
@@ -103,9 +69,13 @@ export class RegisterComponent extends HTMLElement {
                 }
             }
         }
+        const styleLink: HTMLLinkElement = document.createElement("link");
+        styleLink.setAttribute("rel", "stylesheet");
+        styleLink.setAttribute("href", "/assets/css/registerPage.css");
 
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
+        this.shadowRoot.appendChild(styleLink);
     }
 }
 
