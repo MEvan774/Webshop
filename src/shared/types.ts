@@ -33,3 +33,12 @@ export type UserResult = {
     dob: string;
     gender: string;
 };
+
+export type UserRegisterData = {
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+    dob: string;
+    gender: string;
+};

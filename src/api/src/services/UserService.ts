@@ -1,4 +1,4 @@
-import { PoolConnection } from "mysql2/promise";
+import { PoolConnection, ResultSetHeader } from "mysql2/promise";
 import { DatabaseService } from "./DatabaseService";
 import { UserResult } from "@shared/types";
 
@@ -31,6 +31,37 @@ export class UserService {
         }
         catch (e: unknown) {
             throw new Error(`Failed to fetch users: ${e}`);
+        }
+        finally {
+            connection.release();
+        }
+    }
+
+    public async registerUser(
+        fname: string,
+        lname: string,
+        email: string,
+        dob: string,
+        gender: string,
+        password: string
+    ): Promise<string | undefined> {
+        const connection: PoolConnection = await this._databaseService.openConnection();
+
+        try {
+            const result: ResultSetHeader = await this._databaseService.query<ResultSetHeader>(
+                connection, "INSERT INTO user (email, firstname, lastname, password, dob, gender) VALUES (?, ?, ?, ?, ?, ?)", email, fname, lname, password, dob, gender
+            );
+
+            // Controleer of de rij is ingevoegd en retourneer het ID van de nieuw gemaakte gebruiker
+            if (result.affectedRows > 0) {
+                return result.insertId.toString(); // Retourneer het userId
+            }
+            else {
+                throw new Error("Failed to register user, no rows affected.");
+            }
+        }
+        catch (e: unknown) {
+            throw new Error(`Failed to register user: ${e instanceof Error ? e.message : "Unknown error"}`);
         }
         finally {
             connection.release();
