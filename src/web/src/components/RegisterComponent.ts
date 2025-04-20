@@ -1,6 +1,9 @@
 import { html } from "@web/helpers/webComponents";
 import { RegisterService } from "@web/services/RegisterService";
 
+/**
+ * The content for the register-page is made here. Logic such as scripts go in RegisterService
+ */
 export class RegisterComponent extends HTMLElement {
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
@@ -13,31 +16,55 @@ export class RegisterComponent extends HTMLElement {
         }
 
         const element: HTMLElement = html`
-        <div class="registerForm">
-            <form>
-                <label for="voornaam">Voornaam:</label><br>
-                <input type="text" id="fname" name="fname" value="Voornaam" class="fname"><br>
-                <label for="achternaam">Achternaam:</label><br>
-                <input type="text" id="lname" name="lname" value="Achternaam" class="lname"><br>
-                <label for="dob">Geboortedatum:</label><br>
-                <input type="date" id="dob" name="dob" class="dob"><br>
-                <label for="geslacht">Geslacht:</label><br>
-                <select name="geslacht" class="gender" id="gender">
-                    <option value="">Maak een keuze..</option>
-                    <option value="female">Vrouw</option>
-                    <option value="male">Man</option>
-                    <option value="non-binary">Non-Binary</option>
-                    <option value="other">Anders</option>
-                    <option value="Prefer not to answer">Liever geen antwoord</option>
-                </select><br>
-                <label for="email">Emailadres:</label><br>
-                <input type="text" id="email" name="email" value="Email" class="email"><br>
-                <label for="wachtwoord">Wachtwoord:</label><br>
-                <input type="password" id="password" name="password" class="password"><br>
-                <label for="wachtwoordHerhaling">Herhaal wachtwoord:</label><br>
-                <input type="password" id="passwordRepeat" name="passwordRepeat" class="passwordRepeat"><br>
-                <br>
-                <button class="registerBtn">Submit</button>
+                    <div class="registerForm">
+                        <div class="register-grid">
+                    <div>
+                        <label for="fname">Voornaam:</label>
+                        <input type="text" id="fname" name="fname" class="fname" placeholder="Voornaam">
+                    </div>
+                    <div>
+                        <label for="lname">Achternaam:</label>
+                        <input type="text" id="lname" name="lname" class="lname" placeholder="Achternaam">
+                    </div>
+                    <div>
+                        <label for="dob">Geboortedatum:</label>
+                        <input type="date" id="dob" name="dob" class="dob">
+                    </div>
+                    <div>
+                        <label for="gender">Geslacht:</label>
+                        <select id="gender" name="gender" class="gender">
+                            <option value="">Maak een keuze..</option>
+                            <option value="female">Vrouw</option>
+                            <option value="male">Man</option>
+                            <option value="non-binary">Non-Binary</option>
+                            <option value="other">Anders</option>
+                            <option value="Prefer not to answer">Liever geen antwoord</option>
+                        </select>
+                    </div>
+                        <div class="full-width">
+                            <label for="email">Emailadres:</label>
+                            <input type="email" id="email" name="email" class="email" placeholder="Email">
+                        </div>
+
+                        <div class="full-width">
+                            <label for="password">Wachtwoord:</label>
+                            <input type="password" id="password" name="password" class="password" placeholder="Wachtwoord">
+                        </div>
+                        <div class="full-width">
+                            <label for="passwordRepeat">Herhaal wachtwoord:</label>
+                            <input type="password" id="passwordRepeat" name="passwordRepeat" class="passwordRepeat" placeholder="Herhaal wachtwoord">
+                        </div>
+                        <div class="full-width">
+                            <input type="checkbox" id="newsletter" name="newsletter" value="newsletterAgree">
+                            <label for="newsletter"> Meld je aan voor de LucaStars nieuwsbericht voor de nieuwste acties!</label>
+                        </div>
+                        <div class="full-width">
+                            <input type="checkbox" id="terms" name="terms" value="termsAgree">
+                            <label for="terms"> Ik ga akkoord met de voorwaarden van LucaStars.</label>
+                        </div>
+                    </div>
+                        <button class="registerBtn">Registreer</button>
+                        <div id="errorMessage" class="error-message"></div>
             </form>
         </div>
     `;
@@ -64,7 +91,17 @@ export class RegisterComponent extends HTMLElement {
                 if (registerBtn) {
                     registerBtn.addEventListener("click", async e => {
                         e.preventDefault();
-                        await registerUser.onClickRegister(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value, passwordRepeat.value);
+                        const check: { valid: boolean; message?: string } = registerUser.checkData(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value, passwordRepeat.value);
+
+                        const errorDiv: Element | null | undefined = this.shadowRoot?.querySelector("#errorMessage");
+                        if (!check.valid) {
+                            if (errorDiv) errorDiv.textContent = check.message || "Ongeldige invoer.";
+                            return;
+                        }
+                        else {
+                            if (errorDiv) errorDiv.textContent = "";
+                        }
+                        await registerUser.registerUser(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value);
                     });
                 }
             }
