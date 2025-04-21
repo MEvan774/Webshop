@@ -44,6 +44,27 @@ export class RegisterService implements IRegisterService {
         return { valid: true };
     }
 
+    public async getUserByEmail(email: string): Promise<boolean> {
+        try {
+            const response: Response = await fetch(`${VITE_API_URL}user/exists?email=${encodeURIComponent(email)}`, {
+                method: "GET",
+                credentials: "include",
+            });
+
+            if (!response.ok) {
+                const errorText: string = await response.text();
+                throw new Error(`Failed to locate user. Status: ${response.status}, Message: ${errorText}`);
+            }
+
+            console.log("De gebruiker bestaat");
+            return true;
+        }
+        catch (error) {
+            console.log("Bestaande gebruiker zoeken is mislukt", error);
+            return false;
+        }
+    }
+
     public async registerUser(fname: string, lname: string, email: string, dob: string, gender: string, password: string): Promise<boolean> {
         const userData: UserRegisterData = { firstname: fname, lastname: lname, email, dob, gender, password };
         try {

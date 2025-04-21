@@ -48,3 +48,5 @@ router.get("/cart", (_req, _res) => {
 router.get("/user", (req, res) => userController.getData(req, res));
 
 router.post("/user/register", (req, res) => userController.registerUser(req, res));
+
+router.get("/user/exists", (req, res) => userController.getUserByEmail(req, res));

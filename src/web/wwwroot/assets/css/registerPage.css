@@ -103,3 +103,9 @@ button.registerBtn:hover {
     color: red;
     font-size: 14px;
 }
+
+.success-message {
+    margin-top: 10px;
+    color: green;
+    font-size: 14px;
+}
