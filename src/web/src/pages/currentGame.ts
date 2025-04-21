@@ -29,10 +29,6 @@ export class CurrentGamePageComponent extends HTMLElement {
                 <webshop-navigation></webshop-navigation>
 
                 <div>
-                    <h1>
-                        Welkom bij de LucaStars Webshop!
-                    </h1>
-
                     <webshop-currentgame></webshop-currentgame>
                 </div>
             </div>
