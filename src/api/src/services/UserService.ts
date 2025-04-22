@@ -65,7 +65,22 @@ export class UserService {
 
     public async registerUser(fname: string, lname: string, email: string, dob: string, gender: string, password: string): Promise<string | undefined> {
         const connection: PoolConnection = await this._databaseService.openConnection();
+        try {
+            const result: UserResult[] = await this._databaseService.query<UserResult[]>(
+                connection, "SELECT * FROM user WHERE email = ? LIMIT 1", email
+            );
+            return result.length > 0;
+        }
+        catch (e: unknown) {
+            throw new Error(`Failed to locate user: ${e instanceof Error ? e.message : "Unknown error"}`);
+        }
+        finally {
+            connection.release();
+        }
+    }
 
+    public async registerUser(fname: string, lname: string, email: string, dob: string, gender: string, password: string): Promise<string | undefined> {
+        const connection: PoolConnection = await this._databaseService.openConnection();
         try {
             const result: ResultSetHeader = await this._databaseService.query<ResultSetHeader>(
                 connection, "INSERT INTO user (email, firstname, lastname, password, dob, gender) VALUES (?, ?, ?, ?, ?, ?)", email, fname, lname, password, dob, gender

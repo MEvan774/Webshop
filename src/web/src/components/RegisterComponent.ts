@@ -65,6 +65,7 @@ export class RegisterComponent extends HTMLElement {
                     </div>
                         <button class="registerBtn">Registreer</button>
                         <div id="errorMessage" class="error-message"></div>
+                        <div id="successMessage" class="success-message"></div>
             </form>
         </div>
     `;
@@ -81,27 +82,45 @@ export class RegisterComponent extends HTMLElement {
             const genderInput: HTMLInputElement | null = this.shadowRoot.querySelector("#gender");
             const passwordInput: HTMLInputElement | null = this.shadowRoot.querySelector("#password");
             const passwordRepeat: HTMLInputElement | null = this.shadowRoot.querySelector("#passwordRepeat");
+            const errorDiv: Element | null | undefined = this.shadowRoot.querySelector("#errorMessage");
+            const successDiv: Element | null | undefined = this.shadowRoot.querySelector("#successMessage");
 
             if (!fnameInput || !lnameInput || !emailInput || !dobInput || !genderInput || !passwordInput || !passwordRepeat) {
                 console.log("One of the input fields is missing");
             }
             else {
                 const registerBtn: HTMLButtonElement | null = this.shadowRoot.querySelector(".registerBtn");
-                const registerUser: RegisterService = new RegisterService();
+                const registerService: RegisterService = new RegisterService();
                 if (registerBtn) {
                     registerBtn.addEventListener("click", async e => {
                         e.preventDefault();
-                        const check: { valid: boolean; message?: string } = registerUser.checkData(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value, passwordRepeat.value);
-
-                        const errorDiv: Element | null | undefined = this.shadowRoot?.querySelector("#errorMessage");
+                        const errorMessages: string[] = [];
+                        const check: { valid: boolean; messages: string[] } = registerService.checkData(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value, passwordRepeat.value);
                         if (!check.valid) {
-                            if (errorDiv) errorDiv.textContent = check.message || "Ongeldige invoer.";
+                            errorMessages.push(...check.messages);
+                        }
+
+                        const userExists: boolean = await registerService.getUserByEmail(emailInput.value);
+                        if (userExists) {
+                            errorMessages.push("Er bestaat al een account met dit e-mailadres.");
+                        }
+
+                        if (errorMessages.length > 0) {
+                            if (errorDiv) {
+                                errorDiv.textContent = errorMessages.join(" | ");
+                            }
+                            if (successDiv) {
+                                successDiv.textContent = "";
+                            }
                             return;
                         }
-                        else {
-                            if (errorDiv) errorDiv.textContent = "";
+
+                        if (!userExists) {
+                            const userRegister: boolean = await registerService.registerUser(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value);
+                            if (successDiv && userRegister) {
+                                successDiv.textContent = "Account succesvol aangemaakt.";
+                            }
                         }
-                        await registerUser.registerUser(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value);
                     });
                 }
             }

@@ -15,33 +15,54 @@ export class RegisterService implements IRegisterService {
      * @param password Password field
      * @param passwordRepeat Password verify field
      */
-    public checkData(fname: string, lname: string, email: string, gender: string, dob: string, password: string, passwordRepeat: string): { valid: boolean; message?: string } {
+    public checkData(fname: string, lname: string, email: string, gender: string, dob: string, password: string, passwordRepeat: string): { valid: boolean; messages: string[] } {
+        const messages: string[] = [];
         if (!fname.trim()) {
-            return { valid: false, message: "Voer uw voornaam in..." };
+            messages.push("Voer uw voornaam in...");
         }
         if (!lname.trim()) {
-            return { valid: false, message: "Voer uw achternaam in..." };
+            messages.push("Voer uw achternaam in...");
         }
         if (!email.trim() || !email.includes("@")) {
-            return { valid: false, message: "Voer een geldig emailadres in..." };
+            messages.push("Voer een geldig emailadres in...");
         }
         if (!gender.trim()) {
-            return { valid: false, message: "Selecteer uw geslacht...." };
+            messages.push("Selecteer uw geslacht...");
         }
         if (!dob.trim()) {
-            return { valid: false, message: "Voer uw geboortedatum in..." };
+            messages.push("Voer uw geboortedatum in...");
         }
         if (!password) {
-            return { valid: false, message: "Voer een wachtwoord in..." };
+            messages.push("Voer een wachtwoord in...");
         }
-        if (password.length < 6) {
-            return { valid: false, message: "Uw wachtwoord moet minstens 6 karakters bevatten..." };
+        else if (password.length < 6) {
+            messages.push("Uw wachtwoord moet minstens 6 karakters bevatten...");
         }
         if (password !== passwordRepeat) {
-            return { valid: false, message: "De wachtwoorden komen niet overeen!" };
+            messages.push("De wachtwoorden komen niet overeen!");
         }
+        return { valid: messages.length === 0, messages };
+    }
 
-        return { valid: true };
+    public async getUserByEmail(email: string): Promise<boolean> {
+        try {
+            const response: Response = await fetch(`${VITE_API_URL}user/exists?email=${encodeURIComponent(email)}`, {
+                method: "GET",
+                credentials: "include",
+            });
+
+            if (!response.ok) {
+                const errorText: string = await response.text();
+                throw new Error(`Failed to locate user. Status: ${response.status}, Message: ${errorText}`);
+            }
+
+            console.log("De gebruiker bestaat");
+            return true;
+        }
+        catch (error) {
+            console.log("Bestaande gebruiker zoeken is mislukt", error);
+            return false;
+        }
     }
 
     public async registerUser(fname: string, lname: string, email: string, dob: string, gender: string, password: string): Promise<boolean> {
