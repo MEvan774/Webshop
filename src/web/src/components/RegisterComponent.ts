@@ -94,28 +94,28 @@ export class RegisterComponent extends HTMLElement {
                 if (registerBtn) {
                     registerBtn.addEventListener("click", async e => {
                         e.preventDefault();
-                        const check: { valid: boolean; message?: string } = registerService.checkData(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value, passwordRepeat.value);
-                        if (errorDiv) {
-                            if (!check.valid) {
-                                errorDiv.textContent = check.message || "Ongeldige invoer.";
-                                return;
-                            }
-                            else {
-                                errorDiv.textContent = "";
-                            }
+                        const errorMessages: string[] = [];
+                        const check: { valid: boolean; messages: string[] } = registerService.checkData(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value, passwordRepeat.value);
+                        if (!check.valid) {
+                            errorMessages.push(...check.messages);
                         }
-                        const userExists: boolean = await registerService.getUserByEmail(emailInput.value);
 
+                        const userExists: boolean = await registerService.getUserByEmail(emailInput.value);
                         if (userExists) {
+                            errorMessages.push("Er bestaat al een account met dit e-mailadres.");
+                        }
+
+                        if (errorMessages.length > 0) {
                             if (errorDiv) {
-                                errorDiv.textContent = "Er bestaat al een account met dit e-mailadres.";
+                                errorDiv.textContent = errorMessages.join(" | ");
                             }
                             if (successDiv) {
                                 successDiv.textContent = "";
-                                return;
                             }
+                            return;
                         }
-                        else {
+
+                        if (!userExists) {
                             const userRegister: boolean = await registerService.registerUser(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value);
                             if (successDiv && userRegister) {
                                 successDiv.textContent = "Account succesvol aangemaakt.";
