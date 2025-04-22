@@ -35,12 +35,12 @@ export class LoginService implements ILoginService {
             const sessionResponse: Response = await fetch(`${VITE_API_URL}session`, {
                 credentials: "include", // cookie van login wordt meegegeven
             });
-    
+
             if (!sessionResponse.ok) {
                 throw new Error("Kon sessie niet ophalen.");
             }
 
-            const sessionData: SessionResponse = await sessionResponse.json();
+            const sessionData: SessionResponse = await sessionResponse.json() as SessionResponse;
             console.log("Ingelogd met sessie-ID:", sessionData.sessionId);
 
             // ➡️ Hier kan je redirecten, state bijwerken, etc.

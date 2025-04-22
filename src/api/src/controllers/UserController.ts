@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { LoginData, UserRegisterData, UserResult } from "@shared/types";
 import { UserService } from "../services/UserService";
+import { SessionService } from "@api/services/SessionService";
 
 interface UserRegisterRequest extends Request {
     body: UserRegisterData;
@@ -12,6 +13,7 @@ interface UserLoginRequest extends Request {
 
 export class UserController {
     private readonly _userService: UserService = new UserService();
+    private readonly _sessionService: SessionService = new SessionService();
 
     public async getData(req: Request, res: Response): Promise<void> {
         try {
@@ -34,24 +36,16 @@ export class UserController {
         try {
             const user: UserResult | undefined = await this._userService.findUserByEmail(email);
 
-            if (!user) {
+            if (!user || password !== user.password) {
                 res.status(401).json({ error: "Ongeldige inloggegevens." });
                 return;
             }
+            // ✅ Create a new session
+            const sessionId: string | undefined = await this._sessionService.createSession(user.userId); // you need this method
 
-            if (password !== user.password) {
-                res.status(401).json({ error: "Ongeldige inloggegevens." });
-                return;
-            }
-
-            // ✅ Zorg dat je express-session correct hebt ingesteld
-            if (req.sessionId) {
-                req.sessionId = String(user.userId);
-                res.status(200).json({ message: "Login succesvol." });
-            }
-            else {
-                res.status(500).json({ error: "Session object niet beschikbaar." });
-            }
+            // ✅ Set it as cookie or return in header
+            res.cookie("session", sessionId, { httpOnly: true, secure: false }); // adjust for production
+            res.status(200).json({ message: "Login succesvol." });
         }
         catch (error: unknown) {
             console.error("Login fout:", error);

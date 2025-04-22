@@ -1,28 +1,55 @@
+import { SecretResponse } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
 
 export class NavigationComponent extends HTMLElement {
-    public connectedCallback(): void {
+    public async connectedCallback(): Promise<void> {
         this.attachShadow({ mode: "open" });
 
-        this.render();
+        await this.render();
     }
 
-    private render(): void {
+    private async render(): Promise<void> {
         if (!this.shadowRoot) {
             return;
         }
+
+        const sessionInfo: { sessionId: string; userId: number } = await this.getSecret();
+        const sessionId: string = sessionInfo.sessionId;
+
+        console.log("Sessiecookie:", sessionId);
 
         const element: HTMLElement = html`
             <nav>
                 <a href="/index.html">Home</a>
                 <a href="/example.html">Example</a>
                 <a href="/register.html">Registreren</a>
-                <a href="/login.html">Inloggen</a>
+                ${sessionId
+                    ? html`<a href="/logout.html" id="logout">Uitloggen</a>`
+                    : html`<a href="/login.html" id="login">Inloggen</a>`}
             </nav>
         `;
 
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
+    }
+
+    private async getSecret(): Promise<{ sessionId: string; userId: number }> {
+        try {
+            const response: Response = await fetch(`${VITE_API_URL}secret`, {
+                credentials: "include", // Zorg ervoor dat de cookies worden meegestuurd
+            });
+
+            if (!response.ok) {
+                throw new Error("Fout bij ophalen van geheime gegevens");
+            }
+
+            const data: { sessionId: string; userId: number } = await response.json();
+            return { sessionId: data.sessionId, userId: data.userId };
+        }
+        catch (error) {
+            console.error("Error in getSecret:", error);
+            throw error;
+        }
     }
 }
 
