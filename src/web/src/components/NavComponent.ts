@@ -13,6 +13,8 @@ export class NavComponent extends HTMLElement {
             }
 
             const elementStyle: string = css`
+            @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
             :root {
                 --white: #FFFAF0;
                 --blue: #1C2594;
@@ -33,6 +35,15 @@ export class NavComponent extends HTMLElement {
                 font-family: "Pacifico", cursive;
                 font-weight: 400;
                 font-style: normal;
+            }
+
+            .material-symbols-outlined {
+                font-variation-settings:
+                    'FILL' 0,
+                    'wght' 400,
+                    'GRAD' 0,
+                    'opsz' 24;
+                font-size: 50px;
             }
 
             html, body {
@@ -95,6 +106,10 @@ export class NavComponent extends HTMLElement {
                 margin-right: 20px;
             }
 
+            #button-container a {
+                margin-left: 20px;
+            }
+
             #button-container > button {
                 width: 167px;
                 height: 50px;
@@ -105,26 +120,52 @@ export class NavComponent extends HTMLElement {
             }
             `;
 
+            // if () {
+            //     element = html`
+            //     <nav>
+            //         <style>${elementStyle}</style>
+            //         <a id="big-logo" href="index.html">
+            //             <div id="logo">
+            //                 <img src="/assets/img/logo_simple.png" alt="LucaStars Logo">
+            //                 <h1>LucaStarShop</h1>
+            //             </div>
+            //             <p>De shop voor sterren in gaming!</p>
+            //         </a>
+            //         <div id="search-bar">
+            //             <label>
+            //                 <input type="text">
+            //             </label>
+            //         </div>
+            //         <div id="button-container">
+
+            //         </div>
+            //     </nav>
+            //     `;
+            // }
+            // else {
             const element: HTMLElement = html`
-            <nav>
-                <style>${elementStyle}</style>
-                <a id="big-logo" href="index.html">
-                    <div id="logo">
-                        <img src="/assets/img/logo_simple.png" alt="LucaStars Logo">
-                        <h1>LucaStarShop</h1>
+                <nav>
+                    <style>${elementStyle}</style>
+                    <a id="big-logo" href="index.html">
+                        <div id="logo">
+                            <img src="/assets/img/logo_simple.png" alt="LucaStars Logo">
+                            <h1>LucaStarShop</h1>
+                        </div>
+                        <p>De shop voor sterren in gaming!</p>
+                    </a>
+                    <div id="search-bar">
+                        <label>
+                            <input type="text">
+                        </label>
                     </div>
-                    <p>De shop voor sterren in gaming!</p>
-                </a>
-                <div id="search-bar">
-                    <label>
-                        <input type="text">
-                    </label>
-                </div>
-                <div id="button-container">
-                    <button>Login</button>
-                </div>
-            </nav>
-            `;
+                    <div id="button-container">
+                        <a><span class="material-symbols-outlined">person</span></a>
+                        <a><span class="material-symbols-outlined">favorite</span></a>
+                        <a><span class="material-symbols-outlined">shopping_cart</span></a>
+                    </div>
+                </nav>
+                `;
+            // }
 
             this.shadowRoot.firstChild?.remove();
             this.shadowRoot.append(element);
