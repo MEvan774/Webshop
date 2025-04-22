@@ -1,9 +1,13 @@
 import { Request, Response } from "express";
-import { UserService } from "@api/services/UserService";
-import { UserRegisterData, UserResult } from "@shared/types";
+import { LoginData, UserRegisterData, UserResult } from "@shared/types";
+import { UserService } from "../services/UserService";
 
 interface UserRegisterRequest extends Request {
     body: UserRegisterData;
+}
+
+interface UserLoginRequest extends Request {
+    body: LoginData;
 }
 
 export class UserController {
@@ -19,20 +23,39 @@ export class UserController {
         }
     }
 
-    public async getUserByEmail(req: Request, res: Response): Promise<void> {
-        const email: string = req.query.email as string;
+    public async loginUser(req: UserLoginRequest, res: Response): Promise<void> {
+        const { email, password }: LoginData = req.body;
 
-        if (!email) {
-            res.status(400).json({ error: "Emailadres ontbreekt" });
+        if (!email || !password) {
+            res.status(400).json({ error: "Email en wachtwoord zijn verplicht." });
             return;
         }
 
         try {
-            const user: boolean | undefined = await this._userService.getUserByEmail(email);
-            res.status(200).json(user);
+            const user: UserResult | undefined = await this._userService.findUserByEmail(email);
+
+            if (!user) {
+                res.status(401).json({ error: "Ongeldige inloggegevens." });
+                return;
+            }
+
+            if (password !== user.password) {
+                res.status(401).json({ error: "Ongeldige inloggegevens." });
+                return;
+            }
+
+            // ✅ Zorg dat je express-session correct hebt ingesteld
+            if (req.sessionId) {
+                req.sessionId = String(user.userId);
+                res.status(200).json({ message: "Login succesvol." });
+            }
+            else {
+                res.status(500).json({ error: "Session object niet beschikbaar." });
+            }
         }
-        catch (e: unknown) {
-            res.status(500).json({ error: "Failed to fetch user", details: e instanceof Error ? e.message : "Unknown error" });
+        catch (error: unknown) {
+            console.error("Login fout:", error);
+            res.status(500).json({ error: "Interne serverfout bij inloggen." });
         }
     }
 
