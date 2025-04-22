@@ -23,6 +23,9 @@ router.delete("/session", (req, res) => welcomeController.deleteSession(req, res
 router.delete("/session/expired", (req, res) => welcomeController.deleteExpiredSessions(req, res));
 router.get("/welcome", (req, res) => welcomeController.getWelcome(req, res));
 
+router.post("/user/register", (req, res) => userController.registerUser(req, res));
+router.get("/user/exists", (req, res) => userController.getUserByEmail(req, res));
+
 // NOTE: After this line, all endpoints will require a valid session.
 router.use(requireValidSessionMiddleware);
 
@@ -47,6 +50,3 @@ router.get("/cart", (_req, _res) => {
 
 router.get("/user", (req, res) => userController.getData(req, res));
 
-router.post("/user/register", (req, res) => userController.registerUser(req, res));
-
-router.get("/user/exists", (req, res) => userController.getUserByEmail(req, res));
