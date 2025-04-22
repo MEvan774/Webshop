@@ -12,9 +12,11 @@
         "typedoc": "npx typedoc"
     },
     "devDependencies": {
-        "@hboictcloud/eslint-plugin-webshop": "^1.x",
         "@hboictcloud/eslint-plugin": "^2.x",
+        "@hboictcloud/eslint-plugin-webshop": "^1.x",
         "@hboictcloud/metadata": "^1.x",
+        "@types/bcrypt": "^5.0.2",
+        "@types/crypto-js": "^4.2.2",
         "@types/node": "^20.x",
         "@vitest/coverage-istanbul": "3.1.1",
         "@vitest/ui": "3.1.1",
@@ -23,11 +25,14 @@
         "typedoc": "0.28.1",
         "typescript": "5.7.3",
         "vite-tsconfig-paths": "5.1.4",
+        "vitest": "3.1.1",
         "vitest-fetch-mock": "0.4.5",
-        "vitest-mock-extended": "3.1.0",
-        "vitest": "3.1.1"
+        "vitest-mock-extended": "3.1.0"
     },
     "comments": {
         "typescript": "Set to 5.7.3 because vite 6.2.5 doesn't officially support it yet!"
+    },
+    "dependencies": {
+        "crypto-js": "^4.2.0"
     }
 }

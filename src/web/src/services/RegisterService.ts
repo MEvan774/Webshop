@@ -46,14 +46,15 @@ export class RegisterService implements IRegisterService {
 
     public async registerUser(fname: string, lname: string, email: string, dob: string, gender: string, password: string): Promise<boolean> {
         const userData: UserRegisterData = { firstname: fname, lastname: lname, email, dob, gender, password };
+
         try {
             const response: Response = await fetch(`${VITE_API_URL}user/register`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json", // Zorg ervoor dat we JSON verzenden
+                    "Content-Type": "application/json",
                 },
-                credentials: "include", // Zorg ervoor dat we ook de sessie/cookie meesturen indien nodig
-                body: JSON.stringify(userData), // Stuur de gebruikersgegevens als JSON
+                credentials: "include",
+                body: JSON.stringify(userData),
             });
 
             if (!response.ok) {
@@ -64,8 +65,13 @@ export class RegisterService implements IRegisterService {
             console.log("Account succesvol aangemaakt!");
             return true;
         }
-        catch (error) {
-            console.error("Registratie mislukt:", error);
+        catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error("Registratie mislukt:", error.message);
+            }
+            else {
+                console.error("Registratie mislukt, onbekende fout:", error);
+            }
             return false;
         }
     }

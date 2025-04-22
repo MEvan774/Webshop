@@ -42,3 +42,8 @@ export type UserRegisterData = {
     dob: string;
     gender: string;
 };
+
+export type LoginData = {
+    email: string;
+    password: string;
+};
