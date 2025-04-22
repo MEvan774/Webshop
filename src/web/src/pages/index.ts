@@ -102,7 +102,7 @@ export class IndexPageComponent extends HTMLElement {
   <p class="discounted-price">€29.99</p>
 </div>
         <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.png">
+        <img src="public/assets/img/ui/Bottom.svg">
         </div>
     </div>
       <div class="game-card">
@@ -114,7 +114,7 @@ export class IndexPageComponent extends HTMLElement {
   <p class="discounted-price">€29.99</p>
 </div>
         <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.png">
+        <img src="public/assets/img/ui/Bottom.svg">
         </div>
       </div>
       <div class="game-card">
@@ -126,7 +126,7 @@ export class IndexPageComponent extends HTMLElement {
   <p class="discounted-price">€29.99</p>
 </div>
         <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.png">
+        <img src="public/assets/img/ui/Bottom.svg">
         </div>
       </div>
       <div class="game-card">
@@ -138,7 +138,7 @@ export class IndexPageComponent extends HTMLElement {
   <p class="discounted-price">€29.99</p>
 </div>
         <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.png">
+        <img src="public/assets/img/ui/Bottom.svg">
         </div>
       </div>
       <div class="game-card">
@@ -150,7 +150,7 @@ export class IndexPageComponent extends HTMLElement {
             <p class="discounted-price">€29.99</p>
             </div>
         <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.png">
+        <img src="public/assets/img/ui/Bottom.svg">
         </div>
     </div>
     <!-- Add more cards -->
@@ -159,40 +159,46 @@ export class IndexPageComponent extends HTMLElement {
 </div>
   </section>
 
-  <!-- Game Grid -->
-   <!--
-  <section class="game-grid">
-    <h2>Releases</h2>
-    <div class="game-card">
-        <img src="public/assets/img/temp/Frontpage.png" alt="Game 2" />
-        <p>Game Title 2</p>
-        <div class="price-wrapper">
-            <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-            <p class="discounted-price">€29.99</p>
-            </div>
-        <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.png">
-        </div>
-      </div>
-      <div class="game-card">
-        <img src="public/assets/img/temp/Frontpage.png" alt="Game 2" />
-        <p>Game Title 2</p>
-        <div class="price-wrapper">
-            <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-            <p class="discounted-price">€29.99</p>
-            </div>
-        <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.png">
-        </div>
-      </div>
-    -->
-      <!-- Add more tiles -->
+<!-- Sidebar Toggle Button -->
+<input type="checkbox" id="sidebar-toggle" hidden />
+<label for="sidebar-toggle" class="sidebar-btn">
+    <img src="public/assets/img/ui/Arrow.svg">
+</label>
+
+<!-- Sidebar Content -->
+<div class="sidebar">
+  <div class="sidebar-content">
+    <h2>Filters</h2>
+
+    <h3>Prijs</h3>
+    <div class="price-range-boxes">
+  <label>
+    <input type="number" class="price-input" id="min-price" placeholder="min" />
+  </label>
+
+  <span>—</span>
+
+  <label>
+    <input type="number" class="price-input" id="max-price" placeholder="max" />
+  </label>
+</div>
+
+    <h3>Labels</h3>
+    <div class="checkbox-grid">
+      <label><input class="checkbox" type="checkbox" value="Action" /> Actie</label>
+      <label><input class="checkbox" type="checkbox" value="Adventure" /> Avontuur</label>
+      <label><input class="checkbox" type="checkbox" value="RPG" /> RPG</label>
+      <label><input class="checkbox" type="checkbox" value="Horror" /> Horror</label>
+      <label><input class="checkbox" type="checkbox" value="Survival" /> Overleven</label>
+      <label><input class="checkbox" type="checkbox" value="Medieval" /> Middeleeuws</label>
+    </div>
+  </div>
+</div>
+
+
     </section>
     </div>
 </div>
-
                 <webshop-navigation></webshop-navigation>
 
                 <div>
@@ -212,11 +218,15 @@ export class IndexPageComponent extends HTMLElement {
         const stylePage: HTMLLinkElement = document.createElement("link");
         stylePage.setAttribute("rel", "stylesheet");
         stylePage.setAttribute("href", "/assets/css/landingPage.css");
+        const styleSide: HTMLLinkElement = document.createElement("link");
+        styleSide.setAttribute("rel", "stylesheet");
+        styleSide.setAttribute("href", "/assets/css/sidebar.css");
 
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
         this.shadowRoot.appendChild(styleLink);
         this.shadowRoot.appendChild(stylePage);
+        this.shadowRoot.appendChild(styleSide);
     }
 }
 
