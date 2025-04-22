@@ -49,4 +49,3 @@ router.get("/cart", (_req, _res) => {
 });
 
 router.get("/user", (req, res) => userController.getData(req, res));
-
