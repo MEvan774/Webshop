@@ -131,10 +131,9 @@
     justify-content: flex-end;
   }
   
-  .login-button {
+  .navbar-right .login-button {
     padding: 8px 16px;
     margin-right: 10px;
-    float: right;
     background-color: #FFFAF0;
     color: #000000;
     width: 104px;
@@ -144,6 +143,8 @@
     border: none;
     font-family: 'Pacifico';
     font-size: 1.2rem;
-    padding-top: 0px;
-  }
-  
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    line-height: 34px;
+}
