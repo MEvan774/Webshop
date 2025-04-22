@@ -24,7 +24,7 @@ router.delete("/session/expired", (req, res) => welcomeController.deleteExpiredS
 router.get("/welcome", (req, res) => welcomeController.getWelcome(req, res));
 
 router.post("/user/register", (req, res) => userController.registerUser(req, res));
-
+router.get("/user/exists", (req, res) => userController.getUserByEmail(req, res));
 router.post("/user/login", (req, res) => userController.loginUser(req, res));
 
 // NOTE: After this line, all endpoints will require a valid session.

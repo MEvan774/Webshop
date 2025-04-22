@@ -59,6 +59,23 @@ export class UserController {
         }
     }
 
+    public async getUserByEmail(req: Request, res: Response): Promise<void> {
+        const email: string = req.query.email as string;
+
+        if (!email) {
+            res.status(400).json({ error: "Emailadres ontbreekt" });
+            return;
+        }
+
+        try {
+            const user: UserResult | undefined = await this._userService.findUserByEmail(email);
+            res.status(200).json(user);
+        }
+        catch (e: unknown) {
+            res.status(500).json({ error: "Failed to fetch user", details: e instanceof Error ? e.message : "Unknown error" });
+        }
+    }
+
     public async registerUser(req: UserRegisterRequest, res: Response): Promise<void> {
         const { firstname, lastname, email, dob, gender, password }: UserRegisterData = req.body;
 
