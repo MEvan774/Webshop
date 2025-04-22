@@ -1,4 +1,3 @@
-import { SecretResponse } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
 
 export class NavigationComponent extends HTMLElement {
@@ -43,7 +42,7 @@ export class NavigationComponent extends HTMLElement {
                 throw new Error("Fout bij ophalen van geheime gegevens");
             }
 
-            const data: { sessionId: string; userId: number } = await response.json();
+            const data: { sessionId: string; userId: number } = await response.json() as { sessionId: string; userId: number };
             return { sessionId: data.sessionId, userId: data.userId };
         }
         catch (error) {

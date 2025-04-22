@@ -10,7 +10,7 @@ type SessionQueryResult = {
 
 export class SessionService implements ISessionService {
     private static readonly OneMinuteInMilliseconds = 60_000;
-    private static readonly ExpirationTimeInMinutes = 1;
+    private static readonly ExpirationTimeInMinutes = 30;
 
     private readonly _databaseService: DatabaseService = new DatabaseService();
 
