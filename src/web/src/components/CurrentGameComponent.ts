@@ -20,58 +20,72 @@ export class CurrentGameComponent extends HTMLElement {
         const currentGame: GameResult | null = await this.getCurrentGame();
         let element: HTMLElement;
 
-        if (currentGame) {
-            // Create authors string
-            const authors: string = currentGame.authors
+        if (!currentGame) {
+            element = html`<div>Geen spel gevonden.</div>`;
+            if (this.shadowRoot.firstChild) {
+                this.shadowRoot.firstChild.remove();
+            }
+            this.shadowRoot.append(element);
+            return;
+        }
+
+        // If we get here, we know currentGame is not null
+        const authors: string = currentGame.authors.length
+            ? currentGame.authors
                 .map((author: string, index: number): string =>
                     index === 0 ? author : `, ${author}`)
-                .join("");
+                .join("")
+            : "Auteurs onbekent.";
 
-            // Create images HTML
-            const imagesHTML: string = currentGame.images
-                .map((image: string): string => `<img src='${image}' alt="Game screenshot">`)
-                .join("");
+        // Create images HTML
+        let imagesHTML: string = "";
 
-            // Create reviews section
-            const reviewsHTML: string = currentGame.reviews.length > 0
+        if (currentGame.images) {
+            imagesHTML = currentGame.images.length
+                ? currentGame.images
+                    .map((image: string): string => `<img src='${image}' alt="Game screenshot">`)
+                    .join("")
+                : "";
+        }
+
+        // Create reviews section
+        let reviewsHTML: string = "Er zijn nog geen reviews.";
+
+        if (currentGame.reviews) {
+            reviewsHTML = currentGame.reviews.length > 0
                 ? currentGame.reviews.join("<br>")
-                : "This game has no reviews yet.";
+                : "Er zijn nog geen reviews.";
+        }
 
-            element = html`
+        element = html`
+            <div>
                 <div>
-                    <div>
-                        <h1 id="currentGameName">${currentGame.title}</h1>
-                        <p>SKU: ${currentGame.SKU}</p><br>
+                    <h1 id="currentGameName">${currentGame.title}</h1>
 
-                        <div id="currentGameMainFloat">
-                            <img src="${currentGame.thumbnail}" alt="Game thumbnail">
+                    <div id="currentGameMainFloat">
+                        <img src="${currentGame.thumbnail}" alt="Game thumbnail">
 
-                            <div id="currentGameTextDiv">
-                                <div id="currentGameText">${currentGame.descriptionHtml}</div><br>
-                                <p>Developers: </p><br>
-                                <p id="currentGameDevelopers">${authors}</p><br>
-                                <div id="currentGameTags">${currentGame.tags.join(", ")}</div><br>
-                                <p>Game URL: <a href="${currentGame.url}" target="_blank">${currentGame.url}</a></p>
-                            </div>
+                        <div id="currentGameTextDiv">
+                            <div id="currentGameText">${currentGame.descriptionHtml}</div><br>
+                            <p>Developers: </p><br>
+                            <p id="currentGameDevelopers">${authors}</p><br>
+                            <div id="currentGameTags">${currentGame.tags.join(", ")}</div><br>
                         </div>
-
-                        <div id="currentGameImagesDiv">${imagesHTML}</div><br>
-
-                        <div id="currentGameButtonsDiv">
-                            <button id="currentGameBuyButton" class="currentGameButtons">Koop nu!</button>
-                            <button id="currentGamePriceButton" class="currentGameButtons">Price</button>
-                            <button id="currentGameHeartButton">Favorites</button>
-                        </div>
-
-                        <h2>Reviews:</h2>
-                        <div id="currentGameReviewsDiv">${reviewsHTML}</div>
                     </div>
+
+                    <div id="currentGameImagesDiv">${imagesHTML}</div><br>
+
+                    <div id="currentGameButtonsDiv">
+                        <button id="currentGameBuyButton" class="currentGameButtons">Koop nu!</button>
+                        <button id="currentGamePriceButton" class="currentGameButtons">Price</button>
+                        <button id="currentGameHeartButton">Favorites</button>
+                    </div>
+
+                    <h2>Reviews:</h2>
+                    <div id="currentGameReviewsDiv">${reviewsHTML}</div>
                 </div>
-            `;
-        }
-        else {
-            element = html`<div>No game found</div>`;
-        }
+            </div>
+        `;
 
         if (this.shadowRoot.firstChild) {
             this.shadowRoot.firstChild.remove();

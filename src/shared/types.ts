@@ -34,7 +34,7 @@ export type GameResult = {
     /** Thumbnail of the game */
     thumbnail: string;
     /** Other images of the game */
-    images: string[];
+    images: string[] | null;
     /** The markdown of the game description */
     descriptionMarkdown: string;
     /** The HTML of the game description */
@@ -46,5 +46,5 @@ export type GameResult = {
     /** The tags of the game */
     tags: string[];
     /** The reviews of the game */
-    reviews: string[];
+    reviews: string[] | null;
 };
