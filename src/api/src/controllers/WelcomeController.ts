@@ -13,16 +13,25 @@ export class WelcomeController {
     private readonly _welcomeService: IWelcomeService = new WelcomeService();
     private readonly _sessionService: ISessionService = new SessionService();
 
-    public async getSession(_req: Request, res: Response): Promise<void> {
-        // Generate a fake userId for demo purposes
-        const sessionId: string | undefined = await this._sessionService.createSession(
-            parseInt((Math.random() * 1000).toFixed(0))
-        );
+    public async getSession(req: Request, res: Response): Promise<void> {
+        const userId: number | undefined = req.userId;
+
+        if (!userId) {
+            res.status(400).json({ error: "Geen geldige gebruiker gevonden." });
+            return;
+        }
+
+        const sessionId: string | undefined = await this._sessionService.createSession(userId);
+
+        if (!sessionId) {
+            res.status(500).json({ error: "Kan sessie niet maken." });
+            return;
+        }
 
         res
-            .cookie("session", sessionId)
+            .cookie("session", sessionId, { httpOnly: true, secure: false }) // secure: true in productie
             .json({
-                sessionId: sessionId,
+                sessionId,
             });
     }
 
