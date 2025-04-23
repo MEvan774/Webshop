@@ -41,6 +41,7 @@ export class LoginService implements ILoginService {
             }
 
             const sessionData: SessionResponse = await sessionResponse.json() as SessionResponse;
+            sessionStorage.setItem("sessionData", JSON.stringify(sessionData.sessionId));
             console.log("Ingelogd met sessie-ID:", sessionData.sessionId);
 
             // ➡️ Hier kan je redirecten, state bijwerken, etc.

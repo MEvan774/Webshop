@@ -18,17 +18,7 @@ class RegisterPageComponent extends HTMLElement {
         const element: HTMLElement = html`
             <div>
                 <webshop-navigation></webshop-navigation>
-
-                <div>
-                    <h1>
-                        Welkom bij de LucaStars Webshop!
-                    </h1>
-
-                    <p>
-                        Dit is register.html!
-                    </p>
-
-                    <webshop-register></webshop-register>
+                <webshop-register></webshop-register>
                 </div>
             </div>
         `;

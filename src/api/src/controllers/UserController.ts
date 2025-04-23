@@ -11,6 +11,10 @@ interface UserLoginRequest extends Request {
     body: LoginData;
 }
 
+interface LogoutRequest extends Request {
+    body: { sessionId: string };
+}
+
 export class UserController {
     private readonly _userService: UserService = new UserService();
     private readonly _sessionService: SessionService = new SessionService();
@@ -50,6 +54,27 @@ export class UserController {
         catch (error: unknown) {
             console.error("Login fout:", error);
             res.status(500).json({ error: "Interne serverfout bij inloggen." });
+        }
+    }
+
+    public async logoutUser(req: LogoutRequest, res: Response): Promise<void> {
+        const { sessionId } = req.body;
+        if (!sessionId) {
+            res.status(400).json({ message: "Geen sessionId meegegeven" });
+            return;
+        }
+        try {
+            const result: boolean = await this._sessionService.deleteSession(sessionId);
+            if (!result) {
+                res.status(404).json({ message: "Sessie niet gevonden" });
+                return;
+            }
+
+            res.status(204).end();
+        }
+        catch (e) {
+            console.error("Fout bij het verwijderen van sessie:", e);
+            res.status(500).json({ message: "Er is een interne fout opgetreden bij het verwijderen van de sessie." });
         }
     }
 

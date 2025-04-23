@@ -58,7 +58,7 @@ router.post("/user/login", (req, res) => userController.loginUser(req, res));
 router.use(requireValidSessionMiddleware);
 
 router.get("/secret", (req, res) => welcomeController.getSecret(req, res));
-
+router.delete("/user/logout", (req, res) => userController.logoutUser(req, res));
 // TODO: The following endpoints have to be implemented in their own respective controller
 
 router.get("/products/:id", (_req, _res) => {

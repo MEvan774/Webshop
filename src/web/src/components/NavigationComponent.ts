@@ -1,4 +1,5 @@
 import { html } from "@web/helpers/webComponents";
+import { LogoutService } from "../services/LogoutService";
 
 export class NavigationComponent extends HTMLElement {
     public async connectedCallback(): Promise<void> {
@@ -15,44 +16,50 @@ export class NavigationComponent extends HTMLElement {
         const sessionInfo: { sessionId: string; userId: number } = await this.getSecret();
         const sessionId: string = sessionInfo.sessionId;
 
-        console.log("Sessiecookie:", sessionId);
-
         const element: HTMLElement = html`
-        <div>
-        <div class="navbar">
+            <div>
+            <div class="navbar">
             <div class="navbar-left">
-                <!-- logo or brand -->
-                <a href="index.html" class="brand-link">
-                    <img class="logo" src="/assets/img/icons/LogoIcon.png" />
-                    <div class="brand">
-                        <p class="brand-name">LucaStarShop</p>
-                        <p class="brand-tagline">De shop voor de sterren in gaming!</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="navbar-center">
-                <div class="searchbar">
-                    <button>
-                        <img src="/assets/img/icons/SearchIcon.png" alt="Search" />
-                    </button>
-                    <input type="text" placeholder="Zoek game..." />
-                </div>
-            </div>
-
-            <div class="navbar-right">
-                <a href="/register.html">Registreren</a>
-                ${sessionId
-                    ? html`<a href="/logout.html" id="logout">Uitloggen</a>`
-                    : html`<a href="/login.html" id="login">Inloggen</a>`}
-            </div>
+            <!-- logo or brand -->
+            <a href="index.html" class="brand-link">
+            <img class="logo" src="/assets/img/icons/LogoIcon.png" />
+            <div class="brand">
+            <p class="brand-name">LucaStarShop</p>
+            <p class="brand-tagline">De shop voor de sterren in gaming!</p>
         </div>
-    </div>
-`;
+        </a>
+
+          </div>
+          <div class="navbar-center">
+          <div class="searchbar">
+            <button>
+              <img src="/assets/img/icons/SearchIcon.png" alt="Search" />
+            </button>
+            <input type="text" placeholder="Zoek game..." />
+          </div>
+          </div>
+          <div class="navbar-right">
+            <a href="/register.html">Registreren</a>
+            ${sessionId
+              ? html`<a href="" id="logout">Uitloggen</a>`
+              : html`<a href="/login.html" id="login">Inloggen</a>`}
+          </div>
+        </div>
+        </div>
+        `;
 
         const styleLink: HTMLLinkElement = document.createElement("link");
         styleLink.setAttribute("rel", "stylesheet");
         styleLink.setAttribute("href", "/assets/css/navbar.css");
+
+        const logoutBtn: Element | undefined | null = this.shadowRoot.querySelector("#logout");
+        const logoutService: LogoutService = new LogoutService();
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", async e => {
+                e.preventDefault();
+                await logoutService.logoutUser(sessionId);
+            });
+        }
 
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
@@ -62,7 +69,7 @@ export class NavigationComponent extends HTMLElement {
     private async getSecret(): Promise<{ sessionId: string; userId: number }> {
         try {
             const response: Response = await fetch(`${VITE_API_URL}secret`, {
-                credentials: "include", // Zorg ervoor dat de cookies worden meegestuurd
+                credentials: "include",
             });
 
             if (!response.ok) {

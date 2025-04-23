@@ -18,18 +18,7 @@ class LoginPageComponent extends HTMLElement {
         const element: HTMLElement = html`
             <div>
                 <webshop-navigation></webshop-navigation>
-
-                <div>
-                    <h1>
-                        Welkom bij de LucaStars Webshop!
-                    </h1>
-
-                    <p>
-                        Dit is login.html!
-                    </p>
-
-                    <webshop-login></webshop-login>
-                </div>
+                <webshop-login></webshop-login>
             </div>
         `;
 
