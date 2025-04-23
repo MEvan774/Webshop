@@ -67,3 +67,23 @@ button.loginBtn:hover {
     font-size: 14px;
     text-align: center;
 }
+
+.loginForm h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.loginForm .full-width h3 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.loginForm .full-width .redirectRegister {
+    color: #ff9900;
+    text-decoration: none;
+}
+
+.loginForm .full-width .redirectRegister:hover {
+    text-decoration: underline;
+    color: #ffcc00;
+}

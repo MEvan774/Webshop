@@ -18,6 +18,7 @@ export class LoginComponent extends HTMLElement {
         const element: HTMLElement = html`
             <form>
                 <div class="loginForm">
+                    <h2>Inloggen</h2>
                     <div class="login-grid">
                     <div>
                         <label for="email">Emailadres:</label>
@@ -27,6 +28,9 @@ export class LoginComponent extends HTMLElement {
                     <div>
                         <label for="password">Wachtwoord:</label>
                         <input type="password" id="password" name="password" class="password" placeholder="Wachtwoord">
+                    </div>
+                    <div class="full-width">
+                        <h3>Heeft u nog geen account? Klik <a href="register.html" class="redirectRegister">hier</a> om te registreren.</h3>
                     </div>
                         <button class="loginBtn">Inloggen</button>
                     <div id="errorMessage" class="error-message"></div>
