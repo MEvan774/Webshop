@@ -1,6 +1,5 @@
 import "@web/components/NavigationComponent";
 import "@web/components/WelcomeComponent";
-import "@web/components/SidebarComponent";
 import { WebshopEvent } from "@web/enums/WebshopEvent";
 
 import { html } from "@web/helpers/webComponents";
@@ -30,11 +29,11 @@ export class IndexPageComponent extends HTMLElement {
                 <webshop-navigation></webshop-navigation>
 
                 <div>
+                    <h1>
+                        Welkom bij de LucaStars Webshop!
+                    </h1>
 
                     <webshop-welcome></webshop-welcome>
-                </div>
-                <div>
-                    <webshop-sidebar></webshop-sidebar>
                 </div>
             </div>
         `;
