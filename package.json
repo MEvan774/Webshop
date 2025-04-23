@@ -33,6 +33,7 @@
         "typescript": "Set to 5.7.3 because vite 6.2.5 doesn't officially support it yet!"
     },
     "dependencies": {
-        "crypto-js": "^4.2.0"
+        "crypto-js": "^4.2.0",
+        "node-fetch": "^3.3.2"
     }
 }

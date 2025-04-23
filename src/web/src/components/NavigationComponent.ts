@@ -18,18 +18,44 @@ export class NavigationComponent extends HTMLElement {
         console.log("Sessiecookie:", sessionId);
 
         const element: HTMLElement = html`
-            <nav>
-                <a href="/index.html">Home</a>
-                <a href="/example.html">Example</a>
-                <a href="/register.html">Registreren</a>
-                ${sessionId
-                    ? html`<a href="/logout.html" id="logout">Uitloggen</a>`
-                    : html`<a href="/login.html" id="login">Inloggen</a>`}
-            </nav>
+            <div>
+            <div class="navbar">
+            <div class="navbar-left">
+            <!-- logo or brand -->
+            <a href="index.html" class="brand-link">
+            <img class="logo" src="/assets/img/icons/LogoIcon.png" />
+            <div class="brand">
+            <p class="brand-name">LucaStarShop</p>
+            <p class="brand-tagline">De shop voor de sterren in gaming!</p>
+        </div>
+        </a>
+
+          </div>
+                        <div class="navbar-center">
+          <div class="searchbar">
+            <button>
+              <img src="/assets/img/icons/SearchIcon.png" alt="Search" />
+            </button>
+            <input type="text" placeholder="Zoek game..." />
+          </div>
+          </div>
+          <div class="navbar-right">
+            <a href="/register.html">Registreren</a>
+            ${sessionId
+              ? html`<a href="/logout.html" id="logout">Uitloggen</a>`
+              : html`<a href="/login.html" id="login">Inloggen</a>`}
+          </div>
+        </div>
+        </div>
         `;
+
+        const styleLink: HTMLLinkElement = document.createElement("link");
+        styleLink.setAttribute("rel", "stylesheet");
+        styleLink.setAttribute("href", "/assets/css/navbar.css");
 
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
+        this.shadowRoot.appendChild(styleLink);
     }
 
     private async getSecret(): Promise<{ sessionId: string; userId: number }> {

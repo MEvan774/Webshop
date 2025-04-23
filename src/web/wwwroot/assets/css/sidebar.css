@@ -5,7 +5,7 @@
     font-style: normal;
   }
 
-
+/*
 .sidebar {
     position: fixed;
     top: 0;
@@ -23,8 +23,31 @@
     border-left: #FFFAF0;
     border-style: solid;
   }
+    */
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 300px;
+    height: 105%;
+    transform: translateY(-4px);
+    background: #FFFAF0;
+    backdrop-filter: blur(12px);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.25);
+    transition: left 0.3s ease;
+    z-index: 90;
+    border-right: #1C2594;
+    border-top: #FFFAF0;
+    border-left: #FFFAF0;
+    border-style: solid;
+}
   
-  /* When checkbox is checked, slide sidebar in */
+.sidebar.open {
+    left: 0;
+}
+
+  /* When checkbox is checked, slide sidebar in 
   #sidebar-toggle:checked ~ .sidebar {
     left: 0;
   }
@@ -32,6 +55,7 @@
   #sidebar-toggle:checked ~ .sidebar-btn {
     left: 305px;
   }
+    */
   
   /* Toggle Button */
   .sidebar-btn {
@@ -51,7 +75,7 @@
   }
 
   .sidebar-btn img {
-    width: 100%;
+    width: auto;
     height: 30px;
     margin: 0;
     padding: 0;
@@ -60,6 +84,10 @@
     transition: rotate 0.4s ease-in-out;
     transform-origin: 30% 50%;
   }
+
+          .sidebar-btn.shifted {
+            left: 305px;
+        }
 
   #sidebar-toggle:checked ~ .sidebar-btn img {
     rotate: 180deg;
@@ -72,10 +100,12 @@
   
   .price-range-boxes {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 0px;
+    margin: auto;
     margin-bottom: 16px;
+    width: 220px;
 }
 
 .price-range-boxes label {
@@ -96,11 +126,15 @@
     border-radius: 6px;
     background-color: #f9f9f9;
     font-size: 1.9rem;
-    -webkit-appearance: none;
     margin: 0;
-    -moz-appearance: textfield;
     transition: box-shadow 0.4s ease;
     outline: none;
+  }
+
+  .price-input::placeholder {
+    color: #a0a0a0; /* or any solid color */
+    opacity: 1;     /* make it fully opaque */
+    font-family: 'Pacifico', cursive; /* or your custom font */
   }
 
   .price-input:focus {
@@ -110,12 +144,14 @@
   }
 
   .sidebar h2 {
+      font-family: 'Pacifico';
     padding-top: 25px;
     font-size: 2.5rem;
     text-align: center;
     margin-bottom: 10px;
 }
 .sidebar h3 {
+    font-family: 'Pacifico';
     margin:auto;
     padding-top: 25px;
     font-size: 2.1rem;
@@ -160,6 +196,7 @@
 }
 
 .checkbox-grid {
+    font-family: 'RaleWay';
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 0 10px;
