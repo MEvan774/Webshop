@@ -50,4 +50,7 @@ export type GameResult = {
     tags: string[];
     /** The reviews of the game */
     reviews: string[] | null;
+    discount: string;
+    originalPrice: string;
+    discountedPrice: string;
 };

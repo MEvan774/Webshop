@@ -1,4 +1,4 @@
-import { GamesData } from "@shared/types";
+import { GameResult } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
 import { WelcomeService } from "@web/services/WelcomeService";
 
@@ -172,7 +172,7 @@ export class WelcomeComponent extends HTMLElement {
     public async fetchGamesData(): Promise<void> {
         try {
             const gamesService: WelcomeService = new WelcomeService();
-            const result: GamesData[] | undefined = await gamesService.getAllGames();
+            const result: GameResult[] | undefined = await gamesService.getAllGames();
 
             if (Array.isArray(result) && result.length > 0) {
                 this.displayGames(result);
@@ -191,7 +191,7 @@ export class WelcomeComponent extends HTMLElement {
         }
     }
 
-    private displayGames(games: GamesData[]): void {
+    private displayGames(games: GameResult[]): void {
         const gamesContainer: Element | null | undefined = this.shadowRoot?.querySelector(".games-container");
         if (!gamesContainer) return;
 

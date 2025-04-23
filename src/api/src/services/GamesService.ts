@@ -1,16 +1,16 @@
 import { IGamesService } from "@api/interfaces/IGamesService";
-import { GamesData } from "@shared/types";
+import { GameResult } from "@shared/types";
 import { PoolConnection } from "mysql2/promise";
 import { DatabaseService } from "./DatabaseService";
 
 export class GamesService implements IGamesService {
     private readonly _databaseService: DatabaseService = new DatabaseService();
 
-    public async getAllGames(): Promise<GamesData[]> {
+    public async getAllGames(): Promise<GameResult[]> {
         const connection: PoolConnection = await this._databaseService.openConnection();
         try {
             // Zorg ervoor dat je de juiste kolommen selecteert uit je database
-            const result: GamesData[] = await this._databaseService.query<GamesData[]>(
+            const result: GameResult[] = await this._databaseService.query<GameResult[]>(
                 connection,
                 `SELECT 
                     gameId, 

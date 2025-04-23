@@ -3,6 +3,7 @@ import { WelcomeController } from "./controllers/WelcomeController";
 import { requireValidSessionMiddleware, sessionMiddleware } from "./middleware/sessionMiddleware";
 import { GamesController } from "./controllers/GamesController";
 import { getGameWithGameID } from "./services/CurrentGameService";
+import { GameResult } from "@shared/types";
 
 // Create a router
 export const router: Router = Router();

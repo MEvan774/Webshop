@@ -1,7 +1,7 @@
-import { GamesData } from "@shared/types";
+import { GameResult } from "@shared/types";
 
 export abstract class IWelcomeService {
-    public abstract getAllGames(): Promise<GamesData[]>;
+    public abstract getAllGames(): Promise<GameResult[]>;
     public abstract getSession(): Promise<string>;
     public abstract deleteSession(): Promise<void>;
     public abstract getWelcome(): Promise<string>;

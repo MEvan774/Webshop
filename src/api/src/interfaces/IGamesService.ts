@@ -1,6 +1,6 @@
-import { GamesData } from "@shared/types";
+import { GameResult } from "@shared/types";
 
 @Interface
 export abstract class IGamesService {
-    public abstract getAllGames(): Promise<GamesData[]>;
+    public abstract getAllGames(): Promise<GameResult[]>;
 }

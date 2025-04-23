@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { GamesData } from "@shared/types";
+import { GameResult } from "@shared/types";
 import { GamesService } from "@api/services/GamesService";
 
 export class GamesController {
     private readonly _gamesService: GamesService = new GamesService();
     public async getAllGames(req: Request, res: Response): Promise<void> {
         try {
-            const games: GamesData[] = await this._gamesService.getAllGames();
+            const games: GameResult[] = await this._gamesService.getAllGames();
             res.status(200).json(games);
         }
         catch (e: unknown) {
