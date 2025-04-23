@@ -32,7 +32,7 @@ export type GameResult = {
     /** Title of the game */
     title: string;
     /** Thumbnail of the game */
-    thumbnail: string[];
+    thumbnail: string;
     /** Other images of the game */
     images: string[];
     /** The markdown of the game description */

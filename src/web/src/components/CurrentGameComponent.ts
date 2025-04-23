@@ -1,4 +1,6 @@
+import { GameResult } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
+import { getGameByID } from "@web/services/CurrentGameService";
 
 /**
  * This component demonstrates the use of sessions, cookies and Services.
@@ -6,35 +8,62 @@ import { html } from "@web/helpers/webComponents";
  * @remarks This class should be removed from the final product!
  */
 export class CurrentGameComponent extends HTMLElement {
-    public connectedCallback(): void {
+    public async connectedCallback(): Promise<void> {
         this.attachShadow({ mode: "open" });
 
-        this.render();
+        await this.render();
     }
 
-    private render(): void {
+    private async getCurrentGame(): Promise<GameResult | null> {
+        return await getGameByID();
+    }
+
+    private async render(): Promise<void> {
+        // Get current game
+        const currentGame: GameResult | null = await this.getCurrentGame();
+
+        let element: HTMLElement;
+
         if (!this.shadowRoot) {
             return;
         }
 
-        const element: HTMLElement = html`
+        if (currentGame) {
+            // Make a string with the authors
+            let authors: string = "";
+
+            for (let x: number = 0; x < currentGame.authors.length; x++) {
+                if (x !== 0) {
+                    authors += ", ";
+                }
+
+                authors += currentGame.authors[x];
+            }
+
+            // Make HTML for the images string
+            let imagesHTML: string = "";
+
+            for (let x: number = 0; x < currentGame.images.length; x++) {
+                imagesHTML += "<img src='" + currentGame.images[x] + "'>";
+            }
+
+            element = html`
             <div>
                 <div>
-                    <h1 id="currentGameName">Game name</h1><br>
+                    <h1 id="currentGameName">${currentGame.title}</h1><br>
 
                     <div id="currentGameMainFloat">
-                        <div id="currentGameImage">Game image</div>
+                        <img src="${currentGame.thumbnail}">
 
                         <div id="currentGameTextDiv">
-                            <p id="currentGameText">Game text</p><br>
-                            <div id="currentGameRating">Game rating</div><br>
+                            <div id="currentGameText">${currentGame.descriptionHtml}</p><br>
                             <p>Developers: </p><br>
-                            <p id="currentGameDevelopers">Developer names</p><br>
-                            <div id="currentGameTags">Tags</div><br>
+                            <p id="currentGameDevelopers">${authors}</p><br>
+                            <div id="currentGameTags">${currentGame.tags}</div><br>
                         </div>
                     </div>
 
-                    <div id="currentGameImagesDiv">Other images</div><br>
+                    <div id="currentGameImagesDiv">${imagesHTML}</div><br>
 
                     <div id="currentGameButtonsDiv">
                         <button id="currentGameBuyButton" class="currentGameButtons">Koop nu!</button>
@@ -47,7 +76,12 @@ export class CurrentGameComponent extends HTMLElement {
                     <div id="currentGameReviewsDiv">This game has no reviews yet.</div>
                 </div>
             </div>
+        </div>
         `;
+        }
+        else {
+            element = html``;
+        }
 
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
