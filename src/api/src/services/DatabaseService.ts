@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { PoolConnection, Pool, createPool, Connection } from "mysql2/promise";
 
 /**
