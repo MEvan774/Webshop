@@ -16,8 +16,9 @@ export class LoginComponent extends HTMLElement {
         }
 
         const element: HTMLElement = html`
-                    <div class="loginForm">
-                        <div class="login-grid">
+            <form>
+                <div class="loginForm">
+                    <div class="login-grid">
                     <div>
                         <label for="email">Emailadres:</label>
                         <input type="email" id="email" name="email" class="email" placeholder="Email">
@@ -29,6 +30,7 @@ export class LoginComponent extends HTMLElement {
                     </div>
                         <button class="loginBtn">Inloggen</button>
                     <div id="errorMessage" class="error-message"></div>
+                </div>
             </form>
         </div>
     `;
@@ -66,7 +68,7 @@ export class LoginComponent extends HTMLElement {
         }
         const styleLink: HTMLLinkElement = document.createElement("link");
         styleLink.setAttribute("rel", "stylesheet");
-        styleLink.setAttribute("href", "/assets/css/login.css");
+        styleLink.setAttribute("href", "/assets/css/loginPage.css");
 
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);

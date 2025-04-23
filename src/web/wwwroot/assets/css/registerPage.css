@@ -94,6 +94,16 @@ button.registerBtn:hover {
     position: relative;
 }
 
+.redirectLogin {
+    text-align: center;
+    color: white;
+    text-decoration: none;
+}
+
+.redirectLogin:hover {
+    color: #ffcc00;
+}
+
 .register-grid .full-width input[type="checkbox"]:checked {
     background-color: transparent;
 }
@@ -108,4 +118,23 @@ button.registerBtn:hover {
     margin-top: 10px;
     color: green;
     font-size: 14px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.registerForm .full-width h3 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.registerForm .full-width .redirectLogin {
+    color: #ff9900;
+    text-decoration: none;
+}
+
+.registerForm .full-width .redirectLogin:hover {
+    color: #ffcc00;
 }

@@ -16,7 +16,9 @@ export class RegisterComponent extends HTMLElement {
         }
 
         const element: HTMLElement = html`
+                <form>
                     <div class="registerForm">
+                        <h2>Account aanmaken</h2>
                         <div class="register-grid">
                     <div>
                         <label for="fname">Voornaam:</label>
@@ -61,6 +63,9 @@ export class RegisterComponent extends HTMLElement {
                         <div class="full-width">
                             <input type="checkbox" id="terms" name="terms" value="termsAgree">
                             <label for="terms"> Ik ga akkoord met de voorwaarden van LucaStars.</label>
+                        </div>
+                        <div class="full-width">
+                            <h3>Heeft u al een account? Klik <a href="login.html" class="redirectLogin">hier</a> om in te loggen.</h3>
                         </div>
                     </div>
                         <button class="registerBtn">Registreer</button>
