@@ -2,6 +2,7 @@ import { Router } from "express";
 import { WelcomeController } from "./controllers/WelcomeController";
 import { requireValidSessionMiddleware, sessionMiddleware } from "./middleware/sessionMiddleware";
 import { GamesController } from "./controllers/GamesController";
+import { getGameWithGameID } from "./services/CurrentGameService";
 
 // Create a router
 export const router: Router = Router();
@@ -14,6 +15,27 @@ router.get("/", (_, res) => {
 // Forward endpoints to other routers
 const welcomeController: WelcomeController = new WelcomeController();
 const gamesController: GamesController = new GamesController();
+
+// Get current game
+router.get("/games/:gameID", async (req, res) => {
+    const { gameID } = req.params;
+
+    try {
+        // Call the service function to get the game data
+        const game: GameResult | null = await getGameWithGameID(gameID);
+
+        if (!game) {
+            return res.status(404).json({ error: "Game not found" });
+        }
+
+        // Respond with the game data
+        return res.json(game);
+    }
+    catch (error) {
+        console.error("Error fetching game:", error);
+        return res.status(500).json({ error: "An error occurred while fetching the game." });
+    }
+});
 
 // NOTE: After this line, all endpoints will check for a session.
 router.use(sessionMiddleware);
