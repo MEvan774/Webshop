@@ -18,36 +18,37 @@ export class NavigationComponent extends HTMLElement {
         console.log("Sessiecookie:", sessionId);
 
         const element: HTMLElement = html`
-            <div>
-            <div class="navbar">
+        <div>
+        <div class="navbar">
             <div class="navbar-left">
-            <!-- logo or brand -->
-            <a href="index.html" class="brand-link">
-            <img class="logo" src="/assets/img/icons/LogoIcon.png" />
-            <div class="brand">
-            <p class="brand-name">LucaStarShop</p>
-            <p class="brand-tagline">De shop voor de sterren in gaming!</p>
-        </div>
-        </a>
+                <!-- logo or brand -->
+                <a href="index.html" class="brand-link">
+                    <img class="logo" src="/assets/img/icons/LogoIcon.png" />
+                    <div class="brand">
+                        <p class="brand-name">LucaStarShop</p>
+                        <p class="brand-tagline">De shop voor de sterren in gaming!</p>
+                    </div>
+                </a>
+            </div>
 
-          </div>
-                        <div class="navbar-center">
-          <div class="searchbar">
-            <button>
-              <img src="/assets/img/icons/SearchIcon.png" alt="Search" />
-            </button>
-            <input type="text" placeholder="Zoek game..." />
-          </div>
-          </div>
-          <div class="navbar-right">
-            <a href="/register.html">Registreren</a>
-            ${sessionId
-              ? html`<a href="/logout.html" id="logout">Uitloggen</a>`
-              : html`<a href="/login.html" id="login">Inloggen</a>`}
-          </div>
+            <div class="navbar-center">
+                <div class="searchbar">
+                    <button>
+                        <img src="/assets/img/icons/SearchIcon.png" alt="Search" />
+                    </button>
+                    <input type="text" placeholder="Zoek game..." />
+                </div>
+            </div>
+
+            <div class="navbar-right">
+                <a href="/register.html">Registreren</a>
+                ${sessionId
+                    ? html`<a href="/logout.html" id="logout">Uitloggen</a>`
+                    : html`<a href="/login.html" id="login">Inloggen</a>`}
+            </div>
         </div>
-        </div>
-        `;
+    </div>
+`;
 
         const styleLink: HTMLLinkElement = document.createElement("link");
         styleLink.setAttribute("rel", "stylesheet");
