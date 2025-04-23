@@ -1,7 +1,7 @@
 import { html } from "@web/helpers/webComponents";
 import { LogoutService } from "../services/LogoutService";
 
-export class NavigationComponent extends HTMLElement {
+export class NavComponent extends HTMLElement {
     public async connectedCallback(): Promise<void> {
         this.attachShadow({ mode: "open" });
 
@@ -105,4 +105,4 @@ export class NavigationComponent extends HTMLElement {
     }
 }
 
-window.customElements.define("webshop-navigation", NavigationComponent);
+window.customElements.define("nav-bar", NavComponent);
