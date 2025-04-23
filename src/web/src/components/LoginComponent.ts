@@ -66,6 +66,7 @@ export class LoginComponent extends HTMLElement {
                             if (errorDiv) errorDiv.textContent = "";
                         }
                         await loginUser.loginUser(emailInput.value, passwordInput.value);
+                        window.location.href = "/index.html";
                     });
                 }
             }

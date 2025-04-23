@@ -9,61 +9,80 @@ export class NavigationComponent extends HTMLElement {
     }
 
     private async render(): Promise<void> {
-        if (!this.shadowRoot) {
-            return;
-        }
+        if (!this.shadowRoot) return;
 
-        const sessionInfo: { sessionId: string; userId: number } = await this.getSecret();
-        const sessionId: string = sessionInfo.sessionId;
+        let sessionId: string | null = null;
+
+        try {
+            const sessionInfo: { sessionId: string; userId: number } = await this.getSecret();
+            sessionId = sessionInfo.sessionId;
+        }
+        catch (error) {
+            // You can log or ignore it
+            console.warn("User is not logged in or failed to fetch session:", error);
+        }
 
         const element: HTMLElement = html`
             <div>
             <div class="navbar">
-            <div class="navbar-left">
-            <!-- logo or brand -->
-            <a href="index.html" class="brand-link">
-            <img class="logo" src="/assets/img/icons/LogoIcon.png" />
-            <div class="brand">
-            <p class="brand-name">LucaStarShop</p>
-            <p class="brand-tagline">De shop voor de sterren in gaming!</p>
-        </div>
-        </a>
-
-          </div>
-          <div class="navbar-center">
-          <div class="searchbar">
-            <button>
-              <img src="/assets/img/icons/SearchIcon.png" alt="Search" />
-            </button>
-            <input type="text" placeholder="Zoek game..." />
-          </div>
-          </div>
-          <div class="navbar-right">
-            <a href="/register.html">Registreren</a>
-            ${sessionId
-              ? html`<a href="" id="logout">Uitloggen</a>`
-              : html`<a href="/login.html" id="login">Inloggen</a>`}
-          </div>
-        </div>
-        </div>
+                <div class="navbar-left">
+                    <a href="index.html" class="brand-link">
+                        <img class="logo" src="/assets/img/icons/LogoIcon.png" />
+                        <div class="brand">
+                            <p class="brand-name">LucaStarShop</p>
+                            <p class="brand-tagline">De shop voor de sterren in gaming!</p>
+                        </div>
+                    </a>
+                </div>
+    
+                <div class="navbar-center">
+                    <div class="searchbar">
+                        <button>
+                            <img src="/assets/img/icons/SearchIcon.png" alt="Search" />
+                        </button>
+                        <input type="text" placeholder="Zoek game..." />
+                    </div>
+                </div>
+    
+                <div class="navbar-right">
+    ${
+        sessionId
+            ? html`
+                <a id="logout">Uitloggen</a>
+                <a href="/account.html"><img src="/assets/img/icons/account-icon.png" alt="Account" /></a>
+                <a href="/favourites.html"><img src="/assets/img/icons/heart-icon.png" alt="Favourites" /></a>
+                <a href="/cart.html"><img src="/assets/img/icons/cart-icon.png" alt="Cart" /></a>
+            `
+            : html`
+                <span>
+                    <a href="/login.html" id="login">Inloggen</a>
+                    <a href="/register.html">Registreren</a>
+                </span>
+            `
+    }
+</div>
+            </div>
+            </div>
         `;
 
         const styleLink: HTMLLinkElement = document.createElement("link");
         styleLink.setAttribute("rel", "stylesheet");
         styleLink.setAttribute("href", "/assets/css/navbar.css");
 
-        const logoutBtn: Element | undefined | null = this.shadowRoot.querySelector("#logout");
-        const logoutService: LogoutService = new LogoutService();
-        if (logoutBtn) {
-            logoutBtn.addEventListener("click", async e => {
-                e.preventDefault();
-                await logoutService.logoutUser(sessionId);
-            });
-        }
-
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
         this.shadowRoot.appendChild(styleLink);
+
+        // Add logout logic only if button exists
+        const logoutBtn: Element | null = this.shadowRoot.querySelector("#logout");
+        if (logoutBtn && sessionId) {
+            const logoutService: LogoutService = new LogoutService();
+            logoutBtn.addEventListener("click", async e => {
+                e.preventDefault();
+                await logoutService.logoutUser(sessionId);
+                window.location.href = "index.html"; // Optional redirect
+            });
+        }
     }
 
     private async getSecret(): Promise<{ sessionId: string; userId: number }> {
