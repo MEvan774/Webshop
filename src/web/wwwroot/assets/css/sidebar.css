@@ -1,0 +1,183 @@
+@font-face {
+    font-family: 'Pacifico';
+    src: url('../../public/assets/fonts/Pacifico.ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  .sidebar {
+    color: #121212;
+    position: fixed;
+    top: 0;
+    left: -320px;
+    width: 300px;
+    height: 105%;
+    transform: translateY(-4px);
+    background: #FFFAF0;
+    backdrop-filter: blur(12px);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.25);
+    transition: left 0.3s ease;
+    z-index: 90;
+    border-right: #1C2594;
+    border-top: #FFFAF0;
+    border-left: #FFFAF0;
+    border-style: solid;
+}
+  
+.sidebar.open {
+    left: 0;
+}
+
+  .sidebar-btn {
+    transition: left 0.3s ease;
+    position: fixed;
+    top: 50%;
+    left: 0px;
+    background: #f4b111;
+    color: #FFFAF0;
+    padding: 10px 10px;
+    height: 50px;
+    border-radius: 0 40px 40px 0;
+    cursor: pointer;
+    z-index: 1001;
+    font-size: 1rem;
+    align-content: center;
+  }
+
+  .sidebar-btn img {
+    width: auto;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    margin-top: 8px;
+    rotate: 0deg;
+    transition: rotate 0.4s ease-in-out;
+    transform-origin: 30% 50%;
+  }
+
+          .sidebar-btn.shifted {
+            left: 305px;
+        }
+
+  #sidebar-toggle:checked ~ .sidebar-btn img {
+    rotate: 180deg;
+  }
+
+  .sidebar-content {
+    padding: 20px;
+  }
+  
+  .price-range-boxes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+    margin: auto;
+    margin-bottom: 16px;
+    width: 220px;
+}
+
+.price-range-boxes label {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  .price-input {
+    font-family: "pacifico";
+    font-size: 140%;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    border: 3px solid #f4b111;
+    border-radius: 6px;
+    background-color: #FFFAF0;
+    font-size: 1.9rem;
+    margin: 0;
+    transition: box-shadow 0.4s ease;
+    outline: none;
+  }
+
+  .price-input::placeholder {
+    color: #a0a0a0; /* or any solid color */
+    opacity: 1;     /* make it fully opaque */
+    font-family: 'Pacifico', cursive; /* or your custom font */
+  }
+
+  .price-input:focus {
+    box-shadow: 0px 0px 0px 1px #f9f9f9, 0px 0px 0px 2px rgba(244,177,17,0.93);
+-webkit-box-shadow: 0px 0px 0px 1px #f9f9f9, 0px 0px 0px 2px rgba(244,177,17,0.93);
+-moz-box-shadow: 0px 0px 0px 1px #f9f9f9, 0px 0px 0px 2px rgba(244,177,17,0.93);
+  }
+
+  .sidebar h2 {
+    color: #121212;
+    font-family: 'Pacifico';
+    padding-top: 25px;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.sidebar h3 {
+    font-family: 'Pacifico';
+    color: #121212;
+    margin:auto;
+    padding-top: 25px;
+    font-size: 2.1rem;
+    text-align: center;
+    border-bottom-color: #1C2594;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    width: 70%;
+    margin-bottom: 30px;
+}
+
+/* Hide the default checkbox */
+.checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 3px solid #f4b111;
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    vertical-align: middle;
+    margin-right: 6px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* When checked: fill yellow and show white checkmark */
+.checkbox:checked {
+    background-color: #f4b111;
+    border-color: #f4b111;
+}
+
+.checkbox:checked::after {
+    content: "✔";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    font-size: 16px;
+    color: #FFFAF0;
+}
+
+.checkbox-grid {
+    font-family: 'RaleWay';
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0 10px;
+  margin-bottom: 12px;
+  height: 20px; 
+}
+
+.checkbox-grid label{
+  display: flex;
+  align-items: center; /* Vertically aligns text and checkbox */
+  gap: 6px; /* Space between checkbox and text */
+  line-height: 1;
+}

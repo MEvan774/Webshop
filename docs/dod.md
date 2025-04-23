@@ -2,4 +2,9 @@
 title: Definition of Done
 ---
 # Definition of Done
-**TODO:** Werk op deze pagina de *Definition of Done* van het team uit.
+- [ ] Werk is gecontroleerd door PO
+- [ ] Functionaliteiten zijn geïmplementeerd en getest
+- [ ] Interviewnotities zijn gelogd en geanalyseerd
+- [ ] Inzichten zijn gedocumenteerd in het rapport
+- [ ] De functionaliteiten zijn zichtbaar in de interface
+- [ ] Werk is opgenomen in het portfolio met screenshots en toelichting

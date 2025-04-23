@@ -1,3 +1,30 @@
-body {
-    font-family: sans-serif;
+:root {
+    --white: #FFFAF0;
+    --blue: #1C2594;
+    --black: #1B1212;
+    --light-blue: #7883CE;
+    --blue-gradient: linear-gradient(90deg, rgba(28, 37, 148, 1) 0%, rgba(91, 202, 243, 1) 100%);
+}
+
+.pacifico-regular {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.raleway-regular {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Pacifico, cursive;
+    color: var(--white);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }

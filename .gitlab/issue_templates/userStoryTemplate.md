@@ -40,6 +40,7 @@ Acceptatie criteria zijn specifieke eisen aan waaraan de user story moet voldoen
 
 ## Definitions of Done
 
+- [ ] Het werk is gecontroleerd en goedgekeurd door de PO.
 - [ ] Alle acceptatie criteria zijn behaald.
 - [ ] Het werk is gedocumenteerd, zodat een teamlid hiermee verder kan.
 - [ ] Het werk is geschreven in standaard Nederlands of Engels.
