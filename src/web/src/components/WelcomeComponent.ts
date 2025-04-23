@@ -25,9 +25,9 @@ export class WelcomeComponent extends HTMLElement {
    <section class="hero-banner">
   <!-- Left: Main featured game -->
   <div class="hero-main">
-    <img src="/assets/img/temp/Frontpage.png" alt="Featured Game" />
+    <img src="assets/img/temp/Frontpage.png" alt="Featured Game" />
     <div class="hero-text">
-      <h1>Kidnapped: castle breakout</h1>
+      <h1>Kidnapped: Castle Breakout</h1>
       <button>Koop nu!</button>
     </div>
   </div>
