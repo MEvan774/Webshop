@@ -24,6 +24,30 @@ export type SecretResponse = {
     userId: string;
 };
 
+export type UserResult = {
+    userId: number;
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+    dob: string;
+    gender: string;
+};
+
+export type UserRegisterData = {
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+    dob: string;
+    gender: string;
+};
+
+export type LoginData = {
+    email: string;
+    password: string;
+};
+
 /**
  * Represents a game
  */
@@ -45,9 +69,9 @@ export type GameResult = {
     /** The URL of the game */
     url: string;
     /** The authors of the game */
-    authors: string[];
+    authors: string[] | null;
     /** The tags of the game */
-    tags: string[];
+    tags: string[] | null;
     /** The reviews of the game */
     reviews: string[] | null;
 };

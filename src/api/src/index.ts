@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import "@hboictcloud/metadata";
 
 import cookieParser from "cookie-parser";

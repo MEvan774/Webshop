@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'Pacifico';
-    src: url('../../public/assets/fonts/Pacifico.ttf');
+    src: url('/assets/fonts/Pacifico.ttf');
     font-weight: normal;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'RaleWay';
-    src: url('../../public/assets/fonts/Raleway-Regular.ttf');
+    src: url('/assets/fonts/Raleway-Regular.ttf');
     font-weight: normal;
     font-style: normal;
   }
@@ -33,7 +33,7 @@
     color: #121212;
     font-family: 'RaleWay';
   }
-  
+
   /* Hero Banner */
   .hero-banner {
     display: flex;
@@ -62,7 +62,7 @@
   .hero-main:hover img {
     transform: scale(1.1);
   }
-  
+
   .hero-text {
     position: absolute;
     width: 160px;
@@ -75,11 +75,11 @@
     padding: 20px;
     color: #fff;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-  
+
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari */
   }
-  
+
   .hero-text h1 {
     font-size: 1.5rem;
     margin: 0;
@@ -87,12 +87,12 @@
     padding-left: 0px;
     color: #FFFAF0;
   }
-  
+
   .hero-text p {
     font-size: 1rem;
     color: #FFFAF0;
   }
-  
+
   .hero-text button {
     font-family: 'Pacifico';
     font-size: 16px;
@@ -105,7 +105,7 @@
     cursor: pointer;
     align-items: center;
   }
-  
+
 
   .hero-side-list {
     flex: 1;
@@ -115,7 +115,7 @@
     padding-left: 16px;
     overflow-y: auto;
   }
-  
+
   .side-game {
     z-index: 10;
     display: flex;
@@ -153,7 +153,7 @@
     width: 79.3%;
     margin: auto;
   }
-  
+
   .discover h2 {
     margin-bottom: 12px;
     font-size: 1.5rem;
@@ -163,7 +163,7 @@
   .discover P {
     transform: translateX(-9.8%);
   }
-  
+
   .horizontal-scroll {
     display: flex;
     overflow-x: auto;
@@ -180,7 +180,7 @@
     margin: 40px 0;
     margin-top: 0px;
   }
-  
+
   .scroll-arrow {
     width: 38px;
     height: 75px;
@@ -192,12 +192,12 @@
     z-index: 1;
     user-select: none;
   }
-  
+
   .scroll-arrow.left {
     border-radius: 50px 0 0 50px;
     background-color: #f4b111;
   }
-  
+
   .scroll-arrow.right {
     border-radius: 0 50px 50px 0;
     background-color: #f4b111;
@@ -212,7 +212,7 @@
     transform-origin: 30% 50%;
   }
 
-  
+
   .scroll-arrow.left img {
     width: auto;
     height: 30px;
@@ -223,7 +223,7 @@
     rotate: 180deg;
     transform: translateX(-4px);
   }
-  
+
   .game-card {
     position: relative;
     flex: 0 0 auto;
@@ -236,7 +236,7 @@
     background-color: #121212;
     background: linear-gradient(180deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 94%, rgba(237, 221, 83, 0) 76%);
   }
-  
+
   .game-card img {
     width: 100%;
     height: 150px;
@@ -252,7 +252,7 @@
     bottom: 0%;
     border-bottom: 0;
   }
-  
+
   .game-card p {
     text-align: center;
     position: relative;
@@ -278,14 +278,14 @@
     color: #FFFAF0; /* green-ish */
     margin-bottom: 0px;
   }
-  
+
   .discounted-price {
     font-size: 1.1rem;
     font-weight: bold;
     color: #FFFAF0; /* green-ish */
     margin-bottom: 0px;
   }
-  
+
   .original-price {
     font-size: 0.95rem;
     text-decoration: line-through;

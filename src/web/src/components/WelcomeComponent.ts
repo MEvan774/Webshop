@@ -25,9 +25,9 @@ export class WelcomeComponent extends HTMLElement {
    <section class="hero-banner">
   <!-- Left: Main featured game -->
   <div class="hero-main" id="hero-main">
-    <img src="public/assets/img/temp/Frontpage.png" alt="Featured Game" />
+    <img src="assets/img/temp/Frontpage.png" alt="Featured Game" />
     <div class="hero-text">
-      <h1>Kidnapped: castle breakout</h1>
+      <h1>Kidnapped: Castle Breakout</h1>
       <button>Koop nu!</button>
     </div>
   </div>
@@ -35,19 +35,19 @@ export class WelcomeComponent extends HTMLElement {
   <!-- Right: Vertical list of other games -->
   <div class="hero-side-list">
     <div class="side-game">
-      <img src="public/assets/img/temp/Frontpage.png" alt="Game 1" />
+      <img src="assets/img/temp/Frontpage.png" alt="Game 1" />
       <p>Game Title 1</p>
     </div>
     <div class="side-game">
-      <img src="public/assets/img/temp/Frontpage.png" alt="Game 2" />
+      <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
       <p>Game Title 2</p>
     </div>
     <div class="side-game">
-      <img src="public/assets/img/temp/Frontpage.png" alt="Game 3" />
+      <img src="assets/img/temp/Frontpage.png" alt="Game 3" />
       <p>Game Title 3</p>
     </div>
     <div class="side-game">
-      <img src="public/assets/img/temp/Frontpage.png" alt="Game 4" />
+      <img src="assets/img/temp/Frontpage.png" alt="Game 4" />
       <p>Game Title 4</p>
     </div>
   </div>
@@ -59,11 +59,11 @@ export class WelcomeComponent extends HTMLElement {
     <p>Alle geweldige deals, in één plek!</p>
     <div class="scroll-section">
   <div class="scroll-arrow left" onclick="scrollGames('left')">
-  <img src="public/assets/img/ui/Arrow.svg">
+  <img src="assets/img/ui/Arrow.svg">
   </div>
     <div class="horizontal-scroll">
       <div class="game-card">
-        <img src="public/assets/img/temp/Frontpage.png" alt="Game 1" />
+        <img src="assets/img/temp/Frontpage.png" alt="Game 1" />
         <p>Kidnapped: castle breakout</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
@@ -71,11 +71,11 @@ export class WelcomeComponent extends HTMLElement {
   <p class="discounted-price">€29.99</p>
 </div>
         <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.svg">
+        <img src="assets/img/ui/Bottom.svg">
         </div>
     </div>
       <div class="game-card">
-        <img src="public/assets/img/temp/Frontpage.png" alt="Game 2" />
+        <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
         <p>Game Title 2</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
@@ -83,11 +83,11 @@ export class WelcomeComponent extends HTMLElement {
   <p class="discounted-price">€29.99</p>
 </div>
         <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.svg">
+        <img src="assets/img/ui/Bottom.svg">
         </div>
       </div>
       <div class="game-card">
-        <img src="public/assets/img/temp/Frontpage.png" alt="Game 2" />
+        <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
         <p>Game Title 2</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
@@ -95,11 +95,11 @@ export class WelcomeComponent extends HTMLElement {
   <p class="discounted-price">€29.99</p>
 </div>
         <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.svg">
+        <img src="assets/img/ui/Bottom.svg">
         </div>
       </div>
       <div class="game-card">
-        <img src="public/assets/img/temp/Frontpage.png" alt="Game 2" />
+        <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
         <p>Game Title 2</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
@@ -107,11 +107,11 @@ export class WelcomeComponent extends HTMLElement {
   <p class="discounted-price">€29.99</p>
 </div>
         <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.svg">
+        <img src="assets/img/ui/Bottom.svg">
         </div>
       </div>
       <div class="game-card">
-        <img src="public/assets/img/temp/Frontpage.png" alt="Game 2" />
+        <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
         <p>Game Title 2</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
@@ -119,11 +119,11 @@ export class WelcomeComponent extends HTMLElement {
             <p class="discounted-price">€29.99</p>
             </div>
         <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.svg">
+        <img src="assets/img/ui/Bottom.svg">
         </div>
     </div>
     <div class="game-card">
-        <img src="public/assets/img/temp/Frontpage.png" alt="Game 2" />
+        <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
         <p>Game Title 2</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
@@ -131,13 +131,13 @@ export class WelcomeComponent extends HTMLElement {
             <p class="discounted-price">€29.99</p>
             </div>
         <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.svg">
+        <img src="assets/img/ui/Bottom.svg">
         </div>
     </div>
     <!-- Add more cards -->
 </div>
 <div class="scroll-arrow right" onclick="scrollGames('right')">
-    <img src="public/assets/img/ui/Arrow.svg">
+    <img src="assets/img/ui/Arrow.svg">
 </div>
 </div>
 </section>
