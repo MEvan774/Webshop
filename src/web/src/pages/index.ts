@@ -27,7 +27,7 @@ export class IndexPageComponent extends HTMLElement {
 
         const element: HTMLElement = html`
             <div>
-                <nav-bar></nav-bar>
+                <webshop-navigation></webshop-navigation>
 
                 <div>
 

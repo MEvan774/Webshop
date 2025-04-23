@@ -105,4 +105,4 @@ export class NavComponent extends HTMLElement {
     }
 }
 
-window.customElements.define("nav-bar", NavComponent);
+window.customElements.define("webshop-navigation", NavComponent);
