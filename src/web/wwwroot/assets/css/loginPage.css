@@ -30,7 +30,6 @@ body {
     border: 1px solid rgba(120, 131, 206, 0.3);
     width: 581px;
     height: 450px;
-    position: relative;
     color: white;
 }
 
@@ -101,4 +100,8 @@ button.loginBtn:hover {
 .loginForm .full-width .redirectRegister:hover {
     text-decoration: underline;
     color: #ffcc00;
+}
+
+#terms {
+font-family: "RaleWay";
 }
