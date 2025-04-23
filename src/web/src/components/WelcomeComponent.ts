@@ -24,7 +24,7 @@ export class WelcomeComponent extends HTMLElement {
    <p>Ontdek onze sterren!</p>
    <section class="hero-banner">
   <!-- Left: Main featured game -->
-  <div class="hero-main">
+  <div class="hero-main" id="hero-main">
     <img src="public/assets/img/temp/Frontpage.png" alt="Featured Game" />
     <div class="hero-text">
       <h1>Kidnapped: castle breakout</h1>
@@ -150,6 +150,15 @@ export class WelcomeComponent extends HTMLElement {
 
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
+
+        const heroMain: HTMLElement | null = this.shadowRoot.querySelector("#hero-main");
+        if (heroMain) {
+            heroMain.addEventListener("click", () => {
+                localStorage.setItem("gameID", "37");
+                window.location.href = "/currentGame.html";
+            });
+        }
+
         this.shadowRoot.appendChild(styleLink);
     }
 }
