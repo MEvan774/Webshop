@@ -23,3 +23,20 @@ export type SecretResponse = {
     /** ID of the user */
     userId: string;
 };
+
+export type GamesData = {
+    gameId: number;
+    SKU: string;
+    title: string;
+    thumbnail: string;
+    images: string;
+    descriptionMarkdown: string;
+    descriptionHtml: string;
+    url: string;
+    authors: string;
+    tags: string;
+    reviews: string;
+    discount?: string;
+    originalPrice: number;
+    discountedPrice: number;
+};

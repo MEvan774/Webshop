@@ -1,4 +1,4 @@
-import { SecretResponse, SessionResponse, WelcomeResponse } from "@shared/types";
+import { GamesData, SecretResponse, SessionResponse, WelcomeResponse } from "@shared/types";
 import { IWelcomeService } from "@web/interfaces/IWelcomeService";
 
 /**
@@ -7,6 +7,27 @@ import { IWelcomeService } from "@web/interfaces/IWelcomeService";
  * @remarks This class should be removed from the final product!
  */
 export class WelcomeService implements IWelcomeService {
+    public async getAllGames(): Promise<GamesData[]> {
+        try {
+            const response: Response = await fetch(`${VITE_API_URL}products`, {
+                method: "GET",
+                credentials: "include",
+            });
+
+            if (!response.ok) {
+                const errorText: string = await response.text();
+                throw new Error(`Failed to fetch games. Status: ${response.status}, Message: ${errorText}`);
+            }
+
+            const data: GamesData[] = await response.json() as unknown as GamesData[];
+            return data;
+        }
+        catch (error) {
+            console.error("Error fetching games:", error);
+            throw error;
+        }
+    }
+
     public async getSession(): Promise<string> {
         const response: Response = await fetch(`${VITE_API_URL}session`, {
             credentials: "include",
