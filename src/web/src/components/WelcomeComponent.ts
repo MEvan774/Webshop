@@ -1,4 +1,7 @@
+import { WebshopEvent } from "@web/enums/WebshopEvent";
 import { html } from "@web/helpers/webComponents";
+import { WebshopEventService } from "@web/services/WebshopEventService";
+import { WelcomeService } from "@web/services/WelcomeService";
 
 /**
  * This component demonstrates the use of sessions, cookies and Services.
@@ -6,6 +9,9 @@ import { html } from "@web/helpers/webComponents";
  * @remarks This class should be removed from the final product!
  */
 export class WelcomeComponent extends HTMLElement {
+    private _webshopEventService: WebshopEventService = new WebshopEventService();
+    private _welcomeService: WelcomeService = new WelcomeService();
+
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
 
@@ -18,139 +24,52 @@ export class WelcomeComponent extends HTMLElement {
         }
 
         const element: HTMLElement = html`
-<div class="frontpage">
-  <!-- Hero Banner -->
-   <h1>Aanbevolen</h1>
-   <p>Ontdek onze sterren!</p>
-   <section class="hero-banner">
-  <!-- Left: Main featured game -->
-  <div class="hero-main">
-    <img src="public/assets/img/temp/Frontpage.png" alt="Featured Game" />
-    <div class="hero-text">
-      <h1>Kidnapped: castle breakout</h1>
-      <button>Koop nu!</button>
-    </div>
-  </div>
+            <div>
+                <div id="result"></div>
 
-  <!-- Right: Vertical list of other games -->
-  <div class="hero-side-list">
-    <div class="side-game">
-      <img src="public/assets/img/temp/Frontpage.png" alt="Game 1" />
-      <p>Game Title 1</p>
-    </div>
-    <div class="side-game">
-      <img src="public/assets/img/temp/Frontpage.png" alt="Game 2" />
-      <p>Game Title 2</p>
-    </div>
-    <div class="side-game">
-      <img src="public/assets/img/temp/Frontpage.png" alt="Game 3" />
-      <p>Game Title 3</p>
-    </div>
-    <div class="side-game">
-      <img src="public/assets/img/temp/Frontpage.png" alt="Game 4" />
-      <p>Game Title 4</p>
-    </div>
-  </div>
-</section>
-
-  <!-- Discover Row -->
-  <section class="discover">
-    <h2>Uitverkoop</h2>
-    <p>Alle geweldige deals, in één plek!</p>
-    <div class="scroll-section">
-  <div class="scroll-arrow left" onclick="scrollGames('left')">
-  <img src="public/assets/img/ui/Arrow.svg">
-  </div>
-    <div class="horizontal-scroll">
-      <div class="game-card">
-        <img src="public/assets/img/temp/Frontpage.png" alt="Game 1" />
-        <p>Kidnapped: castle breakout</p>
-        <div class="price-wrapper">
-            <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-  <p class="discounted-price">€29.99</p>
-</div>
-        <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.svg">
-        </div>
-    </div>
-      <div class="game-card">
-        <img src="public/assets/img/temp/Frontpage.png" alt="Game 2" />
-        <p>Game Title 2</p>
-        <div class="price-wrapper">
-            <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-  <p class="discounted-price">€29.99</p>
-</div>
-        <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.svg">
-        </div>
-      </div>
-      <div class="game-card">
-        <img src="public/assets/img/temp/Frontpage.png" alt="Game 2" />
-        <p>Game Title 2</p>
-        <div class="price-wrapper">
-            <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-  <p class="discounted-price">€29.99</p>
-</div>
-        <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.svg">
-        </div>
-      </div>
-      <div class="game-card">
-        <img src="public/assets/img/temp/Frontpage.png" alt="Game 2" />
-        <p>Game Title 2</p>
-        <div class="price-wrapper">
-            <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-  <p class="discounted-price">€29.99</p>
-</div>
-        <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.svg">
-        </div>
-      </div>
-      <div class="game-card">
-        <img src="public/assets/img/temp/Frontpage.png" alt="Game 2" />
-        <p>Game Title 2</p>
-        <div class="price-wrapper">
-            <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-            <p class="discounted-price">€29.99</p>
+                <div>
+                    <button id="create-session-button">Maak sessie</button>
+                    <button id="delete-session-button">Verwijder sessie</button>
+                    <button id="public-text-button">Publiek tekst</button>
+                    <button id="secret-text-button">Geheime tekst</button>
+                </div>
             </div>
-        <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.svg">
-        </div>
-    </div>
-    <div class="game-card">
-        <img src="public/assets/img/temp/Frontpage.png" alt="Game 2" />
-        <p>Game Title 2</p>
-        <div class="price-wrapper">
-            <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-            <p class="discounted-price">€29.99</p>
-            </div>
-        <div class="bottom">
-        <img src="public/assets/img/ui/Bottom.svg">
-        </div>
-    </div>
-    <!-- Add more cards -->
-</div>
-<div class="scroll-arrow right" onclick="scrollGames('right')">
-    <img src="public/assets/img/ui/Arrow.svg">
-</div>
-</div>
-</section>
-</div>
         `;
 
-        const styleLink: HTMLLinkElement = document.createElement("link");
-        styleLink.setAttribute("rel", "stylesheet");
-        styleLink.setAttribute("href", "/assets/css/welcome.css");
+        const resultElement: HTMLElement = element.querySelector("#result")!;
+        const createSessionButtonElement: HTMLElement = element.querySelector("#create-session-button")!;
+        const deleteSessionButtonElement: HTMLElement = element.querySelector("#delete-session-button")!;
+        const publicTextButtonElement: HTMLElement = element.querySelector("#public-text-button")!;
+        const secretTextButtonElement: HTMLElement = element.querySelector("#secret-text-button")!;
+
+        createSessionButtonElement.addEventListener("click", async () => {
+            const sessionId: string = await this._welcomeService.getSession();
+
+            resultElement.innerHTML = `Je hebt nu een session-cookie met de volgende ID: ${sessionId}`;
+        });
+
+        deleteSessionButtonElement.addEventListener("click", async () => {
+            await this._welcomeService.deleteSession();
+
+            resultElement.innerHTML = "Je sessie is nu ongeldig!";
+        });
+
+        publicTextButtonElement.addEventListener("click", async () => {
+            const welcomeText: string = await this._welcomeService.getWelcome();
+
+            this._webshopEventService.dispatchEvent<string>(WebshopEvent.Welcome, welcomeText);
+
+            resultElement.innerHTML = welcomeText;
+        });
+
+        secretTextButtonElement.addEventListener("click", async () => {
+            const secretText: string = await this._welcomeService.getSecret();
+
+            resultElement.innerHTML = secretText;
+        });
 
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
-        this.shadowRoot.appendChild(styleLink);
     }
 }
 
