@@ -23,3 +23,31 @@ export type SecretResponse = {
     /** ID of the user */
     userId: string;
 };
+
+/**
+ * Represents a game
+ */
+export type GameResult = {
+    /** ID of the game */
+    gameID: number;
+    /** SKU of the game */
+    SKU: string;
+    /** Title of the game */
+    title: string;
+    /** Thumbnail of the game */
+    thumbnail: string;
+    /** Other images of the game */
+    images: string[] | null;
+    /** The markdown of the game description */
+    descriptionMarkdown: string;
+    /** The HTML of the game description */
+    descriptionHtml: string;
+    /** The URL of the game */
+    url: string;
+    /** The authors of the game */
+    authors: string[];
+    /** The tags of the game */
+    tags: string[];
+    /** The reviews of the game */
+    reviews: string[] | null;
+};
