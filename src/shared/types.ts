@@ -24,6 +24,9 @@ export type SecretResponse = {
     userId: string;
 };
 
+/**
+ * Represents a game
+ */
 export type GameResult = {
     /** ID of the game */
     gameID: number;
