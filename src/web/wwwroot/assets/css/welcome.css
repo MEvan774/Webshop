@@ -5,6 +5,13 @@
     font-style: normal;
   }
 
+  @font-face {
+    font-family: 'RaleWay';
+    src: url('../../public/assets/fonts/Raleway-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
+
 .frontpage {
     font-family: 'Pacifico';
     padding: 20px;
@@ -24,6 +31,7 @@
     margin-top: 0;
     padding-left: 12.5%;
     color: #121212;
+    font-family: 'RaleWay';
   }
   
   /* Hero Banner */
@@ -40,21 +48,21 @@
     position: relative;
     flex: 3;
     overflow: hidden;
+    border-radius: 16px;
 }
 
-.hero-banner img {
-    border-radius: 16px;
+.hero-main img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     image-rendering: crisp-edges;
-    /*transition: transform 0.4s ease;*/
+    transition: transform 0.4s ease;
   }
-/*
-  .hero-banner:hover img {
+
+  .hero-main:hover img {
     transform: scale(1.1);
   }
-  */
+  
   .hero-text {
     position: absolute;
     width: 160px;
@@ -109,6 +117,7 @@
   }
   
   .side-game {
+    z-index: 10;
     display: flex;
     flex-direction: row;
     background-color: #2a2a2a;
@@ -118,17 +127,13 @@
     cursor: pointer;
 }
 
-.side-game:hover img{
-    transform: scale(1.1);
-}
-
 .side-game img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.2s ease;
+    border-right: 1px solid #f4b111;
   }
-  
+
   .side-game p {
     padding: 6px;
     margin: 0;
@@ -139,12 +144,13 @@
     z-index: 1;
     width: 300px;
     align-content: center;
+    font-family: 'RaleWay';
   }
 
   .discover {
     margin-bottom: 40px;
     position: relative;
-    width: 80.2%;
+    width: 79.3%;
     margin: auto;
   }
   
@@ -152,10 +158,10 @@
     margin-bottom: 12px;
     font-size: 1.5rem;
     color: #121212;
-    transform: translateX(3.4%);
+    transform: translateX(2.7%);
   }
   .discover P {
-    transform: translateX(-9.1%);
+    transform: translateX(-9.8%);
   }
   
   .horizontal-scroll {
@@ -163,9 +169,10 @@
     overflow-x: auto;
     gap: 16px;
     padding-bottom: 10px;
-  }
+    scrollbar-width: none;
+}
 
-  .scroll-section {
+.scroll-section {
     position: relative;
     display: flex;
     align-items: center;
@@ -177,8 +184,6 @@
   .scroll-arrow {
     width: 38px;
     height: 75px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
     font-size: 2rem;
     display: flex;
     align-items: center;
@@ -186,11 +191,6 @@
     cursor: pointer;
     z-index: 1;
     user-select: none;
-    transition: background 0.3s ease;
-  }
-  
-  .scroll-arrow:hover {
-    background-color: rgba(0, 0, 0, 0.7);
   }
   
   .scroll-arrow.left {
@@ -202,10 +202,33 @@
     border-radius: 0 50px 50px 0;
     background-color: #f4b111;
   }
+
+  .scroll-arrow.right img {
+    width: auto;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    margin-top: 2px;
+    transform-origin: 30% 50%;
+  }
+
+  
+  .scroll-arrow.left img {
+    width: auto;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    margin-top: 2px;
+    transform-origin: 30% 50%;
+    rotate: 180deg;
+    transform: translateX(-4px);
+  }
   
   .game-card {
+    position: relative;
     flex: 0 0 auto;
     width: 209.217px;
+    height: 290px;
     border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
@@ -235,9 +258,13 @@
     position: relative;
     font-size: 0.95rem;
     color: #FFFAF0;
+    margin-bottom: 0%;
   }
 
   .price-wrapper {
+    position: absolute;
+    bottom: 30px;
+    right: 5%;
     display: flex;
     align-items: baseline; /* aligns the price texts nicely */
     gap: 0px;
@@ -249,16 +276,19 @@
     font-size: 1.1rem;
     font-weight: bold;
     color: #FFFAF0; /* green-ish */
+    margin-bottom: 0px;
   }
   
   .discounted-price {
     font-size: 1.1rem;
     font-weight: bold;
     color: #FFFAF0; /* green-ish */
+    margin-bottom: 0px;
   }
   
   .original-price {
     font-size: 0.95rem;
     text-decoration: line-through;
     color: #a1a1aa; /* soft gray */
+    margin-bottom: 0px;
   }
