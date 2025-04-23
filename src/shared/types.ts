@@ -45,12 +45,9 @@ export type GameResult = {
     /** The URL of the game */
     url: string;
     /** The authors of the game */
-    authors: string[];
+    authors: string[] | null;
     /** The tags of the game */
-    tags: string[];
+    tags: string[] | null;
     /** The reviews of the game */
     reviews: string[] | null;
-    discount: string;
-    originalPrice: string;
-    discountedPrice: string;
 };

@@ -9,29 +9,34 @@ export class GamesService implements IGamesService {
     public async getAllGames(): Promise<GameResult[]> {
         const connection: PoolConnection = await this._databaseService.openConnection();
         try {
-            // Zorg ervoor dat je de juiste kolommen selecteert uit je database
-            const result: GameResult[] = await this._databaseService.query<GameResult[]>(
-                connection,
-                `SELECT 
-                    gameId, 
-                    SKU, 
-                    title, 
-                    thumbnail, 
-                    images, 
-                    descriptionMarkdown, 
-                    descriptionHtml, 
-                    url, 
-                    authors, 
-                    tags, 
-                    reviews
-                FROM games`
-            );
-            return result;
+            const result: GameResult[] = await this._databaseService.query<GameResult[]>(connection, "SELECT * FROM game");
+
+            const games: GameResult[] = result
+                .map((game: GameResult) => {
+                    return {
+                        gameID: game.gameID,
+                        SKU: game.SKU,
+                        title: game.title,
+                        thumbnail: game.thumbnail,
+                        descriptionHtml: game.descriptionHtml,
+                        descriptionMarkdown: game.descriptionMarkdown || "", // Default to empty string
+                        reviews: game.reviews || [], // Ensure reviews is an array
+                        images: game.images || [], // Default to empty array if no images
+                        url: game.url || "", // Default to empty string if no URL
+                        authors: game.authors || [], // Default to empty array if no authors
+                        tags: game.tags || [], // Default to empty array if no tags
+                    };
+                })
+                .filter((game: GameResult | null): game is GameResult => game !== null); // Filter out nulls
+
+            return games;
         }
         catch (e: unknown) {
-            throw new Error(`Failed to fetch games: ${e}`);
+            // Foutafhandelingsmechanisme
+            throw new Error(`Failed to fetch games: ${e instanceof Error ? e.message : "Unknown error"}`);
         }
         finally {
+            // Zorg ervoor dat de databaseverbinding altijd wordt vrijgegeven
             connection.release();
         }
     }

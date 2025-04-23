@@ -207,11 +207,6 @@ export class WelcomeComponent extends HTMLElement {
             gameCard.innerHTML = `
                 <img src="${game.thumbnail}" alt="${game.title}" />
                 <p>${game.title}</p>
-                <div class="price-wrapper">
-                    <p class="discount">${game.discount || "0%"}</p>
-                    <p class="original-price">€${game.originalPrice}</p>
-                    <p class="discounted-price">€${game.discountedPrice}</p>
-                </div>
                 <div class="bottom">
                     <img src="public/assets/img/ui/Bottom.svg">
                 </div>
