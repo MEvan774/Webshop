@@ -6,6 +6,7 @@ children:
     - dod.md
     - functioneel/index.md
     - technisch/index.md
+    - testresultaten/interview.md
 ---
 # Documentatie
 Tijdens het project is het belangrijk allerlei informatie vast te leggen, zowel voor jezelf als voor LucaStars. Denk hierbij aan je Functioneel ontwerp, Technisch ontwerp, Think-Make-Check cycli, Retrospectives, Portfolio, Samenwerkingscontract, enzovoorts.
