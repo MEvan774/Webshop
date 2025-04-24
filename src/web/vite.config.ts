@@ -1,4 +1,5 @@
 import typechecksPlugin from "@hboictcloud/vite-plugin-typechecks";
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 import { globSync } from "glob";
 import { resolve } from "path";
 import { defineConfig, loadEnv } from "vite";
@@ -55,6 +56,14 @@ export default defineConfig(config => {
                 ],
                 lintOnBuild: true,
                 lintOnWatchDelay: 200,
+            }),
+            viteStaticCopy({
+                targets: [
+                    {
+                        src: 'assets/css/*',
+                        dest: 'assets/css',
+                    },
+                ],
             }),
         ],
         define: defines,

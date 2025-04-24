@@ -20,6 +20,7 @@ export class CurrentGameComponent extends HTMLElement {
         const currentGame: GameResult | null = await this.getCurrentGame();
         let element: HTMLElement;
 
+        // Checks if game exists
         if (!currentGame) {
             element = html`<div>Geen spel gevonden.</div>`;
             if (this.shadowRoot.firstChild) {
@@ -29,8 +30,8 @@ export class CurrentGameComponent extends HTMLElement {
             return;
         }
 
-        // If we get here, we know currentGame is not null
-        const authors: string = currentGame.authors.length
+        // Create string with authors
+        const authors: string = currentGame.authors?.length
             ? currentGame.authors
                 .map((author: string, index: number): string =>
                     index === 0 ? author : `, ${author}`)
@@ -43,7 +44,8 @@ export class CurrentGameComponent extends HTMLElement {
         if (currentGame.images) {
             imagesHTML = currentGame.images.length
                 ? currentGame.images
-                    .map((image: string): string => `<img src='${image}' alt="Game screenshot">`)
+                    .map((image: string): string =>
+                        `<img src='${image}' height=180px>`)
                     .join("")
                 : "";
         }
@@ -69,16 +71,20 @@ export class CurrentGameComponent extends HTMLElement {
                             <div id="currentGameText">${currentGame.descriptionHtml}</div><br>
                             <p>Developers: </p><br>
                             <p id="currentGameDevelopers">${authors}</p><br>
-                            <div id="currentGameTags">${currentGame.tags.join(", ")}</div><br>
+                            <div id="currentGameTags">${currentGame.tags?.join(", ")}</div><br>
                         </div>
                     </div>
 
                     <div id="currentGameImagesDiv">${imagesHTML}</div><br>
 
                     <div id="currentGameButtonsDiv">
-                        <button id="currentGameBuyButton" class="currentGameButtons">Koop nu!</button>
-                        <button id="currentGamePriceButton" class="currentGameButtons">Price</button>
-                        <button id="currentGameHeartButton">Favorites</button>
+                        <button id="currentGameBuyButton" class="currentGameButtons">
+                            <img src="/assets/images/koopButton.png" height="80px">
+                        </button>
+
+                        <button id="currentGameHeartButton">
+                            <img src="/assets/images/heartButton.png" height="80px">
+                        </button>
                     </div>
 
                     <h2>Reviews:</h2>

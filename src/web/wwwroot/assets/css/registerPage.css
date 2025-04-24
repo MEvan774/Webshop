@@ -1,0 +1,151 @@
+@font-face {
+    font-family: 'Pacifico';
+    src: url('/assets/fonts/Pacifico.ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Raleway';
+    src: url('/assets/fonts/Raleway-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to right, #1C2594, #7883CE, #1C2594);
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.registerForm {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: rgba(120, 131, 206, 1);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(120, 131, 206, 0.3);
+    width: 581px;
+    color: white;
+}
+
+.register-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 40px;
+    width: max-content;
+    margin: 50px auto 0px;
+}
+
+.register-grid label {
+    font-weight: bold;
+}
+
+.register-grid > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.register-grid .full-width {
+    margin-bottom: 15px;
+}
+
+.register-grid .full-width input[type="checkbox"] {
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.register-grid #newsletter #terms {
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;  /* Zorg ervoor dat de tekst naast de checkbox komt */
+}
+
+#newsletter, #terms {
+    font-size: 14px;
+}
+
+/* Knop styling */
+button.registerBtn {
+    padding: 10px 20px;
+    background-color: #ff9900;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: black;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+button.registerBtn:hover {
+    background-color: #ffcc00;
+    transition: background-color 0.3s ease;
+}
+
+.register-grid .full-width input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffcc00;
+    outline: none;
+    accent-color: #ffcc00;
+    background-color: transparent;
+    display: inline-block;
+    color: white;
+    position: relative;
+}
+
+.redirectLogin {
+    text-align: center;
+    color: white;
+    text-decoration: none;
+}
+
+.redirectLogin:hover {
+    color: #ffcc00;
+}
+
+.register-grid .full-width input[type="checkbox"]:checked {
+    background-color: transparent;
+}
+
+.error-message {
+    margin-top: 10px;
+    color: red;
+    font-size: 14px;
+}
+
+.success-message {
+    margin-top: 10px;
+    color: green;
+    font-size: 14px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.registerForm .full-width h3 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.registerForm .full-width .redirectLogin {
+    color: #ff9900;
+    text-decoration: none;
+}
+
+.registerForm .full-width .redirectLogin:hover {
+    color: #ffcc00;
+}

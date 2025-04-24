@@ -10,7 +10,7 @@ type SessionQueryResult = {
 
 export class SessionService implements ISessionService {
     private static readonly OneMinuteInMilliseconds = 60_000;
-    private static readonly ExpirationTimeInMinutes = 1;
+    private static readonly ExpirationTimeInMinutes = 30;
 
     private readonly _databaseService: DatabaseService = new DatabaseService();
 
@@ -19,6 +19,15 @@ export class SessionService implements ISessionService {
 
         try {
             const sessionId: string = crypto.randomUUID();
+
+            await this._databaseService.query<ResultSetHeader>(
+                connection,
+                `
+                DELETE FROM session
+                WHERE userId = ?
+                `,
+                userId
+            );
 
             const result: ResultSetHeader = await this._databaseService.query<ResultSetHeader>(
                 connection,
@@ -122,4 +131,25 @@ export class SessionService implements ISessionService {
             connection.release();
         }
     };
+
+    public async deleteSessionsByUserId(userId: number): Promise<void> {
+        const connection: PoolConnection = await this._databaseService.openConnection();
+
+        try {
+            await this._databaseService.query<ResultSetHeader>(
+                connection,
+                `
+                DELETE FROM session
+                WHERE userId = ?
+                `,
+                userId
+            );
+        }
+        catch (e: unknown) {
+            throw new Error(`Failed to delete sessions by user ID: ${e}`);
+        }
+        finally {
+            connection.release();
+        }
+    }
 }

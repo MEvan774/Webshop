@@ -1,31 +1,12 @@
 @font-face {
     font-family: 'Pacifico';
-    src: url('../../public/assets/fonts/Pacifico.ttf');
+    src: url('/assets/fonts/Pacifico.ttf');
     font-weight: normal;
     font-style: normal;
   }
 
-/*
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: -320px;
-    width: 300px;
-    height: 105%;
-    transform: translateY(-4px);
-    background: #FFFAF0;
-    backdrop-filter: blur(12px);
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.25);
-    transition: left 0.3s ease;
-    z-index: 90;
-    border-right: #1C2594;
-    border-top: #FFFAF0;
-    border-left: #FFFAF0;
-    border-style: solid;
-  }
-    */
-
   .sidebar {
+    color: #121212;
     position: fixed;
     top: 0;
     left: -320px;
@@ -42,29 +23,18 @@
     border-left: #FFFAF0;
     border-style: solid;
 }
-  
+
 .sidebar.open {
     left: 0;
 }
 
-  /* When checkbox is checked, slide sidebar in 
-  #sidebar-toggle:checked ~ .sidebar {
-    left: 0;
-  }
-
-  #sidebar-toggle:checked ~ .sidebar-btn {
-    left: 305px;
-  }
-    */
-  
-  /* Toggle Button */
   .sidebar-btn {
     transition: left 0.3s ease;
     position: fixed;
     top: 50%;
     left: 0px;
     background: #f4b111;
-    color: white;
+    color: #FFFAF0;
     padding: 10px 10px;
     height: 50px;
     border-radius: 0 40px 40px 0;
@@ -93,11 +63,10 @@
     rotate: 180deg;
   }
 
-  /* Sidebar Content Styling */
   .sidebar-content {
     padding: 20px;
   }
-  
+
   .price-range-boxes {
     display: flex;
     justify-content: center;
@@ -115,7 +84,7 @@
     font-size: 0.9rem;
     color: #333;
   }
-  
+
   .price-input {
     font-family: "pacifico";
     font-size: 140%;
@@ -124,7 +93,7 @@
     height: 60px;
     border: 3px solid #f4b111;
     border-radius: 6px;
-    background-color: #f9f9f9;
+    background-color: #FFFAF0;
     font-size: 1.9rem;
     margin: 0;
     transition: box-shadow 0.4s ease;
@@ -144,7 +113,8 @@
   }
 
   .sidebar h2 {
-      font-family: 'Pacifico';
+    color: #121212;
+    font-family: 'Pacifico';
     padding-top: 25px;
     font-size: 2.5rem;
     text-align: center;
@@ -152,6 +122,7 @@
 }
 .sidebar h3 {
     font-family: 'Pacifico';
+    color: #121212;
     margin:auto;
     padding-top: 25px;
     font-size: 2.1rem;
@@ -192,7 +163,7 @@
     left: 50%;
     transform: translate(-50%, -55%);
     font-size: 16px;
-    color: white;
+    color: #FFFAF0;
 }
 
 .checkbox-grid {
@@ -201,7 +172,7 @@
   grid-template-columns: 1fr 1fr;
   padding: 0 10px;
   margin-bottom: 12px;
-  height: 20px; 
+  height: 20px;
 }
 
 .checkbox-grid label{

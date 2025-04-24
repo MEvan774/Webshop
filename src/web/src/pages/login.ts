@@ -1,9 +1,9 @@
 import "@web/components/NavComponent";
-import "@web/components/WelcomeComponent";
+import "@web/components/LoginComponent";
 
 import { html } from "@web/helpers/webComponents";
 
-class ExamplePageComponent extends HTMLElement {
+class LoginPageComponent extends HTMLElement {
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
 
@@ -18,16 +18,7 @@ class ExamplePageComponent extends HTMLElement {
         const element: HTMLElement = html`
             <div>
                 <webshop-navigation></webshop-navigation>
-
-                <div>
-                    <h1>
-                        Welkom bij de LucaStars Webshop!
-                    </h1>
-
-                    <p>
-                        Dit is example.html!
-                    </p>
-                </div>
+                <webshop-login></webshop-login>
             </div>
         `;
 
@@ -36,4 +27,4 @@ class ExamplePageComponent extends HTMLElement {
     }
 }
 
-window.customElements.define("webshop-page-example", ExamplePageComponent);
+window.customElements.define("webshop-page-login", LoginPageComponent);
