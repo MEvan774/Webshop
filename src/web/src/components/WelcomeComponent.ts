@@ -25,7 +25,7 @@ export class WelcomeComponent extends HTMLElement {
    <section class="hero-banner">
   <!-- Left: Main featured game -->
   <div class="hero-main" id="hero-main">
-    <img src="assets/img/temp/Frontpage.png" alt="Featured Game" />
+    <img src="assets/img/temp/BrightPage.png" alt="Featured Game" />
     <div class="hero-text">
       <h1>Kidnapped: Castle Breakout</h1>
       <button>Koop nu!</button>
@@ -58,7 +58,7 @@ export class WelcomeComponent extends HTMLElement {
     <h2>Uitverkoop</h2>
     <p>Alle geweldige deals, in één plek!</p>
     <div class="scroll-section">
-  <div class="scroll-arrow left" onclick="scrollGames('left')">
+  <div class="scroll-arrow left">
   <img src="assets/img/ui/Arrow.svg">
   </div>
     <div class="horizontal-scroll">
@@ -134,9 +134,33 @@ export class WelcomeComponent extends HTMLElement {
         <img src="assets/img/ui/Bottom.svg">
         </div>
     </div>
+    <div class="game-card">
+        <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
+        <p>Game Title 2</p>
+        <div class="price-wrapper">
+            <p class="discount">25%</p>
+            <p class="original-price">€49.99</p>
+            <p class="discounted-price">€29.99</p>
+            </div>
+        <div class="bottom">
+        <img src="assets/img/ui/Bottom.svg">
+        </div>
+    </div>
+    <div class="game-card">
+        <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
+        <p>Game Title 2</p>
+        <div class="price-wrapper">
+            <p class="discount">25%</p>
+            <p class="original-price">€49.99</p>
+            <p class="discounted-price">€29.99</p>
+            </div>
+        <div class="bottom">
+        <img src="assets/img/ui/Bottom.svg">
+        </div>
+    </div>
     <!-- Add more cards -->
 </div>
-<div class="scroll-arrow right" onclick="scrollGames('right')">
+<div class="scroll-arrow right">
     <img src="assets/img/ui/Arrow.svg">
 </div>
 </div>
@@ -148,19 +172,33 @@ export class WelcomeComponent extends HTMLElement {
         styleLink.setAttribute("rel", "stylesheet");
         styleLink.setAttribute("href", "/assets/css/welcome.css");
 
-        this.shadowRoot.firstChild?.remove();
-        this.shadowRoot.append(element);
+        // Clear existing content first
+        this.shadowRoot.innerHTML = "";
+        this.shadowRoot.appendChild(element);
+        this.shadowRoot.appendChild(styleLink);
 
-        const heroMain: HTMLElement | null = this.shadowRoot.querySelector("#hero-main");
-        if (heroMain) {
-            heroMain.addEventListener("click", () => {
-                localStorage.setItem("gameID", "37");
-                window.location.href = "/currentGame.html";
-            });
-        }
+        // Wait for content to be in DOM before querying
+        const scrollContainer: HTMLElement = this.shadowRoot.querySelector(".horizontal-scroll") as HTMLElement;
+        const scrollLeftBtn: HTMLElement = this.shadowRoot.querySelector(".scroll-arrow.left") as HTMLElement;
+        const scrollRightBtn: HTMLElement = this.shadowRoot.querySelector(".scroll-arrow.right") as HTMLElement;
+
+        const scrollAmount: number = 230;
+
+        scrollLeftBtn.addEventListener("click", () => {
+            scrollContainer.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+        });
+
+        scrollRightBtn.addEventListener("click", () => {
+            scrollContainer.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        });
+
+        const heroMain: HTMLElement = this.shadowRoot.querySelector("#hero-main") as HTMLElement;
+        heroMain.addEventListener("click", () => {
+            localStorage.setItem("gameID", "37");
+            window.location.href = "/currentGame.html";
+        });
 
         this.shadowRoot.appendChild(styleLink);
     }
 }
-
 window.customElements.define("webshop-welcome", WelcomeComponent);
