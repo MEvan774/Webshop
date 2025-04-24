@@ -18,7 +18,6 @@ export class NavComponent extends HTMLElement {
             sessionId = sessionInfo.sessionId;
         }
         catch (error) {
-            // You can log or ignore it
             console.warn("User is not logged in or failed to fetch session:", error);
         }
 
@@ -105,4 +104,4 @@ export class NavComponent extends HTMLElement {
     }
 }
 
-window.customElements.define("nav-bar", NavComponent);
+window.customElements.define("webshop-navigation", NavComponent);

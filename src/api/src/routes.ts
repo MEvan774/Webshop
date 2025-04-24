@@ -59,8 +59,8 @@ router.use(requireValidSessionMiddleware);
 
 router.get("/secret", (req, res) => welcomeController.getSecret(req, res));
 router.delete("/user/logout", (req, res) => userController.logoutUser(req, res));
-// TODO: The following endpoints have to be implemented in their own respective controller
 
+// TODO: The following endpoints have to be implemented in their own respective controller
 router.get("/products/:id", (_req, _res) => {
     throw new Error("Return a specific product");
 });

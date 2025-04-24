@@ -30,13 +30,13 @@ export class CurrentGameComponent extends HTMLElement {
             return;
         }
 
-        // Create string with authors
-        const authors: string = currentGame.authors?.length
+        // If we get here, we know currentGame is not null
+        const authors: string = currentGame.authors && currentGame.authors.length
             ? currentGame.authors
                 .map((author: string, index: number): string =>
                     index === 0 ? author : `, ${author}`)
                 .join("")
-            : "Auteurs onbekent.";
+            : "Auteurs onbekend.";
 
         // Create images HTML
         let imagesHTML: string = "";
@@ -49,6 +49,10 @@ export class CurrentGameComponent extends HTMLElement {
                     .join("")
                 : "";
         }
+
+        const tags: string = currentGame.tags?.length
+            ? currentGame.tags.join(", ")
+            : "Geen tags beschikbaar.";
 
         // Create reviews section
         let reviewsHTML: string = "Er zijn nog geen reviews.";
@@ -71,7 +75,7 @@ export class CurrentGameComponent extends HTMLElement {
                             <div id="currentGameText">${currentGame.descriptionHtml}</div><br>
                             <p>Developers: </p><br>
                             <p id="currentGameDevelopers">${authors}</p><br>
-                            <div id="currentGameTags">${currentGame.tags?.join(", ")}</div><br>
+                            <div id="currentGameTags">${tags}</div><br>
                         </div>
                     </div>
 
