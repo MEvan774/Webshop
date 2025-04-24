@@ -35,8 +35,8 @@ export class LoginComponent extends HTMLElement {
                         <button class="loginBtn">Inloggen</button>
                     <div id="errorMessage" class="error-message"></div>
                 </div>
+                </div>
             </form>
-        </div>
     `;
 
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
