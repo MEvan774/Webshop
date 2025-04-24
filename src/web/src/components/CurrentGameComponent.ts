@@ -93,10 +93,13 @@ export class CurrentGameComponent extends HTMLElement {
             </div>
         `;
 
-        if (this.shadowRoot.firstChild) {
-            this.shadowRoot.firstChild.remove();
-        }
+        const styleLink: HTMLLinkElement = document.createElement("link");
+        styleLink.setAttribute("rel", "stylesheet");
+        styleLink.setAttribute("href", "/assets/css/currentGame.css");
+
+        this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
+        this.shadowRoot.appendChild(styleLink);
     }
 }
 
