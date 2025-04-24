@@ -1,24 +1,30 @@
 @font-face {
     font-family: 'Pacifico';
-    src: url('../../public/assets/fonts/Pacifico.ttf');
+    src: url('/assets/fonts/Pacifico.ttf');
     font-weight: normal;
     font-style: normal;
   }
 
   @font-face {
-    font-family: 'RaleWay';
-    src: url('../../public/assets/fonts/Raleway-Regular.ttf');
+    font-family: 'Raleway';
+    src: url('/assets/fonts/Raleway-Regular.ttf');
     font-weight: normal;
     font-style: normal;
   }
 
 body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-image: linear-gradient(to right, #1C2594, #7883CE, #1C2594);
     background-repeat: no-repeat;
     height: 100vh;
 }
 
 .registerForm {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     background: rgba(120, 131, 206, 1);
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -26,10 +32,6 @@ body {
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(120, 131, 206, 0.3);
     width: 581px;
-    height: 650px;
-    position: relative;
-    top: 50px;
-    left: 430px;
     color: white;
 }
 
@@ -38,7 +40,7 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 20px 40px;
     width: max-content;
-    margin: 50px auto;
+    margin: 50px auto 0px;
 }
 
 .register-grid label {
@@ -83,12 +85,7 @@ button.registerBtn {
     cursor: pointer;
     color: black;
     transition: background-color 0.3s ease;
-    margin-top: 20px;   
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    left: 40%;
+    margin-top: 20px;
 }
 
 button.registerBtn:hover {
@@ -101,7 +98,7 @@ button.registerBtn:hover {
     height: 20px;
     border: 2px solid #ffcc00;
     outline: none;
-    accent-color: #ffcc00; 
+    accent-color: #ffcc00;
     background-color: transparent;
     display: inline-block;
     color: white;

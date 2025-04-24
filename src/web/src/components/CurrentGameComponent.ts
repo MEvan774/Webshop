@@ -31,7 +31,7 @@ export class CurrentGameComponent extends HTMLElement {
         }
 
         // Create string with authors
-        const authors: string = currentGame.authors.length
+        const authors: string = currentGame.authors?.length
             ? currentGame.authors
                 .map((author: string, index: number): string =>
                     index === 0 ? author : `, ${author}`)
@@ -71,7 +71,7 @@ export class CurrentGameComponent extends HTMLElement {
                             <div id="currentGameText">${currentGame.descriptionHtml}</div><br>
                             <p>Developers: </p><br>
                             <p id="currentGameDevelopers">${authors}</p><br>
-                            <div id="currentGameTags">${currentGame.tags.join(", ")}</div><br>
+                            <div id="currentGameTags">${currentGame.tags?.join(", ")}</div><br>
                         </div>
                     </div>
 
@@ -93,10 +93,13 @@ export class CurrentGameComponent extends HTMLElement {
             </div>
         `;
 
-        if (this.shadowRoot.firstChild) {
-            this.shadowRoot.firstChild.remove();
-        }
+        const styleLink: HTMLLinkElement = document.createElement("link");
+        styleLink.setAttribute("rel", "stylesheet");
+        styleLink.setAttribute("href", "/assets/css/currentGame.css");
+
+        this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
+        this.shadowRoot.appendChild(styleLink);
     }
 }
 

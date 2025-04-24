@@ -24,6 +24,7 @@
         "node-mocks-http": "1.16.2",
         "typedoc": "0.28.1",
         "typescript": "5.7.3",
+        "vite-plugin-static-copy": "^2.3.1",
         "vite-tsconfig-paths": "5.1.4",
         "vitest": "3.1.1",
         "vitest-fetch-mock": "0.4.5",

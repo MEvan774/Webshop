@@ -19,7 +19,7 @@ export class UserController {
     private readonly _userService: UserService = new UserService();
     private readonly _sessionService: SessionService = new SessionService();
 
-    public async getData(req: Request, res: Response): Promise<void> {
+    public async getData(_req: Request, res: Response): Promise<void> {
         try {
             const users: UserResult[] = await this._userService.getAllUsers();
             res.status(200).json(users);
