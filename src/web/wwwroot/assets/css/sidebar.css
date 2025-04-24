@@ -5,6 +5,13 @@
     font-style: normal;
   }
 
+  @font-face {
+    font-family: 'TimesNewRoman';
+    src: url('/assets/fonts/TimesNewRoman');
+    font-weight: normal;
+    font-style: normal;
+  }
+
   .sidebar {
     color: #121212;
     position: fixed;
@@ -86,7 +93,7 @@
   }
 
   .price-input {
-    font-family: "pacifico";
+    font-family: "TimesNewRoman";
     font-size: 140%;
     text-align: center;
     width: 60px;
@@ -103,7 +110,7 @@
   .price-input::placeholder {
     color: #a0a0a0; /* or any solid color */
     opacity: 1;     /* make it fully opaque */
-    font-family: 'Pacifico', cursive; /* or your custom font */
+    font-family: 'TimesNewRoman'; /* or your custom font */
   }
 
   .price-input:focus {
@@ -114,14 +121,14 @@
 
   .sidebar h2 {
     color: #121212;
-    font-family: 'Pacifico';
+    font-family: 'TimesNewRoman';
     padding-top: 25px;
     font-size: 2.5rem;
     text-align: center;
     margin-bottom: 10px;
 }
 .sidebar h3 {
-    font-family: 'Pacifico';
+    font-family: 'TimesNewRoman';
     color: #121212;
     margin:auto;
     padding-top: 25px;
