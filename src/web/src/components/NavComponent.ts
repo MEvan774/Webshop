@@ -33,7 +33,7 @@ export class NavComponent extends HTMLElement {
                         </div>
                     </a>
                 </div>
-    
+
                 <div class="navbar-center">
                     <div class="searchbar">
                         <button>
@@ -42,7 +42,7 @@ export class NavComponent extends HTMLElement {
                         <input type="text" placeholder="Zoek game..." />
                     </div>
                 </div>
-    
+
                 <div class="navbar-right">
     ${
         sessionId

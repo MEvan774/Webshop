@@ -14,9 +14,9 @@ export class SidebarComponent extends HTMLElement {
         element.innerHTML = `
             <input type="checkbox" id="sidebar-toggle" hidden />
             <label for="sidebar-toggle" class="sidebar-btn">
-                <img src="public/assets/img/ui/Arrow.svg">
+                <img src="/assets/img/ui/Arrow.svg">
             </label>
-    
+
             <section>
                 <div class="sidebar">
                     <div class="sidebar-content">

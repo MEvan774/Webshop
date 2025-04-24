@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Pacifico';
-    src: url('../../public/assets/fonts/Pacifico.ttf');
+    src: url('/assets/fonts/Pacifico.ttf');
     font-weight: normal;
     font-style: normal;
   }
@@ -21,19 +21,19 @@
     width: 100%;
     height: 65px;
   }
-  
+
   .navbar-left,
   .navbar-center,
   .navbar-right {
     display: flex;
     align-items: center;
   }
-  
+
   .navbar-left {
     flex: 1;
     gap: 10px;
   }
-  
+
   .logo {
     aspect-ratio: auto;
     height: 40px;
@@ -41,7 +41,7 @@
     margin-left: 10px;
     margin-right: 10px;
   }
-  
+
   .brand {
     display: flex;
     flex-direction: column;
@@ -57,13 +57,13 @@
     color: #FFFAF0;
     text-shadow: 0 0 0px #FFFAF0;
 }
-  
+
   .brand-name {
     margin: 0;
     font-size: 1.6rem;
     font-family: 'Pacifico';
   }
-  
+
   .brand-tagline {
     margin: 0;
     font-size: 0.75rem;
@@ -73,12 +73,12 @@
     color: inherit; /* so it doesn't look like a normal blue link */
     text-decoration: none;
   }
-  
+
   .navbar-center {
     flex: 2;
     justify-content: center;
   }
-  
+
   .searchbar {
     display: flex;
     align-items: center;
@@ -92,7 +92,7 @@
     left: 0;
     transform: none;
   }
-  
+
   .searchbar input {
     flex: 1;
     padding: 8px 12px;
@@ -104,10 +104,10 @@
 
   .searchbar input::placeholder {
     color: #a0a0a0;
-    opacity: 1;  
+    opacity: 1;
     font-family: 'Pacifico';
   }
-  
+
   .searchbar button {
     background: none;
     border: none;
@@ -117,7 +117,7 @@
     display: flex;
     align-items: center;
   }
-  
+
   .searchbar button img {
     width: 20px;
     height: 20px;
@@ -131,12 +131,12 @@
     background-color: #FFFAF0;
     font-size: 0.95rem;
   }
-  
+
   .navbar-right {
     flex: 1;
     justify-content: flex-end;
   }
-  
+
   .navbar-right a {
     padding: 8px 16px;
     margin-right: 10px;

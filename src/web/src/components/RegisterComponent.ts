@@ -71,8 +71,8 @@ export class RegisterComponent extends HTMLElement {
                         <button class="registerBtn">Registreer</button>
                         <div id="errorMessage" class="error-message"></div>
                         <div id="successMessage" class="success-message"></div>
+                </div>
             </form>
-        </div>
     `;
 
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition

@@ -4,7 +4,7 @@ import { GamesService } from "@api/services/GamesService";
 
 export class GamesController {
     private readonly _gamesService: GamesService = new GamesService();
-    public async getAllGames(req: Request, res: Response): Promise<void> {
+    public async getAllGames(_req: Request, res: Response): Promise<void> {
         try {
             const games: GameResult[] = await this._gamesService.getAllGames();
             res.status(200).json(games);

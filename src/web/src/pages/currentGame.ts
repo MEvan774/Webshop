@@ -26,7 +26,7 @@ export class CurrentGamePageComponent extends HTMLElement {
 
         const element: HTMLElement = html`
             <div>
-                <webshop-navigation></webshop-navigation>
+                <nav-bar></nav-bar>
 
                 <div>
                     <webshop-currentgame></webshop-currentgame>

@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Pacifico';
-    src: url('../../public/assets/fonts/Pacifico.ttf');
+    src: url('/assets/fonts/Pacifico.ttf');
     font-weight: normal;
     font-style: normal;
   }
@@ -23,7 +23,7 @@
     border-left: #FFFAF0;
     border-style: solid;
 }
-  
+
 .sidebar.open {
     left: 0;
 }
@@ -66,7 +66,7 @@
   .sidebar-content {
     padding: 20px;
   }
-  
+
   .price-range-boxes {
     display: flex;
     justify-content: center;
@@ -84,7 +84,7 @@
     font-size: 0.9rem;
     color: #333;
   }
-  
+
   .price-input {
     font-family: "pacifico";
     font-size: 140%;
@@ -172,7 +172,7 @@
   grid-template-columns: 1fr 1fr;
   padding: 0 10px;
   margin-bottom: 12px;
-  height: 20px; 
+  height: 20px;
 }
 
 .checkbox-grid label{
