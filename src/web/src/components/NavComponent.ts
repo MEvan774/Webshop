@@ -48,10 +48,10 @@ export class NavComponent extends HTMLElement {
     ${
         sessionId
             ? html`
-                <a id="logout">Uitloggen</a>
-                <a href="/account.html"><img src="/assets/img/icons/account-icon.png" alt="Account" /></a>
-                <a href="/favourites.html"><img src="/assets/img/icons/heart-icon.png" alt="Favourites" /></a>
-                <a href="/cart.html"><img src="/assets/img/icons/cart-icon.png" alt="Cart" /></a>
+                <span>
+                    <a id="user" href="/profile.html"><img src="/assets/images/userButton.png" width=50px></a>
+                    <a id="logout">Uitloggen</a>
+                </span>
             `
             : html`
                 <span>
