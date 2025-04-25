@@ -39,44 +39,41 @@ export class LoginComponent extends HTMLElement {
             </form>
     `;
 
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = "";
-            this.shadowRoot.appendChild(element);
-            const emailInput: HTMLInputElement | null = this.shadowRoot.querySelector("#email");
-            const passwordInput: HTMLInputElement | null = this.shadowRoot.querySelector("#password");
+        this.shadowRoot.innerHTML = "";
+        this.shadowRoot.appendChild(element);
+        const emailInput: HTMLInputElement | null = this.shadowRoot.querySelector("#email");
+        const passwordInput: HTMLInputElement | null = this.shadowRoot.querySelector("#password");
 
-            if (!emailInput || !passwordInput) {
-                console.log("One of the input fields is missing");
-            }
-            else {
-                const loginBtn: HTMLButtonElement | null = this.shadowRoot.querySelector(".loginBtn");
-                const loginUser: LoginService = new LoginService();
-                if (loginBtn) {
-                    loginBtn.addEventListener("click", async e => {
-                        e.preventDefault();
-                        const check: { valid: boolean; message?: string } = loginUser.checkData(emailInput.value, passwordInput.value);
+        if (!emailInput || !passwordInput) {
+            console.log("One of the input fields is missing");
+        }
+        else {
+            const loginBtn: HTMLButtonElement | null = this.shadowRoot.querySelector(".loginBtn");
+            const loginUser: LoginService = new LoginService();
+            if (loginBtn) {
+                loginBtn.addEventListener("click", async e => {
+                    e.preventDefault();
+                    const check: { valid: boolean; message?: string } = loginUser.checkData(emailInput.value, passwordInput.value);
 
-                        const errorDiv: Element | null | undefined = this.shadowRoot?.querySelector("#errorMessage");
-                        if (!check.valid) {
-                            if (errorDiv) errorDiv.textContent = check.message || "Ongeldige invoer.";
-                            return;
-                        }
-                        else {
-                            if (errorDiv) errorDiv.textContent = "";
-                        }
-                        await loginUser.loginUser(emailInput.value, passwordInput.value);
-                        window.location.href = "/index.html";
-                    });
-                }
+                    const errorDiv: Element | null | undefined = this.shadowRoot?.querySelector("#errorMessage");
+                    if (!check.valid) {
+                        if (errorDiv) errorDiv.textContent = check.message || "Ongeldige invoer.";
+                        return;
+                    }
+                    else {
+                        if (errorDiv) errorDiv.textContent = "";
+                    }
+                    await loginUser.loginUser(emailInput.value, passwordInput.value);
+                    window.location.href = "/index.html";
+                });
             }
         }
+
         const styleLink: HTMLLinkElement = document.createElement("link");
         styleLink.setAttribute("rel", "stylesheet");
         styleLink.setAttribute("href", "/assets/css/loginPage.css");
 
         this.shadowRoot.firstChild?.remove();
-        this.shadowRoot.append(element);
         this.shadowRoot.appendChild(styleLink);
     }
 }

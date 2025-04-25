@@ -75,61 +75,59 @@ export class RegisterComponent extends HTMLElement {
             </form>
     `;
 
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = "";
-            this.shadowRoot.appendChild(element);
+        this.shadowRoot.innerHTML = "";
+        this.shadowRoot.appendChild(element);
 
-            const fnameInput: HTMLInputElement | null = this.shadowRoot.querySelector("#fname");
-            const lnameInput: HTMLInputElement | null = this.shadowRoot.querySelector("#lname");
-            const emailInput: HTMLInputElement | null = this.shadowRoot.querySelector("#email");
-            const dobInput: HTMLInputElement | null = this.shadowRoot.querySelector("#dob");
-            const genderInput: HTMLInputElement | null = this.shadowRoot.querySelector("#gender");
-            const passwordInput: HTMLInputElement | null = this.shadowRoot.querySelector("#password");
-            const passwordRepeat: HTMLInputElement | null = this.shadowRoot.querySelector("#passwordRepeat");
-            const errorDiv: Element | null | undefined = this.shadowRoot.querySelector("#errorMessage");
-            const successDiv: Element | null | undefined = this.shadowRoot.querySelector("#successMessage");
+        const fnameInput: HTMLInputElement | null = this.shadowRoot.querySelector("#fname");
+        const lnameInput: HTMLInputElement | null = this.shadowRoot.querySelector("#lname");
+        const emailInput: HTMLInputElement | null = this.shadowRoot.querySelector("#email");
+        const dobInput: HTMLInputElement | null = this.shadowRoot.querySelector("#dob");
+        const genderInput: HTMLInputElement | null = this.shadowRoot.querySelector("#gender");
+        const passwordInput: HTMLInputElement | null = this.shadowRoot.querySelector("#password");
+        const passwordRepeat: HTMLInputElement | null = this.shadowRoot.querySelector("#passwordRepeat");
+        const errorDiv: Element | null | undefined = this.shadowRoot.querySelector("#errorMessage");
+        const successDiv: Element | null | undefined = this.shadowRoot.querySelector("#successMessage");
 
-            if (!fnameInput || !lnameInput || !emailInput || !dobInput || !genderInput || !passwordInput || !passwordRepeat) {
-                console.log("One of the input fields is missing");
-            }
-            else {
-                const registerBtn: HTMLButtonElement | null = this.shadowRoot.querySelector(".registerBtn");
-                const registerService: RegisterService = new RegisterService();
-                if (registerBtn) {
-                    registerBtn.addEventListener("click", async e => {
-                        e.preventDefault();
-                        const errorMessages: string[] = [];
-                        const check: { valid: boolean; messages: string[] } = registerService.checkData(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value, passwordRepeat.value);
-                        if (!check.valid) {
-                            errorMessages.push(...check.messages);
+        if (!fnameInput || !lnameInput || !emailInput || !dobInput || !genderInput || !passwordInput || !passwordRepeat) {
+            console.log("One of the input fields is missing");
+        }
+        else {
+            const registerBtn: HTMLButtonElement | null = this.shadowRoot.querySelector(".registerBtn");
+            const registerService: RegisterService = new RegisterService();
+            if (registerBtn) {
+                registerBtn.addEventListener("click", async e => {
+                    e.preventDefault();
+                    const errorMessages: string[] = [];
+                    const check: { valid: boolean; messages: string[] } = registerService.checkData(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value, passwordRepeat.value);
+                    if (!check.valid) {
+                        errorMessages.push(...check.messages);
+                    }
+
+                    const userExists: boolean = await registerService.getUserByEmail(emailInput.value);
+                    if (userExists) {
+                        errorMessages.push("Er bestaat al een account met dit e-mailadres.");
+                    }
+
+                    if (errorMessages.length > 0) {
+                        if (errorDiv) {
+                            errorDiv.textContent = errorMessages.join(" | ");
                         }
-
-                        const userExists: boolean = await registerService.getUserByEmail(emailInput.value);
-                        if (userExists) {
-                            errorMessages.push("Er bestaat al een account met dit e-mailadres.");
+                        if (successDiv) {
+                            successDiv.textContent = "";
                         }
+                        return;
+                    }
 
-                        if (errorMessages.length > 0) {
-                            if (errorDiv) {
-                                errorDiv.textContent = errorMessages.join(" | ");
-                            }
-                            if (successDiv) {
-                                successDiv.textContent = "";
-                            }
-                            return;
+                    if (!userExists) {
+                        const userRegister: boolean = await registerService.registerUser(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value);
+                        if (successDiv && userRegister) {
+                            successDiv.textContent = "Account succesvol aangemaakt.";
                         }
-
-                        if (!userExists) {
-                            const userRegister: boolean = await registerService.registerUser(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value);
-                            if (successDiv && userRegister) {
-                                successDiv.textContent = "Account succesvol aangemaakt.";
-                            }
-                        }
-                    });
-                }
+                    }
+                });
             }
         }
+
         const styleLink: HTMLLinkElement = document.createElement("link");
         styleLink.setAttribute("rel", "stylesheet");
         styleLink.setAttribute("href", "/assets/css/registerPage.css");
