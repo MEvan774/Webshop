@@ -13,12 +13,15 @@
   }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-image: linear-gradient(to right, #1C2594, #7883CE, #1C2594);
     background-repeat: no-repeat;
-    height: 100vh;
+    min-height: 100vh;
+}
+
+webshop-page-login {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .loginForm {
