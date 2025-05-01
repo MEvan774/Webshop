@@ -1,13 +1,13 @@
 @font-face {
     font-family: 'Pacifico';
-    src: url('../../public/assets/fonts/Pacifico.ttf');
+    src: url('/assets/fonts/Pacifico.ttf');
     font-weight: normal;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'RaleWay';
-    src: url('../../public/assets/fonts/Raleway-Regular.ttf');
+    src: url('/assets/fonts/Raleway-Regular.ttf');
     font-weight: normal;
     font-style: normal;
   }
