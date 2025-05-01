@@ -1,20 +1,27 @@
+:root {
+    --white: #FFFAF0;
+    --blue: #1C2594;
+    --black: #1B1212;
+    --light-blue: #7883CE;
+    --blue-gradient: linear-gradient(90deg, rgba(28, 37, 148, 1) 0%, rgba(91, 202, 243, 1) 100%);
+}
+
 @font-face {
     font-family: 'Pacifico';
     src: url('/assets/fonts/Pacifico.ttf');
     font-weight: normal;
     font-style: normal;
-  }
+}
 
-  @font-face {
+@font-face {
     font-family: 'Raleway';
     src: url('/assets/fonts/Raleway-Regular.ttf');
     font-weight: normal;
     font-style: normal;
-  }
+}
 
 body {
-    background-image: linear-gradient(to right, #1C2594, #7883CE, #1C2594);
-    background-repeat: no-repeat;
+    font-family: Raleway, sans-serif;
     min-height: 100vh;
 }
 
@@ -28,45 +35,42 @@ webshop-page-register {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    background: rgba(120, 131, 206, 1);
+    background-image: linear-gradient(to top right, rgba(28, 37, 148, 0.3), rgba(91, 202, 243, 0.3));
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(120, 131, 206, 0.3);
-    width: 581px;
-    color: white;
+}
+
+#top {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 15px;
+}
+
+.registerForm #top img {
+    width: 55px;
+    height: 70px;
 }
 
 .register-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px 40px;
-    width: max-content;
-    margin: 50px auto 0px;
+    width: calc(100% - 50px);
+    margin: 25px 25px 0px;
 }
 
 .register-grid label {
+    font-size: 32px;
     font-weight: bold;
 }
 
-.register-grid > div {
-    display: flex;
-    flex-direction: column;
+.register-grid .longLabel {
+    font-size: 20px;
 }
 
 .full-width {
     grid-column: span 2;
-}
-
-.register-grid .full-width {
-    margin-bottom: 15px;
-}
-
-.register-grid .full-width input[type="checkbox"] {
-    margin-right: 10px;
-    display: inline-block;
-    vertical-align: middle;
 }
 
 .register-grid #newsletter #terms {
@@ -86,7 +90,7 @@ button.registerBtn {
     border: none;
     font-size: 16px;
     cursor: pointer;
-    color: black;
+    color: var(--black);
     transition: background-color 0.3s ease;
     margin-top: 20px;
 }
@@ -94,6 +98,33 @@ button.registerBtn {
 button.registerBtn:hover {
     background-color: #ffcc00;
     transition: background-color 0.3s ease;
+}
+
+.register-grid input {
+    width: calc(100% - 6px);
+    height: 30px;
+    border: 1px solid #ff9900;
+    font-size: 22px;
+}
+
+.register-grid input::placeholder {
+    font-size: 22px;
+}
+
+.register-grid input:focus {
+    border: 1px solid #5d5c55;
+}
+
+.register-grid select {
+    width: 100%;
+    border: 1px solid #ff9900;
+    height: 34px;
+    font-size: 22px;
+    background-color: var(--white);
+}
+
+.register-grid select:focus {
+    border: 1px solid #ffcc00;
 }
 
 .register-grid .full-width input[type="checkbox"] {
@@ -104,8 +135,14 @@ button.registerBtn:hover {
     accent-color: #ffcc00;
     background-color: transparent;
     display: inline-block;
-    color: white;
     position: relative;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.register-grid .full-width input {
+    width: calc(100% - 6.218px);
 }
 
 .redirectLogin {
