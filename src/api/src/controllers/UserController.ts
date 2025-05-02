@@ -44,10 +44,7 @@ export class UserController {
                 res.status(401).json({ error: "Ongeldige inloggegevens." });
                 return;
             }
-            // ✅ Create a new session
             const sessionId: string | undefined = await this._sessionService.createSession(user.userId); // you need this method
-
-            // ✅ Set it as cookie or return in header
             res.cookie("session", sessionId, { httpOnly: true, secure: false }); // adjust for production
             res.status(200).json({ message: "Login succesvol." });
         }
@@ -78,6 +75,12 @@ export class UserController {
         }
     }
 
+    /**
+     * This function calls on the database to find a user based off the email
+     * @param req This function has to have a request
+     * @param res This function has to have a response
+     * @returns void
+     */
     public async getUserByEmail(req: Request, res: Response): Promise<void> {
         const email: string = req.query.email as string;
 
@@ -95,19 +98,21 @@ export class UserController {
         }
     }
 
+    /**
+     * 
+     * @param req This function has to have a request
+     * @param res This function has to have a response
+     */
     public async registerUser(req: UserRegisterRequest, res: Response): Promise<void> {
         const { firstname, lastname, email, dob, gender, password }: UserRegisterData = req.body;
 
         try {
-            // Roep de registerUser methode van de UserService aan
             const userId: string | undefined = await this._userService.registerUser(firstname, lastname, email, dob, gender, password);
 
             if (userId) {
-                // Gebruiker succesvol geregistreerd, geef een 201 status terug
                 res.status(201).json({ message: "Gebruiker succesvol geregistreerd!", userId });
             }
             else {
-                // Als het niet gelukt is, stuur een foutmelding terug
                 res.status(500).json({ error: "Er is iets misgegaan bij het registreren van de gebruiker." });
             }
         }

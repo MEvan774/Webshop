@@ -17,7 +17,9 @@ class RegisterPageComponent extends HTMLElement {
 
         const element: HTMLElement = html`
             <div>
-                <webshop-register></webshop-register>
+                <div>
+                    <webshop-register></webshop-register>
+                </div>
             </div>
         `;
 
