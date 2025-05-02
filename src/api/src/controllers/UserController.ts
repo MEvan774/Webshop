@@ -99,7 +99,7 @@ export class UserController {
     }
 
     /**
-     * 
+     * This function calls on the database to insert the new user
      * @param req This function has to have a request
      * @param res This function has to have a response
      */
