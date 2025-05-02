@@ -23,8 +23,13 @@ class RegisterPageComponent extends HTMLElement {
             </div>
         `;
 
+        const styleLink: HTMLLinkElement = document.createElement("link");
+        styleLink.setAttribute("rel", "stylesheet");
+        styleLink.setAttribute("href", "/assets/css/registerFromPages.css");
+
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
+        this.shadowRoot.appendChild(styleLink);
     }
 }
 

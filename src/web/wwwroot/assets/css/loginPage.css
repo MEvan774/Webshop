@@ -1,24 +1,27 @@
 @font-face {
     font-family: 'Pacifico';
-    src: url('../../public/assets/fonts/Pacifico.ttf');
+    src: url('/assets/fonts/Pacifico.ttf');
     font-weight: normal;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'RaleWay';
-    src: url('../../public/assets/fonts/Raleway-Regular.ttf');
+    src: url('/assets/fonts/Raleway-Regular.ttf');
     font-weight: normal;
     font-style: normal;
   }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background-image: linear-gradient(to right, #1C2594, #7883CE, #1C2594);
     background-repeat: no-repeat;
-    height: 100vh;
+    min-height: 100vh;
+}
+
+webshop-page-login {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .loginForm {
