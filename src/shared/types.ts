@@ -32,6 +32,8 @@ export type UserResult = {
     password: string;
     dob: string;
     gender: string;
+    country: string | null;
+    profilePicture: string | null;
 };
 
 export type UserRegisterData = {

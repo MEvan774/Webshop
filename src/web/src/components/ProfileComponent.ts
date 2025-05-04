@@ -1,5 +1,4 @@
 import { UserResult } from "@shared/types";
-import { html } from "@web/helpers/webComponents";
 import { getUser } from "@web/services/ProfileService";
 
 export class ProfileComponent extends HTMLElement {
@@ -12,6 +11,26 @@ export class ProfileComponent extends HTMLElement {
         return await getUser();
     }
 
+    private formatDate(dateString: string): string {
+        const date: Date = new Date(dateString);
+
+        return date.toLocaleDateString("nl-NL", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+        });
+    }
+
+    private getGender(gender: string): string {
+        if (gender === "female") return "Vrouw";
+
+        if (gender === "male") return "Male";
+
+        if (gender === "non-binary") return "Non-binair";
+
+        return "Anders/onbekend";
+    }
+
     private async render(): Promise<void> {
         if (!this.shadowRoot) {
             return;
@@ -21,27 +40,33 @@ export class ProfileComponent extends HTMLElement {
 
         if (!user) return;
 
-        console.log(user);
+        // Set variables
+        const profilePicture: string = user.profilePicture ?? "/assets/images/userImage.png";
+        const name: string = user.firstname + " " + user.lastname;
+        const date: string = this.formatDate(user.dob);
+        const country: string = user.country ?? "Locatie onbekend";
+        const gender: string = this.getGender(user.gender);
 
-        const element: HTMLElement = html`
-            
-            <button id="editButton">Edit profile</button>
+        this.shadowRoot.innerHTML = `
+            <link rel="stylesheet" href="/assets/css/currentGame.css">
+            <img id="profilePicture" src="${profilePicture}" width="500px"><br>
+
+            <div id="profileDiv">
+                <h1>${name}</h1>
+                <p>${date}</p>
+                <p>${country}</p>
+                <p>${gender}</p>
+                <button id="editButton">Profiel bewerken</button>
+            </div>
+
+            <h1>Gekochte spellen:</h1>
         `;
 
-        const styleLink: HTMLLinkElement = document.createElement("link");
-        styleLink.setAttribute("rel", "stylesheet");
-        styleLink.setAttribute("href", "/assets/css/currentGame.css");
-
-        this.shadowRoot.firstChild?.remove();
-        this.shadowRoot.append(element);
-        this.shadowRoot.appendChild(styleLink);
-
+        // Profiel bewerken knop
         const editButton: HTMLButtonElement | null = this.shadowRoot.querySelector("#editButton");
 
         if (editButton) {
-            console.log("yes");
             editButton.addEventListener("click", () => {
-                console.log("click");
                 this.dispatchEvent(new CustomEvent("edit-profile", { bubbles: true }));
             });
         }
