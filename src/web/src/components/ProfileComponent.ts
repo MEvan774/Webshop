@@ -1,15 +1,27 @@
+import { UserResult } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
+import { getUser } from "@web/services/ProfileService";
 
 export class ProfileComponent extends HTMLElement {
-    public connectedCallback(): void {
+    public async connectedCallback(): Promise<void> {
         this.attachShadow({ mode: "open" });
-        this.render();
+        await this.render();
     }
 
-    private render(): void {
+    private async getCurrentUser(): Promise<UserResult | null> {
+        return await getUser();
+    }
+
+    private async render(): Promise<void> {
         if (!this.shadowRoot) {
             return;
         }
+
+        const user: UserResult | null = await this.getCurrentUser();
+
+        if (!user) return;
+
+        console.log(user);
 
         const element: HTMLElement = html`
             

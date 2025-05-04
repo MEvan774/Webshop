@@ -4,7 +4,8 @@ import { requireValidSessionMiddleware, sessionMiddleware } from "./middleware/s
 import { UserController } from "./controllers/UserController";
 import { GamesController } from "./controllers/GamesController";
 import { getGameWithGameID } from "./services/CurrentGameService";
-import { GameResult } from "@shared/types";
+import { GameResult, UserResult } from "@shared/types";
+import { getUser } from "./services/ProfileService";
 
 // Create a router
 export const router: Router = Router();
@@ -37,6 +38,26 @@ router.get("/games/:gameID", async (req, res) => {
     catch (error) {
         console.error("Error fetching game:", error);
         return res.status(500).json({ error: "An error occurred while fetching the game." });
+    }
+});
+
+router.get("/user/:sessionID", async (req, res) => {
+    const { sessionID } = req.params;
+
+    try {
+        // Call the service function to get the game data
+        const user: UserResult | undefined = await getUser(sessionID);
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Respond with the user data
+        return res.json(user);
+    }
+    catch (error) {
+        console.error("Error fetching user:", error);
+        return res.status(500).json({ error: "An error occurred while fetching the user." });
     }
 });
 

@@ -84,4 +84,24 @@ export class UserService {
             connection.release();
         }
     }
+
+    public async getUserById(userId: number): Promise<UserResult | undefined> {
+        const connection: PoolConnection = await this._databaseService.openConnection();
+
+        try {
+            const result: UserResult[] = await this._databaseService.query<UserResult[]>(connection, "SELECT * FROM user WHERE userId = ?", userId);
+            if (result.length > 0) {
+                return result[0];
+            }
+            else {
+                return undefined;
+            }
+        }
+        catch (e: unknown) {
+            throw new Error(`Error locating user: ${e}`);
+        }
+        finally {
+            connection.release();
+        }
+    }
 }
