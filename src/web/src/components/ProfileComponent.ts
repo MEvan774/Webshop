@@ -1,16 +1,7 @@
 import { UserResult } from "@shared/types";
-import { getUser } from "@web/services/ProfileService";
+import { BaseProfileComponent } from "./BaseProfileComponent";
 
-export class ProfileComponent extends HTMLElement {
-    public async connectedCallback(): Promise<void> {
-        this.attachShadow({ mode: "open" });
-        await this.render();
-    }
-
-    private async getCurrentUser(): Promise<UserResult | null> {
-        return await getUser();
-    }
-
+export class ProfileComponent extends BaseProfileComponent {
     private formatDate(dateString: string): string {
         const date: Date = new Date(dateString);
 
@@ -24,14 +15,14 @@ export class ProfileComponent extends HTMLElement {
     private getGender(gender: string): string {
         if (gender === "female") return "Vrouw";
 
-        if (gender === "male") return "Male";
+        if (gender === "male") return "Man";
 
         if (gender === "non-binary") return "Non-binair";
 
         return "Anders/onbekend";
     }
 
-    private async render(): Promise<void> {
+    protected async render(): Promise<void> {
         if (!this.shadowRoot) {
             return;
         }
@@ -62,14 +53,8 @@ export class ProfileComponent extends HTMLElement {
             <h1>Gekochte spellen:</h1>
         `;
 
-        // Profiel bewerken knop
-        const editButton: HTMLButtonElement | null = this.shadowRoot.querySelector("#editButton");
-
-        if (editButton) {
-            editButton.addEventListener("click", () => {
-                this.dispatchEvent(new CustomEvent("edit-profile", { bubbles: true }));
-            });
-        }
+        // Make an event for the changeEmailCancelButton
+        this.setButtonEvents("editButton", "edit-profile");
     }
 }
 

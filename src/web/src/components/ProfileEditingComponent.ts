@@ -1,16 +1,7 @@
 import { UserResult } from "@shared/types";
-import { getUser } from "@web/services/ProfileService";
+import { BaseProfileComponent } from "./BaseProfileComponent";
 
-export class ProfileEditingComponent extends HTMLElement {
-    public async connectedCallback(): Promise<void> {
-        this.attachShadow({ mode: "open" });
-        await this.render();
-    }
-
-    private async getCurrentUser(): Promise<UserResult | null> {
-        return await getUser();
-    }
-
+export class ProfileEditingComponent extends BaseProfileComponent {
     private getGenderSelect(user: UserResult): string {
         type Option = {
             value: string;
@@ -38,18 +29,7 @@ export class ProfileEditingComponent extends HTMLElement {
         return genderSelect;
     }
 
-    private setButtonEvents(buttonID: string, eventName: string): void {
-        const button: HTMLButtonElement | null | undefined =
-            this.shadowRoot?.querySelector(`#${buttonID}`);
-
-        if (button) {
-            button.addEventListener("click", () => {
-                this.dispatchEvent(new CustomEvent(eventName, { bubbles: true }));
-            });
-        }
-    }
-
-    private async render(): Promise<void> {
+    protected async render(): Promise<void> {
         if (!this.shadowRoot) {
             return;
         }
@@ -96,7 +76,7 @@ export class ProfileEditingComponent extends HTMLElement {
             </div>
             
             <button id="changeEmailButton">Email wijzigen</button>
-            <button id="changePasswordVButton">Wachtwoord wijzigen</button>
+            <button id="changePasswordButton">Wachtwoord wijzigen</button>
 
             <button id="editSaveButton">Bewerking opslaan</button>
         `;

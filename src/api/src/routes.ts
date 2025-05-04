@@ -6,6 +6,7 @@ import { GamesController } from "./controllers/GamesController";
 import { getGameWithGameID } from "./services/CurrentGameService";
 import { GameResult, UserResult } from "@shared/types";
 import { getUser } from "./services/ProfileService";
+import { changePassword } from "./services/ProfileService";
 
 // Create a router
 export const router: Router = Router();
@@ -95,3 +96,5 @@ router.get("/cart", (_req, _res) => {
 });
 
 router.get("/user", (req, res) => userController.getData(req, res));
+
+router.post("/user/change-password", async (req, res) => await changePassword(req, res));

@@ -89,7 +89,8 @@ export class UserService {
         const connection: PoolConnection = await this._databaseService.openConnection();
 
         try {
-            const result: UserResult[] = await this._databaseService.query<UserResult[]>(connection, "SELECT * FROM user WHERE userId = ?", userId);
+            const result: UserResult[] = await this._databaseService.query<UserResult[]>(
+                connection, "SELECT * FROM user WHERE userId = ?", userId);
             if (result.length > 0) {
                 return result[0];
             }
@@ -99,6 +100,26 @@ export class UserService {
         }
         catch (e: unknown) {
             throw new Error(`Error locating user: ${e}`);
+        }
+        finally {
+            connection.release();
+        }
+    }
+
+    public async changePassword(userId: string, password: string): Promise<boolean> {
+        const connection: PoolConnection = await this._databaseService.openConnection();
+
+        try {
+            // Use parameterized query to prevent SQL injection
+            const result: ResultSetHeader = await this._databaseService.query(connection,
+                "UPDATE user SET password = ? WHERE userId = ?",
+                password, userId
+            );
+
+            return result.affectedRows > 0;
+        }
+        catch (e: unknown) {
+            throw new Error(`Error changing password: ${e}`);
         }
         finally {
             connection.release();

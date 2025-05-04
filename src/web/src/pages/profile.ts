@@ -1,69 +1,52 @@
 import "@web/components/NavComponent";
 import "@web/components/ProfileComponent";
 import "@web/components/ProfileEditingComponent";
-import { WebshopEvent } from "@web/enums/WebshopEvent";
-
+import "@web/components/ProfileEmailComponent";
+import "@web/components/ProfilePasswordComponent";
 import { html } from "@web/helpers/webComponents";
-import { WebshopEventService } from "@web/services/WebshopEventService";
 
 export class ProfilePageComponent extends HTMLElement {
-    private _webshopEventService: WebshopEventService = new WebshopEventService();
-
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
 
         this.shadowRoot?.addEventListener("edit-profile", () => {
-            this.editing(true);
+            this.render("<webshop-profile-editing></webshop-profile-editing>");
         });
 
         this.shadowRoot?.addEventListener("save-profile", () => {
-            this.editing(false);
+            this.render("<webshop-profile></webshop-profile>");
         });
 
-        // NOTE: This is just an example event, remove it!
-        this._webshopEventService.addEventListener<string>(WebshopEvent.Welcome, message => {
-            console.log(`Welcome event triggered: ${message}`);
+        this.shadowRoot?.addEventListener("change-email", () => {
+            this.render("<webshop-profile-email></webshop-profile-email>");
+        });
+
+        this.shadowRoot?.addEventListener("change-password", () => {
+            this.render("<webshop-profile-password></webshop-password>");
         });
 
         this.render();
     }
 
-    private render(editing?: boolean): void {
+    private render(state?: string): void {
         if (!this.shadowRoot) {
             return;
         }
 
-        let element: HTMLElement = html``;
+        const currentState: string = state ?? "<webshop-profile></webshop-profile>";
 
-        if (editing) {
-            element = html`
+        const element: HTMLElement = html`
+            <div>
+                <nav-bar></nav-bar>
+
                 <div>
-                    <nav-bar></nav-bar>
-
-                    <div>
-                        <webshop-profile-editing></webshop-profile-editing>
-                    </div>
+                    ${currentState}
                 </div>
-            `;
-        }
-        else {
-            element = html`
-                <div>
-                    <nav-bar></nav-bar>
-
-                    <div>
-                        <webshop-profile></webshop-profile>
-                    </div>
-                </div>
-            `;
-        }
+            </div>
+        `;
 
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
-    }
-
-    public editing(editing: boolean): void {
-        this.render(editing);
     }
 }
 
