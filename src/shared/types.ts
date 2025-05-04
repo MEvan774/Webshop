@@ -24,6 +24,9 @@ export type SecretResponse = {
     userId: string;
 };
 
+/**
+ * Represents the user data
+ */
 export type UserResult = {
     userId: number;
     firstname: string;
@@ -34,6 +37,9 @@ export type UserResult = {
     gender: string;
 };
 
+/**
+ * Represents the user register data
+ */
 export type UserRegisterData = {
     firstname: string;
     lastname: string;
@@ -43,6 +49,9 @@ export type UserRegisterData = {
     gender: string;
 };
 
+/**
+ * Represents the login data
+ */
 export type LoginData = {
     email: string;
     password: string;

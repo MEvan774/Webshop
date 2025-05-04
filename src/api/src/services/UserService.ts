@@ -8,6 +8,11 @@ import { UserResult } from "@shared/types";
 export class UserService {
     private readonly _databaseService: DatabaseService = new DatabaseService();
 
+    /**
+     * To determine if the user exists
+     * @param userId Finds the user based off the ID
+     * @returns True or false (does the user exist)
+     */
     public async findUserById(userId: number): Promise<boolean> {
         const connection: PoolConnection = await this._databaseService.openConnection();
 
@@ -28,6 +33,11 @@ export class UserService {
         }
     }
 
+    /**
+     * To determine if a user has registered already, using it's email
+     * @param email Finds the user based off the email
+     * @returns All records of the user
+     */
     public async findUserByEmail(email: string): Promise<UserResult | undefined> {
         const connection: PoolConnection = await this._databaseService.openConnection();
 
