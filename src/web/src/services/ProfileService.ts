@@ -46,3 +46,8 @@ export async function changePassword(userID: number, newPassword: string): Promi
         console.error("Wachtwoord veranderen is mislukt door: ", error);
     }
 }
+
+export function saveEditProfile(fname: string, lname: string, dob: string, gender: string, country?: string): void {
+    const countryString: string = country ?? "";
+    console.log(fname + lname + dob + gender + countryString + " is saved");
+}

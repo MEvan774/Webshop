@@ -13,7 +13,7 @@ export class ProfilePageComponent extends HTMLElement {
             this.render("<webshop-profile-editing></webshop-profile-editing>");
         });
 
-        this.shadowRoot?.addEventListener("save-profile", () => {
+        this.shadowRoot?.addEventListener("to-profile", () => {
             this.render("<webshop-profile></webshop-profile>");
         });
 

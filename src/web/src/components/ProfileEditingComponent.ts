@@ -1,5 +1,6 @@
 import { UserResult } from "@shared/types";
 import { BaseProfileComponent } from "./BaseProfileComponent";
+import { saveEditProfile } from "@web/services/ProfileService";
 
 export class ProfileEditingComponent extends BaseProfileComponent {
     private getGenderSelect(user: UserResult): string {
@@ -27,6 +28,50 @@ export class ProfileEditingComponent extends BaseProfileComponent {
         `;
 
         return genderSelect;
+    }
+
+    public async saveProfile(): Promise<void> {
+        const user: UserResult | null = await this.getCurrentUser();
+        if (!user) return;
+
+        const errorMessagePlace: HTMLParagraphElement | null | undefined =
+          this.shadowRoot?.querySelector<HTMLParagraphElement>("#profileEditError");
+
+        if (!errorMessagePlace) return;
+
+        const fnameInput: HTMLInputElement | null | undefined =
+          this.shadowRoot?.querySelector<HTMLInputElement>("#fnameEdit");
+        const lnameInput: HTMLInputElement | null | undefined =
+          this.shadowRoot?.querySelector<HTMLInputElement>("#lnameEdit");
+        const dobInput: HTMLInputElement | null | undefined =
+          this.shadowRoot?.querySelector<HTMLInputElement>("#dobEdit");
+        const genderInput: HTMLSelectElement | null | undefined =
+          this.shadowRoot?.querySelector<HTMLSelectElement>("#genderEdit");
+        const countryInput: HTMLInputElement | null | undefined =
+          this.shadowRoot?.querySelector<HTMLInputElement>("#countryEdit");
+
+        const fname: string | undefined = fnameInput?.value;
+        const lname: string | undefined = lnameInput?.value;
+        const dob: string | undefined = dobInput?.value;
+        const gender: string | undefined = genderInput?.value;
+        const country: string = countryInput?.value ?? "";
+
+        if (!fname || !lname || !dob || !gender) {
+            errorMessagePlace.innerHTML = "Alle velden naast locatie zijn verplicht";
+            return;
+        }
+
+        if (fname === user.firstname && lname === user.lastname && dob === user.dob &&
+          gender === user.gender && country === user.country) {
+            if (window.confirm("U heeft niks veranderd, wilt u toch terug naar uw profiel?")) {
+                this.dispatchEvent(new CustomEvent("to-profile", { bubbles: true }));
+            }
+            return;
+        }
+
+        if (window.confirm("Wilt u de veranderingen opslaan?")) {
+            saveEditProfile(fname, lname, dob, gender, country);
+        }
     }
 
     protected async render(): Promise<void> {
@@ -79,6 +124,8 @@ export class ProfileEditingComponent extends BaseProfileComponent {
             <button id="changePasswordButton">Wachtwoord wijzigen</button>
 
             <button id="editSaveButton">Bewerking opslaan</button>
+
+            <p id="profileEditError"></p>
         `;
 
         // Make an event for the changeEmailButton
@@ -88,7 +135,7 @@ export class ProfileEditingComponent extends BaseProfileComponent {
         this.setButtonEvents("changePasswordButton", "change-password");
 
         // Make an event for the editSaveButton
-        this.setButtonEvents("editSaveButton", "save-profile");
+        this.setButtonEvents("editSaveButton", "save-profile", "saveProfile");
     }
 }
 

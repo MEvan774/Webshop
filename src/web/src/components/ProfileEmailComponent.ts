@@ -29,7 +29,7 @@ export class ProfileEmailComponent extends BaseProfileComponent {
 
         if (window.confirm("Weet u zeker dat u uw email wil veranderen?")) {
             window.alert("Bevestig de wijziging via de mail in uw mailbox");
-            this.dispatchEvent(new CustomEvent("save-profile", { bubbles: true }));
+            this.dispatchEvent(new CustomEvent("to-profile", { bubbles: true }));
         }
     }
 
@@ -67,7 +67,7 @@ export class ProfileEmailComponent extends BaseProfileComponent {
         this.setButtonEvents("changeEmailSaveButton", "save-email", "emailSave");
 
         // Make an event for the changeEmailCancelButton
-        this.setButtonEvents("changeEmailCancelButton", "save-profile");
+        this.setButtonEvents("changeEmailCancelButton", "to-profile");
     }
 }
 

@@ -41,7 +41,7 @@ export class ProfilePasswordComponent extends BaseProfileComponent {
         if (window.confirm("Weet u zeker dat u uw wachtwoord wil wijzigen?")) {
             await changePassword(user.userId, newPassword);
             window.alert("Uw wachtwoord is gewijzigd.");
-            this.dispatchEvent(new CustomEvent("save-profile", { bubbles: true }));
+            this.dispatchEvent(new CustomEvent("to-profile", { bubbles: true }));
         }
     }
 
@@ -86,7 +86,7 @@ export class ProfilePasswordComponent extends BaseProfileComponent {
         this.setButtonEvents("changePasswordSaveButton", "save-password", "passwordSave");
 
         // Make an event for the changePasswordCancelButton
-        this.setButtonEvents("changePasswordCancelButton", "save-profile");
+        this.setButtonEvents("changePasswordCancelButton", "to-profile");
     }
 }
 
