@@ -44,6 +44,11 @@ export class RegisterService implements IRegisterService {
         return { valid: messages.length === 0, messages };
     }
 
+    /**
+     * Check whether an email exists in the system
+     * @param email Requires an email address
+     * @returns true or false to determine if an email is used already
+     */
     public async getUserByEmail(email: string): Promise<boolean> {
         try {
             const response: Response = await fetch(`${VITE_API_URL}user/exists?email=${encodeURIComponent(email)}`, {
@@ -65,27 +70,40 @@ export class RegisterService implements IRegisterService {
         }
     }
 
+    /**
+     * This function actually registers a user into the system after all other checks are completed
+     * @param fname Firstname field
+     * @param lname Lastname field
+     * @param email Email field
+     * @param gender Gender field
+     * @param dob DoB field
+     * @param password Password field
+     * @returns true or false based off success
+     */
     public async registerUser(fname: string, lname: string, email: string, dob: string, gender: string, password: string): Promise<boolean> {
         const userData: UserRegisterData = { firstname: fname, lastname: lname, email, dob, gender, password };
 
         try {
+            // Requires the route to navigate from Front-End to Backend
             const response: Response = await fetch(`${VITE_API_URL}user/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 credentials: "include",
+                // Sets the data into JSON format for the post-call to the server
                 body: JSON.stringify(userData),
             });
-
+            // Return error if response is not OK
             if (!response.ok) {
                 const errorText: string = await response.text();
-                throw new Error(`Failed to create user. Status: ${response.status}, Message: ${errorText}`);
+                throw new Error(`Error met gebruiker registreren. Status: ${response.status}, Bericht: ${errorText}`);
             }
-
+            // All OK: Account has been made
             console.log("Account succesvol aangemaakt!");
             return true;
         }
+        // Search for errors and provide details (such as code 500: server issue)
         catch (error: unknown) {
             if (error instanceof Error) {
                 console.error("Registratie mislukt:", error.message);
