@@ -5,7 +5,7 @@ import { UserController } from "./controllers/UserController";
 import { GamesController } from "./controllers/GamesController";
 import { getGameWithGameID } from "./services/CurrentGameService";
 import { GameResult, UserResult } from "@shared/types";
-import { getUser } from "./services/ProfileService";
+import { checkEmail, getUser } from "./services/ProfileService";
 import { changePassword } from "./services/ProfileService";
 
 // Create a router
@@ -98,3 +98,18 @@ router.get("/cart", (_req, _res) => {
 router.get("/user", (req, res) => userController.getData(req, res));
 
 router.post("/user/change-password", async (req, res) => await changePassword(req, res));
+
+router.get("/user/check-email/:email", async (req, res) => {
+    const { email } = req.params;
+    try {
+        // Call the service function to get the game data
+        const emailFree: boolean = await checkEmail(email);
+
+        // Respond with the game data
+        return res.json(emailFree);
+    }
+    catch (error) {
+        console.error("Email not free:", error);
+        return res.status(500).json({ error: "An error occurred while checking the email." });
+    }
+});

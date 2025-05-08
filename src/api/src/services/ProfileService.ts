@@ -56,3 +56,15 @@ export async function changePassword(req: Request<object, object, ChangePassword
         return false;
     }
 }
+
+export async function checkEmail(email: string): Promise<boolean> {
+    const userService: UserService = new UserService();
+
+    const isEmailFree: boolean = await userService.checkEmail(email);
+
+    if (isEmailFree) {
+        return true;
+    }
+
+    return false;
+}

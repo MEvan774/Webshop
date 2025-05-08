@@ -51,3 +51,20 @@ export function saveEditProfile(fname: string, lname: string, dob: string, gende
     const countryString: string = country ?? "";
     console.log(fname + lname + dob + gender + countryString + " is saved");
 }
+
+export async function isEmailUsed(email: string): Promise<boolean> {
+    const response: Response = await fetch(`http://localhost:3001/user/check-email/${email}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        credentials: "include",
+    });
+
+    if (!response.ok) {
+        return false;
+    }
+
+    const emailFree: boolean = await response.json() as boolean;
+    return emailFree;
+}

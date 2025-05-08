@@ -125,4 +125,22 @@ export class UserService {
             connection.release();
         }
     }
+
+    public async checkEmail(email: string): Promise<boolean> {
+        const connection: PoolConnection = await this._databaseService.openConnection();
+
+        try {
+            const result: UserResult[] = await this._databaseService.query<UserResult[]>(
+                connection, "SELECT * FROM user WHERE email = ?", email);
+            if (result.length > 0) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        finally {
+            connection.release();
+        }
+    }
 }

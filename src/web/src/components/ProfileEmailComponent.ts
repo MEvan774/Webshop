@@ -1,5 +1,6 @@
 import { UserResult } from "@shared/types";
 import { BaseProfileComponent } from "./BaseProfileComponent";
+import { isEmailUsed } from "@web/services/ProfileService";
 
 export class ProfileEmailComponent extends BaseProfileComponent {
     public async emailSave(): Promise<void> {
@@ -25,6 +26,19 @@ export class ProfileEmailComponent extends BaseProfileComponent {
 
         if (password !== user?.password) {
             errorMessagePlace.innerHTML = "Het ingevulde wachtwoord is incorrect";
+            return;
+        }
+
+        if (email === user.email) {
+            errorMessagePlace.innerHTML = "This is your current email";
+            return;
+        }
+
+        const emailFree: boolean = await isEmailUsed(email);
+
+        if (!emailFree) {
+            errorMessagePlace.innerHTML = "This email is already in use";
+            return;
         }
 
         if (window.confirm("Weet u zeker dat u uw email wil veranderen?")) {
