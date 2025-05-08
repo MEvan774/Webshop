@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { LoginData, UserRegisterData, UserResult } from "@shared/types";
+import { LoginData, UserEditData, UserRegisterData, UserResult } from "@shared/types";
 import { UserService } from "../services/UserService";
 import { SessionService } from "@api/services/SessionService";
 
@@ -115,6 +115,39 @@ export class UserController {
             console.error("Registratie mislukt:", error);
             res.status(500).json({
                 error: "Fout bij het registreren van de gebruiker.",
+                details: error instanceof Error ? error.message : error,
+            });
+        }
+    }
+
+    public async editUser(req: Request<unknown, unknown, UserEditData>, res: Response): Promise<void> {
+        // const { userId, fname, lname, dob, gender, country }: UserEditData = req.body as UserEditData;
+        const body: UserEditData = req.body;
+
+        try {
+            if (
+                typeof body.userId === "number" &&
+                typeof body.fname === "string" &&
+                typeof body.lname === "string" &&
+                typeof body.dob === "string" &&
+                typeof body.gender === "string" &&
+                typeof body.country === "string"
+            ) {
+                await this._userService.editUser(
+                    body.userId, body.fname, body.lname, body.dob, body.gender, body.country);
+
+                // Gebruiker succesvol geregistreerd, geef een 201 status terug
+                res.status(200).json({ message: "Gebruiker succesvol geregistreerd!" });
+            }
+            else {
+                // Als het niet gelukt is, stuur een foutmelding terug
+                res.status(500).json({ error: "Er is iets misgegaan bij het bewerken van de gebruiker." });
+            }
+        }
+        catch (error: unknown) {
+            console.error("Bewerking mislukt:", error);
+            res.status(500).json({
+                error: "Fout bij het bewerken van de gebruiker.",
                 details: error instanceof Error ? error.message : error,
             });
         }

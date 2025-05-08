@@ -70,7 +70,16 @@ export class ProfileEditingComponent extends BaseProfileComponent {
         }
 
         if (window.confirm("Wilt u de veranderingen opslaan?")) {
-            saveEditProfile(fname, lname, dob, gender, country);
+            const isSaved: boolean = await saveEditProfile(user.userId, fname, lname, dob, gender, country);
+
+            if (!isSaved) {
+                errorMessagePlace.innerHTML =
+                "Er is iets misgegaan met het wijzigen van uw gegevens, probeer later opnieuw.";
+                return;
+            }
+
+            window.alert("Uw gegevens zijn gewijzigd.");
+            this.dispatchEvent(new CustomEvent("to-profile", { bubbles: true }));
         }
     }
 

@@ -143,4 +143,35 @@ export class UserService {
             connection.release();
         }
     }
+
+    public async editUser(userId: number, fname: string, lname: string, dob: string, gender: string, country: string): Promise<string | undefined> {
+        const connection: PoolConnection = await this._databaseService.openConnection();
+        try {
+            const result: ResultSetHeader = await this._databaseService.query<ResultSetHeader>(
+                connection,
+                `UPDATE \`user\`
+                    SET
+                        firstname = ?,
+                        lastname = ?,
+                        dob = ?,
+                        gender = ?,
+                        country = ?
+                    WHERE userId = ?;`,
+                [fname, lname, dob, gender, country, userId]
+            );
+
+            if (result.affectedRows > 0) {
+                return "succes";
+            }
+            else {
+                throw new Error("Failed to update user, no rows affected.");
+            }
+        }
+        catch (e: unknown) {
+            throw new Error(`Failed to edit user: ${e instanceof Error ? e.message : "Unknown error"}`);
+        }
+        finally {
+            connection.release();
+        }
+    }
 }

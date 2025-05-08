@@ -57,7 +57,8 @@ export class DatabaseService {
         query: string,
         ...values: unknown[]
     ): Promise<T> {
-        const [queryResult] = await connection.query(query, values);
+        const [queryResult] = await connection.query(
+            query, values.length === 1 && Array.isArray(values[0]) ? values[0] : values);
 
         return queryResult as T;
     }

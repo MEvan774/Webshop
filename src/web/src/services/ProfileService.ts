@@ -1,4 +1,4 @@
-import { UserResult } from "@shared/types";
+import { UserEditData, UserResult } from "@shared/types";
 
 export async function getUser(): Promise<UserResult | null> {
     const sessionID: string = sessionStorage.getItem("sessionData") || "0";
@@ -47,9 +47,34 @@ export async function changePassword(userID: number, newPassword: string): Promi
     }
 }
 
-export function saveEditProfile(fname: string, lname: string, dob: string, gender: string, country?: string): void {
-    const countryString: string = country ?? "";
-    console.log(fname + lname + dob + gender + countryString + " is saved");
+export async function saveEditProfile(
+    userId: number, fname: string, lname: string, dob: string, gender: string, countryString?: string
+): Promise<boolean> {
+    const country: string = countryString ?? "";
+
+    const userData: UserEditData = { userId, fname, lname, dob, gender, country };
+
+    try {
+        const response: Response = await fetch("http://localhost:3001/user/edit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify(userData),
+        });
+
+        if (!response.ok) {
+            return false;
+        }
+
+        await response.json() as string;
+        return true;
+    }
+    catch (error: unknown) {
+        console.error(error);
+        return false;
+    }
 }
 
 export async function isEmailUsed(email: string): Promise<boolean> {

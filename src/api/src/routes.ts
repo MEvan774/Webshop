@@ -113,3 +113,5 @@ router.get("/user/check-email/:email", async (req, res) => {
         return res.status(500).json({ error: "An error occurred while checking the email." });
     }
 });
+
+router.post("/user/edit", async (req, res) => await userController.editUser(req, res));
