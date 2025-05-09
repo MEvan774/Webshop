@@ -7,6 +7,7 @@ import { getGameWithGameID } from "./services/CurrentGameService";
 import { GameResult, UserResult } from "@shared/types";
 import { checkEmail, getUser } from "./services/ProfileService";
 import { changePassword } from "./services/ProfileService";
+import { TokenController } from "./controllers/TokenController";
 
 // Create a router
 export const router: Router = Router();
@@ -20,6 +21,20 @@ router.get("/", (_, res) => {
 const welcomeController: WelcomeController = new WelcomeController();
 const userController: UserController = new UserController();
 const gamesController: GamesController = new GamesController();
+const tokenController: TokenController = new TokenController();
+
+// Check token after clicking link
+router.get("/token/:token", async (req, res) => {
+    const { token } = req.params;
+
+    const userId: number | undefined = await tokenController.checkToken(token);
+
+    if (userId) {
+        return res.json(userId);
+    }
+
+    return res.status(404).json({ error: "Token not found" });
+});
 
 // Get current game
 router.get("/games/:gameID", async (req, res) => {
@@ -115,3 +130,5 @@ router.get("/user/check-email/:email", async (req, res) => {
 });
 
 router.post("/user/edit", async (req, res) => await userController.editUser(req, res));
+
+router.post("/token", async (req, res) => tokenController.createToken(req, res));

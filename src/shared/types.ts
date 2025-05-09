@@ -89,3 +89,12 @@ export type UserEditData = {
     gender: string;
     country: string;
 };
+
+/**
+ * Represents a token
+ */
+export type TokenData = {
+    token: string;
+    userId: number;
+    email: string;
+};

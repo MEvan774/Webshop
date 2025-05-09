@@ -44,8 +44,8 @@ export class ProfileEmailComponent extends BaseProfileComponent {
 
         if (window.confirm("Weet u zeker dat u uw email wil veranderen?")) {
             window.alert("Bevestig de wijziging via de mail in uw mailbox");
-            await sendEmail("changeEmailNew", user.firstname + " " + user.lastname, email);
-            await sendEmail("changeEmailOld", user.firstname + " " + user.lastname, user.email, email);
+            await sendEmail(user.userId, "changeEmailNew", user.firstname + " " + user.lastname, email);
+            // await sendEmail(user.userId, "changeEmailOld", user.firstname + " " + user.lastname, user.email, email);
             this.dispatchEvent(new CustomEvent("to-profile", { bubbles: true }));
         }
     }
