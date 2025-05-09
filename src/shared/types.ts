@@ -84,3 +84,12 @@ export type GameResult = {
     /** The reviews of the game */
     reviews: string[] | null;
 };
+
+export type UserEditData = {
+    userId: number;
+    fname: string;
+    lname: string;
+    dob: string;
+    gender: string;
+    country: string;
+};
