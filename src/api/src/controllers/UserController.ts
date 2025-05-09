@@ -15,6 +15,11 @@ interface LogoutRequest extends Request {
     body: { sessionId: string };
 }
 
+interface ChangeEmailBody {
+    userId: number;
+    email: string;
+}
+
 export class UserController {
     private readonly _userService: UserService = new UserService();
     private readonly _sessionService: SessionService = new SessionService();
@@ -150,6 +155,33 @@ export class UserController {
                 error: "Fout bij het bewerken van de gebruiker.",
                 details: error instanceof Error ? error.message : error,
             });
+        }
+    }
+
+    public async changeEmail(req: Request<object, object, ChangeEmailBody>, res: Response): Promise<boolean> {
+        const userService: UserService = new UserService();
+        const { userId, email } = req.body;
+
+        if (!userId || !email) {
+            res.status(400).json({ error: "Missing userID or email" });
+            return false;
+        }
+
+        try {
+            const result: boolean = await userService.changeEmail(userId.toString(), email);
+
+            if (!result) {
+                res.status(404).json({ error: "User not found or update failed" });
+                return false;
+            }
+
+            res.sendStatus(200);
+            return true;
+        }
+        catch (err) {
+            console.error("Error updating email:", err);
+            res.status(500).json({ error: "Internal server error" });
+            return false;
         }
     }
 }

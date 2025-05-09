@@ -174,4 +174,24 @@ export class UserService {
             connection.release();
         }
     }
+
+    public async changeEmail(userId: string, email: string): Promise<boolean> {
+        const connection: PoolConnection = await this._databaseService.openConnection();
+
+        try {
+            // Use parameterized query to prevent SQL injection
+            const result: ResultSetHeader = await this._databaseService.query(connection,
+                "UPDATE user SET email = ? WHERE userId = ?",
+                email, userId
+            );
+
+            return result.affectedRows > 0;
+        }
+        catch (e: unknown) {
+            throw new Error(`Error changing email: ${e}`);
+        }
+        finally {
+            connection.release();
+        }
+    }
 }

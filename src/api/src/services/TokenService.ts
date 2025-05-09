@@ -28,17 +28,12 @@ export class TokenService {
         }
     }
 
-    public async checkToken(token: string): Promise<number | undefined> {
+    public async checkToken(token: string): Promise<TokenData | undefined> {
         const connection: PoolConnection = await this._databaseService.openConnection();
 
         try {
             const result: TokenData[] = await this._databaseService.query<TokenData[]>(connection, "SELECT * FROM token WHERE token = ?", [token]);
-            if (result.length > 0) {
-                return result[0].userId;
-            }
-            else {
-                return;
-            }
+            return result[0];
         }
         catch (e: unknown) {
             throw new Error(`Token is invalid: ${e instanceof Error ? e.message : "Unknown error"}`);

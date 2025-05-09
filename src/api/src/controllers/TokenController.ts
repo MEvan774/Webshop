@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { TokenService } from "@api/services/tokenService";
 import { TokenData } from "@shared/types";
+import { TokenService } from "@api/services/TokenService";
 
 interface TokenDataRequest extends Request {
     body: TokenData;
@@ -34,14 +34,7 @@ export class TokenController {
         }
     }
 
-    public async checkToken(token: string): Promise<number | undefined> {
-        const userId: number | undefined = await this._tokenService.checkToken(token);
-
-        if (userId) {
-            return userId;
-        }
-        else {
-            return;
-        }
+    public async checkToken(token: string): Promise<TokenData | undefined> {
+        return await this._tokenService.checkToken(token);
     }
 }

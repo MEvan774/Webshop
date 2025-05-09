@@ -4,7 +4,7 @@ import { requireValidSessionMiddleware, sessionMiddleware } from "./middleware/s
 import { UserController } from "./controllers/UserController";
 import { GamesController } from "./controllers/GamesController";
 import { getGameWithGameID } from "./services/CurrentGameService";
-import { GameResult, UserResult } from "@shared/types";
+import { GameResult, TokenData, UserResult } from "@shared/types";
 import { checkEmail, getUser } from "./services/ProfileService";
 import { changePassword } from "./services/ProfileService";
 import { TokenController } from "./controllers/TokenController";
@@ -27,14 +27,16 @@ const tokenController: TokenController = new TokenController();
 router.get("/token/:token", async (req, res) => {
     const { token } = req.params;
 
-    const userId: number | undefined = await tokenController.checkToken(token);
+    const TokenData: TokenData | undefined = await tokenController.checkToken(token);
 
-    if (userId) {
-        return res.json(userId);
+    if (!TokenData) {
+        return res.status(404).json({ error: "Game not found" });
     }
 
-    return res.status(404).json({ error: "Token not found" });
+    return res.json(TokenData);
 });
+
+router.post("/user/change-email", async (req, res) => await userController.changeEmail(req, res));
 
 // Get current game
 router.get("/games/:gameID", async (req, res) => {

@@ -1,37 +1,83 @@
 const params: URLSearchParams = new URLSearchParams(window.location.search);
 const token: string | null = params.get("token");
 const statusEl: HTMLElement | null = document.getElementById("status");
+const bevestigKnop: HTMLElement | null = document.getElementById("emailConfirmButton");
+const bevestigDiv: HTMLElement | null = document.getElementById("emailConfirmDiv");
 
-if (statusEl) {
-    if (!token) {
-        statusEl.textContent = "Geen token gevonden.";
-    }
-    else {
-        try {
-            const response: Response = await fetch(`http://localhost:3001/token/${token}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            });
+interface TokenData {
+    email: string;
+    userId: number;
+    token: string;
+}
 
-            if (!response.ok) {
-                statusEl.innerHTML = "Token is not found.";
+if (statusEl && bevestigKnop && bevestigDiv) {
+    bevestigKnop.addEventListener("click", async () => {
+        if (!token) {
+            statusEl.textContent = "Geen token gevonden.";
+        }
+        else {
+            const tokenData: TokenData | boolean = await checkToken(token);
+
+            if (typeof tokenData === "boolean") {
+                statusEl.innerHTML = "Token is niet geldig.";
             }
+            else {
+                await changeEmail(tokenData.email, tokenData.userId);
 
-            const userId: number = await response.json() as number;
-
-            console.log(userId);
-
-            if (typeof userId === "number" && !isNaN(userId)) {
+                bevestigDiv.innerHTML = "";
                 statusEl.innerHTML =
-                "Token is validated! The email has been changed. Click <a href='/login.html'>here</a> to log in.";
+                "De email is gewijzigd! Klik <a href='/login.html'>hier</a> om in te loggen.";
             }
         }
-        catch (error: unknown) {
-            console.error("Token opslaan is mislukt door: ", error);
-            statusEl.innerHTML = "Token is not found.";
+    });
+}
+
+async function checkToken(token: string): Promise<TokenData | boolean> {
+    try {
+        const response: Response = await fetch(`http://localhost:3001/token/${token}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+        });
+
+        if (!response.ok) {
+            return false;
         }
+
+        const tokenData: TokenData | undefined = await response.json() as TokenData | undefined;
+
+        if (tokenData) {
+            return tokenData;
+        }
+
+        return false;
+    }
+    catch (error: unknown) {
+        console.error("Token opslaan is mislukt door: ", error);
+        return false;
+    }
+}
+
+async function changeEmail(email: string, userId: number): Promise<void> {
+    try {
+        const response: Response = await fetch("http://localhost:3001/user/change-email", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({ userId, email }),
+        });
+
+        if (!response.ok) {
+            const error: string = await response.text();
+            console.error("Failed to change email:", error);
+            return;
+        }
+    }
+    catch (error: unknown) {
+        console.error("Email veranderen is mislukt door: ", error);
     }
 }
