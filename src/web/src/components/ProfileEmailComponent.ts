@@ -1,6 +1,7 @@
 import { UserResult } from "@shared/types";
 import { BaseProfileComponent } from "./BaseProfileComponent";
-import { isEmailUsed, sendEmail } from "@web/services/ProfileService";
+import { isEmailUsed } from "@web/services/ProfileService";
+import { sendEmail } from "@web/services/EmailService";
 
 export class ProfileEmailComponent extends BaseProfileComponent {
     public async emailSave(): Promise<void> {
@@ -43,7 +44,8 @@ export class ProfileEmailComponent extends BaseProfileComponent {
 
         if (window.confirm("Weet u zeker dat u uw email wil veranderen?")) {
             window.alert("Bevestig de wijziging via de mail in uw mailbox");
-            await sendEmail(user.firstname + " " + user.lastname, email);
+            await sendEmail("changeEmailNew", user.firstname + " " + user.lastname, email);
+            await sendEmail("changeEmailOld", user.firstname + " " + user.lastname, user.email, email);
             this.dispatchEvent(new CustomEvent("to-profile", { bubbles: true }));
         }
     }
