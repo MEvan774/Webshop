@@ -3,6 +3,7 @@ import { LoginData, UserRegisterData, UserResult } from "@shared/types";
 import { UserService } from "../services/UserService";
 import { SessionService } from "@api/services/SessionService";
 import bcrypt from "bcryptjs";
+import { randomBytes } from "crypto";
 
 interface UserRegisterRequest extends Request {
     body: UserRegisterData;
@@ -50,6 +51,10 @@ export class UserController {
             if (!matchPassword) {
                 res.status(401).json({ error: "Ongeldige inloggegevens." });
                 return;
+            }
+
+            if (!user.isVerified) {
+                throw new Error("Je account is nog niet geverifieerd. Controleer je email om je account te verifiëren.");
             }
 
             const sessionId: string | undefined = await this._sessionService.createSession(user.userId);
@@ -109,17 +114,15 @@ export class UserController {
     public async registerUser(req: UserRegisterRequest, res: Response): Promise<void> {
         const { firstname, lastname, email, dob, gender, password }: UserRegisterData = req.body;
         const hashedPassword: string = await bcrypt.hash(password, 10);
+        const verificationToken: string = randomBytes(32).toString("hex");
 
         try {
-            // Roep de registerUser methode van de UserService aan
-            const userId: string | undefined = await this._userService.registerUser(firstname, lastname, email, dob, gender, hashedPassword);
+            const userId: string | undefined = await this._userService.registerUser(firstname, lastname, email, dob, gender, hashedPassword, verificationToken);
 
             if (userId) {
-                // Gebruiker succesvol geregistreerd, geef een 201 status terug
-                res.status(201).json({ message: "Gebruiker succesvol geregistreerd!", userId });
+                res.status(201).json({ message: "Gebruiker succesvol geregistreerd!", userId, verificationToken });
             }
             else {
-                // Als het niet gelukt is, stuur een foutmelding terug
                 res.status(500).json({ error: "Er is iets misgegaan bij het registreren van de gebruiker." });
             }
         }

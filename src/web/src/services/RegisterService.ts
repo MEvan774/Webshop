@@ -1,4 +1,4 @@
-import { UserRegisterData } from "@shared/types";
+import { UserRegisterData, UserRegistrationResponse } from "@shared/types";
 import { IRegisterService } from "@web/interfaces/IRegisterService";
 import { EmailService } from "@web/services/EmailService";
 
@@ -86,35 +86,42 @@ export class RegisterService implements IRegisterService {
      * @returns true or false based off success
      */
     public async registerUser(fname: string, lname: string, email: string, dob: string, gender: string, password: string): Promise<boolean> {
-        const userData: UserRegisterData = { firstname: fname, lastname: lname, email, dob, gender, password };
+        const userData: UserRegisterData = {
+            firstname: fname, lastname: lname, email, dob, gender, password,
+            verificationToken: undefined,
+            isVerified: undefined,
+        };
         const emailService: EmailService = new EmailService();
+
         try {
-            // Requires the route to navigate from Front-End to Backend
             const response: Response = await fetch(`${VITE_API_URL}user/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 credentials: "include",
-                // Sets the data into JSON format for the post-call to the server
                 body: JSON.stringify(userData),
             });
-            // Return error if response is not OK
+
             if (response.status === 200) {
                 console.log("De gebruiker bestaat");
                 return true;
             }
-            // All OK: Account has been made
+
             console.log("Account succesvol aangemaakt!");
+            const responseData: UserRegistrationResponse = await response.json() as UserRegistrationResponse;
+            const verificationToken: string = responseData.verificationToken;
+            const verifyUrl: string = `http://localhost:3000/verify?token=${verificationToken}`;
+
             await emailService.sendEmail(
                 fname,
                 email,
                 "Welkom bij Starshop",
-                `<h1>Welkom ${fname}!</h1>, <p>Bedankt voor het registreren bij Starshop.</p>`
+                `<h1>Welkom ${fname} ${lname}!</h1><p>Bedankt voor het registreren bij Starshop.</p><p>Klik <a href="${verifyUrl}">hier</a> om je registratie te bevestigen. LET OP: Pas na het bevestigen van de registratie kan je inloggen.</p>`
             );
+
             return true;
         }
-        // Search for errors and provide details (such as code 500: server issue)
         catch (error: unknown) {
             if (error instanceof Error) {
                 console.error("Registratie mislukt:", error.message);
