@@ -56,16 +56,20 @@ export class RegisterService implements IRegisterService {
                 credentials: "include",
             });
 
-            if (!response.ok) {
-                const errorText: string = await response.text();
-                throw new Error(`Failed to locate user. Status: ${response.status}, Message: ${errorText}`);
+            if (response.status === 200) {
+                console.log("De gebruiker bestaat");
+                return true;
             }
 
-            console.log("De gebruiker bestaat");
-            return true;
+            if (response.status === 404) {
+                console.log("De gebruiker bestaat niet");
+                return false;
+            }
+
+            throw new Error(`Onverwachte statuscode: ${response.status}`);
         }
         catch (error) {
-            console.log("Bestaande gebruiker zoeken is mislukt", error);
+            console.log("Bestaande gebruiker zoeken is mislukt:", error);
             return false;
         }
     }
@@ -82,7 +86,6 @@ export class RegisterService implements IRegisterService {
      */
     public async registerUser(fname: string, lname: string, email: string, dob: string, gender: string, password: string): Promise<boolean> {
         const userData: UserRegisterData = { firstname: fname, lastname: lname, email, dob, gender, password };
-
         try {
             // Requires the route to navigate from Front-End to Backend
             const response: Response = await fetch(`${VITE_API_URL}user/register`, {
