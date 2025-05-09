@@ -83,6 +83,10 @@ export class ProfileEditingComponent extends BaseProfileComponent {
         }
     }
 
+    public async changeProfilePicture(): Promise<void> {
+        console.log("edit");
+    }
+
     protected async render(): Promise<void> {
         if (!this.shadowRoot) {
             return;
@@ -105,7 +109,8 @@ export class ProfileEditingComponent extends BaseProfileComponent {
             <link rel="stylesheet" href="/assets/css/currentGame.css">
             <div id="profilePictureEditDiv">
                 <img id="profilePicture" src="${profilePicture}" width="500px"><br>
-                <button id="profilePictureEditButton">Profielfoto wijzigen</button>
+                <input type="file" id="profilePictureButton" style="display: none;" accept="image/*"/>
+                <label for="profileUpload" class="upload-button">Upload Profile Picture</label>
             </div>
 
             <div>
@@ -136,6 +141,9 @@ export class ProfileEditingComponent extends BaseProfileComponent {
 
             <p id="profileEditError"></p>
         `;
+
+        // Make an event for the profilePictureButton
+        this.setButtonEvents("profilePictureButton", "edit-picture", "changeProfilePicture");
 
         // Make an event for the changeEmailButton
         this.setButtonEvents("changeEmailButton", "change-email");
