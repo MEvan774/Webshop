@@ -1,5 +1,6 @@
 import { UserRegisterData } from "@shared/types";
 import { IRegisterService } from "@web/interfaces/IRegisterService";
+import { EmailService } from "@web/services/EmailService";
 
 /**
  * Here all register-logic is placed
@@ -86,6 +87,7 @@ export class RegisterService implements IRegisterService {
      */
     public async registerUser(fname: string, lname: string, email: string, dob: string, gender: string, password: string): Promise<boolean> {
         const userData: UserRegisterData = { firstname: fname, lastname: lname, email, dob, gender, password };
+        const emailService: EmailService = new EmailService();
         try {
             // Requires the route to navigate from Front-End to Backend
             const response: Response = await fetch(`${VITE_API_URL}user/register`, {
@@ -104,6 +106,12 @@ export class RegisterService implements IRegisterService {
             }
             // All OK: Account has been made
             console.log("Account succesvol aangemaakt!");
+            await emailService.sendEmail(
+                fname,
+                email,
+                "Welkom bij Starshop",
+                `<h1>Welkom ${fname}!</h1>, <p>Bedankt voor het registreren bij Starshop.</p>`
+            );
             return true;
         }
         // Search for errors and provide details (such as code 500: server issue)
