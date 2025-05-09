@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import { LoginData, UserRegisterData, UserResult } from "@shared/types";
 import { UserService } from "../services/UserService";
 import { SessionService } from "@api/services/SessionService";
-import { randomBytes, createHash } from "crypto";
-import bcrypt from "bcryptjs";
 
 interface UserRegisterRequest extends Request {
     body: UserRegisterData;
@@ -46,14 +44,10 @@ export class UserController {
                 res.status(401).json({ error: "Ongeldige inloggegevens." });
                 return;
             }
+            // ✅ Create a new session
+            const sessionId: string | undefined = await this._sessionService.createSession(user.userId); // you need this method
 
-            const matchPassword: boolean = await bcrypt.compare(password, user.password);
-            if (!matchPassword) {
-                res.status(401).json({ error: "Ongeldige inloggegevens." });
-                return;
-            }
-
-            const sessionId: string | undefined = await this._sessionService.createSession(user.userId);
+            // ✅ Set it as cookie or return in header
             res.cookie("session", sessionId, { httpOnly: true, secure: false }); // adjust for production
             res.status(200).json({ message: "Login succesvol." });
         }
@@ -84,12 +78,6 @@ export class UserController {
         }
     }
 
-    /**
-     * This function calls on the database to find a user based off the email
-     * @param req This function has to have a request
-     * @param res This function has to have a response
-     * @returns void
-     */
     public async getUserByEmail(req: Request, res: Response): Promise<void> {
         const email: string = req.query.email as string;
 
@@ -100,36 +88,26 @@ export class UserController {
 
         try {
             const user: UserResult | undefined = await this._userService.findUserByEmail(email);
-
-            if (!user) {
-                res.status(404).json({ error: "Gebruiker niet gevonden" }); // ← duidelijke status
-                return;
-            }
-
-            res.status(200).json(user); // alleen als user er is
+            res.status(200).json(user);
         }
         catch (e: unknown) {
             res.status(500).json({ error: "Failed to fetch user", details: e instanceof Error ? e.message : "Unknown error" });
         }
     }
 
-    /**
-     * This function calls on the database to insert the new user
-     * @param req This function has to have a request
-     * @param res This function has to have a response
-     */
     public async registerUser(req: UserRegisterRequest, res: Response): Promise<void> {
         const { firstname, lastname, email, dob, gender, password }: UserRegisterData = req.body;
-        const salt: string = randomBytes(16).toString("hex");
-        const hashedPassword: string = createHash("sha256").update(password + salt).digest("hex");
 
         try {
-            const userId: string | undefined = await this._userService.registerUser(firstname, lastname, email, dob, gender, hashedPassword);
+            // Roep de registerUser methode van de UserService aan
+            const userId: string | undefined = await this._userService.registerUser(firstname, lastname, email, dob, gender, password);
 
             if (userId) {
+                // Gebruiker succesvol geregistreerd, geef een 201 status terug
                 res.status(201).json({ message: "Gebruiker succesvol geregistreerd!", userId });
             }
             else {
+                // Als het niet gelukt is, stuur een foutmelding terug
                 res.status(500).json({ error: "Er is iets misgegaan bij het registreren van de gebruiker." });
             }
         }
@@ -141,4 +119,40 @@ export class UserController {
             });
         }
     }
+
+    /*
+    public async editUser(req: Request<unknown, unknown, UserEditData>, res: Response): Promise<void> {
+        console.log("Incoming request body:", req.body);
+        // const { userId, fname, lname, dob, gender, country }: UserEditData = req.body as UserEditData;
+        const body: UserEditData = req.body;
+
+        try {
+            if (
+                typeof body.userId === "number" &&
+                typeof body.fname === "string" &&
+                typeof body.lname === "string" &&
+                typeof body.dob === "string" &&
+                typeof body.gender === "string" &&
+                typeof body.country === "string"
+            ) {
+                await this._userService.editUser(
+                    body.userId, body.fname, body.lname, body.dob, body.gender, body.country);
+
+                // Gebruiker succesvol geregistreerd, geef een 201 status terug
+                res.status(200).json({ message: "Gebruiker succesvol geregistreerd!" });
+            }
+            else {
+                // Als het niet gelukt is, stuur een foutmelding terug
+                res.status(500).json({ error: "Er is iets misgegaan bij het bewerken van de gebruiker." });
+            }
+        }
+        catch (error: unknown) {
+            console.error("Bewerking mislukt:", error);
+            res.status(500).json({
+                error: "Fout bij het bewerken van de gebruiker.",
+                details: error instanceof Error ? error.message : error,
+            });
+        }
+    }
+    */
 }

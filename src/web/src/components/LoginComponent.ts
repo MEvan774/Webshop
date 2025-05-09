@@ -39,6 +39,13 @@ export class LoginComponent extends HTMLElement {
             </form>
     `;
 
+        const styleLink: HTMLLinkElement = document.createElement("link");
+        styleLink.setAttribute("rel", "stylesheet");
+        styleLink.setAttribute("href", "/assets/css/loginPage.css");
+
+        this.shadowRoot.firstChild?.remove();
+        this.shadowRoot.appendChild(styleLink);
+
         this.shadowRoot.innerHTML = "";
         this.shadowRoot.appendChild(element);
         const emailInput: HTMLInputElement | null = this.shadowRoot.querySelector("#email");
@@ -68,13 +75,6 @@ export class LoginComponent extends HTMLElement {
                 });
             }
         }
-
-        const styleLink: HTMLLinkElement = document.createElement("link");
-        styleLink.setAttribute("rel", "stylesheet");
-        styleLink.setAttribute("href", "/assets/css/loginPage.css");
-
-        this.shadowRoot.firstChild?.remove();
-        this.shadowRoot.appendChild(styleLink);
     }
 }
 
