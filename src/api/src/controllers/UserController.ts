@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { LoginData, UserRegisterData, UserResult } from "@shared/types";
 import { UserService } from "../services/UserService";
 import { SessionService } from "@api/services/SessionService";
+import { randomBytes, createHash } from "crypto";
+import bcrypt from "bcryptjs";
 
 interface UserRegisterRequest extends Request {
     body: UserRegisterData;
@@ -44,7 +46,14 @@ export class UserController {
                 res.status(401).json({ error: "Ongeldige inloggegevens." });
                 return;
             }
-            const sessionId: string | undefined = await this._sessionService.createSession(user.userId); // you need this method
+
+            const matchPassword: boolean = await bcrypt.compare(password, user.password);
+            if (!matchPassword) {
+                res.status(401).json({ error: "Ongeldige inloggegevens." });
+                return;
+            }
+
+            const sessionId: string | undefined = await this._sessionService.createSession(user.userId);
             res.cookie("session", sessionId, { httpOnly: true, secure: false }); // adjust for production
             res.status(200).json({ message: "Login succesvol." });
         }
@@ -91,7 +100,13 @@ export class UserController {
 
         try {
             const user: UserResult | undefined = await this._userService.findUserByEmail(email);
-            res.status(200).json(user);
+
+            if (!user) {
+                res.status(404).json({ error: "Gebruiker niet gevonden" }); // ← duidelijke status
+                return;
+            }
+
+            res.status(200).json(user); // alleen als user er is
         }
         catch (e: unknown) {
             res.status(500).json({ error: "Failed to fetch user", details: e instanceof Error ? e.message : "Unknown error" });
@@ -105,9 +120,11 @@ export class UserController {
      */
     public async registerUser(req: UserRegisterRequest, res: Response): Promise<void> {
         const { firstname, lastname, email, dob, gender, password }: UserRegisterData = req.body;
+        const salt: string = randomBytes(16).toString("hex");
+        const hashedPassword: string = createHash("sha256").update(password + salt).digest("hex");
 
         try {
-            const userId: string | undefined = await this._userService.registerUser(firstname, lastname, email, dob, gender, password);
+            const userId: string | undefined = await this._userService.registerUser(firstname, lastname, email, dob, gender, hashedPassword);
 
             if (userId) {
                 res.status(201).json({ message: "Gebruiker succesvol geregistreerd!", userId });
