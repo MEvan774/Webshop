@@ -93,3 +93,30 @@ export async function isEmailUsed(email: string): Promise<boolean> {
     const emailFree: boolean = await response.json() as boolean;
     return emailFree;
 }
+
+export async function sendEmail(name: string, email: string): Promise<void> {
+    const response: Response = await fetch("https://api.hbo-ict.cloud/mail", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "pb4sef2425_naagooxeekuu77.h6itSLok4uSdXIdG",
+        },
+        body: JSON.stringify({
+            from: {
+                name: "Starshop",
+                address: "anne.bakker3@hva.nl",
+            },
+            to: [
+                {
+                    name: name,
+                    address: email,
+                },
+            ],
+            subject: "Just a test!",
+            html: `<h1>Goededag!</h1><p>Dit is een confirmatie dat u uw email heeft gewijzigd naar: ${email}. Als dit klopt, klik op deze link: </p>`,
+        }),
+    });
+
+    const data: unknown = await response.json();
+    console.log("Response:", data);
+};
