@@ -98,9 +98,9 @@ export class RegisterService implements IRegisterService {
                 body: JSON.stringify(userData),
             });
             // Return error if response is not OK
-            if (!response.ok) {
-                const errorText: string = await response.text();
-                throw new Error(`Error met gebruiker registreren. Status: ${response.status}, Bericht: ${errorText}`);
+            if (response.status === 200) {
+                console.log("De gebruiker bestaat");
+                return true;
             }
             // All OK: Account has been made
             console.log("Account succesvol aangemaakt!");

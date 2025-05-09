@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { LoginData, UserRegisterData, UserResult } from "@shared/types";
 import { UserService } from "../services/UserService";
 import { SessionService } from "@api/services/SessionService";
+import bcrypt from "bcryptjs";
 
 interface UserRegisterRequest extends Request {
     body: UserRegisterData;
@@ -40,15 +41,20 @@ export class UserController {
         try {
             const user: UserResult | undefined = await this._userService.findUserByEmail(email);
 
-            if (!user || password !== user.password) {
+            if (!user) {
                 res.status(401).json({ error: "Ongeldige inloggegevens." });
                 return;
             }
-            // ✅ Create a new session
-            const sessionId: string | undefined = await this._sessionService.createSession(user.userId); // you need this method
 
-            // ✅ Set it as cookie or return in header
-            res.cookie("session", sessionId, { httpOnly: true, secure: false }); // adjust for production
+            const matchPassword: boolean = await bcrypt.compare(password, user.password);
+            if (!matchPassword) {
+                res.status(401).json({ error: "Ongeldige inloggegevens." });
+                return;
+            }
+
+            const sessionId: string | undefined = await this._sessionService.createSession(user.userId);
+
+            res.cookie("session", sessionId, { httpOnly: true, secure: false });
             res.status(200).json({ message: "Login succesvol." });
         }
         catch (error: unknown) {
@@ -88,6 +94,11 @@ export class UserController {
 
         try {
             const user: UserResult | undefined = await this._userService.findUserByEmail(email);
+            if (!user) {
+                res.status(404).json({ error: "Gebruiker niet gevonden" });
+                return;
+            }
+
             res.status(200).json(user);
         }
         catch (e: unknown) {
@@ -97,10 +108,11 @@ export class UserController {
 
     public async registerUser(req: UserRegisterRequest, res: Response): Promise<void> {
         const { firstname, lastname, email, dob, gender, password }: UserRegisterData = req.body;
+        const hashedPassword: string = await bcrypt.hash(password, 10);
 
         try {
             // Roep de registerUser methode van de UserService aan
-            const userId: string | undefined = await this._userService.registerUser(firstname, lastname, email, dob, gender, password);
+            const userId: string | undefined = await this._userService.registerUser(firstname, lastname, email, dob, gender, hashedPassword);
 
             if (userId) {
                 // Gebruiker succesvol geregistreerd, geef een 201 status terug
