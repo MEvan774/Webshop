@@ -5,6 +5,7 @@ import { UserController } from "./controllers/UserController";
 import { GamesController } from "./controllers/GamesController";
 import { getGameWithGameID } from "./services/CurrentGameService";
 import { GameResult } from "@shared/types";
+import { UserService } from "./services/UserService";
 
 // Create a router
 export const router: Router = Router();
@@ -18,6 +19,7 @@ router.get("/", (_, res) => {
 const welcomeController: WelcomeController = new WelcomeController();
 const userController: UserController = new UserController();
 const gamesController: GamesController = new GamesController();
+const userService: UserService = new UserService();
 
 // Get current game
 router.get("/games/:gameID", async (req, res) => {
@@ -53,6 +55,31 @@ router.get("/welcome", (req, res) => welcomeController.getWelcome(req, res));
 router.post("/user/register", (req, res) => userController.registerUser(req, res));
 router.get("/user/exists", (req, res) => userController.getUserByEmail(req, res));
 router.post("/user/login", (req, res) => userController.loginUser(req, res));
+
+router.get("/verify", async (req, res) => {
+    const { token } = req.query;
+    if (!token) {
+        return res.status(400).json({ error: "Geen verificatietoken gevonden." });
+    }
+
+    try {
+        const isVerified: boolean = await userService.verifyUser(token as string);
+
+        if (isVerified) {
+            return res.status(200).json({ message: "Je account is succesvol geverifieerd!" });
+        }
+        else {
+            return res.status(400).json({ error: "Ongeldig of verlopen verificatietoken." });
+        }
+    }
+    catch (error: unknown) {
+        if (error instanceof Error && error.message === "Uw account is reeds geverifieerd.") {
+            return res.status(400).json({ error: "Uw account is reeds geverifieerd." });
+        }
+        console.error("Verificatie mislukt:", error);
+        return res.status(500).json({ error: "Fout bij het verifiëren van de gebruiker." });
+    }
+});
 
 // NOTE: After this line, all endpoints will require a valid session.
 router.use(requireValidSessionMiddleware);

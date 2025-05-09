@@ -35,6 +35,7 @@ export type UserResult = {
     password: string;
     dob: string;
     gender: string;
+    isVerified: boolean;
 };
 
 /**
@@ -47,6 +48,18 @@ export type UserRegisterData = {
     password: string;
     dob: string;
     gender: string;
+    verificationToken: string | undefined;
+    isVerified: boolean | undefined;
+};
+
+/**
+ * Represents data given to user on registration
+ */
+export type UserRegistrationResponse = {
+    message: string;
+    userId: string;
+    verificationToken: string;
+    isVerified: boolean | undefined;
 };
 
 /**
