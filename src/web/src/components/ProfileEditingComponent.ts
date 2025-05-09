@@ -83,7 +83,7 @@ export class ProfileEditingComponent extends BaseProfileComponent {
         }
     }
 
-    public async changeProfilePicture(): Promise<void> {
+    public changeProfilePicture(): void {
         console.log("edit");
     }
 
