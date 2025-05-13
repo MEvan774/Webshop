@@ -42,9 +42,10 @@ webshop-page-register {
 
 #top {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     font-size: 15px;
+    gap: 50px;
 }
 
 .registerForm #top img {
@@ -93,6 +94,7 @@ button.registerBtn {
     color: var(--black);
     transition: background-color 0.3s ease;
     margin-top: 20px;
+    align-self: center;
 }
 
 button.registerBtn:hover {

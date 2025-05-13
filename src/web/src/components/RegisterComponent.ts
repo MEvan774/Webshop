@@ -20,7 +20,7 @@ export class RegisterComponent extends HTMLElement {
             <div class="registerForm">
                 <div id="top">
                     <img src="/assets/img/icons/LogoFullIcon.png" alt="LucaStars logo">
-                    <h1><b><i>Maak jouw eigen LucaStars account!</i></b></h1>
+                    <h1><b>Maak jouw eigen LucaStars account!</b></h1>
                 </div>
                 <div class="register-grid">
                     <div>

@@ -18,7 +18,7 @@ export class LoginComponent extends HTMLElement {
         const element: HTMLElement = html`
             <form>
                 <div class="loginForm">
-                    <h2>Inloggen</h2>
+                    <h1>Inloggen</h1>
                     <div class="login-grid">
                     <div>
                         <label for="email">Emailadres:</label>
