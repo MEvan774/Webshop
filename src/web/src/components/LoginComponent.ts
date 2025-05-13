@@ -47,8 +47,8 @@ export class LoginComponent extends HTMLElement {
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.appendChild(styleLink);
 
-        this.shadowRoot.innerHTML = "";
         this.shadowRoot.appendChild(element);
+
         const emailInput: HTMLInputElement | null = this.shadowRoot.querySelector("#email");
         const passwordInput: HTMLInputElement | null = this.shadowRoot.querySelector("#password");
         const forgotPass: HTMLAnchorElement | null = this.shadowRoot.querySelector("#lostPassword");
@@ -77,6 +77,7 @@ export class LoginComponent extends HTMLElement {
                 });
             }
         }
+
         if (!forgotPass) {
             console.log("De lost-password knop ontbreekt");
         }
