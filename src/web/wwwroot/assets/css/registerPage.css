@@ -145,6 +145,10 @@ button.registerBtn:hover {
     width: calc(100% - 6.218px);
 }
 
+.register-grid .full-width-label {
+    display: flex
+}
+
 .redirectLogin {
     text-align: center;
     color: white;

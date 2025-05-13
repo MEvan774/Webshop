@@ -47,7 +47,7 @@ export class RegisterComponent extends HTMLElement {
                         </select>
                     </div>
                     <div class="full-width">
-                        <label for="email">Emailadres:</label>
+                        <label for="email">E-mailadres:</label>
                         <input type="email" id="email" name="email" class="email" placeholder="bert.rongil@lucastars.com">
                     </div>
                     <div class="full-width">
@@ -58,11 +58,11 @@ export class RegisterComponent extends HTMLElement {
                         <label for="passwordRepeat">Herhaal wachtwoord:</label>
                         <input type="password" id="passwordRepeat" name="passwordRepeat" class="passwordRepeat" placeholder="********">
                     </div>
-                    <div class="full-width">
+                    <div class="full-width full-width-label">
                         <input type="checkbox" id="newsletter" name="newsletter" value="newsletterAgree">
                         <label for="newsletter" class="longLabel"> Meld je aan voor de LucaStars nieuwsbericht voor de nieuwste acties!</label>
                     </div>
-                    <div class="full-width">
+                    <div class="full-width full-width-label">
                         <input type="checkbox" id="terms" name="terms" value="termsAgree">
                         <label for="terms" class="longLabel">Ik ga akkoord met de voorwaarden van LucaStars.</label>
                     </div>
