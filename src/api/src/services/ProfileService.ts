@@ -9,6 +9,12 @@ interface ChangePasswordBody {
     newPassword: string;
 }
 
+/**
+ * Get the user with the sessionID
+ *
+ * @param sessionID SessionID the user is linked to as string
+ * @returns User as UserResult or undefined if no user is found
+ */
 export async function getUser(sessionID: string): Promise<UserResult | undefined> {
     const sessionService: SessionService = new SessionService();
     const userService: UserService = new UserService();
@@ -28,6 +34,13 @@ export async function getUser(sessionID: string): Promise<UserResult | undefined
     return;
 }
 
+/**
+ * Change the password of the user with the UserService
+ *
+ * @param req Request with userID and newPassword in the body
+ * @param res Response to send the status to
+ * @returns Boolean whether change is succesful
+ */
 export async function changePassword(req: Request<object, object, ChangePasswordBody>, res: Response): Promise<boolean> {
     const userService: UserService = new UserService();
     const { userID, newPassword } = req.body;
@@ -57,6 +70,12 @@ export async function changePassword(req: Request<object, object, ChangePassword
     }
 }
 
+/**
+ * Checks if the email is free with the userService
+ *
+ * @param email Email to get checked as string
+ * @returns Boolean whether email is free
+ */
 export async function checkEmail(email: string): Promise<boolean> {
     const userService: UserService = new UserService();
 

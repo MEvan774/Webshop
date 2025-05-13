@@ -4,6 +4,7 @@ const statusEl: HTMLElement | null = document.getElementById("status");
 const bevestigKnop: HTMLElement | null = document.getElementById("emailConfirmButton");
 const bevestigDiv: HTMLElement | null = document.getElementById("emailConfirmDiv");
 
+// Interface for the token from the database
 interface TokenData {
     email: string;
     userId: number;
@@ -32,6 +33,12 @@ if (statusEl && bevestigKnop && bevestigDiv) {
     });
 }
 
+/**
+ * Check whether the token exists in the database
+ *
+ * @param token Token to be checked as string
+ * @returns The token as TokenData, or false when no token is found
+ */
 async function checkToken(token: string): Promise<TokenData | boolean> {
     try {
         const response: Response = await fetch(`http://localhost:3001/token/${token}`, {
@@ -60,6 +67,13 @@ async function checkToken(token: string): Promise<TokenData | boolean> {
     }
 }
 
+/**
+ * Send a request to the backend to change the users email
+ *
+ * @param email New email of the user as string
+ * @param userId UserId of the user as number
+ * @returns Void
+ */
 async function changeEmail(email: string, userId: number): Promise<void> {
     try {
         const response: Response = await fetch("http://localhost:3001/user/change-email", {

@@ -36,6 +36,7 @@ router.get("/token/:token", async (req, res) => {
     return res.json(TokenData);
 });
 
+// Change the email of the user
 router.post("/user/change-email", async (req, res) => await userController.changeEmail(req, res));
 
 // Get current game
@@ -59,6 +60,7 @@ router.get("/games/:gameID", async (req, res) => {
     }
 });
 
+// Get the user by the sessionID
 router.get("/user/:sessionID", async (req, res) => {
     const { sessionID } = req.params;
 
@@ -112,10 +114,13 @@ router.get("/cart", (_req, _res) => {
     throw new Error("Return a list of products in the cart and the total price");
 });
 
+// Get all users
 router.get("/user", (req, res) => userController.getData(req, res));
 
+// Change the password
 router.post("/user/change-password", async (req, res) => await changePassword(req, res));
 
+// Check if the email is used
 router.get("/user/check-email/:email", async (req, res) => {
     const { email } = req.params;
     try {
@@ -131,6 +136,8 @@ router.get("/user/check-email/:email", async (req, res) => {
     }
 });
 
+// Edit the user information
 router.post("/user/edit", async (req, res) => await userController.editUser(req, res));
 
+// Save the token in the database
 router.post("/token", async (req, res) => tokenController.createToken(req, res));

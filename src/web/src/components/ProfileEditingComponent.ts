@@ -2,7 +2,16 @@ import { UserResult } from "@shared/types";
 import { BaseProfileComponent } from "./BaseProfileComponent";
 import { saveEditProfile } from "@web/services/ProfileService";
 
+/**
+ * Class for the profile editing page HTML, extends BaseProfileComponent
+ */
 export class ProfileEditingComponent extends BaseProfileComponent {
+    /**
+     * Create a select list for the email that starts at the current gender of the user
+     *
+     * @param user User as UserResult
+     * @returns The string with the HTML for the select list
+     */
     private getGenderSelect(user: UserResult): string {
         type Option = {
             value: string;
@@ -30,15 +39,22 @@ export class ProfileEditingComponent extends BaseProfileComponent {
         return genderSelect;
     }
 
+    /**
+     * Save the changes to the profile and check the inputs
+     *
+     * @returns Void
+     */
     public async saveProfile(): Promise<void> {
         const user: UserResult | null = await this.getCurrentUser();
         if (!user) return;
 
+        // Get the place for error messages
         const errorMessagePlace: HTMLParagraphElement | null | undefined =
           this.shadowRoot?.querySelector<HTMLParagraphElement>("#profileEditError");
 
         if (!errorMessagePlace) return;
 
+        // Get the input fields
         const fnameInput: HTMLInputElement | null | undefined =
           this.shadowRoot?.querySelector<HTMLInputElement>("#fnameEdit");
         const lnameInput: HTMLInputElement | null | undefined =
@@ -50,17 +66,20 @@ export class ProfileEditingComponent extends BaseProfileComponent {
         const countryInput: HTMLInputElement | null | undefined =
           this.shadowRoot?.querySelector<HTMLInputElement>("#countryEdit");
 
+        // Get the values of the input fields
         const fname: string | undefined = fnameInput?.value;
         const lname: string | undefined = lnameInput?.value;
         const dob: string | undefined = dobInput?.value;
         const gender: string | undefined = genderInput?.value;
         const country: string = countryInput?.value ?? "";
 
+        // Return if not all fields are filled in
         if (!fname || !lname || !dob || !gender) {
             errorMessagePlace.innerHTML = "Alle velden naast locatie zijn verplicht";
             return;
         }
 
+        // Confirm not changing any of the information
         if (fname === user.firstname && lname === user.lastname && dob === user.dob &&
           gender === user.gender && country === user.country) {
             if (window.confirm("U heeft niks veranderd, wilt u toch terug naar uw profiel?")) {
@@ -69,6 +88,7 @@ export class ProfileEditingComponent extends BaseProfileComponent {
             return;
         }
 
+        // Confirm the changes, and save the information
         if (window.confirm("Wilt u de veranderingen opslaan?")) {
             const isSaved: boolean = await saveEditProfile(user.userId, fname, lname, dob, gender, country);
 
@@ -83,10 +103,18 @@ export class ProfileEditingComponent extends BaseProfileComponent {
         }
     }
 
+    /**
+     * Change the profile picture, not implemented yet
+     */
     public changeProfilePicture(): void {
         console.log("edit");
     }
 
+    /**
+     * Render the HTML of the edit profile page
+     *
+     * @returns Void
+     */
     protected async render(): Promise<void> {
         if (!this.shadowRoot) {
             return;

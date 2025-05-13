@@ -1,24 +1,24 @@
 import "@web/components/NavComponent";
 import "@web/components/CurrentGameComponent";
-import { WebshopEvent } from "@web/enums/WebshopEvent";
-
 import { html } from "@web/helpers/webComponents";
-import { WebshopEventService } from "@web/services/WebshopEventService";
-
+/**
+ * Class for the current game page, extends HTMLElement
+ */
 export class CurrentGamePageComponent extends HTMLElement {
-    private _webshopEventService: WebshopEventService = new WebshopEventService();
-
+    /**
+     * Attach the Shadow and render the HTML
+     */
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
-
-        // NOTE: This is just an example event, remove it!
-        this._webshopEventService.addEventListener<string>(WebshopEvent.Welcome, message => {
-            console.log(`Welcome event triggered: ${message}`);
-        });
 
         this.render();
     }
 
+    /**
+     * Render the HTML content from the nav bar and CurrentGameComponent
+     *
+     * @returns Void
+     */
     private render(): void {
         if (!this.shadowRoot) {
             return;

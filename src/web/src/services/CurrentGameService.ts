@@ -1,5 +1,10 @@
 import { GameResult } from "@shared/types";
 
+/**
+ * Get the current game for currentGameComponent.ts with the gameID
+ *
+ * @returns The game as GameResult, or null if no game is found
+ */
 export async function getGameByID(): Promise<GameResult | null> {
     const gameID: string = localStorage.getItem("gameID") || "37";
 

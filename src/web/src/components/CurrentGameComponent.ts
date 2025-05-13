@@ -2,16 +2,32 @@ import { GameResult } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
 import { getGameByID } from "@web/services/CurrentGameService";
 
+/**
+ * Class for the current game page, extends HTMLElement
+ */
 export class CurrentGameComponent extends HTMLElement {
+    /**
+     * Attach the Shadow and render the HTML
+     */
     public async connectedCallback(): Promise<void> {
         this.attachShadow({ mode: "open" });
         await this.render();
     }
 
+    /**
+     * Get the current game
+     *
+     * @returns The game found as GameResult, or null when no game is found
+     */
     private async getCurrentGame(): Promise<GameResult | null> {
         return await getGameByID();
     }
 
+    /**
+     * Render the HTML of the current game page, different for each game
+     *
+     * @returns Void
+     */
     private async render(): Promise<void> {
         if (!this.shadowRoot) {
             return;

@@ -125,6 +125,12 @@ export class UserController {
         }
     }
 
+    /**
+     * Edit the user information with the userService
+     *
+     * @param req Request with UserEditData of the user as the body
+     * @param res Response to send the status to
+     */
     public async editUser(req: Request<unknown, unknown, UserEditData>, res: Response): Promise<void> {
         // const { userId, fname, lname, dob, gender, country }: UserEditData = req.body as UserEditData;
         const body: UserEditData = req.body;
@@ -158,6 +164,12 @@ export class UserController {
         }
     }
 
+    /**
+     * Change the email with the UserService
+     * @param req Request with ChangeEmailBody as the body
+     * @param res Response to send the status to
+     * @returns Boolean whether user is found and email is changed
+     */
     public async changeEmail(req: Request<object, object, ChangeEmailBody>, res: Response): Promise<boolean> {
         const userService: UserService = new UserService();
         const { userId, email } = req.body;

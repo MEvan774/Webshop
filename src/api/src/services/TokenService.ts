@@ -2,9 +2,20 @@ import { PoolConnection, ResultSetHeader } from "mysql2/promise";
 import { DatabaseService } from "./DatabaseService";
 import { TokenData } from "@shared/types";
 
+/**
+ * Class for the token
+ */
 export class TokenService {
     private readonly _databaseService: DatabaseService = new DatabaseService();
 
+    /**
+     * Save a token in the database
+     *
+     * @param userId UserId linked to the token as number
+     * @param token Token as string
+     * @param email Email linked to the token as string
+     * @returns Boolean whether saving the token was succesful
+     */
     public async createToken(userId: number, token: string, email: string): Promise<boolean> {
         const connection: PoolConnection = await this._databaseService.openConnection();
 
@@ -28,6 +39,12 @@ export class TokenService {
         }
     }
 
+    /**
+     * Checks if the token exists
+     *
+     * @param token Token to check as string
+     * @returns The token as TokenData, or undefined if no token is found
+     */
     public async checkToken(token: string): Promise<TokenData | undefined> {
         const connection: PoolConnection = await this._databaseService.openConnection();
 

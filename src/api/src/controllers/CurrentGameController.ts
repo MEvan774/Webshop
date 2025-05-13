@@ -2,7 +2,17 @@ import { Request, Response } from "express";
 import { getGameWithGameID } from "@api/services/CurrentGameService";
 import { GameResult } from "@shared/types";
 
+/**
+ * Class for the current game controller
+ */
 export class CurrentGameController {
+    /**
+     * Get the current game with the gameID
+     *
+     * @param req Request with the gameID in the params
+     * @param res Response to send the status to
+     * @returns Void
+     */
     public async getGameByID(req: Request, res: Response): Promise<void> {
         const { gameID } = req.params;
 

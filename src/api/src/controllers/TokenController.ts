@@ -6,9 +6,18 @@ interface TokenDataRequest extends Request {
     body: TokenData;
 }
 
+/**
+ * Class of the token controller
+ */
 export class TokenController {
     private readonly _tokenService: TokenService = new TokenService();
 
+    /**
+     * Save a token to the database with the tokenService
+     *
+     * @param req Request as TokenDataRequest
+     * @param res Response to send the status to
+     */
     public async createToken(req: TokenDataRequest, res: Response): Promise<void> {
         const { token, userId, email }: TokenData = req.body;
 
@@ -34,6 +43,12 @@ export class TokenController {
         }
     }
 
+    /**
+     * Check if the token exists with the tokenService
+     *
+     * @param token Token to be checked as string
+     * @returns The token as TokenData or undefined if no token is found
+     */
     public async checkToken(token: string): Promise<TokenData | undefined> {
         return await this._tokenService.checkToken(token);
     }

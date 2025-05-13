@@ -1,6 +1,12 @@
 import { UserEditData, UserResult } from "@shared/types";
 
+/**
+ * Get the user with the sessionID
+ *
+ * @returns User as UserResult, or null when no user is found
+ */
 export async function getUser(): Promise<UserResult | null> {
+    // Get sessionID from the sessionStorage
     const sessionID: string = sessionStorage.getItem("sessionData") || "0";
 
     if (sessionID === "0") {
@@ -25,6 +31,13 @@ export async function getUser(): Promise<UserResult | null> {
     return userData;
 }
 
+/**
+ * Change the password
+ *
+ * @param userID UserID of the user as number
+ * @param newPassword The new password of the user as string
+ * @returns Void
+ */
 export async function changePassword(userID: number, newPassword: string): Promise<void> {
     try {
         const response: Response = await fetch("http://localhost:3001/user/change-password", {
@@ -47,6 +60,17 @@ export async function changePassword(userID: number, newPassword: string): Promi
     }
 }
 
+/**
+ * Save the changes to the user information in the profile
+ *
+ * @param userId UserId of the user as number
+ * @param fname New or unchanged first name of the user as string
+ * @param lname New or unchanged last name of the user as string
+ * @param dob New or unchanged date of birth of the user as string
+ * @param gender New or unchanged gender of the user as string
+ * @param countryString New or unchanged country of the user as string, can be empty when no country is filled in
+ * @returns Boolean if changes are saved correctly
+ */
 export async function saveEditProfile(
     userId: number, fname: string, lname: string, dob: string, gender: string, countryString?: string
 ): Promise<boolean> {
@@ -77,6 +101,12 @@ export async function saveEditProfile(
     }
 }
 
+/**
+ * Checks if email is in used when changing the email
+ *
+ * @param email Email that gets checked as string
+ * @returns Boolean whether email is free
+ */
 export async function isEmailUsed(email: string): Promise<boolean> {
     const response: Response = await fetch(`http://localhost:3001/user/check-email/${email}`, {
         method: "GET",

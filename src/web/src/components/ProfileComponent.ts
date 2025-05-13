@@ -1,7 +1,16 @@
 import { UserResult } from "@shared/types";
 import { BaseProfileComponent } from "./BaseProfileComponent";
 
+/**
+ * Class for the normal profile page, extends BaseProfileComponent
+ */
 export class ProfileComponent extends BaseProfileComponent {
+    /**
+     * Format the dob as a Dutch date
+     *
+     * @param dateString The dob as a string
+     * @returns The dob as a Dutch date as string
+     */
     private formatDate(dateString: string): string {
         const date: Date = new Date(dateString);
 
@@ -12,6 +21,12 @@ export class ProfileComponent extends BaseProfileComponent {
         });
     }
 
+    /**
+     * Change the gender to the Dutch name
+     *
+     * @param gender Gender in English as string
+     * @returns Gender in Dutch as string
+     */
     private getGender(gender: string): string {
         if (gender === "female") return "Vrouw";
 
@@ -22,6 +37,11 @@ export class ProfileComponent extends BaseProfileComponent {
         return "Anders/onbekend";
     }
 
+    /**
+     * Render the HTML of the profile page
+     *
+     * @returns Void
+     */
     protected async render(): Promise<void> {
         if (!this.shadowRoot) {
             return;
