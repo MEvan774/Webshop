@@ -6,38 +6,6 @@ import { BaseProfileComponent } from "./BaseProfileComponent";
  */
 export class ProfileComponent extends BaseProfileComponent {
     /**
-     * Format the dob as a Dutch date
-     *
-     * @param dateString The dob as a string
-     * @returns The dob as a Dutch date as string
-     */
-    private formatDate(dateString: string): string {
-        const date: Date = new Date(dateString);
-
-        return date.toLocaleDateString("nl-NL", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-        });
-    }
-
-    /**
-     * Change the gender to the Dutch name
-     *
-     * @param gender Gender in English as string
-     * @returns Gender in Dutch as string
-     */
-    private getGender(gender: string): string {
-        if (gender === "female") return "Vrouw";
-
-        if (gender === "male") return "Man";
-
-        if (gender === "non-binary") return "Non-binair";
-
-        return "Anders/onbekend";
-    }
-
-    /**
      * Render the HTML of the profile page
      *
      * @returns Void
@@ -54,9 +22,9 @@ export class ProfileComponent extends BaseProfileComponent {
         // Set variables
         const profilePicture: string = user.profilePicture ?? "/assets/images/userImage.png";
         const name: string = user.firstname + " " + user.lastname;
-        const date: string = this.formatDate(user.dob);
+        const date: string = this.ProfileService.formatDate(user.dob);
         const country: string = user.country ?? "Locatie onbekend";
-        const gender: string = this.getGender(user.gender);
+        const gender: string = this.ProfileService.getGender(user.gender);
 
         this.shadowRoot.innerHTML = `
             <link rel="stylesheet" href="/assets/css/currentGame.css">

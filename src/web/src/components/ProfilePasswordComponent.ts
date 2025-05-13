@@ -1,6 +1,5 @@
 import { UserResult } from "@shared/types";
 import { BaseProfileComponent } from "./BaseProfileComponent";
-import { changePassword } from "@web/services/ProfileService";
 
 /**
  * Class for the Profile page when changing the password, extends BaseProfileComponent
@@ -60,7 +59,7 @@ export class ProfilePasswordComponent extends BaseProfileComponent {
 
         // Confirm if password has to be changed, and change it afterwards
         if (window.confirm("Weet u zeker dat u uw wachtwoord wil wijzigen?")) {
-            await changePassword(user.userId, newPassword);
+            await this.ProfileService.changePassword(user.userId, newPassword);
             window.alert("Uw wachtwoord is gewijzigd.");
             this.dispatchEvent(new CustomEvent("to-profile", { bubbles: true }));
         }

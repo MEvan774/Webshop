@@ -1,11 +1,12 @@
 import { UserResult } from "@shared/types";
-import { getUser } from "@web/services/ProfileService";
+import { ProfileService } from "@web/services/ProfileService";
 
 /**
  * Class for the parent of all profile components, extends HTMLElement
  */
 export abstract class BaseProfileComponent extends HTMLElement {
     protected user: UserResult | null = null;
+    protected readonly ProfileService: ProfileService = new ProfileService();
 
     /**
      * Attach the Shadow, get the current user and render the HTML
@@ -22,7 +23,7 @@ export abstract class BaseProfileComponent extends HTMLElement {
      * @returns Current user as UserResult, or null if no user is found
      */
     protected async getCurrentUser(): Promise<UserResult | null> {
-        return await getUser();
+        return await this.ProfileService.getUser();
     }
 
     /**

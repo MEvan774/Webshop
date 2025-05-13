@@ -1,12 +1,13 @@
 import { UserResult } from "@shared/types";
 import { BaseProfileComponent } from "./BaseProfileComponent";
-import { isEmailUsed } from "@web/services/ProfileService";
-import { sendEmail } from "@web/services/EmailService";
+import { EmailService } from "@web/services/EmailService";
 
 /**
  * Class for the edit email profile page, extends BaseProfileComponent
  */
 export class ProfileEmailComponent extends BaseProfileComponent {
+    public readonly _emailService: EmailService = new EmailService();
+
     /**
      * Save the new email and check if the input is correct
      *
@@ -50,7 +51,7 @@ export class ProfileEmailComponent extends BaseProfileComponent {
         }
 
         // Check if the email is free and return if not
-        const emailFree: boolean = await isEmailUsed(email);
+        const emailFree: boolean = await this._emailService.isEmailUsed(email);
 
         if (!emailFree) {
             errorMessagePlace.innerHTML = "This email is already in use";
@@ -60,7 +61,7 @@ export class ProfileEmailComponent extends BaseProfileComponent {
         // Confirm the change, and send the confirmation emails
         if (window.confirm("Weet u zeker dat u uw email wil veranderen?")) {
             window.alert("Bevestig de wijziging via de mail in uw mailbox");
-            await sendEmail(user.userId, "changeEmailNew", user.firstname + " " + user.lastname, email);
+            await this._emailService.sendEmail(user.userId, "changeEmailNew", user.firstname + " " + user.lastname, email);
             // await sendEmail(user.userId, "changeEmailOld", user.firstname + " " + user.lastname, user.email, email);
             this.dispatchEvent(new CustomEvent("to-profile", { bubbles: true }));
         }

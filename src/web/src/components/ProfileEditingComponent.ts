@@ -1,6 +1,5 @@
 import { UserResult } from "@shared/types";
 import { BaseProfileComponent } from "./BaseProfileComponent";
-import { saveEditProfile } from "@web/services/ProfileService";
 
 /**
  * Class for the profile editing page HTML, extends BaseProfileComponent
@@ -90,7 +89,7 @@ export class ProfileEditingComponent extends BaseProfileComponent {
 
         // Confirm the changes, and save the information
         if (window.confirm("Wilt u de veranderingen opslaan?")) {
-            const isSaved: boolean = await saveEditProfile(user.userId, fname, lname, dob, gender, country);
+            const isSaved: boolean = await this.ProfileService.saveEditProfile(user.userId, fname, lname, dob, gender, country);
 
             if (!isSaved) {
                 errorMessagePlace.innerHTML =
