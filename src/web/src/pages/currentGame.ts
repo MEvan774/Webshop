@@ -1,12 +1,11 @@
 import "@web/components/NavComponent";
-import "@web/components/WelcomeComponent";
-import "@web/components/SidebarComponent";
+import "@web/components/CurrentGameComponent";
 import { WebshopEvent } from "@web/enums/WebshopEvent";
 
 import { html } from "@web/helpers/webComponents";
 import { WebshopEventService } from "@web/services/WebshopEventService";
 
-export class IndexPageComponent extends HTMLElement {
+export class CurrentGamePageComponent extends HTMLElement {
     private _webshopEventService: WebshopEventService = new WebshopEventService();
 
     public connectedCallback(): void {
@@ -27,14 +26,10 @@ export class IndexPageComponent extends HTMLElement {
 
         const element: HTMLElement = html`
             <div>
-                <webshop-navigation></webshop-navigation>
+                <nav-bar></nav-bar>
 
                 <div>
-
-                    <webshop-welcome></webshop-welcome>
-                </div>
-                <div>
-                    <webshop-sidebar></webshop-sidebar>
+                    <webshop-currentgame></webshop-currentgame>
                 </div>
             </div>
         `;
@@ -44,4 +39,4 @@ export class IndexPageComponent extends HTMLElement {
     }
 }
 
-window.customElements.define("webshop-page-index", IndexPageComponent);
+window.customElements.define("webshop-page-currentgame", CurrentGamePageComponent);
