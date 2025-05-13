@@ -42,10 +42,6 @@ export class LoginService implements ILoginService {
 
             const sessionData: SessionResponse = await sessionResponse.json() as SessionResponse;
             console.log("Ingelogd met sessie-ID:", sessionData.sessionId);
-
-            // ➡️ Hier kan je redirecten, state bijwerken, etc.
-            // Bijvoorbeeld:
-            // window.location.href = "/dashboard";
         }
         catch (error) {
             console.error("Login mislukt:", error);
