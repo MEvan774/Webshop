@@ -54,13 +54,14 @@ export class UserController {
             }
 
             if (!user.isVerified) {
-                throw new Error("Je account is nog niet geverifieerd. Controleer je email om je account te verifiëren.");
+                res.status(403).json({ error: "Je account is nog niet geverifieerd. Controleer je email om je account te verifiëren." });
             }
 
-            const sessionId: string | undefined = await this._sessionService.createSession(user.userId);
-
-            res.cookie("session", sessionId, { httpOnly: true, secure: false });
-            res.status(200).json({ message: "Login succesvol." });
+            else {
+                const sessionId: string | undefined = await this._sessionService.createSession(user.userId);
+                res.cookie("session", sessionId, { httpOnly: true, secure: false });
+                res.status(200).json({ message: "Login succesvol." });
+            }
         }
         catch (error: unknown) {
             console.error("Login fout:", error);

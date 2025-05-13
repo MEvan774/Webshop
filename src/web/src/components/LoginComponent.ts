@@ -31,6 +31,7 @@ export class LoginComponent extends HTMLElement {
                     </div>
                     <div class="full-width">
                         <h3>Heeft u nog geen account? Klik <a href="register.html" class="redirectRegister">hier</a> om te registreren.</h3>
+                        <h3><a href="" id="lostPassword">Wachtwoord vergeten?</a></h3>
                     </div>
                         <button class="loginBtn">Inloggen</button>
                     <div id="errorMessage" class="error-message"></div>
@@ -50,6 +51,7 @@ export class LoginComponent extends HTMLElement {
         this.shadowRoot.appendChild(element);
         const emailInput: HTMLInputElement | null = this.shadowRoot.querySelector("#email");
         const passwordInput: HTMLInputElement | null = this.shadowRoot.querySelector("#password");
+        const forgotPass: HTMLAnchorElement | null = this.shadowRoot.querySelector("#lostPassword");
 
         if (!emailInput || !passwordInput) {
             console.log("One of the input fields is missing");
@@ -74,6 +76,9 @@ export class LoginComponent extends HTMLElement {
                     window.location.href = "/index.html";
                 });
             }
+        }
+        if (!forgotPass) {
+            console.log("De lost-password knop ontbreekt");
         }
     }
 }

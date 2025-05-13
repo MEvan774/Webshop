@@ -42,7 +42,7 @@ export class UserService {
         const connection: PoolConnection = await this._databaseService.openConnection();
 
         try {
-            const result: UserResult[] = await this._databaseService.query<UserResult[]>(connection, "SELECT userId, email, password FROM user WHERE email = ?", email);
+            const result: UserResult[] = await this._databaseService.query<UserResult[]>(connection, "SELECT userId, email, password, isVerified FROM user WHERE email = ?", email);
             if (result.length > 0) {
                 return result[0];
             }
