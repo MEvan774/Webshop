@@ -1,15 +1,152 @@
-#profilePictureButton {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4f46e5;
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    text-align: center;
-    transition: background-color 0.3s;
+img.profilePictureProfile {
+    border: 10px solid rgb(248, 211, 0) !important;
 }
 
-#profilePictureButton:hover {
-    background-color: #3730a3;
+body {
+    background-color: rgb(250, 246, 243);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* Left border */
+body::before {
+    content: '';
+    width: 12%;
+    background-color: #165a9b;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+/* Right border */
+body::after {
+    content: '';
+    width: 12%;
+    background-color: #165a9b;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+/* Main content container */
+.main-content {
+    margin: 0 auto;
+    padding: 0 70px;
+    max-width: 1200px;
+    position: relative;
+    z-index: 0;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+/* Make sure the header spans the full width */
+header {
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.pictureDiv {
+    margin-top: 3%;
+    display: flex;
+}
+
+#profileDiv {
+    margin-left: 2%;
+}
+
+#profileNamePlace, #boughtGamesPlace {
+    font-size: 350%;
+    margin-bottom: 5%;
+}
+
+.profileText {
+    font-size: 180%;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+.profileButton {
+    background-color: rgb(248, 211, 0);
+    border: none;
+    width: 65%;
+    height: 20%;
+    font-size: 220%;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    margin-top: 25%
+}
+
+#boughtGamesPlace {
+    margin-top: 8%;
+    margin-bottom: 1%;
+}
+
+.gameProfileThumbnail {
+    height:200px;
+}
+
+.gameProfileText {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
+    margin-right: 65px;
+    width: 90%;
+}
+
+.gamesContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;  /* This controls space between games */
+}
+
+.gameProfileClass {
+    border: 10px solid rgb(248, 211, 0) !important;
+    padding: 1%;
+    display: flex;
+    width: 100%;  /* This ensures each game takes full width */
+    margin-bottom: 20px;  /* Alternative to gap if preferred */
+    box-sizing: border-box;  /* This includes padding and border in the width calculation */
+}
+
+.gamesProfileButton {
+    display: inline-block;
+    background-color: rgb(248, 211, 0);
+    border: none;
+    width: 200px;
+    height: 20%;          /* Note: for a fixed height use e.g. height: 40px; */
+    font-size: 200%;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    margin-left: 5%;
+    margin-bottom: 0;
+    text-decoration: none; /* Removes underline */
+    color: black;          /* Ensures text is visible */
+    cursor: pointer;       /* Makes it look clickable */
+    text-align: center;    /* Centers the text */
+    line-height: normal;   /* Adjust as needed for vertical centering */
+    padding: 0.5em 0;      /* Adjust for vertical spacing */
+}
+
+/* Optionally, add a hover effect*/
+.gamesProfileButton:hover,
+.gamesProfileButton:focus {
+    background-color: #ffe066;
+    text-decoration: none;
+    color: black;
+    outline: none;
+}
+
+.gameProfileTitle {
+    margin-top: 0;
+    margin-left: 5%;
+    font-size: 250%;
+    width: 90%;  
 }

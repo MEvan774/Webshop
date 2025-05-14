@@ -8,6 +8,8 @@ import { GameResult, TokenData, UserResult } from "@shared/types";
 import { checkEmail, getUser } from "./services/ProfileService";
 import { changePassword } from "./services/ProfileService";
 import { TokenController } from "./controllers/TokenController";
+import { LicenseController } from "./controllers/LicenseController";
+import { CurrentGameController } from "./controllers/CurrentGameController";
 
 // Create a router
 export const router: Router = Router();
@@ -22,6 +24,8 @@ const welcomeController: WelcomeController = new WelcomeController();
 const userController: UserController = new UserController();
 const gamesController: GamesController = new GamesController();
 const tokenController: TokenController = new TokenController();
+const licenseController: LicenseController = new LicenseController();
+const currentGameController: CurrentGameController = new CurrentGameController();
 
 // Check token after clicking link
 router.get("/token/:token", async (req, res) => {
@@ -141,3 +145,23 @@ router.post("/user/edit", async (req, res) => await userController.editUser(req,
 
 // Save the token in the database
 router.post("/token", async (req, res) => tokenController.createToken(req, res));
+
+router.get("/license/:userId", async (req, res) => {
+    try {
+        const { userId } = req.params;
+        await licenseController.getLicensesByUser(userId, res);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Internal server error:", error });
+    }
+});
+
+router.get("/gamesSKU/:SKU", async (req, res) => {
+    try {
+        const { SKU } = req.params;
+        await currentGameController.getGameBySKU(SKU, res);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Internal server error:", error });
+    }
+});

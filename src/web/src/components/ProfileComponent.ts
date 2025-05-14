@@ -19,6 +19,8 @@ export class ProfileComponent extends BaseProfileComponent {
 
         if (!user) return;
 
+        const gamesHTML: string = await this.ProfileService.createGamesHTML(user.userId);
+
         // Set variables
         const profilePicture: string = user.profilePicture ?? "/assets/images/userImage.png";
         const name: string = user.firstname + " " + user.lastname;
@@ -27,18 +29,26 @@ export class ProfileComponent extends BaseProfileComponent {
         const gender: string = this.ProfileService.getGender(user.gender);
 
         this.shadowRoot.innerHTML = `
-            <link rel="stylesheet" href="/assets/css/currentGame.css">
-            <img id="profilePicture" src="${profilePicture}" width="500px"><br>
+            <link rel="stylesheet" href="/assets/css/profile.css">
 
-            <div id="profileDiv">
-                <h1>${name}</h1>
-                <p>${date}</p>
-                <p>${country}</p>
-                <p>${gender}</p>
-                <button id="editButton">Profiel bewerken</button>
+            <div class="main-content">
+                <div class="pictureDiv">
+                    <img class="profilePictureProfile" src="${profilePicture}" width="35%"><br>
+
+                    <div id="profileDiv">
+                        <h1 id="profileNamePlace">${name}</h1>
+                        <p id="profileDatePlace" class="profileText">${date}</p>
+                        <p id="profileCountryPlace" class="profileText">${country}</p>
+                        <p id="profileGenderPlace" class="profileText">${gender}</p>
+                        <button id="editButton" class="profileButton">Profiel bewerken</button>
+                    </div>
+                </div>
+
+                <h1 id="boughtGamesPlace">Gekochte spellen:</h1>
+                <div id="gamesContainer">
+                    ${gamesHTML}
+                </div>
             </div>
-
-            <h1>Gekochte spellen:</h1>
         `;
 
         // Make an event for the changeEmailCancelButton

@@ -98,3 +98,11 @@ export type TokenData = {
     userId: number;
     email: string;
 };
+
+/**
+ * Respresents a game license
+ */
+export type LicenseResult = {
+    SKU: string;
+    userId: number;
+};

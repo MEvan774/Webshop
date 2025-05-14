@@ -40,4 +40,19 @@ export class GamesService implements IGamesService {
             connection.release();
         }
     }
+
+    public async getGameWithSKU(SKU: string): Promise<GameResult | null> {
+        const databaseService: DatabaseService = new DatabaseService();
+        const connection: PoolConnection = await databaseService.openConnection();
+
+        try {
+            const game: GameResult[] =
+            await databaseService.query<GameResult[]>(connection, "SELECT * FROM game WHERE SKU = ?", SKU);
+
+            return game[0] ?? null;
+        }
+        finally {
+            connection.release();
+        }
+    };
 }
