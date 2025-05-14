@@ -42,6 +42,7 @@ webshop-page-login {
 
 .login-grid label {
     font-weight: bold;
+    font-size: 32px;
 }
 
 .login-grid > div {
@@ -67,6 +68,7 @@ button.loginBtn {
     transition: background-color 0.3s ease;
     margin-top: 20px;
     align-self: center;
+    scale: 1.5;
 }
 
 button.loginBtn:hover {

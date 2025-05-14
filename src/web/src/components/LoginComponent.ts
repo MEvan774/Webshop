@@ -21,13 +21,13 @@ export class LoginComponent extends HTMLElement {
                     <h1>Inloggen</h1>
                     <div class="login-grid">
                     <div>
-                        <label for="email">Emailadres:</label>
-                        <input type="email" id="email" name="email" class="email" placeholder="Email">
+                        <label for="email">E-mailadres:</label>
+                        <input type="email" id="email" name="email" class="email" placeholder="bert.rongil@lucastars.com">
                     </div>
 
                     <div>
                         <label for="password">Wachtwoord:</label>
-                        <input type="password" id="password" name="password" class="password" placeholder="Wachtwoord">
+                        <input type="password" id="password" name="password" class="password" placeholder="********">
                     </div>
                     <div class="full-width">
                         <h3>Heeft u nog geen account? Klik <a href="register.html" class="redirectRegister">hier</a> om te registreren.</h3>
