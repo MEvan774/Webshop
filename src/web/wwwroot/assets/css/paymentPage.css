@@ -1,0 +1,42 @@
+@import "colors.css";
+
+#tileContainer {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 20px;
+
+}
+
+#tileContainer h1 {
+    margin-top: 0;
+    margin-left: 0;
+}
+
+#shoppingCart {
+    display: flex;
+    flex-direction: column;
+}
+
+#priceContainer {
+    border: 1px var(--black) solid;
+}
+
+#price {
+    display: flex;
+    justify-content: space-between;
+}
+
+#discountAmount {
+    display: flex;
+    justify-content: space-between;
+}
+
+#discountInput {
+    display: flex;
+    justify-content: space-between;
+}
+
+#totalPrice {
+    display: flex;
+    justify-content: space-between;
+}

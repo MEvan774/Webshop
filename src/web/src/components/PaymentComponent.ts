@@ -1,0 +1,51 @@
+import { html } from "@web/helpers/webComponents";
+import "@web/components/PaymentTileComponent";
+
+export class PaymentComponent extends HTMLElement {
+    public connectedCallback(): void {
+        this.attachShadow({ mode: "open" });
+        this.render();
+    }
+
+    private render(): void {
+        if (!this.shadowRoot) return;
+
+        this.shadowRoot.innerHTML = "";
+
+        const element: HTMLElement = html`
+        <div id="tileContainer">
+            <div id="shoppingCart">
+                <h1>Mijn winkelwagen</h1>
+                <payment-tile></payment-tile>
+            </div>
+            <div id="priceContainer">
+                <div id="price">
+                    <p>Price</p>
+                    <p>*insert price*</p>
+                </div>
+                <div id="discountAmount">
+                    <p>Korting</p>
+                    <p>*insert price*</p>
+                </div>
+                <div id="discountInput">
+                    <p>Kortingscode</p>
+                    <input placeholder="ABCDEFGH">
+                </div>
+                <div id="totalPrice">
+                    <p>Te betalen</p>
+                    <p>*insert price*</p>
+                </div>
+            </div>
+        </div>
+        `;
+
+        const styleLink: HTMLLinkElement = document.createElement("link");
+        styleLink.setAttribute("rel", "stylesheet");
+        styleLink.setAttribute("href", "/assets/css/paymentPage.css");
+
+        this.shadowRoot.appendChild(styleLink);
+        this.shadowRoot.append(element);
+    }
+}
+
+window.customElements.define("webshop-payment", PaymentComponent);
