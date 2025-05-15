@@ -3,18 +3,17 @@
     src: url('/assets/fonts/Pacifico.ttf');
     font-weight: normal;
     font-style: normal;
-  }
+}
 
-  @font-face {
-    font-family: 'RaleWay';
-    src: url('/assets/fonts/Raleway-Regular.ttf');
-    font-weight: normal;
-    font-style: normal;
-  }
+@font-face {
+  font-family: 'RaleWay';
+  src: url('/assets/fonts/Raleway-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
 
 body {
-    background-image: linear-gradient(to right, #1C2594, #7883CE, #1C2594);
-    background-repeat: no-repeat;
+    font-family: Raleway, sans-serif;
     min-height: 100vh;
 }
 
@@ -25,15 +24,12 @@ webshop-page-login {
 }
 
 .loginForm {
-    background: rgba(120, 131, 206, 1);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-image: linear-gradient(to top right, rgba(28, 37, 148, 0.3), rgba(91, 202, 243, 0.3));
     border-radius: 16px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(120, 131, 206, 0.3);
-    width: 581px;
-    height: 450px;
-    color: white;
 }
 
 .login-grid {
@@ -41,16 +37,24 @@ webshop-page-login {
     flex-direction: column;
     gap: 20px;
     width: 80%;
-    margin: 50px auto;
+    margin: 20px auto 0px;
 }
 
 .login-grid label {
     font-weight: bold;
+    font-size: 32px;
 }
 
 .login-grid > div {
     display: flex;
     flex-direction: column;
+}
+
+.login-grid input {
+    width: calc(100% - 6px);
+    height: 30px;
+    border: 1px solid #ff9900;
+    font-size: 22px;
 }
 
 /* Knop styling */
@@ -64,6 +68,7 @@ button.loginBtn {
     transition: background-color 0.3s ease;
     margin-top: 20px;
     align-self: center;
+    scale: 1.5;
 }
 
 button.loginBtn:hover {
@@ -85,7 +90,7 @@ button.loginBtn:hover {
     text-align: center;
 }
 
-.loginForm h2 {
+.loginForm h1 {
     text-align: center;
     margin-bottom: 20px;
 }
@@ -103,6 +108,10 @@ button.loginBtn:hover {
 .loginForm .full-width .redirectRegister:hover {
     text-decoration: underline;
     color: #ffcc00;
+}
+
+.loginForm #lostPassword {
+    color: #ff9900;
 }
 
 #terms {

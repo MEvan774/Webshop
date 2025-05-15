@@ -42,9 +42,10 @@ webshop-page-register {
 
 #top {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     font-size: 15px;
+    gap: 50px;
 }
 
 .registerForm #top img {
@@ -92,7 +93,9 @@ button.registerBtn {
     cursor: pointer;
     color: var(--black);
     transition: background-color 0.3s ease;
-    margin-top: 20px;
+    margin: 20px auto 20px;
+    align-self: center;
+    scale: 1.5;
 }
 
 button.registerBtn:hover {
@@ -143,6 +146,10 @@ button.registerBtn:hover {
 
 .register-grid .full-width input {
     width: calc(100% - 6.218px);
+}
+
+.register-grid .full-width-label {
+    display: flex
 }
 
 .redirectLogin {
