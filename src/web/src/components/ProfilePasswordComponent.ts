@@ -84,8 +84,6 @@ export class ProfilePasswordComponent extends BaseProfileComponent {
 
             <div id="passwordDiv">
                 <h1 id="passwordH">Wachtwoord wijzigen:</h1>
-                Bij het wijzigen van uw wachtwoord wordt er een bevestigingsemail gestuurd.<br>
-                Hier kan u de wijziging annuleren, maar deze email is niet nodig voor de wijziging.<br><br>
 
                 <div class="emailInput">
                     <label for="oldPassword">Huidige wachtwoord:</label>
