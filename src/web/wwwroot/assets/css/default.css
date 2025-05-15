@@ -1,10 +1,4 @@
-:root {
-    --white: #FFFAF0;
-    --blue: #1C2594;
-    --black: #1B1212;
-    --light-blue: #7883CE;
-    --blue-gradient: linear-gradient(90deg, rgba(28, 37, 148, 1) 0%, rgba(91, 202, 243, 1) 100%);
-}
+@import "colors.css";
 
 .pacifico-regular {
     font-family: "Pacifico", cursive;
