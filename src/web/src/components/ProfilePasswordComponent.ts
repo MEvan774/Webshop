@@ -80,31 +80,35 @@ export class ProfilePasswordComponent extends BaseProfileComponent {
         if (!user) return;
 
         this.shadowRoot.innerHTML = `
-            Bij het wijzigen van uw wachtwoord wordt er een bevestigingsemail gestuurd.<br>
-            Hier kan u de wijziging annuleren, maar deze email is niet nodig voor de wijziging.<br><br>
+            <link rel="stylesheet" href="/assets/css/profile.css">
 
-            <div>
-                <label for="oldPassword">Huidige wachtwoord:</label>
-                <input type="text" id="oldPassword" name="oldPassword" class="password"
-                  placeholder="Oude wachtwoord">
+            <div id="passwordDiv">
+                <h1 id="passwordH">Wachtwoord wijzigen:</h1>
+                Bij het wijzigen van uw wachtwoord wordt er een bevestigingsemail gestuurd.<br>
+                Hier kan u de wijziging annuleren, maar deze email is niet nodig voor de wijziging.<br><br>
+
+                <div class="emailInput">
+                    <label for="oldPassword">Huidige wachtwoord:</label>
+                    <input type="text" id="oldPassword" name="oldPassword" class="password">
+                </div>
+
+                <div class="emailInput">
+                    <label for="newPassword">Nieuwe wachtwoord:</label>
+                    <input type="text" id="passwordEdit" name="newPassword" class="password">
+                </div>
+
+                <div class="emailInput">
+                    <label for="repeatPassword">Herhaal nieuw wachtwoord:</label>
+                    <input type="text" id="passwordEditRepeat" name="repeatPassword" class="password">
+                </div>
+
+                <div id="emailButtonDiv">
+                    <button id="changePasswordSaveButton" class="emailButton">Bevestig</button>
+                    <button id="changePasswordCancelButton" class="emailButton">Annuleer wijziging</button>
+                </div>
+
+                <p id="passwordEditError" class="profileError"></p>
             </div>
-
-            <div>
-                <label for="newPassword">Nieuwe wachtwoord:</label>
-                <input type="text" id="passwordEdit" name="newPassword" class="password"
-                  placeholder="Nieuwe wachtwoord">
-            </div>
-
-            <div>
-                <label for="repeatPassword">Herhaal nieuw wachtwoord:</label>
-                <input type="text" id="passwordEditRepeat" name="repeatPassword" class="password"
-                  placeholder="Herhaal nieuw wachtwoord">
-            </div>
-
-            <button id="changePasswordSaveButton">Bevestig</button>
-            <button id="changePasswordCancelButton">Annuleer wijziging</button>
-
-            <p id="passwordEditError" class="profileError"></p>
         `;
 
         // Make an event for the changePasswordSaveButton

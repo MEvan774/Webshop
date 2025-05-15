@@ -34,19 +34,19 @@ export class ProfileEmailComponent extends BaseProfileComponent {
 
         // Return if not all fields are filled in
         if (!email || !password) {
-            errorMessagePlace.innerHTML = "Vul alle velden in om verder te gaan";
+            errorMessagePlace.innerHTML = "Vul alle velden in om verder te gaan!";
             return;
         }
 
         // Return if the password is incorrect
         if (password !== user?.password) {
-            errorMessagePlace.innerHTML = "Het ingevulde wachtwoord is incorrect";
+            errorMessagePlace.innerHTML = "Het ingevulde wachtwoord is incorrect!";
             return;
         }
 
         // Return if the new email is the same as the current email
         if (email === user.email) {
-            errorMessagePlace.innerHTML = "This is your current email";
+            errorMessagePlace.innerHTML = "Dit is je huidige email!";
             return;
         }
 
@@ -54,7 +54,7 @@ export class ProfileEmailComponent extends BaseProfileComponent {
         const emailFree: boolean = await this._emailService.isEmailUsed(email);
 
         if (!emailFree) {
-            errorMessagePlace.innerHTML = "This email is already in use";
+            errorMessagePlace.innerHTML = "Deze email is al bezet!";
             return;
         }
 
@@ -80,26 +80,32 @@ export class ProfileEmailComponent extends BaseProfileComponent {
         await this.getCurrentUser();
 
         this.shadowRoot.innerHTML = `
-            Bij het wijzigen van uw email wordt er een bevestiging naar het nieuwe emailadres gestuurd.<br>
-            De email wordt pas gewijzigd als deze bevestigd is.<br>
-            Ook wordt er een waarschuwing naar het oude emailadres gestuurd.<br>
-            Vul hieronder de nieuwe email en uw huidige wachtwoord in,<br>
-            of annuleer als u toch niet uw email wil wijzigen.<br><br>
+            <link rel="stylesheet" href="/assets/css/profile.css">
+            <div id="emailWarning">
+                <h1 id="emailH">Email wijzigen:</h1>
+                Bij het wijzigen van uw email wordt er een bevestiging naar het nieuwe emailadres gestuurd.<br>
+                De email wordt pas gewijzigd als deze bevestigd is.<br>
+                Ook wordt er een waarschuwing naar het oude emailadres gestuurd.<br>
+                Vul hieronder de nieuwe email en uw huidige wachtwoord in,<br>
+                of annuleer als u toch niet uw email wil wijzigen.<br><br>
 
-            <div>
-                <label for="email">Nieuwe email:</label>
-                <input type="text" id="emailEdit" name="email" class="email" placeholder="Email">
+                <div class="emailInput">
+                    <label for="email">Nieuwe email:</label>
+                    <input type="text" id="emailEdit" name="email" class="email" placeholder="Email">
+                </div>
+
+                <div class="emailInput">
+                    <label for="password">Wachtwoord:</label>
+                    <input type="text" id="passwordEmailEdit" name="password" class="password" placeholder="Wachtwoord">
+                </div>
+
+                <div id="emailButtonDiv">
+                    <button id="changeEmailSaveButton" class="emailButton">Bevestig</button>
+                    <button id="changeEmailCancelButton" class="emailButton">Annuleer wijziging</button>
+                </div>
+
+                <p id="passwordEditError" class="profileError"></p>
             </div>
-
-            <div>
-                <label for="password">Wachtwoord:</label>
-                <input type="text" id="passwordEmailEdit" name="password" class="password" placeholder="Wachtwoord">
-            </div>
-
-            <button id="changeEmailSaveButton">Bevestig</button>
-            <button id="changeEmailCancelButton">Annuleer wijziging</button>
-
-            <p id="passwordEditError" class="profileError"></p>
         `;
 
         // Make an event for the changeEmailSaveButton

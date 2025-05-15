@@ -2,7 +2,16 @@ import { LicenseResult } from "@shared/types";
 import { DatabaseService } from "./DatabaseService";
 import { PoolConnection } from "mysql2/promise";
 
+/**
+ * Class for the licenses
+ */
 export class LicenseService {
+    /**
+     * Get the licenses with the userId
+     *
+     * @param userId The userId of the user as string
+     * @returns LicenseResult[] with all the licenses, or undefined if no licenses are found
+     */
     public async getLicenses(userId: string): Promise<LicenseResult[] | undefined> {
         const databaseService: DatabaseService = new DatabaseService();
         const connection: PoolConnection = await databaseService.openConnection();

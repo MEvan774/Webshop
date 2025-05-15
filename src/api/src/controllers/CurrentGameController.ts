@@ -41,6 +41,13 @@ export class CurrentGameController {
         }
     }
 
+    /**
+     * Get the game with the given SKU
+     *
+     * @param SKU The SKU of the game as string
+     * @param res The response to send the result to
+     * @returns Void
+     */
     public async getGameBySKU(SKU: string, res: Response): Promise<void> {
         try {
             const game: GameResult | null = await this.gameService.getGameWithSKU(SKU);

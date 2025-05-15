@@ -41,6 +41,12 @@ export class GamesService implements IGamesService {
         }
     }
 
+    /**
+     * Get the game with the SKU
+     *
+     * @param SKU The SKU of the game as string
+     * @returns GameResult of the game, or null if no game is found
+     */
     public async getGameWithSKU(SKU: string): Promise<GameResult | null> {
         const databaseService: DatabaseService = new DatabaseService();
         const connection: PoolConnection = await databaseService.openConnection();

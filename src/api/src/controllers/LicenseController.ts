@@ -2,9 +2,18 @@ import { LicenseService } from "@api/services/LicenseService";
 import { LicenseResult } from "@shared/types";
 import { Response } from "express";
 
+/**
+ * Class for the licenses controller
+ */
 export class LicenseController {
     private readonly licenseService: LicenseService = new LicenseService();
 
+    /**
+     * Get the licenses of the user by userId
+     *
+     * @param userId The userId of the user as string
+     * @param res The response to send the result to
+     */
     public async getLicensesByUser(userId: string, res: Response): Promise<void> {
         try {
             // Call the service function to get the license data

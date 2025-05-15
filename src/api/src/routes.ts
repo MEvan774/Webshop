@@ -146,6 +146,7 @@ router.post("/user/edit", async (req, res) => await userController.editUser(req,
 // Save the token in the database
 router.post("/token", async (req, res) => tokenController.createToken(req, res));
 
+// Get the licenses the user owns with the userId
 router.get("/license/:userId", async (req, res) => {
     try {
         const { userId } = req.params;
@@ -156,6 +157,7 @@ router.get("/license/:userId", async (req, res) => {
     }
 });
 
+// Get the game with the given SKU
 router.get("/gamesSKU/:SKU", async (req, res) => {
     try {
         const { SKU } = req.params;

@@ -167,6 +167,12 @@ export class ProfileService {
         return genderSelect;
     }
 
+    /**
+     * Creates the HTML for the owned games of the user
+     *
+     * @param userId The userId of the user as number
+     * @returns String with the HTML for the games
+     */
     public async createGamesHTML(userId: number): Promise<string> {
         let html: string = "<h2>Geen spellen gevonden. Koop een spel om hier uw spellen te zien!</h2>";
         const games: GameResult[] | undefined = await this.getLicensesByUserId(userId);
@@ -193,6 +199,12 @@ export class ProfileService {
         return html;
     }
 
+    /**
+     * Gets the licenses of the games the user owns
+     *
+     * @param userId The userId of the user as number
+     * @returns GameResult[] with owned games, or undefined if no games are owned
+     */
     private async getLicensesByUserId(userId: number): Promise<GameResult[] | undefined> {
         const response: Response = await fetch(`http://localhost:3001/license/${userId}`, {
             method: "GET",
@@ -221,6 +233,12 @@ export class ProfileService {
         return games;
     }
 
+    /**
+     * Gets the game with the SKU
+     *
+     * @param SKU The SKU of the game as string
+     * @returns GameResult with the game, or undefined if no game is found
+     */
     private async getGamesBySKU(SKU: string): Promise<GameResult | undefined> {
         const response: Response = await fetch(`http://localhost:3001/gamesSKU/${SKU}`, {
             method: "GET",

@@ -105,7 +105,7 @@ export class ProfileEditingComponent extends BaseProfileComponent {
     /**
      * Change the profile picture, not implemented yet
      */
-    public changeProfilePicture(): void {
+    public saveProfilePicture(): void {
         console.log("edit");
     }
 
@@ -133,44 +133,32 @@ export class ProfileEditingComponent extends BaseProfileComponent {
         }
 
         this.shadowRoot.innerHTML = `
-            <link rel="stylesheet" href="/assets/css/currentGame.css">
-            <div id="profilePictureEditDiv">
-                <img id="profilePicture" src="${profilePicture}" width="500px"><br>
-                <input type="file" id="profilePictureButton" style="display: none;" accept="image/*"/>
-                <label for="profileUpload" class="upload-button">Upload Profile Picture</label>
-            </div>
+            <link rel="stylesheet" href="/assets/css/profile.css">
 
-            <div>
-                <label for="fname">Voornaam:</label>
-                <input type="text" id="fnameEdit" name="fname" class="fname" value="${user.firstname}">
-            </div>
-            <div>
-                <label for="lname">Achternaam:</label>
-                <input type="text" id="lnameEdit" name="lname" class="lname" value="${user.lastname}">
-            </div>
-            <div>
-                <label for="dob">Geboortedatum:</label>
-                <input type="date" id="dobEdit" name="dob" class="${user.dob}" value="${user.dob}">
-            </div>
-            <div>
-                <label for="gender">Geslacht:</label>
-                ${genderSelect}
-            </div>
-            <div>
-                <label for="country">Locatie:</label>
-                <input type="text" id="countryEdit" name="country" class="country" ${country}">
-            </div>
-            
-            <button id="changeEmailButton">Email wijzigen</button>
-            <button id="changePasswordButton">Wachtwoord wijzigen</button>
+            <div id="profileEditBox">
+                    <img id="profilePicture" src="${profilePicture}" width="35%" height="35%"><br>
 
-            <button id="editSaveButton">Bewerking opslaan</button>
+                <div id="profileForm">
+                    <h1 id="profileFormTitle">Jouw gegevens:</h1>
+                    <label for="fname">Voornaam: </label>
+                    <label for="lname" id="lnameLabel">Achternaam:</label><br>
+                    <input type="text" id="fnameEdit" name="fname" class="fname" value="${user.firstname}">
+                    <input type="text" id="lnameEdit" name="lname" class="lname" value="${user.lastname}"><br>
+                    <label for="dob">Geboortedatum:</label>
+                    <label for="country">Locatie:</label><br>
+                    <input type="date" id="dobEdit" name="dob" class="${user.dob}" value="${user.dob}">
+                    <input type="text" id="countryEdit" name="country" class="country" ${country}"><br>
+                    <label for="gender">Geslacht:</label><br>
+                    ${genderSelect}<br>
+                    
+                    <button id="editSaveButton" class="editButton">Bewerking opslaan</button><br>
+                    <button id="changeEmailButton" class="editButton">Email wijzigen</button>
+                    <button id="changePasswordButton" class="editButton">Wachtwoord wijzigen</button><br>
 
-            <p id="profileEditError"></p>
-        `;
-
-        // Make an event for the profilePictureButton
-        this.setButtonEvents("profilePictureButton", "edit-picture", "changeProfilePicture");
+                    <p id="profileEditError"></p>
+                </div>
+            </div>
+            `;
 
         // Make an event for the changeEmailButton
         this.setButtonEvents("changeEmailButton", "change-email");
