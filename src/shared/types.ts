@@ -32,6 +32,8 @@ export type UserResult = {
     password: string;
     dob: string;
     gender: string;
+    country: string | null;
+    profilePicture: string | null;
 };
 
 export type UserRegisterData = {
@@ -74,4 +76,33 @@ export type GameResult = {
     tags: string[] | null;
     /** The reviews of the game */
     reviews: string[] | null;
+};
+
+/**
+ * Represents the user data when editing
+ */
+export type UserEditData = {
+    userId: number;
+    fname: string;
+    lname: string;
+    dob: string;
+    gender: string;
+    country: string;
+};
+
+/**
+ * Represents a token
+ */
+export type TokenData = {
+    token: string;
+    userId: number;
+    email: string;
+};
+
+/**
+ * Respresents a game license
+ */
+export type LicenseResult = {
+    SKU: string;
+    userId: number;
 };

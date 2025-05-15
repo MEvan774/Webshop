@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { LoginData, UserRegisterData, UserResult } from "@shared/types";
+import { LoginData, UserEditData, UserRegisterData, UserResult } from "@shared/types";
 import { UserService } from "../services/UserService";
 import { SessionService } from "@api/services/SessionService";
 
@@ -13,6 +13,11 @@ interface UserLoginRequest extends Request {
 
 interface LogoutRequest extends Request {
     body: { sessionId: string };
+}
+
+interface ChangeEmailBody {
+    userId: number;
+    email: string;
 }
 
 export class UserController {
@@ -122,6 +127,78 @@ export class UserController {
                 error: "Fout bij het registreren van de gebruiker.",
                 details: error instanceof Error ? error.message : error,
             });
+        }
+    }
+
+    /**
+     * Edit the user information with the userService
+     *
+     * @param req Request with UserEditData of the user as the body
+     * @param res Response to send the status to
+     */
+    public async editUser(req: Request<unknown, unknown, UserEditData>, res: Response): Promise<void> {
+        // const { userId, fname, lname, dob, gender, country }: UserEditData = req.body as UserEditData;
+        const body: UserEditData = req.body;
+
+        try {
+            if (
+                typeof body.userId === "number" &&
+                typeof body.fname === "string" &&
+                typeof body.lname === "string" &&
+                typeof body.dob === "string" &&
+                typeof body.gender === "string" &&
+                typeof body.country === "string"
+            ) {
+                await this._userService.editUser(
+                    body.userId, body.fname, body.lname, body.dob, body.gender, body.country);
+
+                // Gebruiker succesvol geregistreerd, geef een 201 status terug
+                res.status(200).json({ message: "Gebruiker succesvol geregistreerd!" });
+            }
+            else {
+                // Als het niet gelukt is, stuur een foutmelding terug
+                res.status(500).json({ error: "Er is iets misgegaan bij het bewerken van de gebruiker." });
+            }
+        }
+        catch (error: unknown) {
+            console.error("Bewerking mislukt:", error);
+            res.status(500).json({
+                error: "Fout bij het bewerken van de gebruiker.",
+                details: error instanceof Error ? error.message : error,
+            });
+        }
+    }
+
+    /**
+     * Change the email with the UserService
+     * @param req Request with ChangeEmailBody as the body
+     * @param res Response to send the status to
+     * @returns Boolean whether user is found and email is changed
+     */
+    public async changeEmail(req: Request<object, object, ChangeEmailBody>, res: Response): Promise<boolean> {
+        const userService: UserService = new UserService();
+        const { userId, email } = req.body;
+
+        if (!userId || !email) {
+            res.status(400).json({ error: "Missing userID or email" });
+            return false;
+        }
+
+        try {
+            const result: boolean = await userService.changeEmail(userId.toString(), email);
+
+            if (!result) {
+                res.status(404).json({ error: "User not found or update failed" });
+                return false;
+            }
+
+            res.sendStatus(200);
+            return true;
+        }
+        catch (err) {
+            console.error("Error updating email:", err);
+            res.status(500).json({ error: "Internal server error" });
+            return false;
         }
     }
 }
