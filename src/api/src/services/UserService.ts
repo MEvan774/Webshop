@@ -231,4 +231,56 @@ export class UserService {
             connection.release();
         }
     }
+
+    /**
+     * Delete the tokens by userId
+     *
+     * @param userId UserId of the user as string
+     * @returns Boolean whether the change was succesful
+     */
+    public async deleteTokenByUserId(userId: string): Promise<boolean> {
+        const connection: PoolConnection = await this._databaseService.openConnection();
+
+        try {
+            // Use parameterized query to prevent SQL injection
+            const result: ResultSetHeader = await this._databaseService.query(connection,
+                "DELETE FROM token WHERE userId = ?",
+                userId
+            );
+
+            return result.affectedRows > 0;
+        }
+        catch (e: unknown) {
+            throw new Error(`Error deleting token: ${e}`);
+        }
+        finally {
+            connection.release();
+        }
+    }
+
+    /**
+     * Delete the tokens by email
+     *
+     * @param userId UserId of the user as string
+     * @returns Boolean whether the change was succesful
+     */
+    public async deleteTokenByEmail(email: string): Promise<boolean> {
+        const connection: PoolConnection = await this._databaseService.openConnection();
+
+        try {
+            // Use parameterized query to prevent SQL injection
+            const result: ResultSetHeader = await this._databaseService.query(connection,
+                "DELETE FROM token WHERE email = ?",
+                email
+            );
+
+            return result.affectedRows > 0;
+        }
+        catch (e: unknown) {
+            throw new Error(`Error deleting token: ${e}`);
+        }
+        finally {
+            connection.release();
+        }
+    }
 }

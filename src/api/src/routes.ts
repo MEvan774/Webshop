@@ -43,6 +43,9 @@ router.get("/token/:token", async (req, res) => {
 // Change the email of the user
 router.post("/user/change-email", async (req, res) => await userController.changeEmail(req, res));
 
+// Cancel the change the email of the user
+router.post("/user/cancel-email", async (req, res) => await userController.cancelEmail(req, res));
+
 // Get current game
 router.get("/games/:gameID", async (req, res) => {
     const { gameID } = req.params;
