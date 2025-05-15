@@ -22,7 +22,7 @@ export class NavComponent extends HTMLElement {
         }
 
         const element: HTMLElement = html`
-            <div>
+        <div>
             <div class="navbar">
                 <div class="navbar-left">
                     <a href="index.html" class="brand-link">
@@ -43,25 +43,26 @@ export class NavComponent extends HTMLElement {
                     </div>
                 </div>
 
-                <div class="navbar-right">
-    ${
-        sessionId
-            ? html`
-                <a id="logout">Uitloggen</a>
-                <a href="/account.html"><img src="/assets/img/icons/account-icon.png" alt="Account" /></a>
-                <a href="/favourites.html"><img src="/assets/img/icons/heart-icon.png" alt="Favourites" /></a>
-                <a href="/cart.html"><img src="/assets/img/icons/cart-icon.png" alt="Cart" /></a>
-            `
-            : html`
-                <span>
-                    <a href="/login.html" id="login">Inloggen</a>
-                    <a href="/register.html">Registreren</a>
-                </span>
-            `
-    }
-</div>
+
+                    ${sessionId
+                    ? html`
+                    <div class="navbar-right">
+                        <a class="icon" href="/payment.html"><img src="/assets/img/icons/shoppingCart.svg" alt="Cart" /></a>
+                        <a id="logout">Uitloggen</a>
+                    </div>
+                    `
+                    : html`
+                    <div class="navbar-right">
+                        <span>
+                            <a href="/login.html" id="login">Inloggen</a>
+                            <a href="/register.html">Registreren</a>
+                        </span>
+                    </div>
+                    `
+                    }
+                </div>
             </div>
-            </div>
+        </div>
         `;
 
         const styleLink: HTMLLinkElement = document.createElement("link");
