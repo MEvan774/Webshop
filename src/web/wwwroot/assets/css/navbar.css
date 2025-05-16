@@ -3,8 +3,19 @@
     src: url('/assets/fonts/Pacifico.ttf');
     font-weight: normal;
     font-style: normal;
-  }
+}
 
+a#user {
+background: transparent;
+padding: 0;
+margin: 0;
+display: inline-block; /* Prevent inline whitespace issues */
+}
+
+a#user img {
+display: block; /* Removes whitespace below the image */
+background: transparent;
+}
 .navbar {
     position: sticky;
     top: 0;

@@ -2,16 +2,32 @@ import { GameResult } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
 import { getGameByID } from "@web/services/CurrentGameService";
 
+/**
+ * Class for the current game page, extends HTMLElement
+ */
 export class CurrentGameComponent extends HTMLElement {
+    /**
+     * Attach the Shadow and render the HTML
+     */
     public async connectedCallback(): Promise<void> {
         this.attachShadow({ mode: "open" });
         await this.render();
     }
 
+    /**
+     * Get the current game
+     *
+     * @returns The game found as GameResult, or null when no game is found
+     */
     private async getCurrentGame(): Promise<GameResult | null> {
         return await getGameByID();
     }
 
+    /**
+     * Render the HTML of the current game page, different for each game
+     *
+     * @returns Void
+     */
     private async render(): Promise<void> {
         if (!this.shadowRoot) {
             return;
@@ -30,13 +46,13 @@ export class CurrentGameComponent extends HTMLElement {
             return;
         }
 
-        // Create string with authors
-        const authors: string = currentGame.authors?.length
+        // If we get here, we know currentGame is not null
+        const authors: string = currentGame.authors && currentGame.authors.length
             ? currentGame.authors
                 .map((author: string, index: number): string =>
                     index === 0 ? author : `, ${author}`)
                 .join("")
-            : "Auteurs onbekent.";
+            : "Auteurs onbekend.";
 
         // Create images HTML
         let imagesHTML: string = "";
@@ -49,6 +65,10 @@ export class CurrentGameComponent extends HTMLElement {
                     .join("")
                 : "";
         }
+
+        const tags: string = currentGame.tags?.length
+            ? currentGame.tags.join(", ")
+            : "Geen tags beschikbaar.";
 
         // Create reviews section
         let reviewsHTML: string = "Er zijn nog geen reviews.";
@@ -71,7 +91,7 @@ export class CurrentGameComponent extends HTMLElement {
                             <div id="currentGameText">${currentGame.descriptionHtml}</div><br>
                             <p>Developers: </p><br>
                             <p id="currentGameDevelopers">${authors}</p><br>
-                            <div id="currentGameTags">${currentGame.tags?.join(", ")}</div><br>
+                            <div id="currentGameTags">${tags}</div><br>
                         </div>
                     </div>
 
@@ -93,10 +113,13 @@ export class CurrentGameComponent extends HTMLElement {
             </div>
         `;
 
-        if (this.shadowRoot.firstChild) {
-            this.shadowRoot.firstChild.remove();
-        }
+        const styleLink: HTMLLinkElement = document.createElement("link");
+        styleLink.setAttribute("rel", "stylesheet");
+        styleLink.setAttribute("href", "/assets/css/currentGame.css");
+
+        this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
+        this.shadowRoot.appendChild(styleLink);
     }
 }
 

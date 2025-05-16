@@ -18,19 +18,20 @@ export class LoginComponent extends HTMLElement {
         const element: HTMLElement = html`
             <form>
                 <div class="loginForm">
-                    <h2>Inloggen</h2>
+                    <h1>Inloggen</h1>
                     <div class="login-grid">
                     <div>
-                        <label for="email">Emailadres:</label>
-                        <input type="email" id="email" name="email" class="email" placeholder="Email">
+                        <label for="email">E-mailadres:</label>
+                        <input type="email" id="email" name="email" class="email" placeholder="bert.rongil@lucastars.com">
                     </div>
 
                     <div>
                         <label for="password">Wachtwoord:</label>
-                        <input type="password" id="password" name="password" class="password" placeholder="Wachtwoord">
+                        <input type="password" id="password" name="password" class="password" placeholder="********">
                     </div>
                     <div class="full-width">
                         <h3>Heeft u nog geen account? Klik <a href="register.html" class="redirectRegister">hier</a> om te registreren.</h3>
+                        <h3><a href="" id="lostPassword">Wachtwoord vergeten?</a></h3>
                     </div>
                         <button class="loginBtn">Inloggen</button>
                     <div id="errorMessage" class="error-message"></div>
@@ -39,45 +40,47 @@ export class LoginComponent extends HTMLElement {
             </form>
     `;
 
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        if (this.shadowRoot) {
-            this.shadowRoot.innerHTML = "";
-            this.shadowRoot.appendChild(element);
-            const emailInput: HTMLInputElement | null = this.shadowRoot.querySelector("#email");
-            const passwordInput: HTMLInputElement | null = this.shadowRoot.querySelector("#password");
-
-            if (!emailInput || !passwordInput) {
-                console.log("One of the input fields is missing");
-            }
-            else {
-                const loginBtn: HTMLButtonElement | null = this.shadowRoot.querySelector(".loginBtn");
-                const loginUser: LoginService = new LoginService();
-                if (loginBtn) {
-                    loginBtn.addEventListener("click", async e => {
-                        e.preventDefault();
-                        const check: { valid: boolean; message?: string } = loginUser.checkData(emailInput.value, passwordInput.value);
-
-                        const errorDiv: Element | null | undefined = this.shadowRoot?.querySelector("#errorMessage");
-                        if (!check.valid) {
-                            if (errorDiv) errorDiv.textContent = check.message || "Ongeldige invoer.";
-                            return;
-                        }
-                        else {
-                            if (errorDiv) errorDiv.textContent = "";
-                        }
-                        await loginUser.loginUser(emailInput.value, passwordInput.value);
-                        window.location.href = "/index.html";
-                    });
-                }
-            }
-        }
         const styleLink: HTMLLinkElement = document.createElement("link");
         styleLink.setAttribute("rel", "stylesheet");
         styleLink.setAttribute("href", "/assets/css/loginPage.css");
 
         this.shadowRoot.firstChild?.remove();
-        this.shadowRoot.append(element);
         this.shadowRoot.appendChild(styleLink);
+
+        this.shadowRoot.appendChild(element);
+
+        const emailInput: HTMLInputElement | null = this.shadowRoot.querySelector("#email");
+        const passwordInput: HTMLInputElement | null = this.shadowRoot.querySelector("#password");
+        const forgotPass: HTMLAnchorElement | null = this.shadowRoot.querySelector("#lostPassword");
+
+        if (!emailInput || !passwordInput) {
+            console.log("One of the input fields is missing");
+        }
+        else {
+            const loginBtn: HTMLButtonElement | null = this.shadowRoot.querySelector(".loginBtn");
+            const loginUser: LoginService = new LoginService();
+            if (loginBtn) {
+                loginBtn.addEventListener("click", async e => {
+                    e.preventDefault();
+                    const check: { valid: boolean; message?: string } = loginUser.checkData(emailInput.value, passwordInput.value);
+
+                    const errorDiv: Element | null | undefined = this.shadowRoot?.querySelector("#errorMessage");
+                    if (!check.valid) {
+                        if (errorDiv) errorDiv.textContent = check.message || "Ongeldige invoer.";
+                        return;
+                    }
+                    else {
+                        if (errorDiv) errorDiv.textContent = "";
+                    }
+                    await loginUser.loginUser(emailInput.value, passwordInput.value);
+                    window.location.href = "/index.html";
+                });
+            }
+        }
+
+        if (!forgotPass) {
+            console.log("De lost-password knop ontbreekt");
+        }
     }
 }
 

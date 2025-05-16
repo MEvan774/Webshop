@@ -7,3 +7,9 @@ html, body {
     padding: 0;
     box-sizing: border-box;
 }
+
+h1 {
+    font-family: 'RaleWay';
+    src: url('/assets/fonts/Raleway-Regular.ttf');
+    font-size: 60px;
+}

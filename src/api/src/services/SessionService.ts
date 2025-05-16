@@ -1,6 +1,7 @@
 import { ISessionService } from "@api/interfaces/ISessionService";
 import { PoolConnection, ResultSetHeader } from "mysql2/promise";
 import { DatabaseService } from "./DatabaseService";
+import crypto from "crypto";
 
 type SessionQueryResult = {
     id: string;
