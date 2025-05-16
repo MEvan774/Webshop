@@ -24,6 +24,9 @@ export type SecretResponse = {
     userId: string;
 };
 
+/**
+ * Represents the user data
+ */
 export type UserResult = {
     userId: number;
     firstname: string;
@@ -34,8 +37,12 @@ export type UserResult = {
     gender: string;
     country: string | null;
     profilePicture: string | null;
+    isVerified: boolean | undefined;
 };
 
+/**
+ * Represents the user register data
+ */
 export type UserRegisterData = {
     firstname: string;
     lastname: string;
@@ -43,8 +50,23 @@ export type UserRegisterData = {
     password: string;
     dob: string;
     gender: string;
+    verificationToken: string | undefined;
+    isVerified: boolean | undefined;
 };
 
+/**
+ * Represents data given to user on registration
+ */
+export type UserRegistrationResponse = {
+    message: string;
+    userId: string;
+    verificationToken: string;
+    isVerified: boolean | undefined;
+};
+
+/**
+ * Represents the login data
+ */
 export type LoginData = {
     email: string;
     password: string;

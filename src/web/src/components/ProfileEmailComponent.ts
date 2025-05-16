@@ -3,7 +3,7 @@ import { BaseProfileComponent } from "./BaseProfileComponent";
 import { EmailService } from "@web/services/EmailService";
 
 /**
- * Class for the edit email profile page, extends BaseProfileComponent
+ * Class for the edit email profile page, extends BaseProfileCompon ent
  */
 export class ProfileEmailComponent extends BaseProfileComponent {
     public readonly _emailService: EmailService = new EmailService();
@@ -11,7 +11,7 @@ export class ProfileEmailComponent extends BaseProfileComponent {
     /**
      * Save the new email and check if the input is correct
      *
-     * @returns Void
+     * @retur ns Void
      */
     public async emailSave(): Promise<void> {
         const user: UserResult | null = await this.getCurrentUser();

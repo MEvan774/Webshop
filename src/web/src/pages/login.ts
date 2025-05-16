@@ -17,7 +17,6 @@ class LoginPageComponent extends HTMLElement {
 
         const element: HTMLElement = html`
             <div>
-                <webshop-navigation></webshop-navigation>
                 <webshop-login></webshop-login>
             </div>
         `;
