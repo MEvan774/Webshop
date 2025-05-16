@@ -1,20 +1,26 @@
 import { UserResult } from "@shared/types";
 import { BaseProfileComponent } from "./BaseProfileComponent";
 import { EmailService } from "@web/services/EmailService";
+import { ProfileService } from "@web/services/ProfileService";
+import bcrypt from "bcryptjs";
 
 /**
  * Class for the edit email profile page, extends BaseProfileCompon ent
  */
 export class ProfileEmailComponent extends BaseProfileComponent {
-    public readonly _emailService: EmailService = new EmailService();
+    private readonly _emailService: EmailService = new EmailService();
+    private readonly _profileService: ProfileService = new ProfileService();
 
     /**
      * Save the new email and check if the input is correct
      *
-     * @retur ns Void
+     * @returns Void
      */
     public async emailSave(): Promise<void> {
         const user: UserResult | null = await this.getCurrentUser();
+        if (!user) return;
+
+        const name: string = user.firstname + " " + user.lastname;
 
         // Get input fields
         const emailInput: HTMLInputElement | null | undefined =
@@ -38,9 +44,11 @@ export class ProfileEmailComponent extends BaseProfileComponent {
             return;
         }
 
-        // Return if the password is incorrect
-        if (password !== user?.password) {
-            errorMessagePlace.innerHTML = "Het ingevulde wachtwoord is incorrect!";
+        // Return if the old password is incorrect
+        const matchPassword: boolean = await bcrypt.compare(password, user.password);
+
+        if (!matchPassword) {
+            errorMessagePlace.innerHTML = "Het oude wachtwoord is incorrect.";
             return;
         }
 
@@ -61,8 +69,10 @@ export class ProfileEmailComponent extends BaseProfileComponent {
         // Confirm the change, and send the confirmation emails
         if (window.confirm("Weet u zeker dat u uw email wil veranderen?")) {
             window.alert("Bevestig de wijziging via de mail in uw mailbox");
-            await this._emailService.sendEmail(user.userId, "changeEmailNew", user.firstname + " " + user.lastname, email);
-            await this._emailService.sendEmail(user.userId, "changeEmailOld", user.firstname + " " + user.lastname, user.email, email);
+
+            await this._profileService.writeEmail("old", name, user.email, user.userId, email);
+            await this._profileService.writeEmail("new", name, email, user.userId);
+
             this.dispatchEvent(new CustomEvent("to-profile", { bubbles: true }));
         }
     }

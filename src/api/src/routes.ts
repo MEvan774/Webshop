@@ -197,3 +197,27 @@ router.get("/gamesSKU/:SKU", async (req, res) => {
         res.status(500).json({ message: "Internal server error:", error });
     }
 });
+
+function parseCookies(cookieHeader: string | undefined): Record<string, string> {
+    const cookies: Record<string, string> = {};
+    if (!cookieHeader) return cookies;
+
+    cookieHeader.split(";").forEach(cookie => {
+        const [name, ...rest] = cookie.trim().split("=");
+        cookies[name] = decodeURIComponent(rest.join("="));
+    });
+
+    return cookies;
+}
+
+router.get("/profile", async (req, res) => {
+    const cookies: Record<string, string> = parseCookies(req.headers.cookie);
+    const sessionId: string = cookies.session;
+
+    if (!sessionId) {
+        return res.status(401).json({ message: "No session found" });
+    }
+
+    const user: UserResult | undefined = await getUser(sessionId);
+    return res.status(200).json({ user });
+});

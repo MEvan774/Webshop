@@ -1,4 +1,6 @@
-import { GameResult, LicenseResult, UserEditData, UserResult } from "@shared/types";
+import { GameResult, LicenseResult, UserEditData, UserResponse, UserResult } from "@shared/types";
+import bcrypt from "bcryptjs";
+import { EmailService } from "./EmailService";
 
 export class ProfileService {
     /**
@@ -7,15 +9,7 @@ export class ProfileService {
      * @returns User as UserResult, or null when no user is found
      */
     public async getUser(): Promise<UserResult | null> {
-        // Get sessionID from the sessionStorage
-        const sessionID: string = sessionStorage.getItem("sessionData") || "0";
-
-        if (sessionID === "0") {
-            console.error("No session ID found.");
-            return null;
-        }
-
-        const response: Response = await fetch(`http://localhost:3001/user/${sessionID}`, {
+        const response: Response = await fetch("http://localhost:3001/profile", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -24,11 +18,13 @@ export class ProfileService {
         });
 
         if (!response.ok) {
-            console.error(`Error fetching game with ID ${sessionID}:`, response.statusText);
+            console.error("Error fetching the user:", response.statusText);
             return null;
         }
 
-        const userData: UserResult = await response.json() as UserResult;
+        const data: UserResponse = await response.json() as UserResponse;
+        const userData: UserResult = data.user;
+        console.log(userData);
         return userData;
     }
 
@@ -40,6 +36,8 @@ export class ProfileService {
      * @returns Void
      */
     public async changePassword(userID: number, newPassword: string): Promise<void> {
+        const password: string = await bcrypt.hash(newPassword, 10);
+
         try {
             const response: Response = await fetch("http://localhost:3001/user/change-password", {
                 method: "POST",
@@ -47,7 +45,7 @@ export class ProfileService {
                     "Content-Type": "application/json",
                 },
                 credentials: "include",
-                body: JSON.stringify({ userID, newPassword }),
+                body: JSON.stringify({ userID, password }),
             });
 
             if (!response.ok) {
@@ -256,5 +254,80 @@ export class ProfileService {
         const gamesData: GameResult = await response.json() as GameResult;
 
         return gamesData;
+    }
+
+    public async writeEmail(kind: string, name: string, email: string, userId: number, newEmail?: string): Promise<void> {
+        const _emailService: EmailService = new EmailService();
+
+        const token: string = this.getToken();
+
+        await this.saveToken(token, userId, email, kind);
+
+        let subject: string = "";
+        let html: string = "";
+
+        if (kind === "new") {
+            const link: string = `http://localhost:3000/bevestigWijziging?token=${token}`;
+
+            subject = "Bevestiging emailwijziging Starshop";
+            html = "<h1>Goededag!</h1>" +
+            "<p>Dit is een confirmatie dat u uw email heeft gewijzigd van Starshop. " +
+            "Om dit te bevestigen, klik op deze link: <br><br>" + link +
+            " <br><br>Heeft u dit niet gedaan of wilt u dit annuleren? Dan kunt u deze email negeren.";
+
+            await _emailService.sendEmail(name, email, subject, html);
+        }
+        else if (kind === "old" && newEmail) {
+            const link: string = `http://localhost:3000/annuleerWijziging?token=${token}`;
+
+            subject = "Bevestiging emailwijziging Starshop";
+            html = "<h1>Goededag!</h1>" +
+            "Dit is een bevestiging dat u uw email heeft gewijzigd naar: " + newEmail +
+            " <br><br>Als u dit niet bent, klik op deze link om de wijziging te annuleren: " + link + ".";
+
+            await _emailService.sendEmail(name, email, subject, html);
+        }
+
+        return;
+    }
+
+    /**
+    * Generate a token for the confirmation
+    *
+    * @returns The new token as a string
+    */
+    private getToken(): string {
+        const token: string = btoa(`${Date.now()}-${Math.random()}`);
+        return token;
+    }
+
+    /**
+     * Save the token to the database and links the userId and email to it
+     *
+     * @param token The generated token as a string
+     * @param userId The userId of the user as a number
+     * @param email The email of the user as a string
+     * @returns Void
+     */
+    private async saveToken(token: string, userId: number, email: string, type: string): Promise<void> {
+        try {
+            const response: Response = await fetch("http://localhost:3001/token", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({ token, userId, email, type }),
+            });
+
+            if (!response.ok) {
+                console.error(`Error saving token: ${token}:`, response.statusText);
+                return;
+            }
+            return;
+        }
+        catch (error: unknown) {
+            console.error("Token opslaan is mislukt door: ", error);
+        }
     }
 }

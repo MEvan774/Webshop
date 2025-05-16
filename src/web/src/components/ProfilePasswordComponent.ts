@@ -1,5 +1,6 @@
 import { UserResult } from "@shared/types";
 import { BaseProfileComponent } from "./BaseProfileComponent";
+import bcrypt from "bcryptjs";
 
 /**
  * Class for the Profile page when changing the password, extends BaseProfileComponent
@@ -33,15 +34,17 @@ export class ProfilePasswordComponent extends BaseProfileComponent {
 
         if (!errorMessagePlace) return;
 
-        // Return if the old password is incorrect
-        if (oldPassword !== user.password) {
-            errorMessagePlace.innerHTML = "Het oude wachtwoord is incorrect.";
-            return;
-        }
-
         // Return if not everything is filled in
         if (!oldPassword || !newPassword || !repeatPassword) {
             errorMessagePlace.innerHTML = "Vul alle velden in om verder te gaan";
+            return;
+        }
+
+        // Return if the old password is incorrect
+        const matchPassword: boolean = await bcrypt.compare(oldPassword, user.password);
+
+        if (!matchPassword) {
+            errorMessagePlace.innerHTML = "Het oude wachtwoord is incorrect.";
             return;
         }
 
