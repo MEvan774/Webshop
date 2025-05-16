@@ -1,6 +1,9 @@
 import { UserEditData, UserResult } from "@shared/types";
 import { IProfileEditService } from "@web/interfaces/IProfileEditService";
 
+/**
+ * Class for editing the profile, implements IProfileEditService
+ */
 export class ProfileEditService implements IProfileEditService {
     /**
      * Create a select list for the email that starts at the current gender of the user

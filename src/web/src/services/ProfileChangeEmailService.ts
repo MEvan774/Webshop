@@ -3,6 +3,9 @@ import { EmailService } from "./EmailService";
 import bcrypt from "bcryptjs";
 import { IProfileChangeEmailService } from "@web/interfaces/IProfileChangeEmailService";
 
+/**
+ * Class for changing the email in the profile, implements IProfileChangeEmailService
+ */
 export class ProfileChangeEmailService implements IProfileChangeEmailService {
     public readonly _emailService: EmailService = new EmailService();
 
@@ -70,6 +73,16 @@ export class ProfileChangeEmailService implements IProfileChangeEmailService {
         return false;
     }
 
+    /**
+     * Writes the email for changing the email
+     *
+     * @param kind Kind of email to send as string
+     * @param name First and last name of the user as string
+     * @param email Email of the user as string
+     * @param userId UserId of the user as number
+     * @param newEmail The new email of the user, for kind 'old' as string, can be undefined
+     * @returns Boolean whether email is send
+     */
     public async writeEmail(kind: string, name: string, email: string, userId: number, newEmail?: string): Promise<boolean> {
         const token: string = this.getToken();
 

@@ -2,6 +2,9 @@ import { UserResult } from "@shared/types";
 import { IProfileChangePasswordService } from "@web/interfaces/IProfileChangePasswordService";
 import bcrypt from "bcryptjs";
 
+/**
+ * Class for editing the password, implements IProfileChangePasswordService
+ */
 export class ProfileChangePasswordService implements IProfileChangePasswordService {
     /**
      * Checks the input of the old password, and both versions of the new password

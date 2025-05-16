@@ -1,6 +1,9 @@
 import { GameResult, LicenseResult } from "@shared/types";
 import { IProfileGamesService } from "@web/interfaces/IProfileGamesService";
 
+/**
+ * Class for the games shown on the profile page, implements IProfileGamesServices
+ */
 export class ProfileGamesService implements IProfileGamesService {
     /**
      * Creates the HTML for the owned games of the user

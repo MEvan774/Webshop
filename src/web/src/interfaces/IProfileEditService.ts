@@ -1,5 +1,8 @@
 import { UserResult } from "@shared/types";
 
+/**
+ * Interface for the ProfileEditService
+ */
 export interface IProfileEditService {
     getGenderSelect(user: UserResult): string;
     saveProfile(user: UserResult, shadowRoot: ShadowRoot): Promise<boolean>;

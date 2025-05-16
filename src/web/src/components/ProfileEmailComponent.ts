@@ -9,6 +9,11 @@ export class ProfileEmailComponent extends BaseProfileComponent {
     private readonly profileChangeEmailService: ProfileChangeEmailService =
         new ProfileChangeEmailService();
 
+    /**
+     * If the email is saved, go to profile. Else, give the error message
+     *
+     * @returns Void
+     */
     public async emailSave(): Promise<void> {
         const user: UserResult | null = await this.getCurrentUser();
         if (!user || !this.shadowRoot) return;

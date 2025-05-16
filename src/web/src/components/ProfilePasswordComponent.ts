@@ -9,6 +9,11 @@ export class ProfilePasswordComponent extends BaseProfileComponent {
     private readonly profileChangePasswordService: ProfileChangePasswordService =
         new ProfileChangePasswordService();
 
+    /**
+     * If the password is saved, go to the profile. Else, give the error message
+     *
+     * @returns Void
+     */
     public async passwordSave(): Promise<void> {
         const user: UserResult | null = await this.getCurrentUser();
         if (!user || !this.shadowRoot) return;

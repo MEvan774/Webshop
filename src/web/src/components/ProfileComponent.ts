@@ -7,6 +7,7 @@ import { ProfileGamesService } from "@web/services/ProfileGamesService";
  */
 export class ProfileComponent extends BaseProfileComponent {
     private readonly profileGamesService: ProfileGamesService = new ProfileGamesService();
+
     /**
      * Render the HTML of the profile page
      *

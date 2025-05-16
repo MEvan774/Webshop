@@ -1,6 +1,9 @@
 import { UserResponse, UserResult } from "@shared/types";
 import { IProfileService } from "@web/interfaces/IProfileService";
 
+/**
+ * Class for the profile, implements IProfileService
+ */
 export class ProfileService implements IProfileService {
     /**
      * Get the user with the sessionID

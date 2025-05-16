@@ -8,6 +8,11 @@ import { ProfileEditService } from "@web/services/ProfileEditService";
 export class ProfileEditingComponent extends BaseProfileComponent {
     private readonly profileEditService: ProfileEditService = new ProfileEditService();
 
+    /**
+     * Saves the profile edits tot the database
+     *
+     * @returns Void
+     */
     public async saveProfile(): Promise<void> {
         const user: UserResult | null = await this.getCurrentUser();
         if (!user || !this.shadowRoot) return;

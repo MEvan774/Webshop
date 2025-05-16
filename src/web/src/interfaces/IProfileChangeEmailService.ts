@@ -1,6 +1,9 @@
 import { UserResult } from "@shared/types";
 import { EmailService } from "@web/services/EmailService";
 
+/**
+ * Interface for the ProfileChangeEmailService
+ */
 export interface IProfileChangeEmailService {
     _emailService: EmailService;
     emailSave(user: UserResult, shadowRoot: ShadowRoot): Promise<boolean>;
