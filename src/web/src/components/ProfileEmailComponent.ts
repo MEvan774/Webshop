@@ -1,78 +1,19 @@
 import { UserResult } from "@shared/types";
 import { BaseProfileComponent } from "./BaseProfileComponent";
-import { EmailService } from "@web/services/EmailService";
-import { ProfileService } from "@web/services/ProfileService";
-import bcrypt from "bcryptjs";
+import { ProfileChangeEmailService } from "@web/services/ProfileChangeEmailService";
 
 /**
  * Class for the edit email profile page, extends BaseProfileCompon ent
  */
 export class ProfileEmailComponent extends BaseProfileComponent {
-    private readonly _emailService: EmailService = new EmailService();
-    private readonly _profileService: ProfileService = new ProfileService();
+    private readonly profileChangeEmailService: ProfileChangeEmailService =
+        new ProfileChangeEmailService();
 
-    /**
-     * Save the new email and check if the input is correct
-     *
-     * @returns Void
-     */
     public async emailSave(): Promise<void> {
         const user: UserResult | null = await this.getCurrentUser();
-        if (!user) return;
+        if (!user || !this.shadowRoot) return;
 
-        const name: string = user.firstname + " " + user.lastname;
-
-        // Get input fields
-        const emailInput: HTMLInputElement | null | undefined =
-          this.shadowRoot?.querySelector<HTMLInputElement>("#emailEdit");
-        const passwordInput: HTMLInputElement | null | undefined =
-          this.shadowRoot?.querySelector<HTMLInputElement>("#passwordEmailEdit");
-
-        // Get the place for error messages
-        const errorMessagePlace: HTMLParagraphElement | null | undefined =
-          this.shadowRoot?.querySelector<HTMLParagraphElement>("#passwordEditError");
-
-        // Get and trim the values of the email and password
-        const email: string | undefined = emailInput?.value.trim();
-        const password: string | undefined = passwordInput?.value.trim();
-
-        if (!errorMessagePlace) return;
-
-        // Return if not all fields are filled in
-        if (!email || !password) {
-            errorMessagePlace.innerHTML = "Vul alle velden in om verder te gaan!";
-            return;
-        }
-
-        // Return if the old password is incorrect
-        const matchPassword: boolean = await bcrypt.compare(password, user.password);
-
-        if (!matchPassword) {
-            errorMessagePlace.innerHTML = "Het oude wachtwoord is incorrect.";
-            return;
-        }
-
-        // Return if the new email is the same as the current email
-        if (email === user.email) {
-            errorMessagePlace.innerHTML = "Dit is je huidige email!";
-            return;
-        }
-
-        // Check if the email is free and return if not
-        const emailFree: boolean = await this._emailService.isEmailUsed(email);
-
-        if (!emailFree) {
-            errorMessagePlace.innerHTML = "Deze email is al bezet!";
-            return;
-        }
-
-        // Confirm the change, and send the confirmation emails
-        if (window.confirm("Weet u zeker dat u uw email wil veranderen?")) {
-            window.alert("Bevestig de wijziging via de mail in uw mailbox");
-
-            await this._profileService.writeEmail("old", name, user.email, user.userId, email);
-            await this._profileService.writeEmail("new", name, email, user.userId);
-
+        if (await this.profileChangeEmailService.emailSave(user, this.shadowRoot)) {
             this.dispatchEvent(new CustomEvent("to-profile", { bubbles: true }));
         }
     }

@@ -6,7 +6,7 @@ import { Response } from "express-serve-static-core";
 
 interface ChangePasswordBody {
     userID: string;
-    newPassword: string;
+    password: string;
 }
 
 /**
@@ -42,18 +42,19 @@ export async function getUser(sessionID: string): Promise<UserResult | undefined
  * @returns Boolean whether change is succesful
  */
 export async function changePassword(req: Request<object, object, ChangePasswordBody>, res: Response): Promise<boolean> {
+    console.log(req.body);
     const userService: UserService = new UserService();
-    const { userID, newPassword } = req.body;
+    const { userID, password } = req.body;
 
-    if (!userID || !newPassword) {
+    if (!userID || !password) {
         res.status(400).json({ error: "Missing userID or newPassword" });
         return false;
     }
 
-    const password: string = String(newPassword);
+    const passwordString: string = String(password);
 
     try {
-        const result: boolean = await userService.changePassword(userID, password);
+        const result: boolean = await userService.changePassword(userID, passwordString);
 
         if (!result) {
             res.status(404).json({ error: "User not found or update failed" });

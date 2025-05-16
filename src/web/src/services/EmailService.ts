@@ -25,7 +25,8 @@ export class EmailService implements IEmailService {
         });
 
         const data: unknown = await response.json();
-        console.log("Response:", data);
+        console.log(data);
+        return;
     };
 
     /**
