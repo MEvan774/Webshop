@@ -20,11 +20,11 @@ export class ProfileEmailComponent extends BaseProfileComponent {
         const emailInput: HTMLInputElement | null | undefined =
           this.shadowRoot?.querySelector<HTMLInputElement>("#emailEdit");
         const passwordInput: HTMLInputElement | null | undefined =
-          this.shadowRoot?.querySelector<HTMLInputElement>("#passwordEm ailEdit");
+          this.shadowRoot?.querySelector<HTMLInputElement>("#passwordEmailEdit");
 
         // Get the place for error messages
         const errorMessagePlace: HTMLParagraphElement | null | undefined =
-          this.shadowRoot?.querySelector<HTMLParagraphElement>("#passwo rdEditError");
+          this.shadowRoot?.querySelector<HTMLParagraphElement>("#passwordEditError");
 
         // Get and trim the values of the email and password
         const email: string | undefined = emailInput?.value.trim();
@@ -46,7 +46,7 @@ export class ProfileEmailComponent extends BaseProfileComponent {
 
         // Return if the new email is the same as the current email
         if (email === user.email) {
-            errorMessagePlace.innerHTML = "Dit is je huidige em ail!";
+            errorMessagePlace.innerHTML = "Dit is je huidige email!";
             return;
         }
 
@@ -54,7 +54,7 @@ export class ProfileEmailComponent extends BaseProfileComponent {
         const emailFree: boolean = await this._emailService.isEmailUsed(email);
 
         if (!emailFree) {
-            errorMessagePlace.innerHTML = "Deze email  is al bezet!";
+            errorMessagePlace.innerHTML = "Deze email is al bezet!";
             return;
         }
 
@@ -63,7 +63,7 @@ export class ProfileEmailComponent extends BaseProfileComponent {
             window.alert("Bevestig de wijziging via de mail in uw mailbox");
             await this._emailService.sendEmail(user.userId, "changeEmailNew", user.firstname + " " + user.lastname, email);
             // await sendEmail(user.userId, "changeEmailOld", user.firstname + " " + user.lastname, user.email, email);
-            this.dispatchEvent(new CustomEvent("to-profi le", { bubbles: true }));
+            this.dispatchEvent(new CustomEvent("to-profile", { bubbles: true }));
         }
     }
 
@@ -104,7 +104,7 @@ export class ProfileEmailComponent extends BaseProfileComponent {
                     <button id="changeEmailCancelButton" class="emailButton">Annuleer wijziging</button>
                 </div>
 
-                <p  id="passwordEditError" class="profileError"></p>
+                <p id="passwordEditError" class="profileError"></p>
             </div>
         `;
 
