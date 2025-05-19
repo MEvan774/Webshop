@@ -17,6 +17,7 @@ export class PaymentComponent extends HTMLElement {
             <div id="shoppingCart">
                 <h1>Mijn winkelwagen</h1>
                 <payment-tile></payment-tile>
+                <a>Verwijder alle spellen</a>
             </div>
             <div id="priceContainer">
                 <div id="price">
