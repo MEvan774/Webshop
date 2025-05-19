@@ -33,7 +33,7 @@ export class LoginService implements ILoginService {
             }
 
             const sessionResponse: Response = await fetch(`${VITE_API_URL}session`, {
-                credentials: "include", // cookie van login wordt meegegeven
+                credentials: "include",
             });
 
             if (!sessionResponse.ok) {
@@ -41,12 +41,7 @@ export class LoginService implements ILoginService {
             }
 
             const sessionData: SessionResponse = await sessionResponse.json() as SessionResponse;
-            // sessionStorage.setItem("sessionData", JSON.stringify(sessionData.sessionId));
             console.log("Ingelogd met sessie-ID:", sessionData.sessionId);
-
-            // ➡️ Hier kan je redirecten, state bijwerken, etc.
-            // Bijvoorbeeld:
-            // window.location.href = "/dashboard";
         }
         catch (error) {
             console.error("Login mislukt:", error);

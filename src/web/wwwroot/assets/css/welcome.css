@@ -6,8 +6,15 @@
   }
 
   @font-face {
-    font-family: 'RaleWay';
-    src: url('/assets/fonts/Raleway-Regular.ttf');
+    font-family: 'TimesNewRoman';
+    src: url('/assets/fonts/TimesNewRoman');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'TimesNewRomanBold';
+    src: url('/assets/fonts/TimesNewRomanBold.ttf');
     font-weight: normal;
     font-style: normal;
   }
@@ -19,7 +26,8 @@
   }
 
   .frontpage h1{
-    font-family: 'Pacifico';
+    font-family: 'TimesNewRoman';
+    font-size: 700;
     padding-left: 12.5%;
     color: #121212;
     margin-bottom: 0;
@@ -27,7 +35,7 @@
   }
 
   .frontpage p{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'TimesNewRoman';
     margin-top: 0;
     padding-left: 12.5%;
     color: #121212;
@@ -69,38 +77,47 @@
     bottom: 30px;
     left: 2%;
     bottom: 4%;
-    background: rgba(255, 255, 255, 0.1); /* fallback color */
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(0, 0, 0, 0.7); /* fallback color */
+    border: 1px solid rgba(0, 0, 0, 0.6);
     border-radius: 12px;
     padding: 20px;
-    color: #fff;
+    color: #FFFAF0;
+    font-family: 'TimesNewRoman';
+    font-weight: 700;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari */
   }
 
   .hero-text h1 {
-    font-size: 1.5rem;
+    font-size: 700;
     margin: 0;
     text-align: left;
     padding-left: 0px;
     color: #FFFAF0;
+    font-family: 'TimesNewRoman';
+    font-weight: 700;
   }
 
   .hero-text p {
+    font-family: 'TimesNewRoman';
     font-size: 1rem;
     color: #FFFAF0;
+    font-family: 'TimesNewRoman';
+    font-weight: 700;
   }
 
   .hero-text button {
-    font-family: 'Pacifico';
+    font-family: 'TimesNewRoman';
     font-size: 16px;
     padding: 5px 20px;
     margin-top: 5px;
     border: none;
     background-color: #f4b111;
     color: #FFFAF0;
+    font-family: 'TimesNewRoman';
+    font-weight: 700;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
     border-radius: 8px;
     cursor: pointer;
     align-items: center;
@@ -150,11 +167,13 @@
   .discover {
     margin-bottom: 40px;
     position: relative;
-    width: 79.3%;
+    width: 80%;
     margin: auto;
   }
 
   .discover h2 {
+    font-family: 'TimesNewRoman';
+    font-size: 700;
     margin-bottom: 12px;
     font-size: 1.5rem;
     color: #121212;
@@ -182,7 +201,7 @@
   }
 
   .scroll-arrow {
-    width: 38px;
+    width: 60px;
     height: 75px;
     font-size: 2rem;
     display: flex;
@@ -194,12 +213,12 @@
   }
 
   .scroll-arrow.left {
-    border-radius: 50px 0 0 50px;
+    border-radius: 55px 0 0 55px;
     background-color: #f4b111;
   }
 
   .scroll-arrow.right {
-    border-radius: 0 50px 50px 0;
+    border-radius: 0 55px 55px 0;
     background-color: #f4b111;
   }
 
@@ -211,7 +230,6 @@
     margin-top: 2px;
     transform-origin: 30% 50%;
   }
-
 
   .scroll-arrow.left img {
     width: auto;
@@ -263,6 +281,7 @@
 
   .price-wrapper {
     position: absolute;
+    width: 43px;
     bottom: 30px;
     right: 5%;
     display: flex;
@@ -273,20 +292,30 @@
   }
 
   .discount {
+    background-color: #f4b111; /* example red background */
+    color: #FFFAF0;
+    font-family: 'TimesNewRoman';
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15px;
+    text-align: center;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+}
+
+.discounted-price {
+    padding-top: 5px;
     font-size: 1.1rem;
     font-weight: bold;
     color: #FFFAF0; /* green-ish */
-    margin-bottom: 0px;
-  }
+    padding-bottom: 5px;
+}
 
-  .discounted-price {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #FFFAF0; /* green-ish */
-    margin-bottom: 0px;
-  }
-
-  .original-price {
+.original-price {
+      margin-left: 45px;
     font-size: 0.95rem;
     text-decoration: line-through;
     color: #a1a1aa; /* soft gray */

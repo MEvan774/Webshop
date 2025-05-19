@@ -24,6 +24,9 @@ export type SecretResponse = {
     userId: string;
 };
 
+/**
+ * Represents the user data
+ */
 export type UserResult = {
     userId: number;
     firstname: string;
@@ -32,8 +35,14 @@ export type UserResult = {
     password: string;
     dob: string;
     gender: string;
+    country: string | null;
+    profilePicture: string | null;
+    isVerified: boolean | undefined;
 };
 
+/**
+ * Represents the user register data
+ */
 export type UserRegisterData = {
     firstname: string;
     lastname: string;
@@ -41,8 +50,23 @@ export type UserRegisterData = {
     password: string;
     dob: string;
     gender: string;
+    verificationToken: string | undefined;
+    isVerified: boolean | undefined;
 };
 
+/**
+ * Represents data given to user on registration
+ */
+export type UserRegistrationResponse = {
+    message: string;
+    userId: string;
+    verificationToken: string;
+    isVerified: boolean | undefined;
+};
+
+/**
+ * Represents the login data
+ */
 export type LoginData = {
     email: string;
     password: string;
@@ -74,4 +98,38 @@ export type GameResult = {
     tags: string[] | null;
     /** The reviews of the game */
     reviews: string[] | null;
+};
+
+/**
+ * Represents the user data when editing
+ */
+export type UserEditData = {
+    userId: number;
+    fname: string;
+    lname: string;
+    dob: string;
+    gender: string;
+    country: string;
+};
+
+/**
+ * Represents a token
+ */
+export type TokenData = {
+    token: string;
+    userId: number;
+    email: string;
+    type: string;
+};
+
+/**
+ * Respresents a game license
+ */
+export type LicenseResult = {
+    SKU: string;
+    userId: number;
+};
+
+export type UserResponse = {
+    user: UserResult;
 };

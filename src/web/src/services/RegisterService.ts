@@ -1,5 +1,6 @@
-import { UserRegisterData } from "@shared/types";
+import { UserRegisterData, UserRegistrationResponse } from "@shared/types";
 import { IRegisterService } from "@web/interfaces/IRegisterService";
+import { EmailService } from "@web/services/EmailService";
 
 /**
  * Here all register-logic is placed
@@ -44,6 +45,11 @@ export class RegisterService implements IRegisterService {
         return { valid: messages.length === 0, messages };
     }
 
+    /**
+     * Check whether an email exists in the system
+     * @param email Requires an email address
+     * @returns true or false to determine if an email is used already
+     */
     public async getUserByEmail(email: string): Promise<boolean> {
         try {
             const response: Response = await fetch(`${VITE_API_URL}user/exists?email=${encodeURIComponent(email)}`, {
@@ -51,22 +57,41 @@ export class RegisterService implements IRegisterService {
                 credentials: "include",
             });
 
-            if (!response.ok) {
-                const errorText: string = await response.text();
-                throw new Error(`Failed to locate user. Status: ${response.status}, Message: ${errorText}`);
+            if (response.status === 200) {
+                console.log("De gebruiker bestaat");
+                return true;
             }
 
-            console.log("De gebruiker bestaat");
-            return true;
+            if (response.status === 404) {
+                console.log("De gebruiker bestaat niet");
+                return false;
+            }
+
+            throw new Error(`Onverwachte statuscode: ${response.status}`);
         }
         catch (error) {
-            console.log("Bestaande gebruiker zoeken is mislukt", error);
+            console.log("Bestaande gebruiker zoeken is mislukt:", error);
             return false;
         }
     }
 
+    /**
+     * This function actually registers a user into the system after all other checks are completed
+     * @param fname Firstname field
+     * @param lname Lastname field
+     * @param email Email field
+     * @param gender Gender field
+     * @param dob DoB field
+     * @param password Password field
+     * @returns true or false based off success
+     */
     public async registerUser(fname: string, lname: string, email: string, dob: string, gender: string, password: string): Promise<boolean> {
-        const userData: UserRegisterData = { firstname: fname, lastname: lname, email, dob, gender, password };
+        const userData: UserRegisterData = {
+            firstname: fname, lastname: lname, email, dob, gender, password,
+            verificationToken: undefined,
+            isVerified: undefined,
+        };
+        const emailService: EmailService = new EmailService();
 
         try {
             const response: Response = await fetch(`${VITE_API_URL}user/register`, {
@@ -78,12 +103,23 @@ export class RegisterService implements IRegisterService {
                 body: JSON.stringify(userData),
             });
 
-            if (!response.ok) {
-                const errorText: string = await response.text();
-                throw new Error(`Failed to create user. Status: ${response.status}, Message: ${errorText}`);
+            if (response.status === 200) {
+                console.log("De gebruiker bestaat");
+                return true;
             }
 
             console.log("Account succesvol aangemaakt!");
+            const responseData: UserRegistrationResponse = await response.json() as UserRegistrationResponse;
+            const verificationToken: string = responseData.verificationToken;
+            const verifyUrl: string = `http://localhost:3000/verify?token=${verificationToken}`;
+
+            await emailService.sendEmail(
+                fname,
+                email,
+                "Welkom bij Starshop",
+                `<h1>Welkom ${fname} ${lname}!</h1><p>Bedankt voor het registreren bij Starshop.</p><p>Klik <a href="${verifyUrl}">hier</a> om je registratie te bevestigen. LET OP: Pas na het bevestigen van de registratie kan je inloggen.</p>`
+            );
+
             return true;
         }
         catch (error: unknown) {

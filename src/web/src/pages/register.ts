@@ -17,14 +17,19 @@ class RegisterPageComponent extends HTMLElement {
 
         const element: HTMLElement = html`
             <div>
-                <webshop-navigation></webshop-navigation>
-                <webshop-register></webshop-register>
+                <div>
+                    <webshop-register></webshop-register>
                 </div>
             </div>
         `;
 
+        const styleLink: HTMLLinkElement = document.createElement("link");
+        styleLink.setAttribute("rel", "stylesheet");
+        styleLink.setAttribute("href", "/assets/css/registerFromPages.css");
+
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
+        this.shadowRoot.appendChild(styleLink);
     }
 }
 
