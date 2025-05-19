@@ -1,7 +1,6 @@
-// import { GameResult } from "@shared/types";
+import { GameResult } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
-// import { WelcomeService } from "@web/services/WelcomeService";
-// import { GamesService } from "@web/services/GamesService";
+import { getAllGames } from "@web/services/AllGamesService copy";
 
 /**
  * This component demonstrates the use of sessions, cookies and Services.
@@ -9,19 +8,31 @@ import { html } from "@web/helpers/webComponents";
  * @remarks This class should be removed from the final product!
  */
 export class WelcomeComponent extends HTMLElement {
-    public connectedCallback(): void {
+    public async connectedCallback(): Promise<void> {
         this.attachShadow({ mode: "open" });
-        // console.log(this.getAllGames());
+        await this.addGames();
         this.render();
     }
 
-    /*
-    private welcomeService: WelcomeService = new WelcomeService();
+    private async addGames(): Promise <void> {
+        const games: GameResult[] | null = await this.getAllGames();
+
+        // Filter games into the correct arrays
+        if (!games)
+            return;
+
+        this.frontPageGames = [games[36], games[3], games[5], games[40], games[41]];
+        this.saleGames = [games[12], games[11], games[8], games[7], games[9], games[15], games[19], games[20]];
+    }
+
+    private frontPageGames: GameResult[] | undefined;
+    private saleGames: GameResult[] | undefined;
+
+    // private welcomeService: WelcomeService = new WelcomeService();
 
     private async getAllGames(): Promise<GameResult[] | null> {
-        return await this.welcomeService.getAllGames();
+        return await getAllGames();
     }
-*/
 
     // public games: GameResult = await getAllGames();
 
@@ -38,9 +49,9 @@ export class WelcomeComponent extends HTMLElement {
    <section class="hero-banner">
   <!-- Left: Main featured game -->
   <div class="hero-main" id="hero-main">
-    <img src="assets/img/temp/BrightPage.png" alt="Featured Game" />
+    <img src=${this.frontPageGames![0].thumbnail} alt="Featured Game" />
     <div class="hero-text">
-      <h1>Kidnapped: Castle Breakout</h1>
+      <h1>${this.frontPageGames![0].title}</h1>
       <button>Koop nu!</button>
     </div>
   </div>
@@ -48,20 +59,20 @@ export class WelcomeComponent extends HTMLElement {
   <!-- Right: Vertical list of other games -->
   <div class="hero-side-list">
     <div class="side-game">
-      <img src="assets/img/temp/Frontpage.png" alt="Game 1" />
-      <p>Game Title 1</p>
+      <img src=${this.frontPageGames![1].thumbnail} alt="Game 1" />
+      <p>${this.frontPageGames![1].title}</p>
     </div>
     <div class="side-game">
-      <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
-      <p>Game Title 2</p>
+      <img src=${this.frontPageGames![2].thumbnail} alt="Game 2" />
+      <p>${this.frontPageGames![2].title}</p>
     </div>
     <div class="side-game">
-      <img src="assets/img/temp/Frontpage.png" alt="Game 3" />
-      <p>Game Title 3</p>
+      <img src=${this.frontPageGames![3].thumbnail} alt="Game 3" />
+      <p>${this.frontPageGames![3].title}</p>
     </div>
     <div class="side-game">
-      <img src="assets/img/temp/Frontpage.png" alt="Game 4" />
-      <p>Game Title 4</p>
+      <img src=${this.frontPageGames![4].thumbnail} alt="Game 4" />
+      <p>${this.frontPageGames![4].title}</p>
     </div>
   </div>
 </section>
@@ -76,8 +87,8 @@ export class WelcomeComponent extends HTMLElement {
   </div>
     <div class="horizontal-scroll">
       <div class="game-card">
-        <img src="assets/img/temp/Frontpage.png" alt="Game 1" />
-        <p>Kidnapped: castle breakout</p>
+        <img src= ${this.saleGames![0].thumbnail} alt="Game 1" />
+        <p>${this.saleGames![0].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€49.99</p>
@@ -88,20 +99,8 @@ export class WelcomeComponent extends HTMLElement {
         </div>
     </div>
       <div class="game-card">
-        <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
-        <p>Game Title 2</p>
-        <div class="price-wrapper">
-            <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-  <p class="discounted-price">€29.99</p>
-</div>
-        <div class="bottom">
-        <img src="assets/img/ui/Bottom.svg">
-        </div>
-      </div>
-      <div class="game-card">
-        <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
-        <p>Game Title 2</p>
+        <img src=${this.saleGames![1].thumbnail} alt="Game 2" />
+        <p>${this.saleGames![1].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€49.99</p>
@@ -112,8 +111,8 @@ export class WelcomeComponent extends HTMLElement {
         </div>
       </div>
       <div class="game-card">
-        <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
-        <p>Game Title 2</p>
+        <img src=${this.saleGames![2].thumbnail} alt="Game 2" />
+        <p>${this.saleGames![2].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€49.99</p>
@@ -124,8 +123,20 @@ export class WelcomeComponent extends HTMLElement {
         </div>
       </div>
       <div class="game-card">
-        <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
-        <p>Game Title 2</p>
+        <img src=${this.saleGames![3].thumbnail} alt="Game 2" />
+        <p>${this.saleGames![3].title}</p>
+        <div class="price-wrapper">
+            <p class="discount">25%</p>
+            <p class="original-price">€49.99</p>
+  <p class="discounted-price">€29.99</p>
+</div>
+        <div class="bottom">
+        <img src="assets/img/ui/Bottom.svg">
+        </div>
+      </div>
+      <div class="game-card">
+        <img src=${this.saleGames![4].thumbnail} alt="Game 2" />
+        <p>${this.saleGames![4].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€49.99</p>
@@ -136,8 +147,8 @@ export class WelcomeComponent extends HTMLElement {
         </div>
     </div>
     <div class="game-card">
-        <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
-        <p>Game Title 2</p>
+        <img src=${this.saleGames![5].thumbnail} alt="Game 2" />
+        <p>${this.saleGames![5].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€49.99</p>
@@ -148,8 +159,8 @@ export class WelcomeComponent extends HTMLElement {
         </div>
     </div>
     <div class="game-card">
-        <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
-        <p>Game Title 2</p>
+        <img src=${this.saleGames![6].thumbnail} alt="Game 2" />
+        <p>${this.saleGames![6].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€49.99</p>
@@ -160,8 +171,8 @@ export class WelcomeComponent extends HTMLElement {
         </div>
     </div>
     <div class="game-card">
-        <img src="assets/img/temp/Frontpage.png" alt="Game 2" />
-        <p>Game Title 2</p>
+        <img src=${this.saleGames![7].thumbnail} alt="Game 2" />
+        <p>${this.saleGames![7].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€49.99</p>

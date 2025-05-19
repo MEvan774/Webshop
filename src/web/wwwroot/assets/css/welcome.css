@@ -57,6 +57,7 @@
     flex: 3;
     overflow: hidden;
     border-radius: 16px;
+    background-color: #121212;
 }
 
 .hero-main img {
@@ -133,11 +134,41 @@
     overflow-y: auto;
   }
 
+  @media screen and (max-width: 768px) {
+  .hero-text {
+    position: static; /* Remove absolute positioning */
+    width: 90%;
+    margin: 12px auto 0 auto;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    padding: 16px;
+    color: #FFFAF0;
+    font-family: 'TimesNewRoman';
+    font-weight: 700;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .hero-text h1 {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .hero-text button {
+    display: block;
+    margin: 10px auto 0 auto;
+  }
+}
+
+
   .side-game {
     z-index: 10;
     display: flex;
     flex-direction: row;
-    background-color: #2a2a2a;
+    background-color: #121212;
     height: 25%;
     border-radius: 8px;
     overflow: hidden;
