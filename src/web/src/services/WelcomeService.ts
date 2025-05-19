@@ -9,8 +9,12 @@ import { IWelcomeService } from "@web/interfaces/IWelcomeService";
 export class WelcomeService implements IWelcomeService {
     public async getAllGames(): Promise<GameResult[]> {
         try {
-            const response: Response = await fetch(`${VITE_API_URL}products`, {
+            console.log(`${VITE_API_URL}games`);
+            const response: Response = await fetch(`${VITE_API_URL}games`, {
                 method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 credentials: "include",
             });
 

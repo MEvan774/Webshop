@@ -1,4 +1,5 @@
 import { IEmailService } from "@web/interfaces/IEmailService";
+
 export class EmailService implements IEmailService {
     public async sendVerifyEmail(name: string, email: string, subject: string, htmlBody: string): Promise<void> {
         const response: Response = await fetch("https://api.hbo-ict.cloud/mail", {
@@ -24,7 +25,8 @@ export class EmailService implements IEmailService {
         });
 
         const data: unknown = await response.json();
-        console.log("Response:", data);
+        console.log(data);
+        return;
     };
 
     /**

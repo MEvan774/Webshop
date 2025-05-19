@@ -45,6 +45,9 @@ router.get("/token/:token", async (req, res) => {
 router.post("/user/change-email", async (req, res) => await userController.changeEmail(req, res));
 const userService: UserService = new UserService();
 
+// Cancel the change the email of the user
+router.post("/user/cancel-email", async (req, res) => await userController.cancelEmail(req, res));
+
 // Get current game
 router.get("/games/:gameID", async (req, res) => {
     const { gameID } = req.params;
@@ -193,4 +196,28 @@ router.get("/gamesSKU/:SKU", async (req, res) => {
     catch (error) {
         res.status(500).json({ message: "Internal server error:", error });
     }
+});
+
+function parseCookies(cookieHeader: string | undefined): Record<string, string> {
+    const cookies: Record<string, string> = {};
+    if (!cookieHeader) return cookies;
+
+    cookieHeader.split(";").forEach(cookie => {
+        const [name, ...rest] = cookie.trim().split("=");
+        cookies[name] = decodeURIComponent(rest.join("="));
+    });
+
+    return cookies;
+}
+
+router.get("/profile", async (req, res) => {
+    const cookies: Record<string, string> = parseCookies(req.headers.cookie);
+    const sessionId: string = cookies.session;
+
+    if (!sessionId) {
+        return res.status(401).json({ message: "No session found" });
+    }
+
+    const user: UserResult | undefined = await getUser(sessionId);
+    return res.status(200).json({ user });
 });
