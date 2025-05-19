@@ -113,7 +113,7 @@ export class RegisterService implements IRegisterService {
             const verificationToken: string = responseData.verificationToken;
             const verifyUrl: string = `http://localhost:3000/verify?token=${verificationToken}`;
 
-            await emailService.sendEmail(
+            await emailService.sendVerifyEmail(
                 fname,
                 email,
                 "Welkom bij Starshop",
