@@ -1,4 +1,7 @@
+// import { GameResult } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
+// import { WelcomeService } from "@web/services/WelcomeService";
+// import { GamesService } from "@web/services/GamesService";
 
 /**
  * This component demonstrates the use of sessions, cookies and Services.
@@ -8,9 +11,19 @@ import { html } from "@web/helpers/webComponents";
 export class WelcomeComponent extends HTMLElement {
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
-
+        // console.log(this.getAllGames());
         this.render();
     }
+
+    /*
+    private welcomeService: WelcomeService = new WelcomeService();
+
+    private async getAllGames(): Promise<GameResult[] | null> {
+        return await this.welcomeService.getAllGames();
+    }
+*/
+
+    // public games: GameResult = await getAllGames();
 
     private render(): void {
         if (!this.shadowRoot) {

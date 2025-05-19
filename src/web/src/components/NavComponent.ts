@@ -22,47 +22,92 @@ export class NavComponent extends HTMLElement {
         }
 
         const element: HTMLElement = html`
-            <div>
-            <div class="navbar">
-                <div class="navbar-left">
-                    <a href="index.html" class="brand-link">
-                        <img class="logo" src="/assets/img/icons/LogoIcon.png" />
-                        <div class="brand">
-                            <p class="brand-name">LucaStarShop</p>
-                            <p class="brand-tagline">De shop voor de sterren in gaming!</p>
-                        </div>
-                    </a>
-                </div>
+  <div>
+    <div class="navbar">
+      <!-- Left (Logo + Brand) -->
+      <div class="navbar-left">
+        <a href="index.html" class="brand-link">
+          <img class="logo" src="/assets/img/icons/LogoIcon.png" />
+          <div class="brand">
+            <p class="brand-name">LucaStarShop</p>
+            <p class="brand-tagline">De shop voor de sterren in gaming!</p>
+          </div>
+        </a>
+      </div>
 
-                <div class="navbar-center">
-                    <div class="searchbar">
-                        <button>
-                            <img src="/assets/img/icons/SearchIcon.png" alt="Search" />
-                        </button>
-                        <input type="text" placeholder="Zoek game..." />
-                    </div>
-                </div>
+      <!-- Mobile Search Toggle -->
+      <input type="checkbox" id="mobile-search-toggle" class="mobile-search-toggle" />
+      <label for="mobile-search-toggle" class="mobile-search-icon">
+        <img src="/assets/img/icons/SearchWhiteIcon.svg" alt="Search" width="34" height="34" />
+      </label>
 
-                <div class="navbar-right">
-    ${
-        sessionId
+      <!-- Hamburger Menu Toggle -->
+      <input type="checkbox" id="hamburger-toggle" class="hamburger-toggle" />
+      <label for="hamburger-toggle" class="hamburger-icon">
+  <img src="/assets/img/icons/HamburgerIcon.svg" alt="Menu" width="24" height="24" />
+</label>
+
+      <!-- Center Search Bar (Hidden on mobile) -->
+      <div class="navbar-center">
+        <div class="searchbar">
+          <button>
+            <img src="/assets/img/icons/SearchIcon.png" alt="Search" />
+          </button>
+          <input type="text" placeholder="Zoek game..." />
+        </div>
+      </div>
+
+      <!-- Search Overlay -->
+<div class="mobile-search-overlay">
+  <div class="mobile-searchbar-container">
+    <button class="mobile-search-btn">
+      <img src="/assets/img/icons/SearchIcon.png" alt="Search" />
+    </button>
+    <input type="text" placeholder="Zoek game..." />
+    <label for="mobile-search-toggle" class="close-search">
+      <img src="/assets/img/icons/CloseIcon.svg" alt="Close" />
+    </label>
+  </div>
+</div>
+
+      <!-- Right Buttons (Hidden on mobile) -->
+      <div class="navbar-right">
+        ${
+          sessionId
             ? html`
                 <span>
-                    <a id="user" href="/profile.html"><img src="/assets/images/userButton.png" width=50px></a>
-                    <a id="logout">Uitloggen</a>
+                  <a id="user" href="/profile.html"><img src="/assets/images/userButton.png" width="50" /></a>
+                  <a id="logout">Uitloggen</a>
                 </span>
-            `
+              `
             : html`
                 <span>
-                    <a href="/login.html" id="login">Inloggen</a>
-                    <a href="/register.html">Registreren</a>
+                  <a href="/login.html" id="login">Inloggen</a>
+                  <a href="/register.html">Registreren</a>
                 </span>
-            `
-    }
+              `
+        }
+      </div>
+
+      <!-- Mobile Menu (Dropdown under hamburger) -->
+      <div class="mobile-menu">
+        ${
+          sessionId
+            ? html`
+                <a href="/profile.html">Profiel</a>
+                <a id="logout">Uitloggen</a>
+              `
+            : html`
+<div class="mobile-auth">
+  <a href="/login.html">Inloggen</a>
+  <a href="/register.html">Registreren</a>
 </div>
-            </div>
-            </div>
-        `;
+              `
+        }
+      </div>
+    </div>
+  </div>
+`;
 
         const styleLink: HTMLLinkElement = document.createElement("link");
         styleLink.setAttribute("rel", "stylesheet");

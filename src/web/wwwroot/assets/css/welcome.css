@@ -164,6 +164,107 @@
     font-family: 'RaleWay';
   }
 
+@media screen and (max-width: 768px) {
+  .hero-banner {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .hero-main {
+    width: 100%;
+    height: auto;
+  }
+
+  .hero-main img {
+    height: auto;
+    max-height: 250px;
+  }
+
+  .hero-text {
+    width: auto;
+    left: 5%;
+    right: 5%;
+    bottom: 10px;
+    padding: 12px;
+  }
+
+  .hero-side-list {
+    padding-left: 0;
+    margin-top: 16px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .side-game {
+    flex-direction: column;
+    width: 45%;
+    height: auto;
+    max-width: 180px;
+  }
+
+  .side-game img {
+    height: 100px;
+    border-right: none;
+    border-bottom: 1px solid #f4b111;
+  }
+
+  .side-game p {
+    width: 100%;
+  }
+
+  .discover {
+    width: 95%;
+  }
+
+  /* --- Discover Section: Mobile Styles --- */
+  /*
+.scroll-section {
+  flex-direction: column;
+  margin: 20px 0;
+  width: 100%;
+  padding: 0 12px;
+}
+*/
+
+.horizontal-scroll {
+  width: 80%;
+  padding: 0;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+    .scroll-arrow.left {
+        height: 60px;
+        width: 35px;
+    border-radius: 55px 0 0 55px;
+    background-color: #f4b111;
+  }
+
+  .scroll-arrow.right {
+            height: 60px;
+        width: 35px;
+    border-radius: 0 55px 55px 0;
+    background-color: #f4b111;
+  }
+
+  
+
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.game-card {
+  flex: 0 0 auto;
+  width: 70vw; /* Responsive card width */
+  max-width: 250px;
+  scroll-snap-align: start;
+}
+}
+
+
   .discover {
     margin-bottom: 40px;
     position: relative;

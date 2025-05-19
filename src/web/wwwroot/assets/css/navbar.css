@@ -5,6 +5,14 @@
     font-style: normal;
 }
 
+  @font-face {
+    font-family: 'TimesNewRoman';
+    src: url('/assets/fonts/TimesNewRoman');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+
 a#user {
 background: transparent;
 padding: 0;
@@ -116,7 +124,7 @@ background: transparent;
   .searchbar input::placeholder {
     color: #a0a0a0;
     opacity: 1;
-    font-family: 'Pacifico';
+    font-family: 'TimesNewRoman';
   }
 
   .searchbar button {
@@ -158,7 +166,7 @@ background: transparent;
     border-radius: 1.9px;
     cursor: pointer;
     border: none;
-    font-family: 'Pacifico';
+    font-family: 'TimesNewRoman';
     text-decoration: none;
     text-align: center;
     font-size: 1.2rem;
@@ -167,3 +175,211 @@ background: transparent;
     text-align: center;
     line-height: 34px;
 }
+
+/* Hide hamburger and mobile menu by default */
+.hamburger-icon {
+  display: none;
+  cursor: pointer;
+  color: #FFFAF0;
+  padding-right: 1rem;
+}
+
+.hamburger-toggle {
+  display: none;
+}
+
+/* Mobile menu container */
+.mobile-menu {
+  position: absolute;
+  top: 65px; /* Below navbar */
+  left: 0;
+  width: 100%;
+  background-color: #FFFAF0;
+  border-bottom: 2px solid #1C2594; /* Make border visible */
+  display: none;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  padding: 1rem;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    box-sizing: border-box;  /* Include padding/border in width */
+  max-width: 100vw;        /* Prevent exceeding viewport width */
+  overflow-x: hidden;    
+  z-index: 999;
+}
+
+/* General mobile menu links */
+.mobile-menu a {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  color: #1C2594; /* Changed to dark for contrast */
+  font-family: 'TimesNewRoman';
+  font-weight: 500;
+  font-size: 1.1rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(28, 37, 148, 0.2);
+  box-sizing: border-box;
+  text-align: center; /* Center the link text */
+}
+
+.mobile-auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center horizontally */    /* Center vertically */
+  gap: 1rem;               /* Space between items */
+  width: 100%;
+  margin-top: 1rem;        /* Give some spacing from other menu items */
+}
+
+.mobile-auth a {
+  display: block;
+  width: 90%;
+  margin: auto;
+  padding: 0.75rem 1rem;
+    color: #000000;
+  font-size: 1.1rem;
+  text-decoration: none;
+  border-bottom: 2px solid #1C2594;
+  box-sizing: border-box;
+}
+
+.mobile-search-btn {
+  background: none;
+  border: none;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.mobile-search {
+  display: none;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-family: 'TimesNewRoman';
+  font-size: 1rem;
+}
+
+/* Toggle menu and search with checkbox hack */
+.hamburger-toggle:checked ~ .mobile-menu {
+  display: flex !important;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hamburger-toggle:checked ~ .mobile-menu .mobile-search {
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar-center,
+  .navbar-right {
+    display: none;
+  }
+
+  .hamburger-icon {
+    display: block;
+
+  }
+}
+
+/* Hide toggle input */
+.mobile-search-toggle {
+  display: none;
+}
+
+/* Search icon (left side on mobile) */
+.mobile-search-icon {
+  display: none;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.mobile-search-icon img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Full-width search overlay */
+.mobile-search-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-image: linear-gradient(to right, #1C2594 , #5BCAF3);
+  height: 65px;
+  padding: 10px 15px;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center; /* Center the container */
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.mobile-search-overlay input {
+  flex: 1;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  font-family: 'TimesNewRoman';
+  outline: none;
+  background-color: transparent;
+}
+
+.mobile-search-overlay button,
+.mobile-search-overlay .close-search {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  left: 15px;
+  padding: 0;
+}
+
+.mobile-search-overlay img {
+  width: 20px;
+  height: 20px;
+}
+
+.mobile-searchbar-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #FFFAF0;
+  border-radius: 8px;
+  padding: 6px 10px;
+  height: 25px;
+  gap: 8px;
+}
+
+/* Close "X" button */
+.close-search {
+  cursor: pointer;
+}
+
+.close-search img {
+  height: 20px;
+  width: 20px;
+  padding-bottom: 10px;
+}
+
+/* Show overlay when checked */
+.mobile-search-toggle:checked ~ .mobile-search-overlay {
+  display: flex;
+}
+
+/* Responsive visibility */
+@media (max-width: 768px) {
+  .navbar-center {
+    display: none;
+  }
+
+  .mobile-search-icon {
+    display: block;
+  }
+}
+
+
