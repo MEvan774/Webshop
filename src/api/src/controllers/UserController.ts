@@ -239,6 +239,43 @@ export class UserController {
                 return false;
             }
 
+            await userService.deleteTokenByEmail(email);
+
+            res.sendStatus(200);
+            return true;
+        }
+        catch (err) {
+            console.error("Error updating email:", err);
+            res.status(500).json({ error: "Internal server error" });
+            return false;
+        }
+    }
+
+    /**
+     * Change the email with the UserService
+     * @param req Request with ChangeEmailBody as the body
+     * @param res Response to send the status to
+     * @returns Boolean whether user is found and email is changed
+     */
+    public async cancelEmail(req: Request<object, object, ChangeEmailBody>, res: Response): Promise<boolean> {
+        const userService: UserService = new UserService();
+        const { userId, email } = req.body;
+
+        if (!userId || !email) {
+            res.status(400).json({ error: "Missing userID or email" });
+            return false;
+        }
+
+        try {
+            const result: boolean = await userService.changeEmail(userId.toString(), email);
+
+            if (!result) {
+                res.status(404).json({ error: "User not found or update failed" });
+                return false;
+            }
+
+            await userService.deleteTokenByUserId(userId.toString());
+
             res.sendStatus(200);
             return true;
         }

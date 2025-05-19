@@ -16,12 +16,12 @@ export class TokenService {
      * @param email Email linked to the token as string
      * @returns Boolean whether saving the token was succesful
      */
-    public async createToken(userId: number, token: string, email: string): Promise<boolean> {
+    public async createToken(userId: number, token: string, email: string, type: string): Promise<boolean> {
         const connection: PoolConnection = await this._databaseService.openConnection();
 
         try {
             const result: ResultSetHeader = await this._databaseService.query<ResultSetHeader>(
-                connection, "INSERT INTO token (token, userId, email) VALUES (?, ?, ?)", token, userId, email
+                connection, "INSERT INTO token (token, userId, email, type) VALUES (?, ?, ?, ?)", token, userId, email, type
             );
 
             if (result.affectedRows > 0) {
