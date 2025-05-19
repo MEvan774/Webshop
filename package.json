@@ -35,8 +35,10 @@
     },
     "dependencies": {
         "bcryptjs": "^3.0.2",
+        "buffer": "^6.0.3",
         "crypto-js": "^4.2.0",
         "node-fetch": "^3.3.2",
+        "process": "^0.11.10",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
         "react-router-dom": "^7.6.0"
