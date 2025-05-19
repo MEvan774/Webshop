@@ -6,10 +6,52 @@ html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: rgb(255, 248, 239);
 }
 
 h1 {
     font-family: 'RaleWay';
     src: url('/assets/fonts/Raleway-Regular.ttf');
-    font-size: 60px;
+    font-size: 280%;
+    margin-top: 0;
+}
+
+#currentGameContent {
+    margin: 15%;
+    margin-top: 1%;
+}
+
+#thumbnailCurrentGame {
+    width: 90%;
+}
+
+#currentGameImagesDiv {
+    width: 90%;
+    margin-top: 1%;
+}
+
+#currentGameMainFloat {
+    margin-top: 0;
+    display: flex;
+    border: 1px, solid, rgb(2, 2, 173);
+    background-color: white;
+}
+
+#currentGameTextDiv, #currentGameReviewsDiv {
+    font-family: 'Times New Roman', Times, serif;
+    width: 60%;
+    font-size: 120%;
+    margin-right: 3%;
+}
+
+#currentGameButtonsDiv {
+    margin-left: 5%;
+    margin-bottom: 5%;
+}
+
+#currentGameReviewsFloat {
+    padding-left: 1%;
+    margin-top: 5%;
+    border: 1px, solid, rgb(2, 2, 173);
+    background-color: white;
 }

@@ -61,7 +61,7 @@ export class CurrentGameComponent extends HTMLElement {
             imagesHTML = currentGame.images.length
                 ? currentGame.images
                     .map((image: string): string =>
-                        `<img src='${image}' height=180px>`)
+                        `<img src='${image}' width='20%' height='100px'>`)
                     .join("")
                 : "";
         }
@@ -81,11 +81,24 @@ export class CurrentGameComponent extends HTMLElement {
 
         element = html`
             <div>
-                <div>
+                <div id="currentGameContent">
                     <h1 id="currentGameName">${currentGame.title}</h1>
 
                     <div id="currentGameMainFloat">
-                        <img src="${currentGame.thumbnail}" alt="Game thumbnail">
+                        <div id="currentGameImagesFloat">
+                            <img src="${currentGame.thumbnail}" alt="Game thumbnail" id="thumbnailCurrentGame">
+                            <div id="currentGameImagesDiv">${imagesHTML}</div><br>
+
+                            <div id="currentGameButtonsDiv">
+                                <button id="currentGameBuyButton" class="currentGameButtons">
+                                    <img src="/assets/images/koopButton.png" height="80px">
+                                </button>
+
+                                <button id="currentGameHeartButton">
+                                    <img src="/assets/images/heartButton.png" height="80px">
+                                </button>
+                            </div>
+                        </div>
 
                         <div id="currentGameTextDiv">
                             <div id="currentGameText">${currentGame.descriptionHtml}</div><br>
@@ -95,20 +108,10 @@ export class CurrentGameComponent extends HTMLElement {
                         </div>
                     </div>
 
-                    <div id="currentGameImagesDiv">${imagesHTML}</div><br>
-
-                    <div id="currentGameButtonsDiv">
-                        <button id="currentGameBuyButton" class="currentGameButtons">
-                            <img src="/assets/images/koopButton.png" height="80px">
-                        </button>
-
-                        <button id="currentGameHeartButton">
-                            <img src="/assets/images/heartButton.png" height="80px">
-                        </button>
+                    <div id="currentGameReviewsFloat">
+                        <h1>Reviews:</h1>
+                        <div id="currentGameReviewsDiv">${reviewsHTML}</div>
                     </div>
-
-                    <h2>Reviews:</h2>
-                    <div id="currentGameReviewsDiv">${reviewsHTML}</div>
                 </div>
             </div>
         `;
