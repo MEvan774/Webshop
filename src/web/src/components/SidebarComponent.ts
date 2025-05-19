@@ -23,9 +23,9 @@ export class SidebarComponent extends HTMLElement {
                         <h2>Filters</h2>
                         <h3>Prijs</h3>
                         <div class="price-range-boxes">
-                            <label><input type="number" class="price-input" id="min-price" placeholder="min" /></label>
+                            <label><input type="input" class="price-input" id="min-price" placeholder="min" /></label>
                             <span>—</span>
-                            <label><input type="number" class="price-input" id="max-price" placeholder="max" /></label>
+                            <label><input type="input" class="price-input" id="max-price" placeholder="max" /></label>
                         </div>
                         <h3>Labels</h3>
                         <div class="checkbox-grid">
