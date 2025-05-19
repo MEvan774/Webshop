@@ -92,7 +92,7 @@ export class ProfileChangeEmailService implements IProfileChangeEmailService {
         let html: string = "";
 
         if (kind === "new") {
-            const link: string = `http://localhost:3000/bevestigWijziging?token=${token}`;
+            const link: string = `https://naagooxeekuu77-pb4sef2425.hbo-ict.cloud/bevestigWijziging?token=${token}`;
 
             subject = "Bevestiging emailwijziging Starshop";
             html = "<h1>Goededag!</h1>" +
@@ -103,7 +103,7 @@ export class ProfileChangeEmailService implements IProfileChangeEmailService {
             await this._emailService.sendEmail(name, email, subject, html);
         }
         else if (kind === "old" && newEmail) {
-            const link: string = `http://localhost:3000/annuleerWijziging?token=${token}`;
+            const link: string = `https://naagooxeekuu77-pb4sef2425.hbo-ict.cloud/annuleerWijziging?token=${token}`;
 
             subject = "Bevestiging emailwijziging Starshop";
             html = "<h1>Goededag!</h1>" +
