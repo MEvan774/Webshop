@@ -148,7 +148,7 @@ export class UserController {
      * @param res Response to send the status to
      */
     public async editUser(req: Request<unknown, unknown, UserEditData>, res: Response): Promise<void> {
-    console.log("Incoming request body:", req.body);
+        console.log("Incoming request body:", req.body);
         // const { userId, fname, lname, dob, gender, country }: UserEditData = req.body as UserEditData;
         const body: UserEditData = req.body;
 
