@@ -1,4 +1,4 @@
-import "@web/components/NavigationComponent";
+import "@web/components/NavComponent";
 import "@web/components/WelcomeComponent";
 import { WebshopEvent } from "@web/enums/WebshopEvent";
 

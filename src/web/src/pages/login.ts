@@ -1,6 +1,9 @@
+import "@web/components/NavComponent";
+import "@web/components/LoginComponent";
+
 import { html } from "@web/helpers/webComponents";
 
-export class NavigationComponent extends HTMLElement {
+class LoginPageComponent extends HTMLElement {
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
 
@@ -13,10 +16,9 @@ export class NavigationComponent extends HTMLElement {
         }
 
         const element: HTMLElement = html`
-            <nav>
-                <a href="/index.html">Home</a>
-                <a href="/example.html">Example</a>
-            </nav>
+            <div>
+                <webshop-login></webshop-login>
+            </div>
         `;
 
         this.shadowRoot.firstChild?.remove();
@@ -24,4 +26,4 @@ export class NavigationComponent extends HTMLElement {
     }
 }
 
-window.customElements.define("webshop-navigation", NavigationComponent);
+window.customElements.define("webshop-page-login", LoginPageComponent);

@@ -1,0 +1,455 @@
+@font-face {
+    font-family: 'Pacifico';
+    src: url('/assets/fonts/Pacifico.ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'TimesNewRoman';
+    src: url('/assets/fonts/TimesNewRoman');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'TimesNewRomanBold';
+    src: url('/assets/fonts/TimesNewRomanBold.ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+.frontpage {
+    font-family: 'Pacifico';
+    padding: 20px;
+    color: #121212;
+  }
+
+  .frontpage h1{
+    font-family: 'TimesNewRoman';
+    font-size: 700;
+    padding-left: 12.5%;
+    color: #121212;
+    margin-bottom: 0;
+    margin-top: 0px;
+  }
+
+  .frontpage p{
+    font-family: 'TimesNewRoman';
+    margin-top: 0;
+    padding-left: 12.5%;
+    color: #121212;
+    font-family: 'RaleWay';
+  }
+
+  /* Hero Banner */
+  .hero-banner {
+    display: flex;
+    position: relative;
+    height: 400px;
+    width: 75%;
+    margin: auto;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+.hero-main {
+    position: relative;
+    flex: 3;
+    overflow: hidden;
+    border-radius: 16px;
+    background-color: #121212;
+}
+
+.hero-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: crisp-edges;
+    transition: transform 0.4s ease;
+  }
+
+  .hero-main:hover img {
+    transform: scale(1.1);
+  }
+
+  .hero-text {
+    position: absolute;
+    width: 160px;
+    bottom: 30px;
+    left: 2%;
+    bottom: 4%;
+    background: rgba(0, 0, 0, 0.7); /* fallback color */
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    padding: 20px;
+    color: #FFFAF0;
+    font-family: 'TimesNewRoman';
+    font-weight: 700;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari */
+  }
+
+  .hero-text h1 {
+    font-size: 700;
+    margin: 0;
+    text-align: left;
+    padding-left: 0px;
+    color: #FFFAF0;
+    font-family: 'TimesNewRoman';
+    font-weight: 700;
+  }
+
+  .hero-text p {
+    font-family: 'TimesNewRoman';
+    font-size: 1rem;
+    color: #FFFAF0;
+    font-family: 'TimesNewRoman';
+    font-weight: 700;
+  }
+
+  .hero-text button {
+    font-family: 'TimesNewRoman';
+    font-size: 16px;
+    padding: 5px 20px;
+    margin-top: 5px;
+    border: none;
+    background-color: #f4b111;
+    color: #FFFAF0;
+    font-family: 'TimesNewRoman';
+    font-weight: 700;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+    border-radius: 8px;
+    cursor: pointer;
+    align-items: center;
+  }
+
+
+  .hero-side-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-left: 16px;
+    overflow-y: auto;
+  }
+
+  @media screen and (max-width: 768px) {
+  .hero-text {
+    position: static; /* Remove absolute positioning */
+    width: 90%;
+    margin: 12px auto 0 auto;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    padding: 16px;
+    color: #FFFAF0;
+    font-family: 'TimesNewRoman';
+    font-weight: 700;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .hero-text h1 {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .hero-text button {
+    display: block;
+    margin: 10px auto 0 auto;
+  }
+}
+
+
+  .side-game {
+    z-index: 10;
+    display: flex;
+    flex-direction: row;
+    background-color: #121212;
+    height: 25%;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.side-game img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-right: 1px solid #f4b111;
+  }
+
+  .side-game p {
+    padding: 6px;
+    margin: 0;
+    font-size: 0.9rem;
+    color: #FFFAF0;
+    text-align: center;
+    background-color: #121212;
+    z-index: 1;
+    width: 300px;
+    align-content: center;
+    font-family: 'RaleWay';
+  }
+
+@media screen and (max-width: 768px) {
+  .hero-banner {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .hero-main {
+    width: 100%;
+    height: auto;
+  }
+
+  .hero-main img {
+    height: auto;
+    max-height: 250px;
+  }
+
+  .hero-text {
+    width: auto;
+    left: 5%;
+    right: 5%;
+    bottom: 10px;
+    padding: 12px;
+  }
+
+  .hero-side-list {
+    padding-left: 0;
+    margin-top: 16px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .side-game {
+    flex-direction: column;
+    width: 45%;
+    height: auto;
+    max-width: 180px;
+  }
+
+  .side-game img {
+    height: 100px;
+    border-right: none;
+    border-bottom: 1px solid #f4b111;
+  }
+
+  .side-game p {
+    width: 100%;
+  }
+
+  .discover {
+    width: 95%;
+  }
+
+  /* --- Discover Section: Mobile Styles --- */
+  /*
+.scroll-section {
+  flex-direction: column;
+  margin: 20px 0;
+  width: 100%;
+  padding: 0 12px;
+}
+*/
+
+.horizontal-scroll {
+  width: 80%;
+  padding: 0;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+    .scroll-arrow.left {
+        height: 60px;
+        width: 35px;
+    border-radius: 55px 0 0 55px;
+    background-color: #f4b111;
+  }
+
+  .scroll-arrow.right {
+            height: 60px;
+        width: 35px;
+    border-radius: 0 55px 55px 0;
+    background-color: #f4b111;
+  }
+
+  
+
+.horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.game-card {
+  flex: 0 0 auto;
+  width: 70vw; /* Responsive card width */
+  max-width: 250px;
+  scroll-snap-align: start;
+}
+}
+
+
+  .discover {
+    margin-bottom: 40px;
+    position: relative;
+    width: 80%;
+    margin: auto;
+  }
+
+  .discover h2 {
+    font-family: 'TimesNewRoman';
+    font-size: 700;
+    margin-bottom: 12px;
+    font-size: 1.5rem;
+    color: #121212;
+    transform: translateX(2.7%);
+  }
+  .discover P {
+    transform: translateX(-9.8%);
+  }
+
+  .horizontal-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+}
+
+.scroll-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    margin: 40px 0;
+    margin-top: 0px;
+  }
+
+  .scroll-arrow {
+    width: 60px;
+    height: 75px;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1;
+    user-select: none;
+  }
+
+  .scroll-arrow.left {
+    border-radius: 55px 0 0 55px;
+    background-color: #f4b111;
+  }
+
+  .scroll-arrow.right {
+    border-radius: 0 55px 55px 0;
+    background-color: #f4b111;
+  }
+
+  .scroll-arrow.right img {
+    width: auto;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    margin-top: 2px;
+    transform-origin: 30% 50%;
+  }
+
+  .scroll-arrow.left img {
+    width: auto;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    margin-top: 2px;
+    transform-origin: 30% 50%;
+    rotate: 180deg;
+    transform: translateX(-4px);
+  }
+
+  .game-card {
+    position: relative;
+    flex: 0 0 auto;
+    width: 209.217px;
+    height: 290px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: center;
+    background-color: #121212;
+    background: linear-gradient(180deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 94%, rgba(237, 221, 83, 0) 76%);
+  }
+
+  .game-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-bottom: 1px solid #f4b111;
+  }
+
+  .bottom img {
+    position: absolute;
+    width: 209.217px;
+    height: auto;
+    display: block;
+    bottom: 0%;
+    border-bottom: 0;
+  }
+
+  .game-card p {
+    text-align: center;
+    position: relative;
+    font-size: 0.95rem;
+    color: #FFFAF0;
+    margin-bottom: 0%;
+  }
+
+  .price-wrapper {
+    position: absolute;
+    width: 43px;
+    bottom: 30px;
+    right: 5%;
+    display: flex;
+    align-items: baseline; /* aligns the price texts nicely */
+    gap: 0px;
+    flex-wrap: wrap; /* allows wrap if needed */
+    justify-content: end;
+  }
+
+  .discount {
+    background-color: #f4b111; /* example red background */
+    color: #FFFAF0;
+    font-family: 'TimesNewRoman';
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15px;
+    text-align: center;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+}
+
+.discounted-price {
+    padding-top: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #FFFAF0; /* green-ish */
+    padding-bottom: 5px;
+}
+
+.original-price {
+      margin-left: 45px;
+    font-size: 0.95rem;
+    text-decoration: line-through;
+    color: #a1a1aa; /* soft gray */
+    margin-bottom: 0px;
+  }
