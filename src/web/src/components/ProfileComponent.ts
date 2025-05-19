@@ -1,10 +1,13 @@
 import { UserResult } from "@shared/types";
 import { BaseProfileComponent } from "./BaseProfileComponent";
+import { ProfileGamesService } from "@web/services/ProfileGamesService";
 
 /**
  * Class for the normal profile page, extends BaseProfileComponent
  */
 export class ProfileComponent extends BaseProfileComponent {
+    private readonly profileGamesService: ProfileGamesService = new ProfileGamesService();
+
     /**
      * Render the HTML of the profile page
      *
@@ -19,7 +22,7 @@ export class ProfileComponent extends BaseProfileComponent {
 
         if (!user) return;
 
-        const gamesHTML: string = await this.ProfileService.createGamesHTML(user.userId);
+        const gamesHTML: string = await this.profileGamesService.createGamesHTML(user.userId);
 
         // Set variables
         const profilePicture: string = user.profilePicture ?? "/assets/images/userImage.png";

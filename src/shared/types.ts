@@ -119,6 +119,7 @@ export type TokenData = {
     token: string;
     userId: number;
     email: string;
+    type: string;
 };
 
 /**
@@ -127,4 +128,8 @@ export type TokenData = {
 export type LicenseResult = {
     SKU: string;
     userId: number;
+};
+
+export type UserResponse = {
+    user: UserResult;
 };

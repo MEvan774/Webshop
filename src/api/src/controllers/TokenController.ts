@@ -19,11 +19,11 @@ export class TokenController {
      * @param res Response to send the status to
      */
     public async createToken(req: TokenDataRequest, res: Response): Promise<void> {
-        const { token, userId, email }: TokenData = req.body;
+        const { token, userId, email, type }: TokenData = req.body;
 
         try {
             // Roep de registerUser methode van de UserService aan
-            const tokenSaved: boolean = await this._tokenService.createToken(userId, token, email);
+            const tokenSaved: boolean = await this._tokenService.createToken(userId, token, email, type);
 
             if (tokenSaved) {
                 // Gebruiker succesvol geregistreerd, geef een 201 status terug
