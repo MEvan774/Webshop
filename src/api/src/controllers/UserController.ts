@@ -96,10 +96,11 @@ export class UserController {
     }
 
     public async getUserByEmail(req: Request, res: Response): Promise<void> {
-        const email: string = req.query.email as string;
+        const { email } = req.params;
 
         if (!email) {
             res.status(400).json({ error: "Emailadres ontbreekt" });
+            console.log("no email found");
             return;
         }
 

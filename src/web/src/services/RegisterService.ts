@@ -52,7 +52,7 @@ export class RegisterService implements IRegisterService {
      */
     public async getUserByEmail(email: string): Promise<boolean> {
         try {
-            const response: Response = await fetch(`${VITE_API_URL}user/exists?email=${encodeURIComponent(email)}`, {
+            const response: Response = await fetch(`${VITE_API_URL}user/exists/${email}`, {
                 method: "GET",
                 credentials: "include",
             });
