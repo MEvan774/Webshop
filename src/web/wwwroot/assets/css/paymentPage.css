@@ -49,8 +49,8 @@
 border: 2px solid #f4b111;
     }
 
-        .checkout {
-            position: absolute;
+    .checkout {
+        position: absolute;
         margin-top: 210px;
         right: 10.3%;
         background-color: #f4b111;
@@ -58,9 +58,9 @@ border: 2px solid #f4b111;
         height: 65px;
         text-align: center;
         font-size: 32px;
-          line-height: 60px;
-            text-decoration: none; /* no underline */
-            color: #121212;
+        line-height: 60px;
+        text-decoration: none;
+        color: #121212;
     }
 
 @media (max-width: 768px) {
@@ -104,7 +104,10 @@ border: 2px solid #f4b111;
     }
 
     .checkout {
+                right: 0;
+        position: relative;
         background-color: #f4b111;
+        margin-top: 0;
         width: 90%;
         height: 65px;
         text-align: center;
