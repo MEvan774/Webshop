@@ -1,7 +1,6 @@
 import { PoolConnection, ResultSetHeader } from "mysql2/promise";
 import { DatabaseService } from "./DatabaseService";
 import { UserRegistrationResponse, UserResult } from "@shared/types";
-import { UserRegistrationResponse, UserResult } from "@shared/types";
 
 /**
  * This service interacts with the database
@@ -44,7 +43,6 @@ export class UserService {
 
         try {
             const result: UserResult[] = await this._databaseService.query<UserResult[]>(connection, "SELECT userId, email, password, isVerified FROM user WHERE email = ?", email);
-            const result: UserResult[] = await this._databaseService.query<UserResult[]>(connection, "SELECT userId, email, password, isVerified FROM user WHERE email = ?", email);
             if (result.length > 0) {
                 return result[0];
             }
@@ -76,11 +74,9 @@ export class UserService {
     }
 
     public async registerUser(fname: string, lname: string, email: string, dob: string, gender: string, password: string, verifyToken: string): Promise<string | undefined> {
-    public async registerUser(fname: string, lname: string, email: string, dob: string, gender: string, password: string, verifyToken: string): Promise<string | undefined> {
         const connection: PoolConnection = await this._databaseService.openConnection();
         try {
             const result: ResultSetHeader = await this._databaseService.query<ResultSetHeader>(
-                connection, "INSERT INTO user (email, firstname, lastname, password, dob, gender, verificationToken, isVerified) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", email, fname, lname, password, dob, gender, verifyToken, false
                 connection, "INSERT INTO user (email, firstname, lastname, password, dob, gender, verificationToken, isVerified) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", email, fname, lname, password, dob, gender, verifyToken, false
             );
 

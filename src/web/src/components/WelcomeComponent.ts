@@ -1,6 +1,6 @@
 import { GameResult } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
-import { getAllGames } from "@web/services/AllGamesService copy";
+import { getAllGames } from "@web/services/AllGamesService";
 
 /**
  * This component demonstrates the use of sessions, cookies and Services.
