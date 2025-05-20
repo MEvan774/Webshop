@@ -1,5 +1,6 @@
 import { html } from "@web/helpers/webComponents";
 import "@web/components/PaymentTileComponent";
+import { ShoppingCartService } from "@web/services/ShoppingCartService";
 
 export class PaymentComponent extends HTMLElement {
     public connectedCallback(): void {
@@ -17,6 +18,7 @@ export class PaymentComponent extends HTMLElement {
             <div id="shoppingCart">
                 <h1>Mijn winkelwagen</h1>
                 <payment-tile></payment-tile>
+                <a>Verwijder alle spellen</a>
             </div>
             <div id="priceContainer">
                 <div id="price">
@@ -46,6 +48,9 @@ export class PaymentComponent extends HTMLElement {
 
         this.shadowRoot.appendChild(styleLink);
         this.shadowRoot.append(element);
+
+        const removeAllItems: HTMLAnchorElement = document.querySelector("a")!;
+        removeAllItems.addEventListener("click", () => new ShoppingCartService().removeAllFromCart());
     }
 }
 

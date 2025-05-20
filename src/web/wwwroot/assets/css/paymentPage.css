@@ -17,6 +17,10 @@
     flex-direction: column;
 }
 
+#shoppingCart a {
+    text-decoration: underline;
+}
+
 #priceContainer {
     border: 1px var(--black) solid;
 }

@@ -6,6 +6,7 @@ import { GamesController } from "./controllers/GamesController";
 import { getGameWithGameID } from "./services/CurrentGameService";
 import { GameResult } from "@shared/types";
 import { UserService } from "./services/UserService";
+import { ShoppingCartController } from "./controllers/ShoppingCartController";
 
 // Create a router
 export const router: Router = Router();
@@ -20,6 +21,7 @@ const welcomeController: WelcomeController = new WelcomeController();
 const userController: UserController = new UserController();
 const gamesController: GamesController = new GamesController();
 const userService: UserService = new UserService();
+const cartController: ShoppingCartController = new ShoppingCartController();
 
 // Get current game
 router.get("/games/:gameID", async (req, res) => {
@@ -92,9 +94,11 @@ router.get("/products/:id", (_req, _res) => {
     throw new Error("Return a specific product");
 });
 
-router.post("/cart/add", (_req, _res) => {
-    throw new Error("Add a product to the cart");
-});
+router.post("/cart/add", (req, res) => cartController.addToCart(req, res));
+
+router.delete("/cart/remove", (req, res) => cartController.removeFromCart(req, res));
+
+router.delete("/cart/remove/all", (req, res) => cartController.removeAllFromCart(req, res));
 
 router.get("/cart", (_req, _res) => {
     throw new Error("Return a list of products in the cart and the total price");
