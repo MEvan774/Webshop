@@ -63,7 +63,7 @@ export class ProfileEditingComponent extends BaseProfileComponent {
                     <input type="text" id="countryEdit" name="country" class="country" ${country}"><br>
                     <label for="gender">Geslacht:</label><br>
                     ${genderSelect}<br>
-                    
+
                     <button id="editSaveButton" class="editButton">Bewerking opslaan</button><br>
                     <button id="changeEmailButton" class="editButton">Email wijzigen</button>
                     <button id="changePasswordButton" class="editButton">Wachtwoord wijzigen</button><br>

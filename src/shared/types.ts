@@ -37,7 +37,7 @@ export type UserResult = {
     gender: string;
     country: string | null;
     profilePicture: string | null;
-    isVerified: boolean | undefined;
+    isVerified: boolean;
 };
 
 /**
