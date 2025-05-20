@@ -17,8 +17,8 @@ export class PaymentTileComponent extends HTMLElement {
             <p id="gameName">Kidnapped: Castle Breakout</p>
             <p id="gamePrice">19,99</p>
             <div id="gameButtons">
-                <button id="heart"><img src="/assets/img/icons/heart.svg"></button>
-                <button id="trash"><img src="/assets/img/icons/trash.svg"></button>
+                <button class="icon" id="heart"><img src="/assets/img/icons/heart.svg"></button>
+                <button class="icon" id="trash"><img src="/assets/img/icons/trash.svg"></button>
             </div>
         </div>
         `;

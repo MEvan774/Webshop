@@ -36,6 +36,7 @@ export class PaymentComponent extends HTMLElement {
                     <p>*insert price*</p>
                 </div>
             </div>
+            <a class="checkout" href="/payment.html">Afrekenen</a>
         </div>
         `;
 
