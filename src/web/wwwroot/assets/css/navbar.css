@@ -39,66 +39,68 @@ background: transparent;
     gap: 1rem;
     width: 100%;
     height: 65px;
-  }
+}
 
-  .navbar-left,
-  .navbar-center,
-  .navbar-right {
+.navbar-left,
+.navbar-center,
+.navbar-right {
     display: flex;
     align-items: center;
-  }
+}
 
-  .navbar-left {
+.navbar-left {
     flex: 1;
     gap: 10px;
-  }
+}
 
-  .logo {
+.logo {
     aspect-ratio: auto;
     height: 40px;
     float: left;
     margin-left: 10px;
     margin-right: 10px;
-  }
+}
 
-  .brand {
+.brand {
     display: flex;
     flex-direction: column;
     line-height: 1.2;
     transition: ease-in-out, 0.25s;
-  }
-  .brand:hover {
+}
+
+.brand:hover {
     color: #FFFAF0;
     text-shadow: 0 0 3px #FFFAF0;
-  }
+}
 
-  .brand:not(:hover) {
+.brand:not(:hover) {
     color: #FFFAF0;
     text-shadow: 0 0 0px #FFFAF0;
 }
 
-  .brand-name {
+.brand-name {
     margin: 0;
     font-size: 1.6rem;
     font-family: 'Pacifico';
-  }
+}
 
-  .brand-tagline {
+.brand-tagline {
     margin: 0;
     font-size: 0.75rem;
     font-family: 'Pacifico';
-  }
-  .brand-link {
+}
+
+.brand-link {
     color: inherit; /* so it doesn't look like a normal blue link */
     text-decoration: none;
-  }
+}
 
-  .navbar-center {
+.navbar-center {
     flex: 2;
     justify-content: center;
-  }
+}
 
-  .searchbar {
+.searchbar {
     display: flex;
     align-items: center;
     background-color: #FFFAF0;
@@ -110,24 +112,24 @@ background: transparent;
     top: 0;
     left: 0;
     transform: none;
-  }
+}
 
-  .searchbar input {
+.searchbar input {
     flex: 1;
     padding: 8px 12px;
     border: none;
     outline: none;
     background-color: transparent;
     font-size: 0.95rem;
-  }
+}
 
-  .searchbar input::placeholder {
+.searchbar input::placeholder {
     color: #a0a0a0;
     opacity: 1;
     font-family: 'TimesNewRoman';
   }
 
-  .searchbar button {
+.searchbar button {
     background: none;
     border: none;
     padding: 0 12px;
@@ -135,30 +137,30 @@ background: transparent;
     height: 100%;
     display: flex;
     align-items: center;
-  }
+}
 
-  .searchbar button img {
+.searchbar button img {
     width: 20px;
     height: 20px;
-  }
+}
 
-  button .navbar {
+button .navbar {
     width: 100%;
     max-width: 400px;
     padding: 8px 12px;
     border-radius: 9.48px;
     background-color: #FFFAF0;
     font-size: 0.95rem;
-  }
+}
 
-  .navbar-right {
+.navbar-right {
     flex: 1;
     justify-content: flex-end;
-  }
+}
 
-  .navbar-right a {
+.navbar-right a {
     padding: 8px 16px;
-    margin-right: 10px;
+    margin-right: 15px;
     background-color: #FFFAF0;
     color: #000000;
     width: 104px;

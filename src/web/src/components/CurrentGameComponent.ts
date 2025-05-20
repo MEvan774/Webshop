@@ -1,6 +1,7 @@
 import { GameResult } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
 import { getGameByID } from "@web/services/CurrentGameService";
+import { ShoppingCartService } from "@web/services/ShoppingCartService";
 
 /**
  * Class for the current game page, extends HTMLElement
@@ -120,6 +121,9 @@ export class CurrentGameComponent extends HTMLElement {
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
         this.shadowRoot.appendChild(styleLink);
+
+        const buyButton: HTMLButtonElement = document.querySelector("#currentGameBuyButton")!;
+        buyButton.addEventListener("click", () => new ShoppingCartService().addToCart());
     }
 }
 

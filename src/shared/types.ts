@@ -62,6 +62,18 @@ export type UserRegistrationResponse = {
     userId: string;
     verificationToken: string;
     isVerified: boolean | undefined;
+    verificationToken: string | undefined;
+    isVerified: boolean | undefined;
+};
+
+/**
+ * Represents data given to user on registration
+ */
+export type UserRegistrationResponse = {
+    message: string;
+    userId: string;
+    verificationToken: string;
+    isVerified: boolean | undefined;
 };
 
 /**

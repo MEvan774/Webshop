@@ -1,7 +1,7 @@
 import { WebshopEvent } from "../enums/WebshopEvent";
 
 /**
- * Service to allow components to communicate with eachother through events
+ * Service to allow components to communicate with each other through events
  */
 export class WebshopEventService {
     /**

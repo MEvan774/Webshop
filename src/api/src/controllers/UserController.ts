@@ -54,8 +54,25 @@ export class UserController {
 
             const matchPassword: boolean = await bcrypt.compare(password, user.password);
             if (!matchPassword) {
+            if (!user) {
                 res.status(401).json({ error: "Ongeldige inloggegevens." });
                 return;
+            }
+
+            const matchPassword: boolean = await bcrypt.compare(password, user.password);
+            if (!matchPassword) {
+                res.status(401).json({ error: "Ongeldige inloggegevens." });
+                return;
+            }
+
+            if (!user.isVerified) {
+                res.status(403).json({ error: "Je account is nog niet geverifieerd. Controleer je email om je account te verifiëren." });
+            }
+
+            else {
+                const sessionId: string | undefined = await this._sessionService.createSession(user.userId);
+                res.cookie("session", sessionId, { httpOnly: true, secure: false });
+                res.status(200).json({ message: "Login succesvol." });
             }
 
             if (!user.isVerified) {
@@ -110,6 +127,11 @@ export class UserController {
                 return;
             }
 
+            if (!user) {
+                res.status(404).json({ error: "Gebruiker niet gevonden" });
+                return;
+            }
+
             res.status(200).json(user);
         }
         catch (e: unknown) {
@@ -121,11 +143,15 @@ export class UserController {
         const { firstname, lastname, email, dob, gender, password }: UserRegisterData = req.body;
         const hashedPassword: string = await bcrypt.hash(password, 10);
         const verificationToken: string = randomBytes(32).toString("hex");
+        const hashedPassword: string = await bcrypt.hash(password, 10);
+        const verificationToken: string = randomBytes(32).toString("hex");
 
         try {
             const userId: string | undefined = await this._userService.registerUser(firstname, lastname, email, dob, gender, hashedPassword, verificationToken);
+            const userId: string | undefined = await this._userService.registerUser(firstname, lastname, email, dob, gender, hashedPassword, verificationToken);
 
             if (userId) {
+                res.status(201).json({ message: "Gebruiker succesvol geregistreerd!", userId, verificationToken });
                 res.status(201).json({ message: "Gebruiker succesvol geregistreerd!", userId, verificationToken });
             }
             else {
