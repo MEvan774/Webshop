@@ -48,7 +48,6 @@ export class WelcomeComponent extends HTMLElement {
 
         // 4. Haal alle prijzen in 1 call
         const pricesByGameId: Record<string, ProductPrice> | null = await this.getProductPrices(validGameIds);
-        console.log(pricesByGameId);
 
         if (!pricesByGameId) {
             console.warn("Kon geen prijzen ophalen voor sale games.");
@@ -58,14 +57,6 @@ export class WelcomeComponent extends HTMLElement {
         if (this.saleGamesWithPrices.length < 0) {
             return;
         }
-
-        // 5. Bouw saleGamesWithPrices op: combineer game + prijzen
-        /*
-        this.saleGamesWithPrices = saleGames.map(game => ({
-            game,
-            prices: pricesByGameId[String(game.gameId)],
-        }));
-        */
 
         for (let x: number = 0; x < this.saleGamesGame.length; x++) {
             const salePrice: number = pricesByGameId[x].price / 4 * 3;
@@ -78,8 +69,6 @@ export class WelcomeComponent extends HTMLElement {
 
             this.saleGames.push(saleGame);
         }
-
-        console.log(this.saleGames);
     }
 
     // private welcomeService: WelcomeService = new WelcomeService();

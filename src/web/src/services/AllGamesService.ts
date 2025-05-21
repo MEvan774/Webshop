@@ -46,7 +46,6 @@ export class AllGameService implements IGameService {
             }
 
             const pricesById: Record<number, ProductPrice> = await response.json() as Record<number, ProductPrice>;
-            console.log(pricesById);
             return pricesById;
         }
         catch (error) {
