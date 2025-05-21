@@ -216,7 +216,7 @@ export class WelcomeComponent extends HTMLElement {
       </div>
     </div>
     <div class="game-card">
-      <a href="/currentGame?gameId=${this.saleGamesGame[5].gameId}">
+      <a href="/currentGame.html?gameId=${this.saleGamesGame[5].gameId}">
         <img src=${this.saleGamesGame[5].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[5].title}</p>
         <div class="price-wrapper">

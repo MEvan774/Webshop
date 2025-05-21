@@ -9,7 +9,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-        const response: Response = await fetch(`http://localhost:3001/verify?token=${token}`);
+        const response: Response = await fetch(`https://naagooxeekuu77-pb4sef2425.hbo-ict.cloud/api/verify?token=${token}`);
         const data: { message?: string; error?: string } = await response.json() as { message?: string; error?: string };
 
         if (response.ok) {
