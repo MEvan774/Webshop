@@ -1,6 +1,6 @@
-import { GameResult } from "@shared/types";
+import { GameResult, GameWithPrices, ProductPrice, SalePrices } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
-import { getAllGames } from "@web/services/AllGamesService";
+import { AllGameService } from "@web/services/AllGamesService";
 
 /**
  * This component demonstrates the use of sessions, cookies and Services.
@@ -8,30 +8,90 @@ import { getAllGames } from "@web/services/AllGamesService";
  * @remarks This class should be removed from the final product!
  */
 export class WelcomeComponent extends HTMLElement {
+    // private salePrices: Record<number, ProductPrice[]> = {};
+
     public async connectedCallback(): Promise<void> {
         this.attachShadow({ mode: "open" });
         await this.addGames();
         this.render();
     }
 
-    private async addGames(): Promise <void> {
+    private frontPageGames: GameResult[] = [];
+    private saleGamesWithPrices: GameWithPrices[] = [];
+    private saleGamesGame: GameResult[] = [];
+    private saleGames: SalePrices[] = [];
+
+    private async addGames(): Promise<void> {
         const games: GameResult[] | null = await this.getAllGames();
+        if (!games) return;
 
-        // Filter games into the correct arrays
-        if (!games)
+        const frontPageIndexes: number[] = [36, 3, 5, 40, 41];
+        const saleIndexes: number[] = [12, 11, 8, 7, 9, 15, 19, 20];
+
+        // 1. Vul frontPageGames met de juiste games
+        this.frontPageGames = frontPageIndexes.map(i => games[i]);
+
+        // 2. Pak sale games zonder prijzen
+        const saleGames: GameResult[] = saleIndexes.map(i => games[i]);
+
+        this.saleGamesGame = saleGames;
+
+        // 3. Filter geldige gameIDs (als numbers)
+        const validGameIds: number[] = saleGames
+            .filter(g => g.gameId && !isNaN(Number(g.gameId)))
+            .map(g => Number(g.gameId));
+
+        if (validGameIds.length === 0) {
+            console.warn("Geen geldige gameIDs gevonden.");
             return;
+        }
 
-        this.frontPageGames = [games[36], games[3], games[5], games[40], games[41]];
-        this.saleGames = [games[12], games[11], games[8], games[7], games[9], games[15], games[19], games[20]];
+        // 4. Haal alle prijzen in 1 call
+        const pricesByGameId: Record<string, ProductPrice> | null = await this.getProductPrices(validGameIds);
+        console.log(pricesByGameId);
+
+        if (!pricesByGameId) {
+            console.warn("Kon geen prijzen ophalen voor sale games.");
+            return;
+        }
+
+        if (this.saleGamesWithPrices.length < 0) {
+            return;
+        }
+
+        // 5. Bouw saleGamesWithPrices op: combineer game + prijzen
+        /*
+        this.saleGamesWithPrices = saleGames.map(game => ({
+            game,
+            prices: pricesByGameId[String(game.gameId)],
+        }));
+        */
+
+        for (let x: number = 0; x < this.saleGamesGame.length; x++) {
+            const salePrice: number = pricesByGameId[x].price / 4 * 3;
+
+            const saleGame: SalePrices = {
+                gameId: this.saleGamesGame[x].gameId,
+                oldPrice: pricesByGameId[x].price,
+                newPrice: salePrice,
+            };
+
+            this.saleGames.push(saleGame);
+        }
+
+        console.log(this.saleGames);
     }
-
-    private frontPageGames: GameResult[] | undefined;
-    private saleGames: GameResult[] | undefined;
 
     // private welcomeService: WelcomeService = new WelcomeService();
 
     private async getAllGames(): Promise<GameResult[] | null> {
-        return await getAllGames();
+        const allGames: AllGameService = new AllGameService();
+        return await allGames.getAllGames();
+    }
+
+    private async getProductPrices(productIds: number[]): Promise<Record<number, ProductPrice> | null> {
+        const productPrice: AllGameService = new AllGameService();
+        return await productPrice.getGamePrices(productIds);
     }
 
     // public games: GameResult = await getAllGames();
@@ -49,9 +109,9 @@ export class WelcomeComponent extends HTMLElement {
    <section class="hero-banner">
   <!-- Left: Main featured game -->
   <div class="hero-main" id="hero-main">
-    <img src=${this.frontPageGames![0].thumbnail} alt="Featured Game" />
+    <img src=${this.frontPageGames[0].thumbnail} alt="Featured Game" />
     <div class="hero-text">
-      <h1>${this.frontPageGames![0].title}</h1>
+      <h1>${this.frontPageGames[0].title}</h1>
       <button>Koop nu!</button>
     </div>
   </div>
@@ -59,20 +119,20 @@ export class WelcomeComponent extends HTMLElement {
   <!-- Right: Vertical list of other games -->
   <div class="hero-side-list">
     <div class="side-game">
-      <img src=${this.frontPageGames![1].thumbnail} alt="Game 1" />
-      <p>${this.frontPageGames![1].title}</p>
+      <img src=${this.frontPageGames[1].thumbnail} alt="Game 1" />
+      <p>${this.frontPageGames[1].title}</p>
     </div>
     <div class="side-game">
-      <img src=${this.frontPageGames![2].thumbnail} alt="Game 2" />
-      <p>${this.frontPageGames![2].title}</p>
+      <img src=${this.frontPageGames[2].thumbnail} alt="Game 2" />
+      <p>${this.frontPageGames[2].title}</p>
     </div>
     <div class="side-game">
-      <img src=${this.frontPageGames![3].thumbnail} alt="Game 3" />
-      <p>${this.frontPageGames![3].title}</p>
+      <img src=${this.frontPageGames[3].thumbnail} alt="Game 3" />
+      <p>${this.frontPageGames[3].title}</p>
     </div>
     <div class="side-game">
-      <img src=${this.frontPageGames![4].thumbnail} alt="Game 4" />
-      <p>${this.frontPageGames![4].title}</p>
+      <img src=${this.frontPageGames[4].thumbnail} alt="Game 4" />
+      <p>${this.frontPageGames[4].title}</p>
     </div>
   </div>
 </section>
@@ -87,96 +147,96 @@ export class WelcomeComponent extends HTMLElement {
   </div>
     <div class="horizontal-scroll">
       <div class="game-card">
-        <img src= ${this.saleGames![0].thumbnail} alt="Game 1" />
-        <p>${this.saleGames![0].title}</p>
+        <img src= ${this.saleGamesGame[0].thumbnail} alt="Game 1" />
+        <p>${this.saleGamesGame[0].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-  <p class="discounted-price">€29.99</p>
+            <p class="original-price">€${this.saleGames[0].oldPrice}</p>
+  <p class="discounted-price">€${this.saleGames[0].newPrice.toFixed(2)}</p>
 </div>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
     </div>
       <div class="game-card">
-        <img src=${this.saleGames![1].thumbnail} alt="Game 2" />
-        <p>${this.saleGames![1].title}</p>
+        <img src=${this.saleGamesGame[1].thumbnail} alt="Game 2" />
+        <p>${this.saleGamesGame[1].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-  <p class="discounted-price">€29.99</p>
-</div>
-        <div class="bottom">
-        <img src="assets/img/ui/Bottom.svg">
-        </div>
-      </div>
-      <div class="game-card">
-        <img src=${this.saleGames![2].thumbnail} alt="Game 2" />
-        <p>${this.saleGames![2].title}</p>
-        <div class="price-wrapper">
-            <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-  <p class="discounted-price">€29.99</p>
+            <p class="original-price">€${this.saleGames[1].oldPrice}</p>
+  <p class="discounted-price">€${this.saleGames[1].newPrice.toFixed(2)}</p>
 </div>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
       </div>
       <div class="game-card">
-        <img src=${this.saleGames![3].thumbnail} alt="Game 2" />
-        <p>${this.saleGames![3].title}</p>
+        <img src=${this.saleGamesGame[2].thumbnail} alt="Game 2" />
+        <p>${this.saleGamesGame[2].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-  <p class="discounted-price">€29.99</p>
+            <p class="original-price">€${this.saleGames[2].oldPrice}</p>
+  <p class="discounted-price">€${this.saleGames[2].newPrice.toFixed(2)}</p>
 </div>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
       </div>
       <div class="game-card">
-        <img src=${this.saleGames![4].thumbnail} alt="Game 2" />
-        <p>${this.saleGames![4].title}</p>
+        <img src=${this.saleGamesGame[3].thumbnail} alt="Game 2" />
+        <p>${this.saleGamesGame[3].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-            <p class="discounted-price">€29.99</p>
+            <p class="original-price">€${this.saleGames[3].oldPrice}</p>
+  <p class="discounted-price">€${this.saleGames[3].newPrice.toFixed(2)}</p>
+</div>
+        <div class="bottom">
+        <img src="assets/img/ui/Bottom.svg">
+        </div>
+      </div>
+      <div class="game-card">
+        <img src=${this.saleGamesGame[4].thumbnail} alt="Game 2" />
+        <p>${this.saleGamesGame[4].title}</p>
+        <div class="price-wrapper">
+            <p class="discount">25%</p>
+            <p class="original-price">€${this.saleGames[4].oldPrice}</p>
+            <p class="discounted-price">€${this.saleGames[4].newPrice.toFixed(2)}</p>
             </div>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
     </div>
     <div class="game-card">
-        <img src=${this.saleGames![5].thumbnail} alt="Game 2" />
-        <p>${this.saleGames![5].title}</p>
+        <img src=${this.saleGamesGame[5].thumbnail} alt="Game 2" />
+        <p>${this.saleGamesGame[5].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-            <p class="discounted-price">€29.99</p>
+            <p class="original-price">€${this.saleGames[5].oldPrice}</p>
+            <p class="discounted-price">€${this.saleGames[5].newPrice.toFixed(2)}</p>
             </div>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
     </div>
     <div class="game-card">
-        <img src=${this.saleGames![6].thumbnail} alt="Game 2" />
-        <p>${this.saleGames![6].title}</p>
+        <img src=${this.saleGamesGame[6].thumbnail} alt="Game 2" />
+        <p>${this.saleGamesGame[6].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-            <p class="discounted-price">€29.99</p>
+            <p class="original-price">€${this.saleGames[6].oldPrice}</p>
+            <p class="discounted-price">€${this.saleGames[6].newPrice.toFixed(2)}</p>
             </div>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
     </div>
     <div class="game-card">
-        <img src=${this.saleGames![7].thumbnail} alt="Game 2" />
-        <p>${this.saleGames![7].title}</p>
+        <img src=${this.saleGamesGame[7].thumbnail} alt="Game 2" />
+        <p>${this.saleGamesGame[7].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
-            <p class="original-price">€49.99</p>
-            <p class="discounted-price">€29.99</p>
+            <p class="original-price">€${this.saleGames[7].oldPrice}</p>
+            <p class="discounted-price">€${this.saleGames[7].newPrice.toFixed(2)}</p>
             </div>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">

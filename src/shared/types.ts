@@ -77,7 +77,7 @@ export type LoginData = {
  */
 export type GameResult = {
     /** ID of the game */
-    gameID: number;
+    gameId: number;
     /** SKU of the game */
     SKU: string;
     /** Title of the game */
@@ -132,4 +132,22 @@ export type LicenseResult = {
 
 export type UserResponse = {
     user: UserResult;
+};
+
+export type ProductPrice = {
+    price: number;
+    productId: number;
+    currency: string;
+    validUntil: Date;
+};
+
+export type GameWithPrices = {
+    game: GameResult;
+    prices: ProductPrice[];
+};
+
+export type SalePrices = {
+    gameId: number;
+    oldPrice: number;
+    newPrice: number;
 };

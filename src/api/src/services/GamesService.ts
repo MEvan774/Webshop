@@ -14,7 +14,7 @@ export class GamesService implements IGamesService {
             const games: GameResult[] = result
                 .map((game: GameResult) => {
                     return {
-                        gameID: game.gameID,
+                        gameId: game.gameId,
                         SKU: game.SKU,
                         title: game.title,
                         thumbnail: game.thumbnail,

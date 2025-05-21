@@ -14,12 +14,23 @@ export const app: Express = express();
 config();
 config({ path: ".env.local", override: true });
 
+const allowedOrigins: string[] = [
+    "http://localhost:3000",
+    "https://dev-naagooxeekuu77-pb4sef2425.hbo-ict.cloud",
+    "https://naagooxeekuu77-pb4sef2425.hbo-ict.cloud",
+];
+
 // Enable CORS headers
 app.use(cors({
-    credentials: true,
-    origin(requestOrigin, callback) {
-        callback(null, requestOrigin);
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error("Niet toegestane origin"), false);
+        }
     },
+    credentials: true,
 }));
 
 // Enable JSON-body support for requests
