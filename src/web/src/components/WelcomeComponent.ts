@@ -98,7 +98,7 @@ export class WelcomeComponent extends HTMLElement {
    <section class="hero-banner">
   <!-- Left: Main featured game -->
   <div class="hero-main" id="hero-main">
-    <a href="/currentGame?gameId=${this.frontPageGames[0].gameId}">
+    <a href="/currentGame.html?gameId=${this.frontPageGames[0].gameId}">
     <img src=${this.frontPageGames[0].thumbnail} alt="Featured Game" />
     <div class="hero-text">
       <h1>${this.frontPageGames[0].title}</h1>
@@ -110,25 +110,25 @@ export class WelcomeComponent extends HTMLElement {
   <!-- Right: Vertical list of other games -->
   <div class="hero-side-list">
     <div class="side-game">
-    <a href="/currentGame?gameId=${this.frontPageGames[1].gameId}">
+    <a href="/currentGame.html?gameId=${this.frontPageGames[1].gameId}">
       <img src=${this.frontPageGames[1].thumbnail} alt="Game 1" />
       <p>${this.frontPageGames[1].title}</p>
     </a>
     </div>
     <div class="side-game">
-    <a href="/currentGame?gameId=${this.frontPageGames[2].gameId}">
+    <a href="/currentGame.html?gameId=${this.frontPageGames[2].gameId}">
       <img src=${this.frontPageGames[2].thumbnail} alt="Game 2" />
       <p>${this.frontPageGames[2].title}</p>
     </a>
     </div>
     <div class="side-game">
-    <a href="/currentGame?gameId=${this.frontPageGames[4].gameId}">
+    <a href="/currentGame.html?gameId=${this.frontPageGames[4].gameId}">
       <img src=${this.frontPageGames[3].thumbnail} alt="Game 3" />
       <p>${this.frontPageGames[3].title}</p>
     </a>
     </div>
     <div class="side-game">
-    <a href="/currentGame?gameId=${this.frontPageGames[4].gameId}">
+    <a href="/currentGame.html?gameId=${this.frontPageGames[4].gameId}">
       <img src=${this.frontPageGames[4].thumbnail} alt="Game 4" />
       <p>${this.frontPageGames[4].title}</p>
     </a>
@@ -146,7 +146,7 @@ export class WelcomeComponent extends HTMLElement {
   </div>
     <div class="horizontal-scroll">
       <div class="game-card">
-      <a href="/currentGame?gameId=${this.saleGamesGame[0].gameId}">
+      <a href="/currentGame.html?gameId=${this.saleGamesGame[0].gameId}">
         <img src= ${this.saleGamesGame[0].thumbnail} alt="Game 1" />
         <p>${this.saleGamesGame[0].title}</p>
         <div class="price-wrapper">
@@ -160,7 +160,7 @@ export class WelcomeComponent extends HTMLElement {
         </div>
     </div>
       <div class="game-card">
-      <a href="/currentGame?gameId=${this.saleGamesGame[1].gameId}">
+      <a href="/currentGame.html?gameId=${this.saleGamesGame[1].gameId}">
         <img src=${this.saleGamesGame[1].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[1].title}</p>
         <div class="price-wrapper">
@@ -174,7 +174,7 @@ export class WelcomeComponent extends HTMLElement {
         </div>
       </div>
       <div class="game-card">
-      <a href="/currentGame?gameId=${this.saleGamesGame[2].gameId}">
+      <a href="/currentGame.html?gameId=${this.saleGamesGame[2].gameId}">
         <img src=${this.saleGamesGame[2].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[2].title}</p>
         <div class="price-wrapper">
@@ -188,7 +188,7 @@ export class WelcomeComponent extends HTMLElement {
         </div>
       </div>
       <div class="game-card">
-      <a href="/currentGame?gameId=${this.saleGamesGame[3].gameId}">
+      <a href="/currentGame.html?gameId=${this.saleGamesGame[3].gameId}">
         <img src=${this.saleGamesGame[3].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[3].title}</p>
         <div class="price-wrapper">
@@ -202,7 +202,7 @@ export class WelcomeComponent extends HTMLElement {
         </div>
       </div>
       <div class="game-card">
-      <a href="/currentGame?gameId=${this.saleGamesGame[4].gameId}">
+      <a href="/currentGame.html?gameId=${this.saleGamesGame[4].gameId}">
         <img src=${this.saleGamesGame[4].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[4].title}</p>
         <div class="price-wrapper">
@@ -216,7 +216,7 @@ export class WelcomeComponent extends HTMLElement {
       </div>
     </div>
     <div class="game-card">
-      <a href="/currentGame?gameId=${this.saleGamesGame[5].gameId}">
+      <a href="/currentGame.html?gameId=${this.saleGamesGame[5].gameId}">
         <img src=${this.saleGamesGame[5].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[5].title}</p>
         <div class="price-wrapper">
@@ -230,7 +230,7 @@ export class WelcomeComponent extends HTMLElement {
       </div>
     </div>
     <div class="game-card">
-      <a href="/currentGame?gameId=${this.saleGamesGame[6].gameId}">
+      <a href="/currentGame.html?gameId=${this.saleGamesGame[6].gameId}">
         <img src=${this.saleGamesGame[6].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[6].title}</p>
         <div class="price-wrapper">
@@ -244,7 +244,7 @@ export class WelcomeComponent extends HTMLElement {
       </div>
     </div>
     <div class="game-card">
-      <a href="/currentGame?gameId=${this.saleGamesGame[7].gameId}">
+      <a href="/currentGame.html?gameId=${this.saleGamesGame[7].gameId}">
         <img src=${this.saleGamesGame[7].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[7].title}</p>
         <div class="price-wrapper">
