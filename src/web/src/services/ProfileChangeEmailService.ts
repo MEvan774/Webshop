@@ -136,7 +136,7 @@ export class ProfileChangeEmailService implements IProfileChangeEmailService {
      */
     public async saveToken(token: string, userId: number, email: string, type: string): Promise<void> {
         try {
-            const response: Response = await fetch("http://localhost:3001/token", {
+            const response: Response = await fetch(`${VITE_API_URL}token`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

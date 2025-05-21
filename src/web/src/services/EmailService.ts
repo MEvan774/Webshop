@@ -36,7 +36,7 @@ export class EmailService implements IEmailService {
       * @returns Boolean whether email is free
     */
     public async isEmailUsed(email: string): Promise<boolean> {
-        const response: Response = await fetch(`http://localhost:3001/user/check-email/${email}`, {
+        const response: Response = await fetch(`${VITE_API_URL}user/check-email/${email}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
