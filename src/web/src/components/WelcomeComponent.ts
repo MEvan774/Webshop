@@ -164,8 +164,8 @@ export class WelcomeComponent extends HTMLElement {
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[0].oldPrice}</p>
             <p class="discounted-price">€${this.saleGames[0].newPrice.toFixed(2)}</p>
+            </div>
       </a>
-      </div>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
@@ -178,8 +178,8 @@ export class WelcomeComponent extends HTMLElement {
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[1].oldPrice}</p>
             <p class="discounted-price">€${this.saleGames[1].newPrice.toFixed(2)}</p>
-      </a>
       </div>
+      </a>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
@@ -192,8 +192,8 @@ export class WelcomeComponent extends HTMLElement {
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[2].oldPrice}</p>
             <p class="discounted-price">€${this.saleGames[2].newPrice.toFixed(2)}</p>
-        </a>
         </div>
+        </a>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
@@ -206,8 +206,8 @@ export class WelcomeComponent extends HTMLElement {
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[3].oldPrice}</p>
             <p class="discounted-price">€${this.saleGames[3].newPrice.toFixed(2)}</p>
-        </a>
         </div>
+        </a>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
@@ -220,8 +220,8 @@ export class WelcomeComponent extends HTMLElement {
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[4].oldPrice}</p>
             <p class="discounted-price">€${this.saleGames[4].newPrice.toFixed(2)}</p>
-      </a>
       </div>
+      </a>
       <div class="bottom">
       <img src="assets/img/ui/Bottom.svg">
       </div>
@@ -234,8 +234,8 @@ export class WelcomeComponent extends HTMLElement {
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[5].oldPrice}</p>
             <p class="discounted-price">€${this.saleGames[5].newPrice.toFixed(2)}</p>
+            </div>
       </a>
-      </div>
       <div class="bottom">
       <img src="assets/img/ui/Bottom.svg">
       </div>
@@ -248,8 +248,8 @@ export class WelcomeComponent extends HTMLElement {
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[6].oldPrice}</p>
             <p class="discounted-price">€${this.saleGames[6].newPrice.toFixed(2)}</p>
-      </a>
       </div>
+      </a>
       <div class="bottom">
       <img src="assets/img/ui/Bottom.svg">
       </div>
@@ -261,9 +261,9 @@ export class WelcomeComponent extends HTMLElement {
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[7].oldPrice}</p>
-            <p class="discounted-price">€${this.saleGames[7].newPrice.toFixed(2)}</p>
+            <p class="discounted-price">€${this.saleGames[7].newPrice.toFixed(2)}</p>  
+    </div>
       </a>
-      </div>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
