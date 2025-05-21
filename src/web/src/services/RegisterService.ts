@@ -52,7 +52,7 @@ export class RegisterService implements IRegisterService {
      */
     public async getUserByEmail(email: string): Promise<boolean> {
         try {
-            const response: Response = await fetch(`${VITE_API_URL}user/exists?email=${encodeURIComponent(email)}`, {
+            const response: Response = await fetch(`${VITE_API_URL}user/exists/${email}`, {
                 method: "GET",
                 credentials: "include",
             });
@@ -111,9 +111,9 @@ export class RegisterService implements IRegisterService {
             console.log("Account succesvol aangemaakt!");
             const responseData: UserRegistrationResponse = await response.json() as UserRegistrationResponse;
             const verificationToken: string = responseData.verificationToken;
-            const verifyUrl: string = `http://localhost:3000/verify?token=${verificationToken}`;
+            const verifyUrl: string = `https://naagooxeekuu77-pb4sef2425.hbo-ict.cloud/verify?token=${verificationToken}`;
 
-            await emailService.sendEmail(
+            await emailService.sendVerifyEmail(
                 fname,
                 email,
                 "Welkom bij Starshop",

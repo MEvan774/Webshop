@@ -1,0 +1,9 @@
+:root {
+    --white: #FFFAF0;
+    --blue: #1C2594;
+    --black: #1B1212;
+    --light-blue: #7883CE;
+    --blue-gradient: linear-gradient(90deg, rgba(28, 37, 148, 1) 0%, rgba(91, 202, 243, 1) 100%);
+    --gold: #FF9900;
+    --light-gold: #ffcc00;
+}

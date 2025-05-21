@@ -32,13 +32,16 @@ We gaan gedurende **3 sprints** aan de slag met het ontwerpen, realiseren en tes
 
 4. **Naam:** Milan  
    **Persoonlijke leerdoelen**:
-   - Portfolio bjihouden door minimaal 1 scorion te sturen per week.
+   - Iedere dag mijn logboek bijhouden en constant bewijs verzamelen voor portfolio zodat ik deze schooljaar ga halen.
+   - Meer op mezelf letten door rust te nemen en wandelingen te nemen tussen mijn werk door zodat ik mezelf niet overwerk.
    **Superkracht:** Coderen
 
 ## 2. Gezamenlijk Leerdoel
 
 Als team is het belangrijk om **gezamenlijke leerdoelen** op te stellen, gemeenschappelijke valkuilen zijn:
-- Portfolio bijhouden
+
+- Timemanagement
+- Uitstelgedrag  
 Om deze valkuilen op te vangen zorgen we dat we elkaar pushen om sneller te beginnen met werken en om van elkaar de werkuren te monitoren door de check-in & check-out in Discord.
 Het gezamenlijke leerdoel voor sprint 4: Zo snel mogelijk alle administratieve elementen afronden zodat er genoeg tijd in coderen/programmeren gestopt kan worden.
 

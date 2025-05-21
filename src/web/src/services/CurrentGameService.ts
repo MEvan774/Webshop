@@ -6,9 +6,15 @@ import { GameResult } from "@shared/types";
  * @returns The game as GameResult, or null if no game is found
  */
 export async function getGameByID(): Promise<GameResult | null> {
-    const gameID: string = localStorage.getItem("gameID") || "37";
+    const urlParams: URLSearchParams = new URLSearchParams(window.location.search);
+    const gameID: string | null = urlParams.get("gameId");
 
-    const response: Response = await fetch(`http://localhost:3001/games/${gameID}`, {
+    if (!gameID) {
+        console.error("Geen gameId gevonden in de URL");
+        return null;
+    }
+
+    const response: Response = await fetch(`${VITE_API_URL}games/${gameID}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

@@ -120,7 +120,7 @@ export class ProfileEditService implements IProfileEditService {
         const userData: UserEditData = { userId, fname, lname, dob, gender, country };
 
         try {
-            const response: Response = await fetch("http://localhost:3001/user/edit", {
+            const response: Response = await fetch(`${VITE_API_URL}user/edit`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -81,7 +81,7 @@ export class ProfileChangePasswordService implements IProfileChangePasswordServi
         const password: string = await bcrypt.hash(newPassword, 10);
 
         try {
-            const response: Response = await fetch("http://localhost:3001/user/change-password", {
+            const response: Response = await fetch(`${VITE_API_URL}user/change-password`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

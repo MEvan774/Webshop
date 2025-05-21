@@ -106,6 +106,7 @@ export class RegisterComponent extends HTMLElement {
                     }
 
                     const userExists: boolean = await registerService.getUserByEmail(emailInput.value);
+                    console.log(userExists);
                     if (userExists) {
                         errorMessages.push("Er bestaat al een account met dit e-mailadres.");
                     }

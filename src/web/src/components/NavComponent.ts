@@ -19,7 +19,7 @@ export class NavComponent extends HTMLElement {
             sessionId = sessionInfo.sessionId;
         }
         catch (error) {
-            console.warn("User is not logged in or failed to fetch session:", error);
+            console.log("User is not logged in or failed to fetch session:", error);
         }
 
         const element: HTMLElement = html`
@@ -158,7 +158,7 @@ export class NavComponent extends HTMLElement {
             return { sessionId: data.sessionId, userId: data.userId };
         }
         catch (error) {
-            console.error("Error in getSecret:", error);
+            console.log("Error in getSecret:", error);
             throw error;
         }
     }
