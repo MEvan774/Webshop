@@ -5,14 +5,14 @@
     font-style: normal;
   }
 
-  @font-face {
-    font-family: 'TimesNewRoman';
-    src: url('/assets/fonts/TimesNewRoman');
+@font-face {
+    font-family: 'Times New Roman';
+    src: url('/assets/fonts/TimesNewRoman.ttf');
     font-weight: normal;
     font-style: normal;
-  }
+}
 
-  @font-face {
+@font-face {
     font-family: 'TimesNewRomanBold';
     src: url('/assets/fonts/TimesNewRomanBold.ttf');
     font-weight: normal;
@@ -34,12 +34,12 @@
     margin-top: 0px;
   }
 
-  .frontpage p{
+  .frontpage p {
     font-family: 'TimesNewRoman';
     margin-top: 0;
     padding-left: 12.5%;
     color: #121212;
-    font-family: 'RaleWay';
+    /* font-family: 'RaleWay'; */
   }
 
   /* Hero Banner */
@@ -281,7 +281,7 @@
     background-color: #f4b111;
   }
 
-  
+
 
 .horizontal-scroll::-webkit-scrollbar {
   display: none;
