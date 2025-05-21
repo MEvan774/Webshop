@@ -12,8 +12,6 @@ export async function sessionMiddleware(req: Request, _res: Response, next: Next
     const sessionIdCookie: string | undefined = req.cookies["session"] as string;
 
     if (!sessionIdHeader && !sessionIdCookie) {
-        next();
-
         return;
     }
 

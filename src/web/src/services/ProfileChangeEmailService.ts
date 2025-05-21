@@ -100,7 +100,7 @@ export class ProfileChangeEmailService implements IProfileChangeEmailService {
             "Om dit te bevestigen, klik op deze link: <br><br>" + link +
             " <br><br>Heeft u dit niet gedaan of wilt u dit annuleren? Dan kunt u deze email negeren.";
 
-            await this._emailService.sendEmail(name, email, subject, html);
+            await this._emailService.sendVerifyEmail(name, email, subject, html);
         }
         else if (kind === "old" && newEmail) {
             const link: string = `https://naagooxeekuu77-pb4sef2425.hbo-ict.cloud/annuleerWijziging?token=${token}`;
@@ -110,7 +110,7 @@ export class ProfileChangeEmailService implements IProfileChangeEmailService {
             "Dit is een bevestiging dat u uw email heeft gewijzigd naar: " + newEmail +
             " <br><br>Als u dit niet bent, klik op deze link om de wijziging te annuleren: " + link + ".";
 
-            await this._emailService.sendEmail(name, email, subject, html);
+            await this._emailService.sendVerifyEmail(name, email, subject, html);
         }
 
         return true;
@@ -136,7 +136,7 @@ export class ProfileChangeEmailService implements IProfileChangeEmailService {
      */
     public async saveToken(token: string, userId: number, email: string, type: string): Promise<void> {
         try {
-            const response: Response = await fetch("http://localhost:3001/token", {
+            const response: Response = await fetch(`${VITE_API_URL}token`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

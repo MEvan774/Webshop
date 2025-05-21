@@ -4,13 +4,14 @@ import { requireValidSessionMiddleware, sessionMiddleware } from "./middleware/s
 import { UserController } from "./controllers/UserController";
 import { GamesController } from "./controllers/GamesController";
 import { getGameWithGameID } from "./services/CurrentGameService";
-import { GameResult, TokenData, UserResult } from "@shared/types";
+import { GameResult, ProductPrice, TokenData, UserResult } from "@shared/types";
 import { checkEmail, getUser } from "./services/ProfileService";
 import { changePassword } from "./services/ProfileService";
 import { TokenController } from "./controllers/TokenController";
 import { LicenseController } from "./controllers/LicenseController";
 import { CurrentGameController } from "./controllers/CurrentGameController";
 import { UserService } from "./services/UserService";
+import { ShoppingCartController } from "./controllers/ShoppingCartController";
 
 // Create a router
 export const router: Router = Router();
@@ -24,6 +25,7 @@ router.get("/", (_, res) => {
 const welcomeController: WelcomeController = new WelcomeController();
 const userController: UserController = new UserController();
 const gamesController: GamesController = new GamesController();
+const cartController: ShoppingCartController = new ShoppingCartController();
 const tokenController: TokenController = new TokenController();
 const licenseController: LicenseController = new LicenseController();
 const currentGameController: CurrentGameController = new CurrentGameController();
@@ -49,12 +51,12 @@ const userService: UserService = new UserService();
 router.post("/user/cancel-email", async (req, res) => await userController.cancelEmail(req, res));
 
 // Get current game
-router.get("/games/:gameID", async (req, res) => {
-    const { gameID } = req.params;
+router.get("/games/:gameId", async (req, res) => {
+    const { gameId } = req.params;
 
     try {
         // Call the service function to get the game data
-        const game: GameResult | null = await getGameWithGameID(gameID);
+        const game: GameResult | null = await getGameWithGameID(gameId);
 
         if (!game) {
             return res.status(404).json({ error: "Game not found" });
@@ -92,17 +94,44 @@ router.get("/user/:sessionID", async (req, res) => {
 
 router.get("/products", (req, res) => gamesController.getAllGames(req, res));
 
+router.get("/products/prices/:gameId", async (req, res) => {
+    console.log("Incoming request headers:", req.headers);
+    const { gameId } = req.params;
+
+    try {
+        const response: Response = await fetch(`http://oege.ie.hva.nl:8580/api/productprices/${gameId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        console.log("Response status from OEGE API:", response.status);
+
+        if (!response.ok) {
+            return res.status(404).json({ error: "The expected data has not been found." });
+        }
+
+        const data: ProductPrice[] = await response.json() as ProductPrice[];
+
+        return res.json(data);
+    }
+    catch (error: unknown) {
+        console.error("Error fetching from OEGE API:", error);
+        return res.status(500).json({ error: `An error occured while fetching data ${error}` });
+    }
+});
+
+router.post("/user/register", (req, res) => userController.registerUser(req, res));
+router.get("/user/exists/:email", (req, res) => userController.getUserByEmail(req, res));
+router.post("/user/login", (req, res) => userController.loginUser(req, res));
+
 // NOTE: After this line, all endpoints will check for a session.
 router.use(sessionMiddleware);
-
 router.get("/session", (req, res) => welcomeController.getSession(req, res));
 router.delete("/session", (req, res) => welcomeController.deleteSession(req, res));
 router.delete("/session/expired", (req, res) => welcomeController.deleteExpiredSessions(req, res));
 router.get("/welcome", (req, res) => welcomeController.getWelcome(req, res));
-
-router.post("/user/register", (req, res) => userController.registerUser(req, res));
-router.get("/user/exists", (req, res) => userController.getUserByEmail(req, res));
-router.post("/user/login", (req, res) => userController.loginUser(req, res));
 
 router.get("/verify", async (req, res) => {
     const { token } = req.query;
@@ -140,9 +169,11 @@ router.get("/products/:id", (_req, _res) => {
     throw new Error("Return a specific product");
 });
 
-router.post("/cart/add", (_req, _res) => {
-    throw new Error("Add a product to the cart");
-});
+router.post("/cart/add", (req, res) => cartController.addToCart(req, res));
+
+router.delete("/cart/remove", (req, res) => cartController.removeFromCart(req, res));
+
+router.delete("/cart/remove/all", (req, res) => cartController.removeAllFromCart(req, res));
 
 router.get("/cart", (_req, _res) => {
     throw new Error("Return a list of products in the cart and the total price");

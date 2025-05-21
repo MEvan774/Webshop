@@ -11,7 +11,7 @@ export class ProfileService implements IProfileService {
      * @returns User as UserResult, or null when no user is found
      */
     public async getUser(): Promise<UserResult | null> {
-        const response: Response = await fetch("http://localhost:3001/profile", {
+        const response: Response = await fetch(`${VITE_API_URL}profile`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

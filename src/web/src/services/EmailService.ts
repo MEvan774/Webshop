@@ -1,7 +1,7 @@
 import { IEmailService } from "@web/interfaces/IEmailService";
 
 export class EmailService implements IEmailService {
-    public async sendEmail(name: string, email: string, subject: string, htmlBody: string): Promise<void> {
+    public async sendVerifyEmail(name: string, email: string, subject: string, htmlBody: string): Promise<void> {
         const response: Response = await fetch("https://api.hbo-ict.cloud/mail", {
             method: "POST",
             headers: {
@@ -30,13 +30,13 @@ export class EmailService implements IEmailService {
     };
 
     /**
-    * Checks if email is in used when changing the email
-    *
-    * @param email Email that gets checked as string
-    * @returns Boolean whether email is free
+      * Checks if email is in used when changing the email
+      *
+      * @param email Email that gets checked as string
+      * @returns Boolean whether email is free
     */
     public async isEmailUsed(email: string): Promise<boolean> {
-        const response: Response = await fetch(`http://localhost:3001/user/check-email/${email}`, {
+        const response: Response = await fetch(`${VITE_API_URL}user/check-email/${email}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

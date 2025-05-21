@@ -44,7 +44,7 @@ export class ProfileGamesService implements IProfileGamesService {
      * @returns GameResult[] with owned games, or undefined if no games are owned
      */
     public async getLicensesByUserId(userId: number): Promise<GameResult[] | undefined> {
-        const response: Response = await fetch(`http://localhost:3001/license/${userId}`, {
+        const response: Response = await fetch(`${VITE_API_URL}license/${userId}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -78,7 +78,7 @@ export class ProfileGamesService implements IProfileGamesService {
      * @returns GameResult with the game, or undefined if no game is found
      */
     public async getGamesBySKU(SKU: string): Promise<GameResult | undefined> {
-        const response: Response = await fetch(`http://localhost:3001/gamesSKU/${SKU}`, {
+        const response: Response = await fetch(`${VITE_API_URL}gamesSKU/${SKU}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
