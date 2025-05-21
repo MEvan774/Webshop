@@ -109,30 +109,40 @@ export class WelcomeComponent extends HTMLElement {
    <section class="hero-banner">
   <!-- Left: Main featured game -->
   <div class="hero-main" id="hero-main">
+    <a href="/currentGame?gameId=${this.frontPageGames[0].gameId}">
     <img src=${this.frontPageGames[0].thumbnail} alt="Featured Game" />
     <div class="hero-text">
       <h1>${this.frontPageGames[0].title}</h1>
       <button>Koop nu!</button>
     </div>
+    </a>
   </div>
 
   <!-- Right: Vertical list of other games -->
   <div class="hero-side-list">
     <div class="side-game">
+    <a href="/currentGame?gameId=${this.frontPageGames[1].gameId}">
       <img src=${this.frontPageGames[1].thumbnail} alt="Game 1" />
       <p>${this.frontPageGames[1].title}</p>
+    </a>
     </div>
     <div class="side-game">
+    <a href="/currentGame?gameId=${this.frontPageGames[2].gameId}">
       <img src=${this.frontPageGames[2].thumbnail} alt="Game 2" />
       <p>${this.frontPageGames[2].title}</p>
+    </a>
     </div>
     <div class="side-game">
+    <a href="/currentGame?gameId=${this.frontPageGames[4].gameId}">
       <img src=${this.frontPageGames[3].thumbnail} alt="Game 3" />
       <p>${this.frontPageGames[3].title}</p>
+    </a>
     </div>
     <div class="side-game">
+    <a href="/currentGame?gameId=${this.frontPageGames[4].gameId}">
       <img src=${this.frontPageGames[4].thumbnail} alt="Game 4" />
       <p>${this.frontPageGames[4].title}</p>
+    </a>
     </div>
   </div>
 </section>
@@ -147,97 +157,113 @@ export class WelcomeComponent extends HTMLElement {
   </div>
     <div class="horizontal-scroll">
       <div class="game-card">
+      <a href="/currentGame?gameId=${this.saleGamesGame[0].gameId}">
         <img src= ${this.saleGamesGame[0].thumbnail} alt="Game 1" />
         <p>${this.saleGamesGame[0].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[0].oldPrice}</p>
-  <p class="discounted-price">€${this.saleGames[0].newPrice.toFixed(2)}</p>
-</div>
+            <p class="discounted-price">€${this.saleGames[0].newPrice.toFixed(2)}</p>
+      </a>
+      </div>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
     </div>
       <div class="game-card">
+      <a href="/currentGame?gameId=${this.saleGamesGame[1].gameId}">
         <img src=${this.saleGamesGame[1].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[1].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[1].oldPrice}</p>
-  <p class="discounted-price">€${this.saleGames[1].newPrice.toFixed(2)}</p>
-</div>
+            <p class="discounted-price">€${this.saleGames[1].newPrice.toFixed(2)}</p>
+      </a>
+      </div>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
       </div>
       <div class="game-card">
+      <a href="/currentGame?gameId=${this.saleGamesGame[2].gameId}">
         <img src=${this.saleGamesGame[2].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[2].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[2].oldPrice}</p>
-  <p class="discounted-price">€${this.saleGames[2].newPrice.toFixed(2)}</p>
-</div>
+            <p class="discounted-price">€${this.saleGames[2].newPrice.toFixed(2)}</p>
+        </a>
+        </div>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
       </div>
       <div class="game-card">
+      <a href="/currentGame?gameId=${this.saleGamesGame[3].gameId}">
         <img src=${this.saleGamesGame[3].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[3].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[3].oldPrice}</p>
-  <p class="discounted-price">€${this.saleGames[3].newPrice.toFixed(2)}</p>
-</div>
+            <p class="discounted-price">€${this.saleGames[3].newPrice.toFixed(2)}</p>
+        </a>
+        </div>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
       </div>
       <div class="game-card">
+      <a href="/currentGame?gameId=${this.saleGamesGame[4].gameId}">
         <img src=${this.saleGamesGame[4].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[4].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[4].oldPrice}</p>
             <p class="discounted-price">€${this.saleGames[4].newPrice.toFixed(2)}</p>
-            </div>
-        <div class="bottom">
-        <img src="assets/img/ui/Bottom.svg">
-        </div>
+      </a>
+      </div>
+      <div class="bottom">
+      <img src="assets/img/ui/Bottom.svg">
+      </div>
     </div>
     <div class="game-card">
+      <a href="/currentGame?gameId=${this.saleGamesGame[5].gameId}">
         <img src=${this.saleGamesGame[5].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[5].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[5].oldPrice}</p>
             <p class="discounted-price">€${this.saleGames[5].newPrice.toFixed(2)}</p>
-            </div>
-        <div class="bottom">
-        <img src="assets/img/ui/Bottom.svg">
-        </div>
+      </a>
+      </div>
+      <div class="bottom">
+      <img src="assets/img/ui/Bottom.svg">
+      </div>
     </div>
     <div class="game-card">
+      <a href="/currentGame?gameId=${this.saleGamesGame[6].gameId}">
         <img src=${this.saleGamesGame[6].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[6].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[6].oldPrice}</p>
             <p class="discounted-price">€${this.saleGames[6].newPrice.toFixed(2)}</p>
-            </div>
-        <div class="bottom">
-        <img src="assets/img/ui/Bottom.svg">
-        </div>
+      </a>
+      </div>
+      <div class="bottom">
+      <img src="assets/img/ui/Bottom.svg">
+      </div>
     </div>
     <div class="game-card">
+      <a href="/currentGame?gameId=${this.saleGamesGame[7].gameId}">
         <img src=${this.saleGamesGame[7].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[7].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[7].oldPrice}</p>
             <p class="discounted-price">€${this.saleGames[7].newPrice.toFixed(2)}</p>
-            </div>
+      </a>
+      </div>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
@@ -276,11 +302,11 @@ export class WelcomeComponent extends HTMLElement {
             scrollContainer.scrollBy({ left: scrollAmount, behavior: "smooth" });
         });
 
-        const heroMain: HTMLElement = this.shadowRoot.querySelector("#hero-main") as HTMLElement;
-        heroMain.addEventListener("click", () => {
-            localStorage.setItem("gameID", "37");
-            window.location.href = "/currentGame.html";
-        });
+        // const heroMain: HTMLElement = this.shadowRoot.querySelector("#hero-main") as HTMLElement;
+        // heroMain.addEventListener("click", () => {
+        //     localStorage.setItem("gameID", "37");
+        //     window.location.href = "/currentGame.html";
+        // });
 
         this.shadowRoot.appendChild(styleLink);
     }
