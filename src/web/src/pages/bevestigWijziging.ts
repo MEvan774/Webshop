@@ -41,7 +41,7 @@ if (statusEl && bevestigKnop && bevestigDiv) {
  */
 async function checkToken(token: string): Promise<TokenData | boolean> {
     try {
-        const response: Response = await fetch(`http://localhost:3001/token/${token}`, {
+        const response: Response = await fetch(`https://naagooxeekuu77-pb4sef2425.hbo-ict.cloud/api/token/${token}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -76,7 +76,7 @@ async function checkToken(token: string): Promise<TokenData | boolean> {
  */
 async function changeEmail(email: string, userId: number): Promise<void> {
     try {
-        const response: Response = await fetch("http://localhost:3001/user/change-email", {
+        const response: Response = await fetch("https://naagooxeekuu77-pb4sef2425.hbo-ict.cloud/api/user/change-email", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
