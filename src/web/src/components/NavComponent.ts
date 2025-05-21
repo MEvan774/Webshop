@@ -14,7 +14,8 @@ export class NavComponent extends HTMLElement {
         let sessionId: string | null = null;
 
         try {
-            const sessionInfo: { sessionId: string; userId: number } = await this.getSecret();
+            const timeoutMs: number = 2500;
+            const sessionInfo: { sessionId: string; userId: number } = await this.withTimeout(this.getSecret(), timeoutMs);
             sessionId = sessionInfo.sessionId;
         }
         catch (error) {
@@ -127,6 +128,20 @@ export class NavComponent extends HTMLElement {
                 window.location.href = "index.html"; // Optional redirect
             });
         }
+    }
+
+    private withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
+        return Promise.race([
+            promise,
+            new Promise<T>((_, reject) => {
+                const timerId: number = window.setTimeout(() => {
+                    reject(new Error("Request timed out"));
+                }, timeoutMs);
+
+                // Cleanup is handled by Promise.race result resolution
+                void promise.finally(() => clearTimeout(timerId));
+            }),
+        ]);
     }
 
     private async getSecret(): Promise<{ sessionId: string; userId: number }> {
