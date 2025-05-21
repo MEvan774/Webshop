@@ -226,7 +226,7 @@ input, select, label {
     font-size: 12px;
 }
 
-#emailButtonDiv,  {
+#emailButtonDiv {
     display: flex;
 }
 
