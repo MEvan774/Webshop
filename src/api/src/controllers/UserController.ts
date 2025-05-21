@@ -64,7 +64,7 @@ export class UserController {
 
             else {
                 const sessionId: string | undefined = await this._sessionService.createSession(user.userId);
-                res.cookie("session", sessionId, { httpOnly: true, secure: false });
+                res.cookie("session", sessionId, { httpOnly: true, secure: true });
                 res.status(200).json({ message: "Login succesvol." });
             }
         }

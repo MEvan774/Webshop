@@ -291,12 +291,6 @@ export class WelcomeComponent extends HTMLElement {
             scrollContainer.scrollBy({ left: scrollAmount, behavior: "smooth" });
         });
 
-        // const heroMain: HTMLElement = this.shadowRoot.querySelector("#hero-main") as HTMLElement;
-        // heroMain.addEventListener("click", () => {
-        //     localStorage.setItem("gameID", "37");
-        //     window.location.href = "/currentGame.html";
-        // });
-
         this.shadowRoot.appendChild(styleLink);
     }
 }
