@@ -184,7 +184,7 @@ Daarnaast blijkt uit de interviews dat gebruikers veel waarde hechten aan een in
 Als voorbeeld werd Zara genoemd: om een skinny jeans te vinden moet de klant eerst door verschillende lagen navigeren (geslacht, kledingcategorie, lichaamsdeel), zonder direct bij het gewenste product te komen.
 Kandidaten 2 en 3 benadrukten het belang van duidelijke informatie over levertijd en voorraad. Zij gaven aan dat dit soort gegevens idealiter al bij het product zichtbaar zijn en vervolgens ook terugkomen in het winkelmandje en het betaalproces. Dit voorkomt teleurstelling achteraf en draagt bij aan een gevoel van transparantie en betrouwbaarheid.
 
-Conclusie:
+#### Conclusie:
 De combinatie van literatuuronderzoek en gebruikersinzichten toont aan dat gebruiksvriendelijkheid in webshops vooral wordt bepaald door eenvoud, duidelijke informatievoorziening en een soepele navigatie.  
 Voor het ontwikkelteam zijn dit concrete aanknopingspunten om de webshop zodanig in te richten dat deze aansluit bij de wensen en verwachtingen van de doelgroep  
 
