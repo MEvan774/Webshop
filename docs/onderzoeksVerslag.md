@@ -140,7 +140,7 @@ De resultaten zullen het ontwikkelteam van nieuwe inzichten voorzien die direct 
 Om de deelvraag zo zorgvuldig mogelijk te beantwoorden zijn er verschillende onderzoeken uitgevoerd, waaronder:
 - literatuuronderzoek
 - vergelijkend onderzoek
-- gebruikersinterviews
+- gebruikersinterviews  
 Door deze methoden te combineren kunnen de perspectieven tegen elkaar gewogen worden, wat zal bijdragen aan een goed onderbouwde conclusie.
 
 ### Documentanalyse
@@ -171,7 +171,7 @@ Uit het onderzoek blijkt onder andere dat:
 •	74% van de webshops geven niet duidelijk aan welke gegevensvelden verplicht of optioneel zijn.  
 •	61% van de webshops bieden geen uitleg over het aankopen van cadeaus voor anderen, wat tot verwarring kan leiden.  
 
-Deze bevindingen benadrukken het belang van een eenvoudig, transparant en gebruiksvriendelijk winkelmandje en betaalproces voor een optimale gebruikerservaring.
+Deze bevindingen benadrukken het belang van een eenvoudig, transparant en gebruiksvriendelijk winkelmandje en betaalproces voor een optimale gebruikerservaring.  
 Het artikel E-commerce UX Guidelines sluit hier goed op aan en biedt ontwikkelaars praktische richtlijnen voor het verbeteren van de gebruikerservaring.  
 Veel van de bevindingen uit het Baymard-onderzoek komen hierin terug. De focus ligt op het minimaliseren van frustraties en het optimaliseren van de flow van de gebruiker.  
 Het doel is om bezoekers te behouden en te converteren, in plaats van ze weg te jagen door onduidelijke of omslachtige processen.  
@@ -187,10 +187,14 @@ De combinatie van literatuuronderzoek en gebruikersinzichten toont aan dat gebru
 Voor het ontwikkelteam zijn dit concrete aanknopingspunten om de webshop zodanig in te richten dat deze aansluit bij de wensen en verwachtingen van de doelgroep  
 
 ### Reflectie
-Tijdens dit onderzoek had ik een duidelijk plan voor ogen: ik wilde onderzoeken welke elementen bijdragen aan de gebruiksvriendelijkheid van een webshop, en hierbij specifiek ervaring opdoen met het afnemen van interviews. In mijn Plan van Aanpak had ik een SMART-doel opgesteld en een planning met bijbehorende deadlines uitgewerkt.
-Door het plotselinge overlijden van mijn opa en onverwachte problemen met een externe instantie, liep het proces echter anders dan gepland. Mijn oorspronkelijke aanpak viel hierdoor in het water. In plaats van fysieke interviews met kandidaat 2 en 3 heb ik moeten improviseren en hen een online vragenlijst laten invullen.
-Deze ervaring heeft mij geleerd dat flexibiliteit in onderzoeksplannen essentieel is. In de toekomst wil ik mijn oorspronkelijke plan opnieuw uitvoeren, maar dan met een ruimere planning die ruimte biedt voor onvoorziene omstandigheden. Op die manier kan ik soortgelijke obstakels beter opvangen en toch kwalitatief onderzoek blijven doen.
-Ondanks de uitdagingen heb ik met veel plezier onderzoek gedaan naar de elementen die bijdragen aan een positieve gebruikerservaring binnen webshops. De verkregen informatie kan door het ontwikkelteam worden vertaald naar concrete functionaliteiten die de gebruiksvriendelijkheid van de webshop verbeteren en zo bijdragen aan een prettige klantervaring.
+Tijdens dit onderzoek had ik een duidelijk plan voor ogen: ik wilde onderzoeken welke elementen bijdragen aan de gebruiksvriendelijkheid van een webshop, en hierbij specifiek ervaring opdoen met het afnemen van interviews.  
+In mijn Plan van Aanpak had ik een SMART-doel opgesteld en een planning met bijbehorende deadlines uitgewerkt.  
+Door het plotselinge overlijden van mijn opa en onverwachte problemen met een externe instantie, liep het proces echter anders dan gepland.  
+Mijn oorspronkelijke aanpak viel hierdoor in het water. In plaats van fysieke interviews met kandidaat 2 en 3 heb ik moeten improviseren en hen een online vragenlijst laten invullen.  
+Deze ervaring heeft mij geleerd dat flexibiliteit in onderzoeksplannen essentieel is. In de toekomst wil ik mijn oorspronkelijke plan opnieuw uitvoeren, maar dan met een ruimere planning die ruimte biedt voor onvoorziene omstandigheden.  
+Op die manier kan ik soortgelijke obstakels beter opvangen en toch kwalitatief onderzoek blijven doen.  
+Ondanks de uitdagingen heb ik met veel plezier onderzoek gedaan naar de elementen die bijdragen aan een positieve gebruikerservaring binnen webshops.  
+De verkregen informatie kan door het ontwikkelteam worden vertaald naar concrete functionaliteiten die de gebruiksvriendelijkheid van de webshop verbeteren en zo bijdragen aan een prettige klantervaring.  
 
 ### Literatuurlijst
 1. [Nielsen Norman Group. (November 24, 2019) E-commerce UX guidelines. Nielsen Norman Group](https://www.nngroup.com/articles/ecommerce-product-pages).
