@@ -140,7 +140,8 @@ De resultaten zullen het ontwikkelteam van nieuwe inzichten voorzien die direct 
 Om de deelvraag zo zorgvuldig mogelijk te beantwoorden zijn er verschillende onderzoeken uitgevoerd, waaronder:
 - literatuuronderzoek
 - vergelijkend onderzoek
-- gebruikersinterviews  
+- gebruikersinterviews
+
 Door deze methoden te combineren kunnen de perspectieven tegen elkaar gewogen worden, wat zal bijdragen aan een goed onderbouwde conclusie.
 
 ### Documentanalyse
