@@ -80,8 +80,8 @@ Wat gaat goed:
 
 Knelpunten:
 
-- Soms komt er een pagina die een hele andere stijl heeft.
-- In de code komt het soms voor dat comments vergeten worden.
+- Soms komt er een pagina die een hele andere stijl heeft. Dit kwam voornamelijk door miscommunicatie, bijvoorbeeld als er een Figma ontwerp gebruikt wordt die nog niet af was.
+- In de code komt het soms voor dat comments vergeten worden, dit komt doordat we soms haast hebben om ons code voor de deadline af te krijgen.
 
 **Reflectie**
 
