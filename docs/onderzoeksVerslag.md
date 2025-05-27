@@ -156,22 +156,25 @@ Bij deze webshops is er gekeken naar elementen zoals de navigatie, het betalings
 Tijdens dit onderzoek zijn diverse bronnen geraadpleegd vanuit technische bedrijven met onder andere "best practices". 
 Gebruikte bronnen:
 1. [Nielsen Norman Group -  E-commerce UX guidelines. Nielsen Norman Group](https://www.nngroup.com/articles/ecommerce-product-pages).
-2. [Baymard Institute - Top 10 checkout usability issues. Baymard Institute](https://baymard.com/blog/current-state-of-checkout-ux)
+2. [Baymard Institute - Top 10 checkout usability issues. Baymard Institute](https://baymard.com/blog/current-state-of-checkout-ux).  
 Deze bronnen hebben een bijdrage geleverd aan het opstellen van de doelgroep van deze deelvraag, het opstellen van de interviewvragen en de manier waarop het vergelijkend onderzoek wordt beoordeeld.
 
 ### Analyse / Bevindingen
-Tijdens het literatuuronderzoek viel direct op dat maar liefst 70% van de gebruikers hun aankoop afbreken nadat een product in het winkelmandje is geplaatst. Dit blijkt uit onderzoek van het Baymard Institute. De voornaamste oorzaken liggen bij het ontwerp en de gebruiksvriendelijkheid van het betaalproces. Uit het onderzoek blijkt onder andere dat:
-•	50% van de webshops gebruikers verplicht een account aan te maken om te kunnen afrekenen.
-•	65% van de webshops te strenge of complexe wachtwoordeisen hanteert.
-•	44% van de webshops ‘leveringssnelheid’ toont in plaats van een concrete leveringsdatum, wat tot verwarring of onzekerheid leidt.
-•	77% van de webshops geen countdown toont tijdens het afrekenen. Dit maakt het voor klanten – met name bij internationale bestellingen – lastig om in te schatten wanneer een bestelling daadwerkelijk verzonden wordt.
-•	95% van de webshops gebruikt geen +/- knop of tekstveld om aantallen aan te geven bij producten in het winkelmandje.
-•	74% van de webshops geven niet duidelijk aan welke gegevensvelden verplicht of optioneel zijn.
+Tijdens het literatuuronderzoek viel direct op dat maar liefst 70% van de gebruikers hun aankoop afbreken nadat een product in het winkelmandje is geplaatst.  
+Dit blijkt uit onderzoek van het Baymard Institute. De voornaamste oorzaken liggen bij het ontwerp en de gebruiksvriendelijkheid van het betaalproces.  
+Uit het onderzoek blijkt onder andere dat:  
+•	50% van de webshops gebruikers verplicht een account aan te maken om te kunnen afrekenen.  
+•	65% van de webshops te strenge of complexe wachtwoordeisen hanteert.  
+•	44% van de webshops ‘leveringssnelheid’ toont in plaats van een concrete leveringsdatum, wat tot verwarring of onzekerheid leidt.  
+•	77% van de webshops geen countdown toont tijdens het afrekenen. Dit maakt het voor klanten – met name bij internationale bestellingen – lastig om in te schatten wanneer een bestelling daadwerkelijk verzonden wordt.  
+•	95% van de webshops gebruikt geen +/- knop of tekstveld om aantallen aan te geven bij producten in het winkelmandje.  
+•	74% van de webshops geven niet duidelijk aan welke gegevensvelden verplicht of optioneel zijn.  
 •	61% van de webshops bieden geen uitleg over het aankopen van cadeaus voor anderen, wat tot verwarring kan leiden.  
 
 Deze bevindingen benadrukken het belang van een eenvoudig, transparant en gebruiksvriendelijk winkelmandje en betaalproces voor een optimale gebruikerservaring.
 Het artikel E-commerce UX Guidelines sluit hier goed op aan en biedt ontwikkelaars praktische richtlijnen voor het verbeteren van de gebruikerservaring.  
-Veel van de bevindingen uit het Baymard-onderzoek komen hierin terug. De focus ligt op het minimaliseren van frustraties en het optimaliseren van de flow van de gebruiker. Het doel is om bezoekers te behouden en te converteren, in plaats van ze weg te jagen door onduidelijke of omslachtige processen.
+Veel van de bevindingen uit het Baymard-onderzoek komen hierin terug. De focus ligt op het minimaliseren van frustraties en het optimaliseren van de flow van de gebruiker.  
+Het doel is om bezoekers te behouden en te converteren, in plaats van ze weg te jagen door onduidelijke of omslachtige processen.  
 Er is een duidelijk verschil tussen de technische focus van ontwikkelaars en de wensen van eindgebruikers.  
 In de gebruikersinterviews kwamen termen als “eenvoud” en “makkelijk” herhaaldelijk naar voren.  
 Dit bevestigt het beeld uit de literatuur: gebruikers ervaren veel webshops als te ingewikkeld of onoverzichtelijk, vooral tijdens het afrekenen.
@@ -180,8 +183,8 @@ Als voorbeeld werd Zara genoemd: om een skinny jeans te vinden moet de klant eer
 Kandidaten 2 en 3 benadrukten het belang van duidelijke informatie over levertijd en voorraad. Zij gaven aan dat dit soort gegevens idealiter al bij het product zichtbaar zijn en vervolgens ook terugkomen in het winkelmandje en het betaalproces. Dit voorkomt teleurstelling achteraf en draagt bij aan een gevoel van transparantie en betrouwbaarheid.
 
 Conclusie:
-De combinatie van literatuuronderzoek en gebruikersinzichten toont aan dat gebruiksvriendelijkheid in webshops vooral wordt bepaald door eenvoud, duidelijke informatievoorziening en een soepele navigatie. Voor het ontwikkelteam zijn dit concrete aanknopingspunten om de webshop zodanig in te richten dat deze aansluit bij de wensen en verwachtingen van de doelgroep
-
+De combinatie van literatuuronderzoek en gebruikersinzichten toont aan dat gebruiksvriendelijkheid in webshops vooral wordt bepaald door eenvoud, duidelijke informatievoorziening en een soepele navigatie.  
+Voor het ontwikkelteam zijn dit concrete aanknopingspunten om de webshop zodanig in te richten dat deze aansluit bij de wensen en verwachtingen van de doelgroep  
 
 ### Reflectie
 Tijdens dit onderzoek had ik een duidelijk plan voor ogen: ik wilde onderzoeken welke elementen bijdragen aan de gebruiksvriendelijkheid van een webshop, en hierbij specifiek ervaring opdoen met het afnemen van interviews. In mijn Plan van Aanpak had ik een SMART-doel opgesteld en een planning met bijbehorende deadlines uitgewerkt.
