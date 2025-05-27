@@ -157,7 +157,8 @@ Bij deze webshops is er gekeken naar elementen zoals de navigatie, het betalings
 Tijdens dit onderzoek zijn diverse bronnen geraadpleegd vanuit technische bedrijven met onder andere "best practices". 
 Gebruikte bronnen:
 1. [Nielsen Norman Group -  E-commerce UX guidelines. Nielsen Norman Group](https://www.nngroup.com/articles/ecommerce-product-pages).
-2. [Baymard Institute - Top 10 checkout usability issues. Baymard Institute](https://baymard.com/blog/current-state-of-checkout-ux).  
+2. [Baymard Institute - Top 10 checkout usability issues. Baymard Institute](https://baymard.com/blog/current-state-of-checkout-ux).
+
 Deze bronnen hebben een bijdrage geleverd aan het opstellen van de doelgroep van deze deelvraag, het opstellen van de interviewvragen en de manier waarop het vergelijkend onderzoek wordt beoordeeld.
 
 ### Analyse / Bevindingen
