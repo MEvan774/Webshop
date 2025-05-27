@@ -192,8 +192,10 @@ Voor het ontwikkelteam zijn dit concrete aanknopingspunten om de webshop zodanig
 Tijdens dit onderzoek had ik een duidelijk plan voor ogen: ik wilde onderzoeken welke elementen bijdragen aan de gebruiksvriendelijkheid van een webshop, en hierbij specifiek ervaring opdoen met het afnemen van interviews.  
 In mijn Plan van Aanpak had ik een SMART-doel opgesteld en een planning met bijbehorende deadlines uitgewerkt.  
 Door het plotselinge overlijden van mijn opa en onverwachte problemen met een externe instantie, liep het proces echter anders dan gepland.  
-Mijn oorspronkelijke aanpak viel hierdoor in het water. In plaats van fysieke interviews met kandidaat 2 en 3 heb ik moeten improviseren en hen een online vragenlijst laten invullen.  
-Deze ervaring heeft mij geleerd dat flexibiliteit in onderzoeksplannen essentieel is. In de toekomst wil ik mijn oorspronkelijke plan opnieuw uitvoeren, maar dan met een ruimere planning die ruimte biedt voor onvoorziene omstandigheden.  
+Mijn oorspronkelijke aanpak viel hierdoor in het water.  
+In plaats van fysieke interviews met kandidaat 2 en 3 heb ik moeten improviseren en hen een online vragenlijst laten invullen.  
+Deze ervaring heeft mij geleerd dat flexibiliteit in onderzoeksplannen essentieel is.  
+In de toekomst wil ik mijn oorspronkelijke plan opnieuw uitvoeren, maar dan met een ruimere planning die ruimte biedt voor onvoorziene omstandigheden.  
 Op die manier kan ik soortgelijke obstakels beter opvangen en toch kwalitatief onderzoek blijven doen.  
 Ondanks de uitdagingen heb ik met veel plezier onderzoek gedaan naar de elementen die bijdragen aan een positieve gebruikerservaring binnen webshops.  
 De verkregen informatie kan door het ontwikkelteam worden vertaald naar concrete functionaliteiten die de gebruiksvriendelijkheid van de webshop verbeteren en zo bijdragen aan een prettige klantervaring.  
