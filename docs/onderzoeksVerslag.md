@@ -126,6 +126,70 @@ Als team hebben deze afspraken ons erg geholpen, in het net houden van onze code
 
 ## Gebruikersinteractie: Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?
 
+### Samenvatting
+
+### Inleiding
+In opdracht van LucaStars is onderzoek uitgevoerd naar de wensen van potentiële klanten om een goed functionerende, veilige en gebruiksvriendelijke webshop te ontwikkelen.
+Dit onderzoek zal de deelvraag "Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?" beantwoorden.
+De resultaten zullen het ontwikkelteam van nieuwe inzichten voorzien die direct worden toegepast in de ontwikkeling en productie van de webshop.
+
+### Aanpak / Onderzoeksmethode
+Om de deelvraag zo zorgvuldig mogelijk te beantwoorden zijn er verschillende onderzoeken uitgevoerd, waaronder:
+- literatuuronderzoek
+- vergelijkend onderzoek
+- gebruikersinterviews
+Door deze methoden te combineren kunnen de perspectieven tegen elkaar gewogen worden, wat zal bijdragen aan een goed onderbouwde conclusie.
+
+### Documentanalyse
+Er is vergelijkend onderzoek uitgevoerd naar vier bestaande webshops, in deze webshops is het mogelijk om zowel fysieke als digitale producten aan te schaffen:
+- https://www.bol.com
+- https://www.megekko.nl
+- https://www.uwantisell.nl
+- https://www.g2a.com
+
+Bij deze webshops is er gekeken naar elementen zoals de navigatie, het betalingsproces, productpagina's, hoe eenvoudig het is om naar een product te navigeren, bruikbaarheid op telefoon of tablet.
+
+### Bronnenonderzoek
+Tijdens dit onderzoek zijn diverse bronnen geraadpleegd vanuit technische bedrijven met onder andere "best practices". 
+Gebruikte bronnen:
+1. [Nielsen Norman Group -  E-commerce UX guidelines. Nielsen Norman Group](https://www.nngroup.com/articles/ecommerce-product-pages).
+2. [Baymard Institute - Top 10 checkout usability issues. Baymard Institute](https://baymard.com/blog/current-state-of-checkout-ux)
+Deze bronnen hebben een bijdrage geleverd aan het opstellen van de doelgroep van deze deelvraag, het opstellen van de interviewvragen en de manier waarop het vergelijkend onderzoek wordt beoordeeld.
+
+### Analyse / Bevindingen
+Tijdens het literatuuronderzoek viel direct op dat maar liefst 70% van de gebruikers hun aankoop afbreken nadat een product in het winkelmandje is geplaatst. Dit blijkt uit onderzoek van het Baymard Institute. De voornaamste oorzaken liggen bij het ontwerp en de gebruiksvriendelijkheid van het betaalproces. Uit het onderzoek blijkt onder andere dat:
+•	50% van de webshops gebruikers verplicht een account aan te maken om te kunnen afrekenen.
+•	65% van de webshops te strenge of complexe wachtwoordeisen hanteert.
+•	44% van de webshops ‘leveringssnelheid’ toont in plaats van een concrete leveringsdatum, wat tot verwarring of onzekerheid leidt.
+•	77% van de webshops geen countdown toont tijdens het afrekenen. Dit maakt het voor klanten – met name bij internationale bestellingen – lastig om in te schatten wanneer een bestelling daadwerkelijk verzonden wordt.
+•	95% van de webshops gebruikt geen +/- knop of tekstveld om aantallen aan te geven bij producten in het winkelmandje.
+•	74% van de webshops geven niet duidelijk aan welke gegevensvelden verplicht of optioneel zijn.
+•	61% van de webshops bieden geen uitleg over het aankopen van cadeaus voor anderen, wat tot verwarring kan leiden.  
+
+Deze bevindingen benadrukken het belang van een eenvoudig, transparant en gebruiksvriendelijk winkelmandje en betaalproces voor een optimale gebruikerservaring.
+Het artikel E-commerce UX Guidelines sluit hier goed op aan en biedt ontwikkelaars praktische richtlijnen voor het verbeteren van de gebruikerservaring.  
+Veel van de bevindingen uit het Baymard-onderzoek komen hierin terug. De focus ligt op het minimaliseren van frustraties en het optimaliseren van de flow van de gebruiker. Het doel is om bezoekers te behouden en te converteren, in plaats van ze weg te jagen door onduidelijke of omslachtige processen.
+Er is een duidelijk verschil tussen de technische focus van ontwikkelaars en de wensen van eindgebruikers.  
+In de gebruikersinterviews kwamen termen als “eenvoud” en “makkelijk” herhaaldelijk naar voren.  
+Dit bevestigt het beeld uit de literatuur: gebruikers ervaren veel webshops als te ingewikkeld of onoverzichtelijk, vooral tijdens het afrekenen.
+Daarnaast blijkt uit de interviews dat gebruikers veel waarde hechten aan een intuïtieve navigatie. Zo gaf kandidaat #1 aan dat het zoeken naar een specifiek product op sommige websites onnodig omslachtig is. 
+Als voorbeeld werd Zara genoemd: om een skinny jeans te vinden moet de klant eerst door verschillende lagen navigeren (geslacht, kledingcategorie, lichaamsdeel), zonder direct bij het gewenste product te komen.
+Kandidaten 2 en 3 benadrukten het belang van duidelijke informatie over levertijd en voorraad. Zij gaven aan dat dit soort gegevens idealiter al bij het product zichtbaar zijn en vervolgens ook terugkomen in het winkelmandje en het betaalproces. Dit voorkomt teleurstelling achteraf en draagt bij aan een gevoel van transparantie en betrouwbaarheid.
+
+Conclusie:
+De combinatie van literatuuronderzoek en gebruikersinzichten toont aan dat gebruiksvriendelijkheid in webshops vooral wordt bepaald door eenvoud, duidelijke informatievoorziening en een soepele navigatie. Voor het ontwikkelteam zijn dit concrete aanknopingspunten om de webshop zodanig in te richten dat deze aansluit bij de wensen en verwachtingen van de doelgroep
+
+
+### Reflectie
+Tijdens dit onderzoek had ik een duidelijk plan voor ogen: ik wilde onderzoeken welke elementen bijdragen aan de gebruiksvriendelijkheid van een webshop, en hierbij specifiek ervaring opdoen met het afnemen van interviews. In mijn Plan van Aanpak had ik een SMART-doel opgesteld en een planning met bijbehorende deadlines uitgewerkt.
+Door het plotselinge overlijden van mijn opa en onverwachte problemen met een externe instantie, liep het proces echter anders dan gepland. Mijn oorspronkelijke aanpak viel hierdoor in het water. In plaats van fysieke interviews met kandidaat 2 en 3 heb ik moeten improviseren en hen een online vragenlijst laten invullen.
+Deze ervaring heeft mij geleerd dat flexibiliteit in onderzoeksplannen essentieel is. In de toekomst wil ik mijn oorspronkelijke plan opnieuw uitvoeren, maar dan met een ruimere planning die ruimte biedt voor onvoorziene omstandigheden. Op die manier kan ik soortgelijke obstakels beter opvangen en toch kwalitatief onderzoek blijven doen.
+Ondanks de uitdagingen heb ik met veel plezier onderzoek gedaan naar de elementen die bijdragen aan een positieve gebruikerservaring binnen webshops. De verkregen informatie kan door het ontwikkelteam worden vertaald naar concrete functionaliteiten die de gebruiksvriendelijkheid van de webshop verbeteren en zo bijdragen aan een prettige klantervaring.
+
+### Literatuurlijst
+1. [Nielsen Norman Group. (November 24, 2019) E-commerce UX guidelines. Nielsen Norman Group](https://www.nngroup.com/articles/ecommerce-product-pages).
+2. [Baymard Institute. (November 13, 2024) Top 10 checkout usability issues. Baymard Institute](https://baymard.com/blog/current-state-of-checkout-ux)
+
 ## Ethiek: Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
 
 ### (Beroeps)ethiek en de toepassing binnen de webshop Starshop
