@@ -1,7 +1,22 @@
-## Software (Milan)
+# Hoe ontwerp je een webshop die goed werkt, veilig is, makkelijk te gebruiken is en past bij wat de gebruikers en het bedrijf nodig hebben?
+### Door: Anne Bakker, Milan Breuren en Lisa Hakhoff
 
-**Samenvatting**
+## Inhoudsopgave
+- [Samenvatting](#samenvatting)
+- [Inleiding](#inleiding)
+- [Deelvraag 1: Software](#software-welke-afspraken-zijn-er-gemaakt-om-te-zorgen-dat-de-website-eenduidig-is-alsof-deze-door-één-persoon-gemaakt-is)
+- [Deelvraag 3: Ethiek](#ethiek-wat-zijn-best-practices-voor-het-veilig-en-ethisch-opslaan-van-persoonsgegevens-binnen-een-webshop-met-oog-op-privacy-gebruikersbelang-en-toestemming)
+- [Conclusie](#conclusie)
+- [Literatuurlijst](#literatuurlijst)
+- [Bijlagen](#bijlagen)
 
+## Samenvatting
+
+## Inleiding
+
+## Software: Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
+
+### Samenvatting
 In dit verslag onderzoeken we welke teamafspraken zijn gemaakt om de webshop eruit te laten zien alsof die door één persoon is ontworpen. Bij samenwerking tussen meerdere programmeurs kunnen stijl- en structuurverschillen ontstaan, tenzij hier duidelijke afspraken over zijn. We hebben gewerkt met gezamenlijke templates, afgesproken kleuren en typografie, en codeconventies zoals vaste naamgevingen. Dit draagt bij aan een overzichtelijke en professionele website. Toch zijn er verbeterpunten: niet alles is goed vastgelegd en soms wijkt iemand af van de afspraken.
 Aanbevelingen:
 - Verzamel alle afspraken op één centrale plek.
@@ -9,31 +24,25 @@ Aanbevelingen:
 - Evalueer aan het eind wat werkte en wat beter kan.
 Zo zorgen we voor een consistente uitstraling en betere gebruikerservaring.
 
-# Inleiding
-
+### Inleiding
 In dit rapport onderzoeken we hoe we eenduidigheid in ons project kunnen creëren en vastleggen. Deze documentatie dient als naslagwerk voor onze werkwijze als team.
 We werken met vier personen aan de webshop voor Lucastars. Omdat we gelijktijdig aan verschillende onderdelen bouwen, zijn duidelijke afspraken over stijl en structuur belangrijk om een rommelige of onprofessionele uitstraling te voorkomen.
 De focus ligt op visuele en technische consistentie in de front-end, met name op herbruikbare componenten in Figma, kleur- en typografie-afspraken en codeopbouw.
 Aspecten zoals backendfunctionaliteit, content of betaalprocessen vallen buiten de scope.
 
-**Deelvraag**
-
-“Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig(?) is, alsof deze door één persoon gemaakt is?”
 Deze vraag speelt bij veel softwareprojecten waar meerdere mensen samenwerken. Ieder teamlid heeft een eigen stijl, wat kan leiden tot inconsistenties in ontwerp en code. Denk aan knoppen of lettertypes die net anders zijn, wat de webshop rommelig maakt en het vertrouwen van gebruikers kan schaden.
+
 Door deze vraag te beantwoorden, krijgen we inzicht in hoe gezamenlijke afspraken bijdragen aan een professionele, consistente website. De uitkomsten bieden ook waardevolle lessen voor toekomstige samenwerkingen.
 
-## Aanpak / Onderzoeksmethode
-
+### Aanpak / Onderzoeksmethode
 Om onze deelvraag te beantwoorden, is er gebruikgemaakt van een documentanalyse en brononderzoek.
 
-**Documentanalyse**
-
+### Documentanalyse
 Binnen het team hebben we meerdere bronnen en documenten geanalyseerd die gebruikt worden tijdens het ontwerpen en ontwikkelen van de webshop. Denk hierbij aan:
 - Het gezamenlijke Figma-bestand, waarin we de consistentie van ontwerpcomponenten, stijlen en herbruikbare elementen hebben bekeken. Daarbij is gebruikgemaakt van Figma’s eigen documentatie over design consistency.
 - We controleren of iedereen zijn codeconventies toepast en melden dat als dat niet het geval is.
 
-**Bronnenonderzoek**
-
+### Bronnenonderzoek
 Om erachter te komen hoe we consistentie in zowel code als design krijgen, hebben we de volgende bronnen bekeken:
 
 - De Figma-resource over consistentie in design voor richtlijnen.
@@ -43,8 +52,7 @@ Om erachter te komen hoe we consistentie in zowel code als design krijgen, hebbe
 
 Deze bronnen gaven duidelijk aan wat er onder “consistentie” valt en hoe dat in professionele settings wordt aangepakt.
 
-## Analyse / Bevindingen
-
+### Analyse / Bevindingen
 Om ervoor te zorgen dat onze webshop een eenduidige uitstraling heeft, hebben we samen afspraken gemaakt over het ontwerp, code en samenwerking. Deze afspraken zijn deels gebaseerd op bestaande richtlijnen uit Figma en op formele codeconventies, zoals beschreven in de HBO-ICT Knowledgebase en de TypeScript Style Guide.
 Welke afspraken zijn gemaakt?
 Figma
@@ -83,26 +91,11 @@ Knelpunten:
 - Soms komt er een pagina die een hele andere stijl heeft. Dit kwam voornamelijk door miscommunicatie, bijvoorbeeld als er een Figma ontwerp gebruikt wordt die nog niet af was.
 - In de code komt het soms voor dat comments vergeten worden, dit komt doordat we soms haast hebben om ons code voor de deadline af te krijgen.
 
-**Reflectie**
+### Reflectie
 
 Als team hebben deze afspraken ons erg geholpen, in het net houden van onze code en in het consistent houden van de stijl. Persoonlijk zag ik Figma als iets onnodigs, want je kan alles ook heel makkelijk in CSS aanpassen. Maar door het gebruik van templates en het testen van UI die lastig te implementeren is via CSS (een melding dat je wachtwoord fout is), ben ik Figma meer gaan waarderen en zie ik het nut ervan. De codeconventies houden we al goed aan, maar we vergeten soms wel comments erin te zetten. Dat moeten we erin rammen, omdat we het anders vergeten en het is dan lastig voor een ander om aanpassingen te maken.
 
-**Literatuurlijst**
-
-- Figma. (z.d.). Consistency in design. Figma. https://www.figma.com/resource-library/consistency-in-design/
-- Hogeschool van Amsterdam. (2023). Code conventies CSS. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_css/
-- Hogeschool van Amsterdam. (2023). Code conventies HTML. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_html/
-- Hogeschool van Amsterdam. (2023). Code conventies TypeScript. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_typescript/
-- TypeScript Team. (z.d.). Style guide. ts.dev. https://ts.dev/style/#identifiers
-
-- Yang, S., Wang, Y., & Wei, J. (2014). Integration and consistency between web and mobile services. Industrial Management + Data Systems, 114(8), 1246–1269
-
-
-
-## Ethiek (Anne)
-
-
-## Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
+## Ethiek: Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
 
 ### (Beroeps)ethiek en de toepassing binnen de webshop Starshop
 Ethiek betreft het nadenken van gevolgen van handelingen, zowel positief als negatief. In de IT is dit vooral relevant voor het gebruik van kunstmatige intelligentie, het verzamelen van persoonsgegevens en de toegankelijkheid van techniek. Dit wordt beroepsethiek genoemd.
@@ -200,14 +193,19 @@ Uit het onderzoek blijken de volgende best practices voor de gegevensverzameling
 
 Door deze practices te blijven volgen, kan Starshop de gegevensverzameling uitvoeren op een manier die ethisch verantwoord is en gefocust is op de bescherming van privacy, toestemming en gebruikersbelang.
 
-## Bronnen
-Interview met PO (Anne, Milan, Lisa, Francesco [1-Mula], Interviewer). (2025, April 4). Gitlab. https://gitlab.fdmci.hva.nl/propedeuse-hbo-ict/onderwijs/student-projecten/2024-2025/out-f-cs-se/blok-4/naagooxeekuu77/-/blob/main/docs/testresultaten/interviewPO.md?ref_type=heads
+## Conclusie
 
-Fellinger, E. (n.d.). Ethiek - Knowledgebase. https://knowledgebase.hbo-ict-hva.nl/2_professional_skills/toekomstgericht_organiseren/ethiek/0_to_ethiek/
-
-AVG | Algemene Verordening Gegevensbescherming - Your Europe. (2022, January 1). Your Europe. https://europa.eu/youreurope/business/dealing-with-customers/data-protection/data-protection-gdpr/index_nl.htm
-
-Ministerie van Algemene Zaken. (2024, November 18). Handleiding Algemene verordening gegevensbescherming (AVG). Rapport | Rijksoverheid.nl. https://www.rijksoverheid.nl/documenten/rapporten/2018/01/22/handleiding-algemene-verordening-gegevensbescherming
+## Literatuurlijst
+- Figma. (z.d.). Consistency in design. Figma. https://www.figma.com/resource-library/consistency-in-design/
+- Hogeschool van Amsterdam. (2023). Code conventies CSS. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_css/
+- Hogeschool van Amsterdam. (2023). Code conventies HTML. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_html/
+- Hogeschool van Amsterdam. (2023). Code conventies TypeScript. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_typescript/
+- TypeScript Team. (z.d.). Style guide. ts.dev. https://ts.dev/style/#identifiers
+- Yang, S., Wang, Y., & Wei, J. (2014). Integration and consistency between web and mobile services. Industrial Management + Data Systems, 114(8), 1246–1269
+- Interview met PO (Anne, Milan, Lisa, Francesco [1-Mula], Interviewer). (2025, April 4). Gitlab. https://gitlab.fdmci.hva.nl/propedeuse-hbo-ict/onderwijs/student-projecten/2024-2025/out-f-cs-se/blok-4/naagooxeekuu77/-/blob/main/docs/testresultaten/interviewPO.md?ref_type=heads
+- Fellinger, E. (n.d.). Ethiek - Knowledgebase. https://knowledgebase.hbo-ict-hva.nl/2_professional_skills/toekomstgericht_organiseren/ethiek/0_to_ethiek/
+- AVG | Algemene Verordening Gegevensbescherming - Your Europe. (2022, January 1). Your Europe. https://europa.eu/youreurope/business/dealing-with-customers/data-protection/data-protection-gdpr/index_nl.htm
+- Ministerie van Algemene Zaken. (2024, November 18). Handleiding Algemene verordening gegevensbescherming (AVG). Rapport | Rijksoverheid.nl. https://www.rijksoverheid.nl/documenten/rapporten/2018/01/22/handleiding-algemene-verordening-gegevensbescherming
 
 ## Bijlagen
 ### Bijlage 1: Gebruikersonderzoek gegevensverzameling
