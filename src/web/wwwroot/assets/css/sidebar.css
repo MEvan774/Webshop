@@ -5,12 +5,12 @@
     font-style: normal;
   }
 
-  @font-face {
-    font-family: 'TimesNewRoman';
-    src: url('/assets/fonts/TimesNewRoman');
+@font-face {
+    font-family: 'Times New Roman';
+    src: url('/assets/fonts/TimesNewRoman.ttf');
     font-weight: normal;
     font-style: normal;
-  }
+}
 
   .sidebar {
     color: #121212;

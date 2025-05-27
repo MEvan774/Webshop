@@ -5,12 +5,12 @@
     font-style: normal;
 }
 
-  @font-face {
-    font-family: 'TimesNewRoman';
-    src: url('/assets/fonts/TimesNewRoman');
+@font-face {
+    font-family: 'Times New Roman';
+    src: url('/assets/fonts/TimesNewRoman.ttf');
     font-weight: normal;
     font-style: normal;
-  }
+}
 
 
 a#user {
@@ -205,7 +205,7 @@ button .navbar {
   box-shadow: 0 8px 16px rgba(0,0,0,0.3);
     box-sizing: border-box;  /* Include padding/border in width */
   max-width: 100vw;        /* Prevent exceeding viewport width */
-  overflow-x: hidden;    
+  overflow-x: hidden;
   z-index: 999;
 }
 
