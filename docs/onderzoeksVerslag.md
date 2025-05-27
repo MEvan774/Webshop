@@ -127,6 +127,9 @@ Als team hebben deze afspraken ons erg geholpen, in het net houden van onze code
 ## Gebruikersinteractie: Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?
 
 ### Samenvatting
+Deze deelvraag is beantwoord door middel van literatuuronderzoek, gebruikersinterviews en vergelijkend onderzoek naar bestaande webshops.
+Uit de resultaten blijkt dat er een duidelijk verschil is tussen de technische focus van ontwikkelaars en de behoeften van gebruikers. Waar ontwikkelaars vaak kijken naar structuur en functionaliteit, verlangen gebruikers vooral eenvoud, duidelijkheid en een soepele gebruikservaring.
+Elementen die positief bijdragen aan de gebruiksvriendelijkheid van een webshop zijn onder andere: een eenvoudig betaalproces, heldere informatie over levertijden en voorraad, intuïtieve navigatie en minimale drempels bij het afrekenen.
 
 ### Inleiding
 In opdracht van LucaStars is onderzoek uitgevoerd naar de wensen van potentiële klanten om een goed functionerende, veilige en gebruiksvriendelijke webshop te ontwikkelen.
