@@ -1,3 +1,107 @@
+## Software (Milan)
+
+**Samenvatting**
+
+In dit verslag onderzoeken we welke teamafspraken zijn gemaakt om de webshop eruit te laten zien alsof die door één persoon is ontworpen. Bij samenwerking tussen meerdere programmeurs kunnen stijl- en structuurverschillen ontstaan, tenzij hier duidelijke afspraken over zijn. We hebben gewerkt met gezamenlijke templates, afgesproken kleuren en typografie, en codeconventies zoals vaste naamgevingen. Dit draagt bij aan een overzichtelijke en professionele website. Toch zijn er verbeterpunten: niet alles is goed vastgelegd en soms wijkt iemand af van de afspraken.
+Aanbevelingen:
+- Verzamel alle afspraken op één centrale plek.
+- Plan korte overleggen om de naleving te bewaken.
+- Evalueer aan het eind wat werkte en wat beter kan.
+Zo zorgen we voor een consistente uitstraling en betere gebruikerservaring.
+
+# Inleiding
+
+In dit rapport onderzoeken we hoe we eenduidigheid in ons project kunnen creëren en vastleggen. Deze documentatie dient als naslagwerk voor onze werkwijze als team.
+We werken met vier personen aan de webshop voor Lucastars. Omdat we gelijktijdig aan verschillende onderdelen bouwen, zijn duidelijke afspraken over stijl en structuur belangrijk om een rommelige of onprofessionele uitstraling te voorkomen.
+De focus ligt op visuele en technische consistentie in de front-end, met name op herbruikbare componenten in Figma, kleur- en typografie-afspraken en codeopbouw.
+Aspecten zoals backendfunctionaliteit, content of betaalprocessen vallen buiten de scope.
+
+**Deelvraag**
+
+“Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig(?) is, alsof deze door één persoon gemaakt is?”
+Deze vraag speelt bij veel softwareprojecten waar meerdere mensen samenwerken. Ieder teamlid heeft een eigen stijl, wat kan leiden tot inconsistenties in ontwerp en code. Denk aan knoppen of lettertypes die net anders zijn, wat de webshop rommelig maakt en het vertrouwen van gebruikers kan schaden.
+Door deze vraag te beantwoorden, krijgen we inzicht in hoe gezamenlijke afspraken bijdragen aan een professionele, consistente website. De uitkomsten bieden ook waardevolle lessen voor toekomstige samenwerkingen.
+
+## Aanpak / Onderzoeksmethode
+
+Om onze deelvraag te beantwoorden, is er gebruikgemaakt van een documentanalyse en brononderzoek.
+
+**Documentanalyse**
+
+Binnen het team hebben we meerdere bronnen en documenten geanalyseerd die gebruikt worden tijdens het ontwerpen en ontwikkelen van de webshop. Denk hierbij aan:
+- Het gezamenlijke Figma-bestand, waarin we de consistentie van ontwerpcomponenten, stijlen en herbruikbare elementen hebben bekeken. Daarbij is gebruikgemaakt van Figma’s eigen documentatie over design consistency.
+- We controleren of iedereen zijn codeconventies toepast en melden dat als dat niet het geval is.
+
+**Bronnenonderzoek**
+
+Om erachter te komen hoe we consistentie in zowel code als design krijgen, hebben we de volgende bronnen bekeken:
+
+- De Figma-resource over consistentie in design voor richtlijnen.
+- De HBO-ICT Knowledgebase voor taalspecifieke codeconventies in: TypeScript, HTML en CSS.
+- De TypeScript Style Guide van ts.dev voor codeconventies.
+- Het wetenschappelijk litteratuur: Integration and consistency between web and mobile services (Yang Shuiqing, Wang Yan, Wei June ,2014), die ik in lib.hva.nl heb gevonden over hoe consumenten een eenduidige ervaring waarnemen bij het overstappen van web naar mobiel.
+
+Deze bronnen gaven duidelijk aan wat er onder “consistentie” valt en hoe dat in professionele settings wordt aangepakt.
+
+## Analyse / Bevindingen
+
+Om ervoor te zorgen dat onze webshop een eenduidige uitstraling heeft, hebben we samen afspraken gemaakt over het ontwerp, code en samenwerking. Deze afspraken zijn deels gebaseerd op bestaande richtlijnen uit Figma en op formele codeconventies, zoals beschreven in de HBO-ICT Knowledgebase en de TypeScript Style Guide.
+Welke afspraken zijn gemaakt?
+Figma
+
+- Templates: Herbruikbare onderdelen zoals navigatiebalken en kaarten zorgen ervoor dat pagina’s er hetzelfde uitzien. Dit sluit aan bij het idee dat een consistente opmaak de gebruikerservaring verbetert (Yang, Wang & Wei, 2014).
+
+- Kleur & typografie: De vaste kleuren en lettertypes in Figma zorgen voor een herkenbare stijl, wat helpt bij het opbouwen van een sterke visuele identiteit.
+
+- Layout: Alle ontwerpen volgen dezelfde opbouw, wat zorgt voor duidelijkheid en herkenbaarheid. Dit sluit aan bij het belang van consistente informatie op verschillende schermen (Yang et al., 2014).
+
+Code
+
+- Naamgeving: TypeScript-richtlijnen worden gevolgd.
+- HTML/CSS: HBO-ICT conventies voor structuur en leesbaarheid.
+
+Samenwerking
+
+- Code review: We geven elkaar regelmatig feedback op de code. Zo voorkomen we dat er dingen fout gaan of uit de pas lopen. Dit helpt bij het samenhangend houden van de onderdelen (Yang et al., 2014,).
+- Git-structuur: Werken met branches per functionaliteit voorkomt conflicten en houdt commits overzichtelijk.
+
+Hoe dragen deze afspraken bij aan een eenduidige website?
+
+- Visuele samenhang: Elke pagina voelt ontworpen door één persoon.
+- Begrijpelijke code: Dankzij duidelijke conventies leest iedereen elkaars werk makkelijk.
+- Betere samenwerking: Iedereen werkt vanuit dezelfde afspraken.
+
+Waar gaat het goed, en waar zitten knelpunten?
+Wat gaat goed:
+
+- Actief gebruik van Figma-templates.
+- Code wordt grotendeels volgens afspraak geschreven.
+- Minder dubbel werk door componentgebruik.
+
+Knelpunten:
+
+- Soms komt er een pagina die een hele andere stijl heeft.
+- In de code komt het soms voor dat comments vergeten worden.
+
+**Reflectie**
+
+Als team hebben deze afspraken ons erg geholpen, in het net houden van onze code en in het consistent houden van de stijl. Persoonlijk zag ik Figma als iets onnodigs, want je kan alles ook heel makkelijk in CSS aanpassen. Maar door het gebruik van templates en het testen van UI die lastig te implementeren is via CSS (een melding dat je wachtwoord fout is), ben ik Figma meer gaan waarderen en zie ik het nut ervan. De codeconventies houden we al goed aan, maar we vergeten soms wel comments erin te zetten. Dat moeten we erin rammen, omdat we het anders vergeten en het is dan lastig voor een ander om aanpassingen te maken.
+
+**Literatuurlijst**
+
+- Figma. (z.d.). Consistency in design. Figma. https://www.figma.com/resource-library/consistency-in-design/
+- Hogeschool van Amsterdam. (2023). Code conventies CSS. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_css/
+- Hogeschool van Amsterdam. (2023). Code conventies HTML. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_html/
+- Hogeschool van Amsterdam. (2023). Code conventies TypeScript. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_typescript/
+- TypeScript Team. (z.d.). Style guide. ts.dev. https://ts.dev/style/#identifiers
+
+- Yang, S., Wang, Y., & Wei, J. (2014). Integration and consistency between web and mobile services. Industrial Management + Data Systems, 114(8), 1246–1269
+
+
+
+## Ethiek (Anne)
+
+
 ## Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
 
 ### (Beroeps)ethiek en de toepassing binnen de webshop Starshop
