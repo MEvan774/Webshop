@@ -209,12 +209,12 @@ Door deze practices te blijven volgen, kan Starshop de gegevensverzameling uitvo
 
 ## Bijlagen
 ### Bijlage 1: Gebruikersonderzoek gegevensverzameling
-![Image](Images/firstName.png)\
-![Image](Images/fullName.png)\
-![Image](Images/email.png)\
-![Image](Images/phoneNumber.png)\
-![Image](Images/gender.png)\
-![Image](Images/country.png)\
-![Image](Images/haircolor.png)\
-![Image](Images/eyecolor.png)\
-![Image](Images/skincolor.png)
+![Image](images/firstName.png)\
+![Image](images/fullName.png)\
+![Image](images/email.png)\
+![Image](images/phoneNumber.png)\
+![Image](images/gender.png)\
+![Image](images/country.png)\
+![Image](images/haircolor.png)\
+![Image](images/eyecolor.png)\
+![Image](images/skincolor.png)
