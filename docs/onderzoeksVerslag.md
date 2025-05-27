@@ -1,7 +1,8 @@
 # Hoe ontwerp je een webshop die goed werkt, veilig is, makkelijk te gebruiken is en past bij wat de gebruikers en het bedrijf nodig hebben?
-### Door: Anne Bakker, Milan Breuren en Lisa Hakhoff
+### Door: Anne Bakker, Milan Breuren en Lisa Hakhoff van 1-Mula
 
 ## Inhoudsopgave
+
 - [Samenvatting](#samenvatting)
 - [Inleiding](#inleiding)
 - [Deelvraag 1: Software](#software-welke-afspraken-zijn-er-gemaakt-om-te-zorgen-dat-de-website-eenduidig-is-alsof-deze-door-één-persoon-gemaakt-is)
@@ -12,6 +13,7 @@
 - [Bijlagen](#bijlagen)
 
 ## Samenvatting
+
 Dit onderzoek is gestart om er achter te komen hoe 1-Mula de webshop Starshop goed kan ontwerpen. Hierbij wordt er gefocust op een fijne en makkelijke werking voor de gebruikers en de veiligheid van de gegevens van de gebruikers. Om deze deelvraag te beantwoorden, is dit opgesplitst 3 deelvragen, namelijk:
 
 1. Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
@@ -25,6 +27,21 @@ Uit dit onderzoek is gekomen dat het opslaan en verwerken van de huidskleur van 
 Dit onderzoek heeft er niet alleen geleid tot afspraken over de persoonsgegevens die verzameld gaan worden van de gebruiker. Hier is namelijk ook uit gekomen dat het wachtwoord opgeslagen moet worden in hashing, en niet direct in de database opgeslagen mag worden. Daarnaast blijkt dat bij het opslaan van persoonsgegevens bij aanmaak van een account er toestemming moet worden gegeven op de gebruikersvoorwaarden, en dat er bij aanmaak van een account voor minderjarigen toestemming van een ouder of voogd vereist is.
 
 ## Inleiding
+
+Dit onderzoek is ontstaan omdat 1-Mula de taak kreeg van LucaStars om de webshop Starshop te ontwikkelen. Deze webshop wordt gebruikt om licencies van de spellen die ontwikkeld zijn door LucaStars te verkopen.
+
+Voor deze webshop moest onderzoek gedaan worden, zodat de webshop gebruikersvriendelijk en veilig gemaakt wordt. Hiervoor werden de onderwerpen software, gebruikersinteractie en ethiek gekozen, en bij deze onderwerpen werden deelvragen bedacht om specifiek op de belangrijkste onderdelen van deze onderwerpen in te gaan.
+
+De hoofdvraag is geworden: Hoe ontwerp je een webshop die goed werkt, veilig is, makkelijk te gebruiken is en past bij wat de gebruikers en het bedrijf nodig hebben?
+
+De deelvragen die zijn gekozen:
+- Software: Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
+- Gebruikersinteractie: Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?
+- Ethiek: Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
+
+Om de derde deelvraag te beantwoorden, is er onderzoek gedaan naar de Algemene Verordening Gegevensbescherming, de privacywet van de EU. Hierin staan de regels voor het opslaan van persoonsgegevens van gebruikers. Ook is er een gebruikersonderzoek gehouden door middel van een enquête, waarin aan respondenten wordt gevraagd wat hun mening is over het verzamelen van specifieke gegevens, zoals de huidskleur. Aan de hand van deze onderzoeken zijn er gesprekken gehouden tussen de teamleden van 1-Mula en met de Product Owners, waar afspraken zijn gemaakt over het verzamelen van persoonsgegevens.
+
+In dit verslag wordt eerst de deelvraag over software behandeld, en daarna de deelvraag over gebruikersinteractie. Hierna wordt de deelvraag over ethiek behandeld. Na de deelvragen wordt de conclusie besproken. Aan het eind van het verslag worden de gebruikte bronnen en bijlagen genoemd.
 
 ## Software: Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
 
