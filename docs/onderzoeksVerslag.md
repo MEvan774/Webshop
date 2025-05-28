@@ -334,11 +334,12 @@ Wel kunnen locatie en gender opgeslagen worden, mits dit vrijwillig is.
 Verder moeten wachtwoorden gehasht worden opgeslagen en moeten gebruikers expliciet akkoord gaan met de voorwaarden.  
 Bij minderjarigen is ouderlijke toestemming verplicht.
 
-Conclusie:
+Conclusie:\
 Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij de wensen van zowel gebruikers als het bedrijf, wordt bereikt door:  
 - Een consistente en professionele vormgeving,
 - Een gebruiksvriendelijke en intuïtieve gebruikerservaring,
-- En een veilige, transparante en wettelijk correcte omgang met persoonsgegevens.\
+- En een veilige, transparante en wettelijk correcte omgang met persoonsgegevens.
+
 Door deze drie pijlers centraal te stellen, kan 1-Mula een succesvolle webshop ontwerpen die betrouwbaar, prettig in gebruik én toekomstbestendig is.  
 
 ### Literatuurlijst 
