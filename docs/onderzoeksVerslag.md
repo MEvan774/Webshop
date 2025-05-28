@@ -333,10 +333,9 @@ In deelvraag 2 werd onderzocht wat frequente online shoppers belangrijk vinden a
 Hieruit bleek dat overzicht, snelheid, eenvoudige navigatie, en duidelijke productinformatie essentieel zijn voor een positieve gebruikerservaring.
 
 Deelvraag 3 richtte zich op veiligheid en privacy.  
-Daaruit kwam naar voren dat gevoelige persoonsgegevens zoals huidskleur, haarkleur en oogkleur niet opgeslagen mogen worden.  
-Wel kunnen locatie en geslacht opgeslagen worden, mits dit vrijwillig is.  
-Verder moeten wachtwoorden gehasht worden opgeslagen en moeten gebruikers expliciet akkoord gaan met de voorwaarden.  
-Bij minderjarigen is ouderlijke toestemming verplicht.
+Daaruit kwam naar voren dat het opslaan van de huidskleur van gebruikers niet toegestaan is, en dat het opslaan van gegevens zoals de haar- en oogkleur alleen met een geldige reden mag. Sinds Starshop hier geen reden voor heeft, wordt dit ook niet opgeslagen.
+Gegevens zoals het geslacht en de locatie worden wel opgeslagen, maar de gebruiker heeft de optie om ervoor te kiezen deze niet op te geven.
+Ook moet het wachtwoord beveiligd opgeslagen worden, en moet er een privacyverklaring geschreven worden zodat gebruikers toestemming geven tot het opslaan en gebruiken van hun persoonsgegevens.
 
 De conclusie:\
 Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij de wensen van zowel gebruikers als het bedrijf, wordt bereikt door:  
