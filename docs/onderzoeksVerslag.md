@@ -335,14 +335,15 @@ Wel kunnen locatie en gender opgeslagen worden, mits dit vrijwillig is.
 Verder moeten wachtwoorden gehasht worden opgeslagen en moeten gebruikers expliciet akkoord gaan met de voorwaarden.  
 Bij minderjarigen is ouderlijke toestemming verplicht.
 
-Conclusie:
-- Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij de wensen van zowel gebruikers als het bedrijf, wordt bereikt door:  
+Conclusie:\
+Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij de wensen van zowel gebruikers als het bedrijf, wordt bereikt door:  
 - Een consistente en professionele vormgeving,
 - Een gebruiksvriendelijke en intuïtieve gebruikerservaring,
 - En een veilige, transparante en wettelijk correcte omgang met persoonsgegevens.
+
 Door deze drie pijlers centraal te stellen, kan 1-Mula een succesvolle webshop ontwerpen die betrouwbaar, prettig in gebruik én toekomstbestendig is.  
 
-### Literatuurlijst 
+## Literatuurlijst 
 Baymard Institute. (2024, 13 november). *Top 10 checkout usability issues*. https://baymard.com/blog/current-state-of-checkout-ux  
 Fellinger, E. (z.d.). *Ethiek - Knowledgebase*. Hogeschool van Amsterdam. https://knowledgebase.hbo-ict-hva.nl/2_professional_skills/toekomstgericht_organiseren/ethiek/0_to_ethiek/  
 Figma. (z.d.). *Consistency in design*. https://www.figma.com/resource-library/consistency-in-design/  
