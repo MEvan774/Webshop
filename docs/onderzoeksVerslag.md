@@ -35,15 +35,9 @@ Het wachtwoord wordt versleuteld opgeslagen (hashing), en een privacyverklaring 
 ## Inleiding
 Dit onderzoek is gestart omdat 1-Mula de opdracht kreeg van LucaStars om de webshop Starshop te ontwikkelen. Deze webshop is bedoeld om licenties van de spellen, die door LucaStars ontwikkeld zijn, te verkopen. Omdat een webshop het visitekaartje is voor het bedrijf en direct invloed heeft op de verkoop en het vertrouwen van gebruikers, is het belangrijk dat de webshop gebruiksvriendelijk, veilig en betrouwbaar is.  
 
-<<<<<<< HEAD
-Dit onderzoek is ontstaan omdat 1-Mula de taak kreeg van LucaStars om de webshop Starshop te ontwikkelen. Deze webshop wordt gebruikt om licenties van de spellen die ontwikkeld zijn door LucaStars te verkopen.
-
-Voor deze webshop moest onderzoek gedaan worden, zodat de webshop gebruikersvriendelijk en veilig ontworpen wordt. Hiervoor werden de onderwerpen software, gebruikersinteractie en ethiek gekozen, en bij elk thema zijn deelvragen opgesteld, die ingaan op de belangrijkste aandachtspunten.
-=======
 LucaStars wil een webshop die niet alleen technisch goed functioneert, maar ook aansluit bij de behoeften van de gebruikers en het bedrijf. Daarnaast moeten persoonsgegevens van gebruikers op een ethisch verantwoorde en wettelijk correcte manier worden verwerkt. Om dit te bereiken, is het nodig om eerst te onderzoeken wat de belangrijkste aandachtspunten zijn op het gebied van softwareontwikkeling, gebruikerservaring en privacywetgeving.
 
-Het onderzoek richt zich op drie centrale thema’s: software (hoe zorg je voor een eenduidige en samenhangende website), gebruikersinteractie (wat maakt een webshop prettig en gemakkelijk in gebruik volgens frequente online shoppers) en ethiek (hoe ga je op een veilige en ethische manier om met het opslaan van persoonsgegevens). Deze thema’s zijn essentieel om een webshop te ontwerpen die voldoet aan de wensen van zowel gebruikers als het bedrijf.  
->>>>>>> 857089cbf0f7d550225d2d30eed8c10d396ce6bc
+Het onderzoek richt zich op drie centrale thema’s: software (hoe zorg je voor een eenduidige en samenhangende website), gebruikersinteractie (wat maakt een webshop prettig en gemakkelijk in gebruik volgens frequente online shoppers) en ethiek (hoe ga je op een veilige en ethische manier om met het opslaan van persoonsgegevens). Deze thema’s zijn essentieel om een webshop te ontwerpen die voldoet aan de wensen van zowel gebruikers als het bedrijf. 
 
 De hoofdvraag die in dit onderzoek centraal staat is:
 > *Hoe ontwerp je een webshop die goed werkt, veilig is, makkelijk te gebruiken is en past bij wat de gebruikers en het bedrijf nodig hebben?*
