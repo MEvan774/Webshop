@@ -18,7 +18,7 @@ De focus ligt hierbij op een prettige gebruikerservaring én het ethisch verantw
 Het onderzoek is opgedeeld in drie deelvragen:
 
 1. Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?  
-Hiervoor zijn er codeconventies en ontwerpafspraken opgesteld, gericht op consistentie in structuur, stijl en interactie.  
+Hiervoor zijn er codeconventies en ontwerpafspraken opgesteld, gericht op structurele, stilistische en interactieve consistentie.  
 Er is gebruikgemaakt van richtlijnen van de Hogeschool van Amsterdam en de Figma resource library om te zorgen voor een uniform ontwerp.  
 Deze afspraken helpen om een herkenbare en professionele uitstraling te waarborgen, wat bijdraagt aan de betrouwbaarheid en gebruiksvriendelijkheid van de webshop.
 
@@ -32,23 +32,11 @@ In lijn met de AVG mogen gevoelige gegevens zoals huidskleur, oogkleur en haarkl
 Daarom is besloten deze gegevens niet te verzamelen. Wel worden naam, e-mailadres, geslacht en land opgeslagen, mits de gebruiker hier toestemming voor geeft.  
 Het wachtwoord wordt versleuteld opgeslagen (hashing), en een privacyverklaring is verplicht voordat een account aangemaakt kan worden. Voor minderjarigen is ouderlijke toestemming vereist.
 
-<!-- Dit onderzoek is gestart om er achter te komen hoe 1-Mula de webshop Starshop goed kan ontwerpen. Hierbij wordt er gefocust op een fijne en makkelijke werking voor de gebruikers en de veiligheid van de gegevens van de gebruikers. Om deze deelvraag te beantwoorden, is dit opgesplitst 3 deelvragen, namelijk:
-
-1. Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
-2. Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?
-3. Wat zijn de best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
-
-In deelvraag 3 is er nagedacht over welke persoonsgegevens van de gebruikers van de webshop opgeslagen worden, op een manier dat ethisch verantwoord is en wettelijk is toegestaan.
-
-Uit dit onderzoek is gekomen dat het opslaan en verwerken van de huidskleur van de gebruiker niet toegestaan is volgens de AVG. Ook de oog- en haarkleur van gebruikers mag niet worden opgeslagen en verwerkt, tenzij hier een goede reden voor is. Aangezien 1-Mula hier geen geldige reden voor heeft, is er besloten ook dit niet op te slaan van de gebruikers. Deze beslissingen zijn niet alleen wettelijk niet toegestaan, 1-Mula heeft hier ook voor gekozen omdat het verzamelen van deze gegevens kan leiden tot discriminatie op basis van haar- en huidskleur. 1-Mula heeft er wel voor gekozen de locatie en het gender van de gebruiker op te slaan, aangezien dit voor marketing en personalisatie van het account gebruikt kan worden. Deze gegevens zijn echter wel mogelijk niet op te geven bij het aanmaken van een account, indien de gebruiker dit niet wil delen.
-
-Dit onderzoek heeft er niet alleen geleid tot afspraken over de persoonsgegevens die verzameld gaan worden van de gebruiker. Hier is namelijk ook uit gekomen dat het wachtwoord opgeslagen moet worden in hashing, en niet direct in de database opgeslagen mag worden. Daarnaast blijkt dat bij het opslaan van persoonsgegevens bij aanmaak van een account er toestemming moet worden gegeven op de gebruikersvoorwaarden, en dat er bij aanmaak van een account voor minderjarigen toestemming van een ouder of voogd vereist is. -->
-
 ## Inleiding
 
-Dit onderzoek is ontstaan omdat 1-Mula de taak kreeg van LucaStars om de webshop Starshop te ontwikkelen. Deze webshop wordt gebruikt om licencies van de spellen die ontwikkeld zijn door LucaStars te verkopen.
+Dit onderzoek is ontstaan omdat 1-Mula de taak kreeg van LucaStars om de webshop Starshop te ontwikkelen. Deze webshop wordt gebruikt om licenties van de spellen die ontwikkeld zijn door LucaStars te verkopen.
 
-Voor deze webshop moest onderzoek gedaan worden, zodat de webshop gebruikersvriendelijk en veilig gemaakt wordt. Hiervoor werden de onderwerpen software, gebruikersinteractie en ethiek gekozen, en bij deze onderwerpen werden deelvragen bedacht om specifiek op de belangrijkste onderdelen van deze onderwerpen in te gaan.
+Voor deze webshop moest onderzoek gedaan worden, zodat de webshop gebruikersvriendelijk en veilig ontworpen wordt. Hiervoor werden de onderwerpen software, gebruikersinteractie en ethiek gekozen, en bij elk thema zijn deelvragen opgesteld, die ingaan op de belangrijkste aandachtspunten.
 
 De hoofdvraag is geworden: Hoe ontwerp je een webshop die goed werkt, veilig is, makkelijk te gebruiken is en past bij wat de gebruikers en het bedrijf nodig hebben?
 
@@ -147,7 +135,7 @@ Als team hebben deze afspraken ons erg geholpen, in het net houden van onze code
 ### Samenvatting
 Deze deelvraag is beantwoord door middel van literatuuronderzoek, gebruikersinterviews en vergelijkend onderzoek naar bestaande webshops.
 Uit de resultaten blijkt dat er een duidelijk verschil is tussen de technische focus van ontwikkelaars en de behoeften van gebruikers. Waar ontwikkelaars vaak kijken naar structuur en functionaliteit, verlangen gebruikers vooral eenvoud, duidelijkheid en een soepele gebruikservaring.
-Elementen die positief bijdragen aan de gebruiksvriendelijkheid van een webshop zijn onder andere: een eenvoudig betaalproces, heldere informatie over levertijden en voorraad, intuïtieve navigatie en minimale drempels bij het afrekenen.
+Elementen die positief bijdragen aan de gebruiksvriendelijkheid van een webshop zijn onder andere: een eenvoudig betaalproces, heldere informatie over levertijden en voorraad, intuïtieve navigatie, en minimale drempels bij het afrekenen.
 
 ### Inleiding
 In opdracht van LucaStars is onderzoek uitgevoerd naar de wensen van potentiële klanten om een goed functionerende, veilige en gebruiksvriendelijke webshop te ontwikkelen.
@@ -223,20 +211,20 @@ De verkregen informatie kan door het ontwikkelteam worden vertaald naar concrete
 ### (Beroeps)ethiek en de toepassing binnen de webshop Starshop
 Ethiek betreft het nadenken van gevolgen van handelingen, zowel positief als negatief. In de IT is dit vooral relevant voor het gebruik van kunstmatige intelligentie, het verzamelen van persoonsgegevens en de toegankelijkheid van techniek. Dit wordt beroepsethiek genoemd.
 
-Voor de webshop Starshop moeten er afspraken gemaakt worden over het verzamelen van persoonsgegevens van gebruikers, met oog op privacy, gebruikersbelang en toestemming, die in toestemming zijn met de product owners en die toegestaan zijn volgens de wet.
+Voor de webshop Starshop moeten er afspraken gemaakt worden over het verzamelen van persoonsgegevens van gebruikers, met oog op privacy, gebruikersbelang en toestemming, die zijn afgestemd op de wensen van de product owners en die voldoen aan de wet.
 
 ### Vereisten van de product owners
-10 april 2025 heeft er een gesprek plaats gevonden tussen de product owners en het ontwikkelteam van Starshop. Tijdens dit gesprek zijn verschillende vereisten opgesteld voor de webshop, waaronder het verzamelen van persoonsgegevens van de gebruikers.
+10 april 2025 vond er een gesprek plaats tussen de product owners en het ontwikkelteam van Starshop. Tijdens dit gesprek zijn verschillende vereisten opgesteld voor de webshop, waaronder het verzamelen van persoonsgegevens van de gebruikers.
 
-De product owners willen de volledige naam, email, het wachtwoord, het geslacht en de haar-, oog- en huidskleur van de gebruikers verzamelen. De laatste 4 gegevens riepen vraagtekens bij het ontwikkelteam op met betrekking tot privacy en ethiek. Er werd geadviseerd onderzoek te doen naar de noodzaak van het verzamelen van persoonsgegevens, en de AVG hierbij te pakken.
+De product owners willen de volledige naam, e-mailadres, het wachtwoord, het geslacht en de haar-, oog- en huidskleur van de gebruikers verzamelen. De laatste 4 gegevens riepen vraagtekens bij het ontwikkelteam op met betrekking tot privacy en ethiek. Er werd geadviseerd onderzoek te doen naar de noodzaak van het verzamelen van persoonsgegevens, en de AVG hierbij te pakken.
 
 ### Gebruikersonderzoek
-Om gebruikersmeningen te verzamelen werd er een Engelstalige online enquête via Google Forms uitgebracht. De enquête vraagt de gebruikers hun mening bij het verzamelen van bepaalde gegevens, op een schaal van 1-4 waarbij 1 ‘Don’t mind’ en 4 ‘Would stop me from using the webshop’ representeert. De enquête, verspreidt via Reddit, leverde 16 reacties op, die de volgende bevindingen gaf:
+Om gebruikersmeningen te verzamelen werd er een Engelstalige online enquête via Google Forms uitgebracht. De enquête vroeg de respondenten hun mening bij het verzamelen van bepaalde gegevens, op een schaal van 1-4 waarbij 1 ‘Don’t mind’ en 4 ‘Would stop me from using the webshop’ representeert. De enquête, verspreid via Reddit, leverde 16 reacties op, die de volgende bevindingen gaf:
 
 Persoonsgegevens met merendeels schaalwaarde 1 of 2:
 -	Voornaam (87%)
 -	Volledige naam (61%)
--	Email (100%)
+-	E-mailadres (100%)
 -	Land (80%)
 -	Geslacht (81%)
 
@@ -272,7 +260,7 @@ Voor minderjarigen (in Nederland tot 16) is toestemming van een ouder/voogd vere
 ### Gegevensverzameling voor Starshop
 Volgens de AVG mag Starshop de volgende gegevens verzamelen:
 -	Volledige naam
--	Emailadres
+-	E-mailadres
 -	Wachtwoord (vergrendeld in hashing)
 -	Adres (indien bezorging fysieke producten)
 
@@ -286,7 +274,7 @@ De huidskleur mag nooit verzameld worden aangezien deze valt onder de speciale c
 Er moet een privacyverklaring worden opgesteld, waarin aan de klant wordt uitgelegd welke gegevens verzameld worden bij het maken van een account, wat hiermee precies gedaan wordt, wie hier toestemming tot heeft en hoelang de gegevens opgeslagen blijven. Hier moet de gebruiker mee akkoord gaan voordat zij een account aan kunnen maken.
 
 ### Gesprek met de product owner
-8 mei 2025 heeft er een gesprek plaats gevonden tussen Folkert, een van de product owners van Starshop, en Anne Bakker, een van de developers van Starshop. Hierin is alles besproken wat er uit het onderzoek is gekomen, en is er gevraagd om de reden van het verzamelen van gegevens, en wat er met deze gegevens gedaan wordt. De product owner is het eens met het verzamelen van de volledige naam, de email en het wachtwoord in hashing. Het adres is op dit moment niet nodig, aangezien er geen fysieke producten verkocht worden. De product owner is het ook eens met het verzamelen van het geslacht en het land van de gebruiker, en wil dit gebruiken om gebruikers gepersonaliseerde aanbiedingen te geven. De product owners gaan overleggen of er ook iets anders mee gedaan gaat worden. De huids-, haar- en oogkleur worden niet verzameld. Er worden voorwaarden geschreven waarin alles wordt omschreven, en hier moet de gebruiker mee akkoord gaan om een account aan te maken.
+8 mei 2025 heeft er een gesprek plaats gevonden tussen Folkert, een van de product owners van Starshop, en Anne Bakker, een van de developers van Starshop. Hierin is alles besproken wat er uit het onderzoek is gekomen, en is er gevraagd om de reden van het verzamelen van gegevens, en wat er met deze gegevens gedaan wordt. De product owner is het eens met het verzamelen van de volledige naam, het e-mailadres en het wachtwoord in hashing. Het adres is op dit moment niet nodig, aangezien er geen fysieke producten verkocht worden. De product owner is het ook eens met het verzamelen van het geslacht en het land van de gebruiker, en wil dit gebruiken om gebruikers gepersonaliseerde aanbiedingen te geven. De product owners gaan overleggen of er ook iets anders mee gedaan gaat worden. De huids-, haar- en oogkleur worden niet verzameld. Er worden voorwaarden geschreven waarin alles wordt omschreven, en hier moet de gebruiker mee akkoord gaan om een account aan te maken.
 
 ### Conclusie
 Uit het onderzoek blijken de volgende best practices voor de gegevensverzameling bij een webshop:
@@ -330,7 +318,7 @@ Hieruit bleek dat overzicht, snelheid, eenvoudige navigatie, en duidelijke produ
 
 Deelvraag 3 richtte zich op veiligheid en privacy.  
 Daaruit kwam naar voren dat gevoelige persoonsgegevens zoals huidskleur, haarkleur en oogkleur niet opgeslagen mogen worden.  
-Wel kunnen locatie en gender opgeslagen worden, mits dit vrijwillig is.  
+Wel kunnen locatie en geslacht opgeslagen worden, mits dit vrijwillig is.  
 Verder moeten wachtwoorden gehasht worden opgeslagen en moeten gebruikers expliciet akkoord gaan met de voorwaarden.  
 Bij minderjarigen is ouderlijke toestemming verplicht.
 
