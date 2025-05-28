@@ -13,8 +13,24 @@
 - [Bijlagen](#bijlagen)
 
 ## Samenvatting
+Dit onderzoek is uitgevoerd om te achterhalen hoe 1-Mula de webshop Starshop zo gebruiksvriendelijk, consistent en veilig mogelijk kan ontwerpen. De focus ligt hierbij op een prettige gebruikerservaring én het ethisch verantwoord omgaan met persoonsgegevens. Het onderzoek is opgedeeld in drie deelvragen:
 
-Dit onderzoek is gestart om er achter te komen hoe 1-Mula de webshop Starshop goed kan ontwerpen. Hierbij wordt er gefocust op een fijne en makkelijke werking voor de gebruikers en de veiligheid van de gegevens van de gebruikers. Om deze deelvraag te beantwoorden, is dit opgesplitst 3 deelvragen, namelijk:
+1. Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?  
+Hiervoor zijn er codeconventies en ontwerpafspraken opgesteld, gericht op consistentie in structuur, stijl en interactie.  
+Er is gebruikgemaakt van richtlijnen van de Hogeschool van Amsterdam en de Figma resource library om te zorgen voor een uniform ontwerp.  
+Deze afspraken helpen om een herkenbare en professionele uitstraling te waarborgen, wat bijdraagt aan de betrouwbaarheid en gebruiksvriendelijkheid van de webshop.
+
+2. Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?  
+Aan de hand van vergelijkend onderzoek naar vier bestaande webshops en inzichten uit literatuur en interviews, zijn belangrijke factoren geïdentificeerd: intuïtieve navigatie, duidelijke informatie over levertijden, transparante check-outprocessen en eenvoudige bediening op mobiel.  
+Het Baymard Institute en Nielsen Norman Group tonen aan dat veel aankopen afgebroken worden vanwege onduidelijke of omslachtige betaalprocessen.  
+Gebruikers gaven ook aan waarde te hechten aan eenvoud, overzicht en een transparante weergave van informatie.
+
+3. Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?  
+In lijn met de AVG mogen gevoelige gegevens zoals huidskleur, oogkleur en haarkleur niet worden opgeslagen, tenzij er een zwaarwegende reden is – die 1-Mula niet heeft.  
+Daarom is besloten deze gegevens niet te verzamelen. Wel worden naam, e-mailadres, geslacht en land opgeslagen, mits de gebruiker hier toestemming voor geeft.  
+Het wachtwoord wordt versleuteld opgeslagen (hashing), en een privacyverklaring is verplicht voordat een account aangemaakt kan worden. Voor minderjarigen is ouderlijke toestemming vereist.
+
+<!-- Dit onderzoek is gestart om er achter te komen hoe 1-Mula de webshop Starshop goed kan ontwerpen. Hierbij wordt er gefocust op een fijne en makkelijke werking voor de gebruikers en de veiligheid van de gegevens van de gebruikers. Om deze deelvraag te beantwoorden, is dit opgesplitst 3 deelvragen, namelijk:
 
 1. Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
 2. Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?
@@ -24,7 +40,7 @@ In deelvraag 3 is er nagedacht over welke persoonsgegevens van de gebruikers van
 
 Uit dit onderzoek is gekomen dat het opslaan en verwerken van de huidskleur van de gebruiker niet toegestaan is volgens de AVG. Ook de oog- en haarkleur van gebruikers mag niet worden opgeslagen en verwerkt, tenzij hier een goede reden voor is. Aangezien 1-Mula hier geen geldige reden voor heeft, is er besloten ook dit niet op te slaan van de gebruikers. Deze beslissingen zijn niet alleen wettelijk niet toegestaan, 1-Mula heeft hier ook voor gekozen omdat het verzamelen van deze gegevens kan leiden tot discriminatie op basis van haar- en huidskleur. 1-Mula heeft er wel voor gekozen de locatie en het gender van de gebruiker op te slaan, aangezien dit voor marketing en personalisatie van het account gebruikt kan worden. Deze gegevens zijn echter wel mogelijk niet op te geven bij het aanmaken van een account, indien de gebruiker dit niet wil delen.
 
-Dit onderzoek heeft er niet alleen geleid tot afspraken over de persoonsgegevens die verzameld gaan worden van de gebruiker. Hier is namelijk ook uit gekomen dat het wachtwoord opgeslagen moet worden in hashing, en niet direct in de database opgeslagen mag worden. Daarnaast blijkt dat bij het opslaan van persoonsgegevens bij aanmaak van een account er toestemming moet worden gegeven op de gebruikersvoorwaarden, en dat er bij aanmaak van een account voor minderjarigen toestemming van een ouder of voogd vereist is.
+Dit onderzoek heeft er niet alleen geleid tot afspraken over de persoonsgegevens die verzameld gaan worden van de gebruiker. Hier is namelijk ook uit gekomen dat het wachtwoord opgeslagen moet worden in hashing, en niet direct in de database opgeslagen mag worden. Daarnaast blijkt dat bij het opslaan van persoonsgegevens bij aanmaak van een account er toestemming moet worden gegeven op de gebruikersvoorwaarden, en dat er bij aanmaak van een account voor minderjarigen toestemming van een ouder of voogd vereist is. -->
 
 ## Inleiding
 
@@ -303,6 +319,29 @@ Uit het onderzoek blijken de volgende best practices voor de gegevensverzameling
 Door deze practices te blijven volgen, kan Starshop de gegevensverzameling uitvoeren op een manier die ethisch verantwoord is en gefocust is op de bescherming van privacy, toestemming en gebruikersbelang.
 
 ## Conclusie
+De hoofdvraag van dit onderzoek was:
+"Hoe ontwerp je een webshop die goed werkt, veilig is, makkelijk te gebruiken is en past bij wat de gebruikers en het bedrijf nodig hebben?"  
+
+Uit het onderzoek blijkt dat een goed ontworpen webshop meerdere aspecten combineert: een duidelijke en consistente vormgeving, een hoge mate van gebruiksvriendelijkheid, en een veilige en ethische omgang met persoonsgegevens.
+
+Uit deelvraag 1 blijkt dat een webshop eenduidig en professioneel aanvoelt wanneer er ontwerpafspraken worden gemaakt over bijvoorbeeld kleuren, typografie en layout.  
+Dit zorgt ervoor dat de webshop eruitziet alsof deze door één persoon is gemaakt, wat vertrouwen wekt bij gebruikers.
+
+In deelvraag 2 werd onderzocht wat frequente online shoppers belangrijk vinden aan een gebruiksvriendelijke webshop.  
+Hieruit bleek dat overzicht, snelheid, eenvoudige navigatie, en duidelijke productinformatie essentieel zijn voor een positieve gebruikerservaring.
+
+Deelvraag 3 richtte zich op veiligheid en privacy.  
+Daaruit kwam naar voren dat gevoelige persoonsgegevens zoals huidskleur, haarkleur en oogkleur niet opgeslagen mogen worden.  
+Wel kunnen locatie en gender opgeslagen worden, mits dit vrijwillig is.  
+Verder moeten wachtwoorden gehasht worden opgeslagen en moeten gebruikers expliciet akkoord gaan met de voorwaarden.  
+Bij minderjarigen is ouderlijke toestemming verplicht.
+
+Conclusie:
+- Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij de wensen van zowel gebruikers als het bedrijf, wordt bereikt door:  
+- Een consistente en professionele vormgeving,
+- Een gebruiksvriendelijke en intuïtieve gebruikerservaring,
+- En een veilige, transparante en wettelijk correcte omgang met persoonsgegevens.
+Door deze drie pijlers centraal te stellen, kan 1-Mula een succesvolle webshop ontwerpen die betrouwbaar, prettig in gebruik én toekomstbestendig is.  
 
 ## Literatuurlijst
 - Figma. (z.d.). Consistency in design. Figma. https://www.figma.com/resource-library/consistency-in-design/
@@ -311,6 +350,8 @@ Door deze practices te blijven volgen, kan Starshop de gegevensverzameling uitvo
 - Hogeschool van Amsterdam. (2023). Code conventies TypeScript. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_typescript/
 - TypeScript Team. (z.d.). Style guide. ts.dev. https://ts.dev/style/#identifiers
 - Yang, S., Wang, Y., & Wei, J. (2014). Integration and consistency between web and mobile services. Industrial Management + Data Systems, 114(8), 1246–1269
+- Nielsen Norman Group. (November 24, 2019) E-commerce UX guidelines. Nielsen Norman Group (https://www.nngroup.com/articles/ecommerce-product-pages)
+- Baymard Institute. (November 13, 2024) Top 10 checkout usability issues. Baymard Institute (https://baymard.com/blog/current-state-of-checkout-ux)
 - Interview met PO (Anne, Milan, Lisa, Francesco [1-Mula], Interviewer). (2025, April 4). Gitlab. https://gitlab.fdmci.hva.nl/propedeuse-hbo-ict/onderwijs/student-projecten/2024-2025/out-f-cs-se/blok-4/naagooxeekuu77/-/blob/main/docs/testresultaten/interviewPO.md?ref_type=heads
 - Fellinger, E. (n.d.). Ethiek - Knowledgebase. https://knowledgebase.hbo-ict-hva.nl/2_professional_skills/toekomstgericht_organiseren/ethiek/0_to_ethiek/
 - AVG | Algemene Verordening Gegevensbescherming - Your Europe. (2022, January 1). Your Europe. https://europa.eu/youreurope/business/dealing-with-customers/data-protection/data-protection-gdpr/index_nl.htm
