@@ -342,7 +342,7 @@ Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij
 
 Door deze drie pijlers centraal te stellen, kan 1-Mula een succesvolle webshop ontwerpen die betrouwbaar, prettig in gebruik én toekomstbestendig is.  
 
-### Literatuurlijst 
+## Literatuurlijst 
 Baymard Institute. (2024, 13 november). *Top 10 checkout usability issues*. https://baymard.com/blog/current-state-of-checkout-ux  
 Fellinger, E. (z.d.). *Ethiek - Knowledgebase*. Hogeschool van Amsterdam. https://knowledgebase.hbo-ict-hva.nl/2_professional_skills/toekomstgericht_organiseren/ethiek/0_to_ethiek/  
 Figma. (z.d.). *Consistency in design*. https://www.figma.com/resource-library/consistency-in-design/  
