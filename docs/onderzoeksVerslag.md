@@ -337,10 +337,10 @@ Verder moeten wachtwoorden gehasht worden opgeslagen en moeten gebruikers explic
 Bij minderjarigen is ouderlijke toestemming verplicht.
 
 Conclusie:
-- Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij de wensen van zowel gebruikers als het bedrijf, wordt bereikt door:  
+Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij de wensen van zowel gebruikers als het bedrijf, wordt bereikt door:  
 - Een consistente en professionele vormgeving,
 - Een gebruiksvriendelijke en intuïtieve gebruikerservaring,
-- En een veilige, transparante en wettelijk correcte omgang met persoonsgegevens.
+- En een veilige, transparante en wettelijk correcte omgang met persoonsgegevens.\
 Door deze drie pijlers centraal te stellen, kan 1-Mula een succesvolle webshop ontwerpen die betrouwbaar, prettig in gebruik én toekomstbestendig is.  
 
 ## Literatuurlijst
