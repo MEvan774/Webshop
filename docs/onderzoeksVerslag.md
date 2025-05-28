@@ -13,7 +13,9 @@
 - [Bijlagen](#bijlagen)
 
 ## Samenvatting
-Dit onderzoek is uitgevoerd om te achterhalen hoe 1-Mula de webshop Starshop zo gebruiksvriendelijk, consistent en veilig mogelijk kan ontwerpen. De focus ligt hierbij op een prettige gebruikerservaring én het ethisch verantwoord omgaan met persoonsgegevens. Het onderzoek is opgedeeld in drie deelvragen:
+Dit onderzoek is uitgevoerd om te achterhalen hoe 1-Mula de webshop Starshop zo gebruiksvriendelijk, consistent en veilig mogelijk kan ontwerpen.  
+De focus ligt hierbij op een prettige gebruikerservaring én het ethisch verantwoord omgaan met persoonsgegevens.  
+Het onderzoek is opgedeeld in drie deelvragen:
 
 1. Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?  
 Hiervoor zijn er codeconventies en ontwerpafspraken opgesteld, gericht op consistentie in structuur, stijl en interactie.  
@@ -216,10 +218,6 @@ Op die manier kan ik soortgelijke obstakels beter opvangen en toch kwalitatief o
 Ondanks de uitdagingen heb ik met veel plezier onderzoek gedaan naar de elementen die bijdragen aan een positieve gebruikerservaring binnen webshops.  
 De verkregen informatie kan door het ontwikkelteam worden vertaald naar concrete functionaliteiten die de gebruiksvriendelijkheid van de webshop verbeteren en zo bijdragen aan een prettige klantervaring.  
 
-### Literatuurlijst
-1. [Nielsen Norman Group. (November 24, 2019) E-commerce UX guidelines. Nielsen Norman Group](https://www.nngroup.com/articles/ecommerce-product-pages).
-2. [Baymard Institute. (November 13, 2024) Top 10 checkout usability issues. Baymard Institute](https://baymard.com/blog/current-state-of-checkout-ux)
-
 ## Ethiek: Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
 
 ### (Beroeps)ethiek en de toepassing binnen de webshop Starshop
@@ -343,19 +341,19 @@ Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij
 - En een veilige, transparante en wettelijk correcte omgang met persoonsgegevens.\
 Door deze drie pijlers centraal te stellen, kan 1-Mula een succesvolle webshop ontwerpen die betrouwbaar, prettig in gebruik én toekomstbestendig is.  
 
-## Literatuurlijst
-- Figma. (z.d.). Consistency in design. Figma. https://www.figma.com/resource-library/consistency-in-design/
-- Hogeschool van Amsterdam. (2023). Code conventies CSS. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_css/
-- Hogeschool van Amsterdam. (2023). Code conventies HTML. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_html/
-- Hogeschool van Amsterdam. (2023). Code conventies TypeScript. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_typescript/
-- TypeScript Team. (z.d.). Style guide. ts.dev. https://ts.dev/style/#identifiers
-- Yang, S., Wang, Y., & Wei, J. (2014). Integration and consistency between web and mobile services. Industrial Management + Data Systems, 114(8), 1246–1269
-- Nielsen Norman Group. (November 24, 2019) E-commerce UX guidelines. Nielsen Norman Group (https://www.nngroup.com/articles/ecommerce-product-pages)
-- Baymard Institute. (November 13, 2024) Top 10 checkout usability issues. Baymard Institute (https://baymard.com/blog/current-state-of-checkout-ux)
-- Interview met PO (Anne, Milan, Lisa, Francesco [1-Mula], Interviewer). (2025, April 4). Gitlab. https://gitlab.fdmci.hva.nl/propedeuse-hbo-ict/onderwijs/student-projecten/2024-2025/out-f-cs-se/blok-4/naagooxeekuu77/-/blob/main/docs/testresultaten/interviewPO.md?ref_type=heads
-- Fellinger, E. (n.d.). Ethiek - Knowledgebase. https://knowledgebase.hbo-ict-hva.nl/2_professional_skills/toekomstgericht_organiseren/ethiek/0_to_ethiek/
-- AVG | Algemene Verordening Gegevensbescherming - Your Europe. (2022, January 1). Your Europe. https://europa.eu/youreurope/business/dealing-with-customers/data-protection/data-protection-gdpr/index_nl.htm
-- Ministerie van Algemene Zaken. (2024, November 18). Handleiding Algemene verordening gegevensbescherming (AVG). Rapport | Rijksoverheid.nl. https://www.rijksoverheid.nl/documenten/rapporten/2018/01/22/handleiding-algemene-verordening-gegevensbescherming
+### Literatuurlijst 
+Baymard Institute. (2024, 13 november). *Top 10 checkout usability issues*. https://baymard.com/blog/current-state-of-checkout-ux  
+Fellinger, E. (z.d.). *Ethiek - Knowledgebase*. Hogeschool van Amsterdam. https://knowledgebase.hbo-ict-hva.nl/2_professional_skills/toekomstgericht_organiseren/ethiek/0_to_ethiek/  
+Figma. (z.d.). *Consistency in design*. https://www.figma.com/resource-library/consistency-in-design/  
+Hogeschool van Amsterdam. (2023). *Code conventies CSS*. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_css/  
+Hogeschool van Amsterdam. (2023). *Code conventies HTML*. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_html/  
+Hogeschool van Amsterdam. (2023). *Code conventies TypeScript*. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_typescript/  
+Interview met PO (Anne, Milan, Lisa, Francesco [1-Mula], Interviewer). (2025, 4 april). *Interviewresultaten projectgroep 1-Mula*. GitLab. https://gitlab.fdmci.hva.nl/propedeuse-hbo-ict/onderwijs/student-projecten/2024-2025/out-f-cs-se/blok-4/naagooxeekuu77/-/blob/main/docs/testresultaten/interviewPO.md?ref_type=heads  
+Ministerie van Algemene Zaken. (2024, 18 november). *Handleiding Algemene verordening gegevensbescherming (AVG)* [Rapport]. Rijksoverheid. https://www.rijksoverheid.nl/documenten/rapporten/2018/01/22/handleiding-algemene-verordening-gegevensbescherming  
+Nielsen Norman Group. (2019, 24 november). *E-commerce UX guidelines*. https://www.nngroup.com/articles/ecommerce-product-pages  
+TypeScript Team. (z.d.). *Style guide*. ts.dev. https://ts.dev/style/#identifiers  
+Yang, S., Wang, Y., & Wei, J. (2014). Integration and consistency between web and mobile services. *Industrial Management & Data Systems, 114*(8), 1246–1269. https://doi.org/10.1108/IMDS-03-2014-0074  
+Your Europe. (2022, 1 januari). *AVG | Algemene Verordening Gegevensbescherming*. https://europa.eu/youreurope/business/dealing-with-customers/data-protection/data-protection-gdpr/index_nl.htm
 
 ## Bijlagen
 ### Bijlage 1: Gebruikersonderzoek gegevensverzameling
