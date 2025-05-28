@@ -131,6 +131,18 @@ Knelpunten:
 
 Als team hebben deze afspraken ons erg geholpen, in het net houden van onze code en in het consistent houden van de stijl. Persoonlijk zag ik Figma als iets onnodigs, want je kan alles ook heel makkelijk in CSS aanpassen. Maar door het gebruik van templates en het testen van UI die lastig te implementeren is via CSS (een melding dat je wachtwoord fout is), ben ik Figma meer gaan waarderen en zie ik het nut ervan. De codeconventies houden we al goed aan, maar we vergeten soms wel comments erin te zetten. Dat moeten we erin rammen, omdat we het anders vergeten en het is dan lastig voor een ander om aanpassingen te maken.
 
+## Conclusie
+
+Uit het onderzoek blijkt dat het maken van duidelijke afspraken binnen het team essentieel is voor het creëren van een eenduidige website die oogt alsof die door één persoon is gemaakt. Door het gebruik van Figma-templates en consistente kleur en typografiestijlen konden we ervoor zorgen dat het visuele ontwerp van de webshop van begin tot eind uniform bleef.
+
+Daarnaast hebben we met behulp van codeconventies voor TypeScript, HTML en CSS duidelijke richtlijnen opgesteld die ervoor zorgen dat de code leesbaar en gestructureerd is, ongeacht wie eraan werkt. Het gebruik van branchstructuren en regelmatige code reviews heeft geholpen om afwijkingen tijdig te signaleren en op te lossen.
+
+De bevindingen sluiten aan bij de literatuur van Yang, Wang en Wei (2014), waarin wordt benadrukt dat integratie en consistentie tussen verschillende platforms (zoals web en mobiel) van cruciaal belang zijn om een uniforme gebruikerservaring te creëren. Zij wijzen erop dat consistente visuele en functionele elementen het vertrouwen van gebruikers vergroten en de algehele kwaliteit van een digitaal product verbeteren. Dit onderstreept het belang van onze inspanningen om zowel in design als code consistente afspraken te maken.
+
+Hoewel de basisafspraken goed werden nageleefd, zijn er verbeterpunten. Het naleven van commentaar in de code schiet er soms bij in en er zijn af en toe afwijkingen van de afgesproken stijlen. Deze punten bieden concrete richtlijnen om in de toekomst projecten nog consistenter te maken.
+
+Deze aanpak heeft ervoor gezorgd dat we een professioneel ogende webshop hebben. De samenwerking binnen dit project is duidelijk terug te zien in het eindresultaat. De inzichten uit dit onderzoek zijn waardevol voor het huidige project en voor toekomstige projecten.
+
 ## Gebruikersinteractie: Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?
 
 ### Samenvatting
