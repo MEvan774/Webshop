@@ -338,7 +338,7 @@ Wel kunnen locatie en geslacht opgeslagen worden, mits dit vrijwillig is.
 Verder moeten wachtwoorden gehasht worden opgeslagen en moeten gebruikers expliciet akkoord gaan met de voorwaarden.  
 Bij minderjarigen is ouderlijke toestemming verplicht.
 
-Conclusie:\
+De conclusie:\
 Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij de wensen van zowel gebruikers als het bedrijf, wordt bereikt door:  
 - Een consistente en professionele vormgeving,
 - Een gebruiksvriendelijke en intuïtieve gebruikerservaring,
@@ -361,7 +361,7 @@ Yang, S., Wang, Y., & Wei, J. (2014). Integration and consistency between web an
 Your Europe. (2022, 1 januari). *AVG | Algemene Verordening Gegevensbescherming*. https://europa.eu/youreurope/business/dealing-with-customers/data-protection/data-protection-gdpr/index_nl.htm
 
 ## Bijlagen
-### Bijlage 1: Gebruikersonderzoek gegevensverzameling
+#### Bijlage 1: Gebruikersonderzoek gegevensverzameling
 ![Image](images/firstName.png)\
 ![Image](images/fullName.png)\
 ![Image](images/email.png)\
