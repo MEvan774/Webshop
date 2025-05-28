@@ -45,27 +45,21 @@ Uit dit onderzoek is gekomen dat het opslaan en verwerken van de huidskleur van 
 Dit onderzoek heeft er niet alleen geleid tot afspraken over de persoonsgegevens die verzameld gaan worden van de gebruiker. Hier is namelijk ook uit gekomen dat het wachtwoord opgeslagen moet worden in hashing, en niet direct in de database opgeslagen mag worden. Daarnaast blijkt dat bij het opslaan van persoonsgegevens bij aanmaak van een account er toestemming moet worden gegeven op de gebruikersvoorwaarden, en dat er bij aanmaak van een account voor minderjarigen toestemming van een ouder of voogd vereist is. -->
 
 ## Inleiding
-Dit onderzoek is gestart omdat 1-Mula de opdracht kreeg van LucaStars om de webshop Starshop te ontwikkelen. Deze webshop is bedoeld om licenties van de spellen, die door LucaStars ontwikkeld zijn, te verkopen. Omdat een webshop het visitekaartje is voor het bedrijf en direct invloed heeft op de verkoop en het vertrouwen van gebruikers, is het belangrijk dat de webshop gebruiksvriendelijk, veilig en betrouwbaar is. 
+Dit onderzoek is gestart omdat 1-Mula de opdracht kreeg van LucaStars om de webshop Starshop te ontwikkelen. Deze webshop is bedoeld om licenties van de spellen, die door LucaStars ontwikkeld zijn, te verkopen. Omdat een webshop het visitekaartje is voor het bedrijf en direct invloed heeft op de verkoop en het vertrouwen van gebruikers, is het belangrijk dat de webshop gebruiksvriendelijk, veilig en betrouwbaar is.  
 
-**Probleemanalyse:**  
 LucaStars wil een webshop die niet alleen technisch goed functioneert, maar ook aansluit bij de behoeften van de gebruikers en het bedrijf. Daarnaast moeten persoonsgegevens van gebruikers op een ethisch verantwoorde en wettelijk correcte manier worden verwerkt. Om dit te bereiken, is het nodig om eerst te onderzoeken wat de belangrijkste aandachtspunten zijn op het gebied van softwareontwikkeling, gebruikerservaring en privacywetgeving.
 
-**Onderwerp en context:**  
-Het onderzoek richt zich op drie centrale thema’s: software (hoe zorg je voor een eenduidige en samenhangende website), gebruikersinteractie (wat maakt een webshop prettig en gemakkelijk in gebruik volgens frequente online shoppers) en ethiek (hoe ga je op een veilige en ethische manier om met het opslaan van persoonsgegevens). Deze thema’s zijn essentieel om een webshop te ontwerpen die voldoet aan de wensen van zowel gebruikers als het bedrijf.
+Het onderzoek richt zich op drie centrale thema’s: software (hoe zorg je voor een eenduidige en samenhangende website), gebruikersinteractie (wat maakt een webshop prettig en gemakkelijk in gebruik volgens frequente online shoppers) en ethiek (hoe ga je op een veilige en ethische manier om met het opslaan van persoonsgegevens). Deze thema’s zijn essentieel om een webshop te ontwerpen die voldoet aan de wensen van zowel gebruikers als het bedrijf.  
 
-**Hoofd- en deelvragen:**  
 De hoofdvraag die in dit onderzoek centraal staat is:
 > *Hoe ontwerp je een webshop die goed werkt, veilig is, makkelijk te gebruiken is en past bij wat de gebruikers en het bedrijf nodig hebben?*
-Om deze hoofdvraag te kunnen beantwoorden, zijn de volgende deelvragen opgesteld:
-
+Om deze hoofdvraag te kunnen beantwoorden, zijn de volgende deelvragen opgesteld:  
 - **Software:** Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?  
 - **Gebruikersinteractie:** Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?  
-- **Ethiek:** Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
+- **Ethiek:** Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?  
+  
+Voor de beantwoording van deze deelvragen is gebruikgemaakt van verschillende onderzoeksmethoden. Voor de deelvraag over software is er literatuuronderzoek gedaan naar code conventies en ontwerpprincipes. Voor gebruikersinteractie is een enquête uitgezet onder frequente online shoppers om inzicht te krijgen in hun voorkeuren en ervaringen. De deelvraag over ethiek is onderzocht aan de hand van wetgeving rondom de Algemene Verordening Gegevensbescherming (AVG), aangevuld met een gebruikersonderzoek en gesprekken met de product owners van 1-Mula over het verzamelen en verwerken van persoonsgegevens.  
 
-**Onderzoeksmethoden:**  
-Voor de beantwoording van deze deelvragen is gebruikgemaakt van verschillende onderzoeksmethoden. Voor de deelvraag over software is er literatuuronderzoek gedaan naar code conventies en ontwerpprincipes. Voor gebruikersinteractie is een enquête uitgezet onder frequente online shoppers om inzicht te krijgen in hun voorkeuren en ervaringen. De deelvraag over ethiek is onderzocht aan de hand van wetgeving rondom de Algemene Verordening Gegevensbescherming (AVG), aangevuld met een gebruikersonderzoek en gesprekken met de product owners van 1-Mula over het verzamelen en verwerken van persoonsgegevens.
-
-**Opbouw van het verslag:**  
 In dit verslag worden de deelvragen in de volgende volgorde behandeld: eerst de deelvraag over software, daarna de gebruikersinteractie en ten slotte de ethiek rondom persoonsgegevens. Na de uitwerking van de deelvragen volgt de conclusie waarin de hoofdvraag wordt beantwoord. Het verslag sluit af met een overzicht van de gebruikte bronnen en bijlagen.
 
 ## Software: Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
