@@ -8,7 +8,7 @@
 - [Deelvraag 1: Software](#software-welke-afspraken-zijn-er-gemaakt-om-te-zorgen-dat-de-website-eenduidig-is-alsof-deze-door-één-persoon-gemaakt-is)
 - [Deelvraag 2: Gebruikersinteractie](#gebruikersinteractie-welke-elementen-dragen-volgens-frequente-online-shoppers-1870-jaar-bij-aan-de-gebruiksvriendelijkheid-van-een-webshop)
 - [Deelvraag 3: Ethiek](#ethiek-wat-zijn-best-practices-voor-het-veilig-en-ethisch-opslaan-van-persoonsgegevens-binnen-een-webshop-met-oog-op-privacy-gebruikersbelang-en-toestemming)
-- [Conclusie](#conclusie)
+- [Conclusie](#conclusie-3)
 - [Literatuurlijst](#literatuurlijst)
 - [Bijlagen](#bijlagen)
 
