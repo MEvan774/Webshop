@@ -8,7 +8,7 @@
 - [Deelvraag 1: Software](#software-welke-afspraken-zijn-er-gemaakt-om-te-zorgen-dat-de-website-eenduidig-is-alsof-deze-door-één-persoon-gemaakt-is)
 - [Deelvraag 2: Gebruikersinteractie](#gebruikersinteractie-welke-elementen-dragen-volgens-frequente-online-shoppers-1870-jaar-bij-aan-de-gebruiksvriendelijkheid-van-een-webshop)
 - [Deelvraag 3: Ethiek](#ethiek-wat-zijn-best-practices-voor-het-veilig-en-ethisch-opslaan-van-persoonsgegevens-binnen-een-webshop-met-oog-op-privacy-gebruikersbelang-en-toestemming)
-- [Conclusie](#conclusie)
+- [Conclusie](#conclusie-3)
 - [Literatuurlijst](#literatuurlijst)
 - [Bijlagen](#bijlagen)
 
@@ -18,7 +18,7 @@ De focus ligt hierbij op een prettige gebruikerservaring én het ethisch verantw
 Het onderzoek is opgedeeld in drie deelvragen:
 
 1. Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?  
-Hiervoor zijn er codeconventies en ontwerpafspraken opgesteld, gericht op consistentie in structuur, stijl en interactie.  
+Hiervoor zijn er codeconventies en ontwerpafspraken opgesteld, gericht op structurele, stilistische en interactieve consistentie.  
 Er is gebruikgemaakt van richtlijnen van de Hogeschool van Amsterdam en de Figma resource library om te zorgen voor een uniform ontwerp.  
 Deze afspraken helpen om een herkenbare en professionele uitstraling te waarborgen, wat bijdraagt aan de betrouwbaarheid en gebruiksvriendelijkheid van de webshop.
 
@@ -32,24 +32,12 @@ In lijn met de AVG mogen gevoelige gegevens zoals huidskleur, oogkleur en haarkl
 Daarom is besloten deze gegevens niet te verzamelen. Wel worden naam, e-mailadres, geslacht en land opgeslagen, mits de gebruiker hier toestemming voor geeft.  
 Het wachtwoord wordt versleuteld opgeslagen (hashing), en een privacyverklaring is verplicht voordat een account aangemaakt kan worden. Voor minderjarigen is ouderlijke toestemming vereist.
 
-<!-- Dit onderzoek is gestart om er achter te komen hoe 1-Mula de webshop Starshop goed kan ontwerpen. Hierbij wordt er gefocust op een fijne en makkelijke werking voor de gebruikers en de veiligheid van de gegevens van de gebruikers. Om deze deelvraag te beantwoorden, is dit opgesplitst 3 deelvragen, namelijk:
-
-1. Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
-2. Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?
-3. Wat zijn de best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
-
-In deelvraag 3 is er nagedacht over welke persoonsgegevens van de gebruikers van de webshop opgeslagen worden, op een manier dat ethisch verantwoord is en wettelijk is toegestaan.
-
-Uit dit onderzoek is gekomen dat het opslaan en verwerken van de huidskleur van de gebruiker niet toegestaan is volgens de AVG. Ook de oog- en haarkleur van gebruikers mag niet worden opgeslagen en verwerkt, tenzij hier een goede reden voor is. Aangezien 1-Mula hier geen geldige reden voor heeft, is er besloten ook dit niet op te slaan van de gebruikers. Deze beslissingen zijn niet alleen wettelijk niet toegestaan, 1-Mula heeft hier ook voor gekozen omdat het verzamelen van deze gegevens kan leiden tot discriminatie op basis van haar- en huidskleur. 1-Mula heeft er wel voor gekozen de locatie en het gender van de gebruiker op te slaan, aangezien dit voor marketing en personalisatie van het account gebruikt kan worden. Deze gegevens zijn echter wel mogelijk niet op te geven bij het aanmaken van een account, indien de gebruiker dit niet wil delen.
-
-Dit onderzoek heeft er niet alleen geleid tot afspraken over de persoonsgegevens die verzameld gaan worden van de gebruiker. Hier is namelijk ook uit gekomen dat het wachtwoord opgeslagen moet worden in hashing, en niet direct in de database opgeslagen mag worden. Daarnaast blijkt dat bij het opslaan van persoonsgegevens bij aanmaak van een account er toestemming moet worden gegeven op de gebruikersvoorwaarden, en dat er bij aanmaak van een account voor minderjarigen toestemming van een ouder of voogd vereist is. -->
-
 ## Inleiding
 Dit onderzoek is gestart omdat 1-Mula de opdracht kreeg van LucaStars om de webshop Starshop te ontwikkelen. Deze webshop is bedoeld om licenties van de spellen, die door LucaStars ontwikkeld zijn, te verkopen. Omdat een webshop het visitekaartje is voor het bedrijf en direct invloed heeft op de verkoop en het vertrouwen van gebruikers, is het belangrijk dat de webshop gebruiksvriendelijk, veilig en betrouwbaar is.  
 
 LucaStars wil een webshop die niet alleen technisch goed functioneert, maar ook aansluit bij de behoeften van de gebruikers en het bedrijf. Daarnaast moeten persoonsgegevens van gebruikers op een ethisch verantwoorde en wettelijk correcte manier worden verwerkt. Om dit te bereiken, is het nodig om eerst te onderzoeken wat de belangrijkste aandachtspunten zijn op het gebied van softwareontwikkeling, gebruikerservaring en privacywetgeving.
 
-Het onderzoek richt zich op drie centrale thema’s: software (hoe zorg je voor een eenduidige en samenhangende website), gebruikersinteractie (wat maakt een webshop prettig en gemakkelijk in gebruik volgens frequente online shoppers) en ethiek (hoe ga je op een veilige en ethische manier om met het opslaan van persoonsgegevens). Deze thema’s zijn essentieel om een webshop te ontwerpen die voldoet aan de wensen van zowel gebruikers als het bedrijf.  
+Het onderzoek richt zich op drie centrale thema’s: software (hoe zorg je voor een eenduidige en samenhangende website), gebruikersinteractie (wat maakt een webshop prettig en gemakkelijk in gebruik volgens frequente online shoppers) en ethiek (hoe ga je op een veilige en ethische manier om met het opslaan van persoonsgegevens). Deze thema’s zijn essentieel om een webshop te ontwerpen die voldoet aan de wensen van zowel gebruikers als het bedrijf. 
 
 De hoofdvraag die in dit onderzoek centraal staat is:
 > *Hoe ontwerp je een webshop die goed werkt, veilig is, makkelijk te gebruiken is en past bij wat de gebruikers en het bedrijf nodig hebben?*
@@ -64,7 +52,7 @@ In dit verslag worden de deelvragen in de volgende volgorde behandeld: eerst de 
 
 ## Software: Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
 
-### Samenvatting
+#### Samenvatting
 In dit verslag onderzoeken we welke teamafspraken zijn gemaakt om de webshop eruit te laten zien alsof die door één persoon is ontworpen. Bij samenwerking tussen meerdere programmeurs kunnen stijl- en structuurverschillen ontstaan, tenzij hier duidelijke afspraken over zijn. We hebben gewerkt met gezamenlijke templates, afgesproken kleuren en typografie, en codeconventies zoals vaste naamgevingen. Dit draagt bij aan een overzichtelijke en professionele website. Toch zijn er verbeterpunten: niet alles is goed vastgelegd en soms wijkt iemand af van de afspraken.
 Aanbevelingen:
 - Verzamel alle afspraken op één centrale plek.
@@ -72,7 +60,7 @@ Aanbevelingen:
 - Evalueer aan het eind wat werkte en wat beter kan.
 Zo zorgen we voor een consistente uitstraling en betere gebruikerservaring.
 
-### Inleiding
+#### Inleiding
 In dit rapport onderzoeken we hoe we eenduidigheid in ons project kunnen creëren en vastleggen. Deze documentatie dient als naslagwerk voor onze werkwijze als team.
 We werken met vier personen aan de webshop voor Lucastars. Omdat we gelijktijdig aan verschillende onderdelen bouwen, zijn duidelijke afspraken over stijl en structuur belangrijk om een rommelige of onprofessionele uitstraling te voorkomen.
 De focus ligt op visuele en technische consistentie in de front-end, met name op herbruikbare componenten in Figma, kleur- en typografie-afspraken en codeopbouw.
@@ -82,15 +70,15 @@ Deze vraag speelt bij veel softwareprojecten waar meerdere mensen samenwerken. I
 
 Door deze vraag te beantwoorden, krijgen we inzicht in hoe gezamenlijke afspraken bijdragen aan een professionele, consistente website. De uitkomsten bieden ook waardevolle lessen voor toekomstige samenwerkingen.
 
-### Aanpak / Onderzoeksmethode
+#### Aanpak / Onderzoeksmethode
 Om onze deelvraag te beantwoorden, is er gebruikgemaakt van een documentanalyse en brononderzoek.
 
-### Documentanalyse
+#### Documentanalyse
 Binnen het team hebben we meerdere bronnen en documenten geanalyseerd die gebruikt worden tijdens het ontwerpen en ontwikkelen van de webshop. Denk hierbij aan:
 - Het gezamenlijke Figma-bestand, waarin we de consistentie van ontwerpcomponenten, stijlen en herbruikbare elementen hebben bekeken. Daarbij is gebruikgemaakt van Figma’s eigen documentatie over design consistency.
 - We controleren of iedereen zijn codeconventies toepast en melden dat als dat niet het geval is.
 
-### Bronnenonderzoek
+#### Bronnenonderzoek
 Om erachter te komen hoe we consistentie in zowel code als design krijgen, hebben we de volgende bronnen bekeken:
 
 - De Figma-resource over consistentie in design voor richtlijnen.
@@ -100,7 +88,7 @@ Om erachter te komen hoe we consistentie in zowel code als design krijgen, hebbe
 
 Deze bronnen gaven duidelijk aan wat er onder “consistentie” valt en hoe dat in professionele settings wordt aangepakt.
 
-### Analyse / Bevindingen
+#### Analyse / Bevindingen
 Om ervoor te zorgen dat onze webshop een eenduidige uitstraling heeft, hebben we samen afspraken gemaakt over het ontwerp, code en samenwerking. Deze afspraken zijn deels gebaseerd op bestaande richtlijnen uit Figma en op formele codeconventies, zoals beschreven in de HBO-ICT Knowledgebase en de TypeScript Style Guide.
 Welke afspraken zijn gemaakt?
 Figma
@@ -139,23 +127,35 @@ Knelpunten:
 - Soms komt er een pagina die een hele andere stijl heeft. Dit kwam voornamelijk door miscommunicatie, bijvoorbeeld als er een Figma ontwerp gebruikt wordt die nog niet af was.
 - In de code komt het soms voor dat comments vergeten worden, dit komt doordat we soms haast hebben om ons code voor de deadline af te krijgen.
 
-### Reflectie
+#### Reflectie
 
 Als team hebben deze afspraken ons erg geholpen, in het net houden van onze code en in het consistent houden van de stijl. Persoonlijk zag ik Figma als iets onnodigs, want je kan alles ook heel makkelijk in CSS aanpassen. Maar door het gebruik van templates en het testen van UI die lastig te implementeren is via CSS (een melding dat je wachtwoord fout is), ben ik Figma meer gaan waarderen en zie ik het nut ervan. De codeconventies houden we al goed aan, maar we vergeten soms wel comments erin te zetten. Dat moeten we erin rammen, omdat we het anders vergeten en het is dan lastig voor een ander om aanpassingen te maken.
 
+#### Conclusie
+
+Uit het onderzoek blijkt dat het maken van duidelijke afspraken binnen het team essentieel is voor het creëren van een eenduidige website die oogt alsof die door één persoon is gemaakt. Door het gebruik van Figma-templates en consistente kleur en typografiestijlen konden we ervoor zorgen dat het visuele ontwerp van de webshop van begin tot eind uniform bleef.
+
+Daarnaast hebben we met behulp van codeconventies voor TypeScript, HTML en CSS duidelijke richtlijnen opgesteld die ervoor zorgen dat de code leesbaar en gestructureerd is, ongeacht wie eraan werkt. Het gebruik van branchstructuren en regelmatige code reviews heeft geholpen om afwijkingen tijdig te signaleren en op te lossen.
+
+De bevindingen sluiten aan bij de literatuur van Yang, Wang en Wei (2014), waarin wordt benadrukt dat integratie en consistentie tussen verschillende platforms (zoals web en mobiel) van cruciaal belang zijn om een uniforme gebruikerservaring te creëren. Zij wijzen erop dat consistente visuele en functionele elementen het vertrouwen van gebruikers vergroten en de algehele kwaliteit van een digitaal product verbeteren. Dit onderstreept het belang van onze inspanningen om zowel in design als code consistente afspraken te maken.
+
+Hoewel de basisafspraken goed werden nageleefd, zijn er verbeterpunten. Het naleven van commentaar in de code schiet er soms bij in en er zijn af en toe afwijkingen van de afgesproken stijlen. Deze punten bieden concrete richtlijnen om in de toekomst projecten nog consistenter te maken.
+
+Deze aanpak heeft ervoor gezorgd dat we een professioneel ogende webshop hebben. De samenwerking binnen dit project is duidelijk terug te zien in het eindresultaat. De inzichten uit dit onderzoek zijn waardevol voor het huidige project en voor toekomstige projecten.
+
 ## Gebruikersinteractie: Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?
 
-### Samenvatting
+#### Samenvatting
 Deze deelvraag is beantwoord door middel van literatuuronderzoek, gebruikersinterviews en vergelijkend onderzoek naar bestaande webshops.
 Uit de resultaten blijkt dat er een duidelijk verschil is tussen de technische focus van ontwikkelaars en de behoeften van gebruikers. Waar ontwikkelaars vaak kijken naar structuur en functionaliteit, verlangen gebruikers vooral eenvoud, duidelijkheid en een soepele gebruikservaring.
-Elementen die positief bijdragen aan de gebruiksvriendelijkheid van een webshop zijn onder andere: een eenvoudig betaalproces, heldere informatie over levertijden en voorraad, intuïtieve navigatie en minimale drempels bij het afrekenen.
+Elementen die positief bijdragen aan de gebruiksvriendelijkheid van een webshop zijn onder andere: een eenvoudig betaalproces, heldere informatie over levertijden en voorraad, intuïtieve navigatie, en minimale drempels bij het afrekenen.
 
-### Inleiding
+#### Inleiding
 In opdracht van LucaStars is onderzoek uitgevoerd naar de wensen van potentiële klanten om een goed functionerende, veilige en gebruiksvriendelijke webshop te ontwikkelen.
 Dit onderzoek zal de deelvraag "Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?" beantwoorden.
 De resultaten zullen het ontwikkelteam van nieuwe inzichten voorzien die direct worden toegepast in de ontwikkeling en productie van de webshop.
 
-### Aanpak / Onderzoeksmethode
+#### Aanpak / Onderzoeksmethode
 Om de deelvraag zo zorgvuldig mogelijk te beantwoorden zijn er verschillende onderzoeken uitgevoerd, waaronder:
 - literatuuronderzoek
 - vergelijkend onderzoek
@@ -163,7 +163,7 @@ Om de deelvraag zo zorgvuldig mogelijk te beantwoorden zijn er verschillende ond
 
 Door deze methoden te combineren kunnen de perspectieven tegen elkaar gewogen worden, wat zal bijdragen aan een goed onderbouwde conclusie.
 
-### Documentanalyse
+#### Documentanalyse
 Er is vergelijkend onderzoek uitgevoerd naar vier bestaande webshops, in deze webshops is het mogelijk om zowel fysieke als digitale producten aan te schaffen:
 - https://www.bol.com
 - https://www.megekko.nl
@@ -172,7 +172,7 @@ Er is vergelijkend onderzoek uitgevoerd naar vier bestaande webshops, in deze we
 
 Bij deze webshops is er gekeken naar elementen zoals de navigatie, het betalingsproces, productpagina's, hoe eenvoudig het is om naar een product te navigeren, bruikbaarheid op telefoon of tablet.
 
-### Bronnenonderzoek
+#### Bronnenonderzoek
 Tijdens dit onderzoek zijn diverse bronnen geraadpleegd vanuit technische bedrijven met onder andere "best practices". 
 Gebruikte bronnen:
 1. [Nielsen Norman Group -  E-commerce UX guidelines. Nielsen Norman Group](https://www.nngroup.com/articles/ecommerce-product-pages).
@@ -180,7 +180,7 @@ Gebruikte bronnen:
 
 Deze bronnen hebben een bijdrage geleverd aan het opstellen van de doelgroep van deze deelvraag, het opstellen van de interviewvragen en de manier waarop het vergelijkend onderzoek wordt beoordeeld.
 
-### Analyse / Bevindingen
+#### Analyse / Bevindingen
 Tijdens het literatuuronderzoek viel direct op dat maar liefst 70% van de gebruikers hun aankoop afbreken nadat een product in het winkelmandje is geplaatst.  
 Dit blijkt uit onderzoek van het Baymard Institute. De voornaamste oorzaken liggen bij het ontwerp en de gebruiksvriendelijkheid van het betaalproces.  
 Uit het onderzoek blijkt onder andere dat:  
@@ -207,7 +207,7 @@ Kandidaten 2 en 3 benadrukten het belang van duidelijke informatie over levertij
 De combinatie van literatuuronderzoek en gebruikersinzichten toont aan dat gebruiksvriendelijkheid in webshops vooral wordt bepaald door eenvoud, duidelijke informatievoorziening en een soepele navigatie.  
 Voor het ontwikkelteam zijn dit concrete aanknopingspunten om de webshop zodanig in te richten dat deze aansluit bij de wensen en verwachtingen van de doelgroep  
 
-### Reflectie
+#### Reflectie
 Tijdens dit onderzoek had ik een duidelijk plan voor ogen: ik wilde onderzoeken welke elementen bijdragen aan de gebruiksvriendelijkheid van een webshop, en hierbij specifiek ervaring opdoen met het afnemen van interviews.  
 In mijn Plan van Aanpak had ik een SMART-doel opgesteld en een planning met bijbehorende deadlines uitgewerkt.  
 Door het plotselinge overlijden van mijn opa en onverwachte problemen met een externe instantie, liep het proces echter anders dan gepland.  
@@ -221,23 +221,26 @@ De verkregen informatie kan door het ontwikkelteam worden vertaald naar concrete
 
 ## Ethiek: Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
 
-### (Beroeps)ethiek en de toepassing binnen de webshop Starshop
+#### Samenvatting
+Om te onderzoeken welke persoonsgegevens Starshop op gaat slaan, is er gekeken naar de AVG (de Europese privacywet), en is er nagedacht over de ethiek achter gegevensverzameling. Hieruit is er gekozen om deze gegevens op te slaan van gebruikers: de volledige naam, het wachtwoord in hashing, het e-mailadres, de geboortedatum en het geslacht. Ook wordt er een privacyverklaring opgesteld, waar gebruikers toestemming voor moeten geven om een account aan te kunnen maken.
+
+#### Inleiding
 Ethiek betreft het nadenken van gevolgen van handelingen, zowel positief als negatief. In de IT is dit vooral relevant voor het gebruik van kunstmatige intelligentie, het verzamelen van persoonsgegevens en de toegankelijkheid van techniek. Dit wordt beroepsethiek genoemd.
 
-Voor de webshop Starshop moeten er afspraken gemaakt worden over het verzamelen van persoonsgegevens van gebruikers, met oog op privacy, gebruikersbelang en toestemming, die in toestemming zijn met de product owners en die toegestaan zijn volgens de wet.
+Voor de webshop Starshop moeten er afspraken gemaakt worden over het verzamelen van persoonsgegevens van gebruikers, met oog op privacy, gebruikersbelang en toestemming, die zijn afgestemd op de wensen van de product owners en die voldoen aan de wet.
 
-### Vereisten van de product owners
-10 april 2025 heeft er een gesprek plaats gevonden tussen de product owners en het ontwikkelteam van Starshop. Tijdens dit gesprek zijn verschillende vereisten opgesteld voor de webshop, waaronder het verzamelen van persoonsgegevens van de gebruikers.
+#### Vereisten van de product owners
+10 april 2025 vond er een gesprek plaats tussen de product owners en het ontwikkelteam van Starshop. Tijdens dit gesprek zijn verschillende vereisten opgesteld voor de webshop, waaronder het verzamelen van persoonsgegevens van de gebruikers.
 
-De product owners willen de volledige naam, email, het wachtwoord, het geslacht en de haar-, oog- en huidskleur van de gebruikers verzamelen. De laatste 4 gegevens riepen vraagtekens bij het ontwikkelteam op met betrekking tot privacy en ethiek. Er werd geadviseerd onderzoek te doen naar de noodzaak van het verzamelen van persoonsgegevens, en de AVG hierbij te pakken.
+De product owners willen de volledige naam, e-mailadres, het wachtwoord, het geslacht en de haar-, oog- en huidskleur van de gebruikers verzamelen. De laatste 4 gegevens riepen vraagtekens bij het ontwikkelteam op met betrekking tot privacy en ethiek. Er werd geadviseerd onderzoek te doen naar de noodzaak van het verzamelen van persoonsgegevens, en de AVG hierbij te pakken.
 
-### Gebruikersonderzoek
-Om gebruikersmeningen te verzamelen werd er een Engelstalige online enquête via Google Forms uitgebracht. De enquête vraagt de gebruikers hun mening bij het verzamelen van bepaalde gegevens, op een schaal van 1-4 waarbij 1 ‘Don’t mind’ en 4 ‘Would stop me from using the webshop’ representeert. De enquête, verspreidt via Reddit, leverde 16 reacties op, die de volgende bevindingen gaf:
+#### Gebruikersonderzoek
+Om gebruikersmeningen te verzamelen werd er een Engelstalige online enquête via Google Forms uitgebracht. De enquête vroeg de respondenten hun mening bij het verzamelen van bepaalde gegevens, op een schaal van 1-4 waarbij 1 ‘Don’t mind’ en 4 ‘Would stop me from using the webshop’ representeert. De enquête, verspreid via Reddit, leverde 16 reacties op, die de volgende bevindingen gaf:
 
 Persoonsgegevens met merendeels schaalwaarde 1 of 2:
 -	Voornaam (87%)
 -	Volledige naam (61%)
--	Email (100%)
+-	E-mailadres (100%)
 -	Land (80%)
 -	Geslacht (81%)
 
@@ -247,7 +250,7 @@ Persoonsgegevens met merendeels schaalwaarde 3 of 4:
 
 Een gedetailleerd overzicht van de uitkomst van de enquête is te vinden in bijlage 1.
 
-### Algemene Verordening Gegevensbescherming
+#### Algemene Verordening Gegevensbescherming
 De AVG is een EU-wet die regels stelt over het verzamelen, behouden en opslaan van persoonsgegevens. Deze wet is geldig voor bedrijven binnen de EU en bedrijven buiten de EU die gegevens van inwoners van de EU verzamelen.
 
 Persoonsgegevens zijn gegevens waardoor je de identiteit van de betrokkene kan achterhalen. Dit zijn bijvoorbeeld de naam, het adres, het inkomen of de medische gegevens. Bepaalde gegevens vallen onder de speciale categorieën persoonsgegevens die nooit zomaar verzameld mogen worden, zoals:
@@ -270,10 +273,10 @@ Bij het vragen om toestemming voor het verzamelen en gebruiken van persoonsgegev
 
 Voor minderjarigen (in Nederland tot 16) is toestemming van een ouder/voogd vereist.
 
-### Gegevensverzameling voor Starshop
+#### Gegevensverzameling voor Starshop
 Volgens de AVG mag Starshop de volgende gegevens verzamelen:
 -	Volledige naam
--	Emailadres
+-	E-mailadres
 -	Wachtwoord (vergrendeld in hashing)
 -	Adres (indien bezorging fysieke producten)
 
@@ -286,10 +289,10 @@ De huidskleur mag nooit verzameld worden aangezien deze valt onder de speciale c
 
 Er moet een privacyverklaring worden opgesteld, waarin aan de klant wordt uitgelegd welke gegevens verzameld worden bij het maken van een account, wat hiermee precies gedaan wordt, wie hier toestemming tot heeft en hoelang de gegevens opgeslagen blijven. Hier moet de gebruiker mee akkoord gaan voordat zij een account aan kunnen maken.
 
-### Gesprek met de product owner
-8 mei 2025 heeft er een gesprek plaats gevonden tussen Folkert, een van de product owners van Starshop, en Anne Bakker, een van de developers van Starshop. Hierin is alles besproken wat er uit het onderzoek is gekomen, en is er gevraagd om de reden van het verzamelen van gegevens, en wat er met deze gegevens gedaan wordt. De product owner is het eens met het verzamelen van de volledige naam, de email en het wachtwoord in hashing. Het adres is op dit moment niet nodig, aangezien er geen fysieke producten verkocht worden. De product owner is het ook eens met het verzamelen van het geslacht en het land van de gebruiker, en wil dit gebruiken om gebruikers gepersonaliseerde aanbiedingen te geven. De product owners gaan overleggen of er ook iets anders mee gedaan gaat worden. De huids-, haar- en oogkleur worden niet verzameld. Er worden voorwaarden geschreven waarin alles wordt omschreven, en hier moet de gebruiker mee akkoord gaan om een account aan te maken.
+#### Gesprek met de product owner
+8 mei 2025 heeft er een gesprek plaats gevonden tussen Folkert, een van de product owners van Starshop, en Anne Bakker, een van de developers van Starshop. Hierin is alles besproken wat er uit het onderzoek is gekomen, en is er gevraagd om de reden van het verzamelen van gegevens, en wat er met deze gegevens gedaan wordt. De product owner is het eens met het verzamelen van de volledige naam, het e-mailadres en het wachtwoord in hashing. Het adres is op dit moment niet nodig, aangezien er geen fysieke producten verkocht worden. De product owner is het ook eens met het verzamelen van het geslacht en het land van de gebruiker, en wil dit gebruiken om gebruikers gepersonaliseerde aanbiedingen te geven. De product owners gaan overleggen of er ook iets anders mee gedaan gaat worden. De huids-, haar- en oogkleur worden niet verzameld. Er worden voorwaarden geschreven waarin alles wordt omschreven, en hier moet de gebruiker mee akkoord gaan om een account aan te maken.
 
-### Conclusie
+#### Conclusie
 Uit het onderzoek blijken de volgende best practices voor de gegevensverzameling bij een webshop:
 
 1.	Minimale gegevensverzameling
@@ -330,12 +333,11 @@ In deelvraag 2 werd onderzocht wat frequente online shoppers belangrijk vinden a
 Hieruit bleek dat overzicht, snelheid, eenvoudige navigatie, en duidelijke productinformatie essentieel zijn voor een positieve gebruikerservaring.
 
 Deelvraag 3 richtte zich op veiligheid en privacy.  
-Daaruit kwam naar voren dat gevoelige persoonsgegevens zoals huidskleur, haarkleur en oogkleur niet opgeslagen mogen worden.  
-Wel kunnen locatie en gender opgeslagen worden, mits dit vrijwillig is.  
-Verder moeten wachtwoorden gehasht worden opgeslagen en moeten gebruikers expliciet akkoord gaan met de voorwaarden.  
-Bij minderjarigen is ouderlijke toestemming verplicht.
+Daaruit kwam naar voren dat het opslaan van de huidskleur van gebruikers niet toegestaan is, en dat het opslaan van gegevens zoals de haar- en oogkleur alleen met een geldige reden mag. Sinds Starshop hier geen reden voor heeft, wordt dit ook niet opgeslagen.
+Gegevens zoals het geslacht en de locatie worden wel opgeslagen, maar de gebruiker heeft de optie om ervoor te kiezen deze niet op te geven.
+Ook moet het wachtwoord beveiligd opgeslagen worden, en moet er een privacyverklaring geschreven worden zodat gebruikers toestemming geven tot het opslaan en gebruiken van hun persoonsgegevens.
 
-Conclusie:\
+De conclusie:\
 Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij de wensen van zowel gebruikers als het bedrijf, wordt bereikt door:  
 - Een consistente en professionele vormgeving,
 - Een gebruiksvriendelijke en intuïtieve gebruikerservaring,
@@ -358,7 +360,7 @@ Yang, S., Wang, Y., & Wei, J. (2014). Integration and consistency between web an
 Your Europe. (2022, 1 januari). *AVG | Algemene Verordening Gegevensbescherming*. https://europa.eu/youreurope/business/dealing-with-customers/data-protection/data-protection-gdpr/index_nl.htm
 
 ## Bijlagen
-### Bijlage 1: Gebruikersonderzoek gegevensverzameling
+#### Bijlage 1: Gebruikersonderzoek gegevensverzameling
 ![Image](images/firstName.png)\
 ![Image](images/fullName.png)\
 ![Image](images/email.png)\
