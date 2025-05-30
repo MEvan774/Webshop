@@ -6,6 +6,7 @@ children:
     - mermaid.md
     - flowchart.md
     - classdiagram.md
+    - endpoints.md
 ---
 
 **TODO:** Werk op deze pagina het *Technisch ontwerp* van het team uit.
