@@ -7,3 +7,4 @@ title: Endpoints
 | Methode | Endpoint | Beschrijving | Auth vereist | Controller / Service |
 | --- | --- | --- | --- | --- | --- |
 | GET | `/` | Welkomstbericht API | Nee | - |
+| | | | | |
