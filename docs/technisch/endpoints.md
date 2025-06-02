@@ -1,8 +1,18 @@
 ---
 title: Endpoints
+author: Lisa Hakhoff
+date: 02-06-2025
 ---
 
-## In dit bestand staat een overzicht van alle huidige API-endpoints (dit bestand kan worden bijgewerkt)
+<!-- NOTE: When adding new endpoints to this list, please update the #versiebeheer with your changes/updates so the team can keep track. -->
+
+## Versiebeheer
+| Versie | Datum | Auteur | Wijzigingen |
+| --- | --- | --- | --- |
+| 1.0 | 28-05 | Lisa Hakhoff | Eerste versie |
+| 1.1 | 02-06 | Lisa Hakhoff | Toegevoegd: parameters, toelichting (doel & return), port en containernaam (voor externe connecties) |
+
+## Endpoint tabel
 
 | Methode | Endpoint URL | Parameters | Toelichting (doel en return) | Beschrijving | Auth vereist | Controller / Service | Port | Containernaam |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
