@@ -9,8 +9,8 @@ date: 02-06-2025
 ## Versiebeheer
 | Versie | Datum | Auteur | Wijzigingen |
 | --- | --- | --- | --- |
-| 1.0 | 28-05 | Lisa Hakhoff | Eerste versie |
-| 1.1 | 02-06 | Lisa Hakhoff | Toegevoegd: parameters, toelichting (doel & return), port en containernaam (voor externe connecties) |
+| 1.0 | 28-05-2025 | Lisa Hakhoff | Eerste versie |
+| 1.1 | 02-06-2025 | Lisa Hakhoff | Toegevoegd: parameters, toelichting (doel & return), port en containernaam (voor externe connecties) |
 
 ## Endpoint tabel
 
