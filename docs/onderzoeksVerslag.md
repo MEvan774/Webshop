@@ -50,15 +50,8 @@ Voor de beantwoording van deze deelvragen is gebruikgemaakt van verschillende on
 
 In dit verslag worden de deelvragen in de volgende volgorde behandeld: eerst de deelvraag over software, daarna de gebruikersinteractie en ten slotte de ethiek rondom persoonsgegevens. Na de uitwerking van de deelvragen volgt de conclusie waarin de hoofdvraag wordt beantwoord. Het verslag sluit af met een overzicht van de gebruikte bronnen en bijlagen.
 
-## Software: Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
-
-#### Samenvatting
-In dit verslag onderzoeken we welke teamafspraken zijn gemaakt om de webshop eruit te laten zien alsof die door één persoon is ontworpen. Bij samenwerking tussen meerdere programmeurs kunnen stijl- en structuurverschillen ontstaan, tenzij hier duidelijke afspraken over zijn. We hebben gewerkt met gezamenlijke templates, afgesproken kleuren en typografie, en codeconventies zoals vaste naamgevingen. Dit draagt bij aan een overzichtelijke en professionele website. Toch zijn er verbeterpunten: niet alles is goed vastgelegd en soms wijkt iemand af van de afspraken.
-Aanbevelingen:
-- Verzamel alle afspraken op één centrale plek.
-- Plan korte overleggen om de naleving te bewaken.
-- Evalueer aan het eind wat werkte en wat beter kan.
-Zo zorgen we voor een consistente uitstraling en betere gebruikerservaring.
+## 1. Software: Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
+##### Gemaakt door: Milan
 
 #### Inleiding
 In dit rapport onderzoeken we hoe we eenduidigheid in ons project kunnen creëren en vastleggen. Deze documentatie dient als naslagwerk voor onze werkwijze als team.
@@ -143,12 +136,8 @@ Hoewel de basisafspraken goed werden nageleefd, zijn er verbeterpunten. Het nale
 
 Deze aanpak heeft ervoor gezorgd dat we een professioneel ogende webshop hebben. De samenwerking binnen dit project is duidelijk terug te zien in het eindresultaat. De inzichten uit dit onderzoek zijn waardevol voor het huidige project en voor toekomstige projecten.
 
-## Gebruikersinteractie: Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?
-
-#### Samenvatting
-Deze deelvraag is beantwoord door middel van literatuuronderzoek, gebruikersinterviews en vergelijkend onderzoek naar bestaande webshops.
-Uit de resultaten blijkt dat er een duidelijk verschil is tussen de technische focus van ontwikkelaars en de behoeften van gebruikers. Waar ontwikkelaars vaak kijken naar structuur en functionaliteit, verlangen gebruikers vooral eenvoud, duidelijkheid en een soepele gebruikservaring.
-Elementen die positief bijdragen aan de gebruiksvriendelijkheid van een webshop zijn onder andere: een eenvoudig betaalproces, heldere informatie over levertijden en voorraad, intuïtieve navigatie, en minimale drempels bij het afrekenen.
+## 2. Gebruikersinteractie: Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?
+##### Gemaakt door: Lisa
 
 #### Inleiding
 In opdracht van LucaStars is onderzoek uitgevoerd naar de wensen van potentiële klanten om een goed functionerende, veilige en gebruiksvriendelijke webshop te ontwikkelen.
@@ -219,10 +208,8 @@ Op die manier kan ik soortgelijke obstakels beter opvangen en toch kwalitatief o
 Ondanks de uitdagingen heb ik met veel plezier onderzoek gedaan naar de elementen die bijdragen aan een positieve gebruikerservaring binnen webshops.  
 De verkregen informatie kan door het ontwikkelteam worden vertaald naar concrete functionaliteiten die de gebruiksvriendelijkheid van de webshop verbeteren en zo bijdragen aan een prettige klantervaring.  
 
-## Ethiek: Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
-
-#### Samenvatting
-Om te onderzoeken welke persoonsgegevens Starshop op gaat slaan, is er gekeken naar de AVG (de Europese privacywet), en is er nagedacht over de ethiek achter gegevensverzameling. Hieruit is er gekozen om deze gegevens op te slaan van gebruikers: de volledige naam, het wachtwoord in hashing, het e-mailadres, de geboortedatum en het geslacht. Ook wordt er een privacyverklaring opgesteld, waar gebruikers toestemming voor moeten geven om een account aan te kunnen maken.
+## 3. Ethiek: Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
+##### Gemaakt door: Anne
 
 #### Inleiding
 Ethiek betreft het nadenken van gevolgen van handelingen, zowel positief als negatief. In de IT is dit vooral relevant voor het gebruik van kunstmatige intelligentie, het verzamelen van persoonsgegevens en de toegankelijkheid van techniek. Dit wordt beroepsethiek genoemd.
