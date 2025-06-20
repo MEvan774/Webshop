@@ -13,40 +13,40 @@
 - [Bijlagen](#bijlagen)
 
 ## Samenvatting
-Dit onderzoek is uitgevoerd om te achterhalen hoe 1-Mula de webshop Starshop zo gebruiksvriendelijk, consistent en veilig mogelijk kan ontwerpen.  
-De focus ligt hierbij op een prettige gebruikerservaring én het ethisch verantwoord omgaan met persoonsgegevens.  
+Dit onderzoek is uitgevoerd om te achterhalen hoe 1-Mula de webshop Starshop zo gebruiksvriendelijk, consistent en veilig mogelijk kan ontwerpen.
+De focus ligt hierbij op een prettige gebruikerservaring én het ethisch verantwoord omgaan met persoonsgegevens.
 Het onderzoek is opgedeeld in drie deelvragen:
 
-1. Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?  
-Hiervoor zijn er codeconventies en ontwerpafspraken opgesteld, gericht op structurele, stilistische en interactieve consistentie.  
-Er is gebruikgemaakt van richtlijnen van de Hogeschool van Amsterdam en de Figma resource library om te zorgen voor een uniform ontwerp.  
+1. Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
+Hiervoor zijn er codeconventies en ontwerpafspraken opgesteld, gericht op structurele, stilistische en interactieve consistentie.
+Er is gebruikgemaakt van richtlijnen van de Hogeschool van Amsterdam en de Figma resource library om te zorgen voor een uniform ontwerp.
 Deze afspraken helpen om een herkenbare en professionele uitstraling te waarborgen, wat bijdraagt aan de betrouwbaarheid en gebruiksvriendelijkheid van de webshop.
 
-2. Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?  
-Aan de hand van vergelijkend onderzoek naar vier bestaande webshops en inzichten uit literatuur en interviews, zijn belangrijke factoren geïdentificeerd: intuïtieve navigatie, duidelijke informatie over levertijden, transparante check-outprocessen en eenvoudige bediening op mobiel.  
-Het Baymard Institute en Nielsen Norman Group tonen aan dat veel aankopen afgebroken worden vanwege onduidelijke of omslachtige betaalprocessen.  
+2. Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?
+Aan de hand van vergelijkend onderzoek naar vier bestaande webshops en inzichten uit literatuur en interviews, zijn belangrijke factoren geïdentificeerd: intuïtieve navigatie, duidelijke informatie over levertijden, transparante check-outprocessen en eenvoudige bediening op mobiel.
+Het Baymard Institute en Nielsen Norman Group tonen aan dat veel aankopen afgebroken worden vanwege onduidelijke of omslachtige betaalprocessen.
 Gebruikers gaven ook aan waarde te hechten aan eenvoud, overzicht en een transparante weergave van informatie.
 
-3. Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?  
-In lijn met de AVG mogen gevoelige gegevens zoals huidskleur, oogkleur en haarkleur niet worden opgeslagen, tenzij er een zwaarwegende reden is – die 1-Mula niet heeft.  
-Daarom is besloten deze gegevens niet te verzamelen. Wel worden naam, e-mailadres, geslacht en land opgeslagen, mits de gebruiker hier toestemming voor geeft.  
+3. Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
+In lijn met de AVG mogen gevoelige gegevens zoals huidskleur, oogkleur en haarkleur niet worden opgeslagen, tenzij er een zwaarwegende reden is – die 1-Mula niet heeft.
+Daarom is besloten deze gegevens niet te verzamelen. Wel worden naam, e-mailadres, geslacht en land opgeslagen, mits de gebruiker hier toestemming voor geeft.
 Het wachtwoord wordt versleuteld opgeslagen (hashing), en een privacyverklaring is verplicht voordat een account aangemaakt kan worden. Voor minderjarigen is ouderlijke toestemming vereist.
 
 ## Inleiding
-Dit onderzoek is gestart omdat 1-Mula de opdracht kreeg van LucaStars om de webshop Starshop te ontwikkelen. Deze webshop is bedoeld om licenties van de spellen, die door LucaStars ontwikkeld zijn, te verkopen. Omdat een webshop het visitekaartje is voor het bedrijf en direct invloed heeft op de verkoop en het vertrouwen van gebruikers, is het belangrijk dat de webshop gebruiksvriendelijk, veilig en betrouwbaar is.  
+Dit onderzoek is gestart omdat 1-Mula de opdracht kreeg van LucaStars om de webshop Starshop te ontwikkelen. Deze webshop is bedoeld om licenties van de spellen, die door LucaStars ontwikkeld zijn, te verkopen. Omdat een webshop het visitekaartje is voor het bedrijf en direct invloed heeft op de verkoop en het vertrouwen van gebruikers, is het belangrijk dat de webshop gebruiksvriendelijk, veilig en betrouwbaar is.
 
 LucaStars wil een webshop die niet alleen technisch goed functioneert, maar ook aansluit bij de behoeften van de gebruikers en het bedrijf. Daarnaast moeten persoonsgegevens van gebruikers op een ethisch verantwoorde en wettelijk correcte manier worden verwerkt. Om dit te bereiken, is het nodig om eerst te onderzoeken wat de belangrijkste aandachtspunten zijn op het gebied van softwareontwikkeling, gebruikerservaring en privacywetgeving.
 
-Het onderzoek richt zich op drie centrale thema’s: software (hoe zorg je voor een eenduidige en samenhangende website), gebruikersinteractie (wat maakt een webshop prettig en gemakkelijk in gebruik volgens frequente online shoppers) en ethiek (hoe ga je op een veilige en ethische manier om met het opslaan van persoonsgegevens). Deze thema’s zijn essentieel om een webshop te ontwerpen die voldoet aan de wensen van zowel gebruikers als het bedrijf. 
+Het onderzoek richt zich op drie centrale thema’s: software (hoe zorg je voor een eenduidige en samenhangende website), gebruikersinteractie (wat maakt een webshop prettig en gemakkelijk in gebruik volgens frequente online shoppers) en ethiek (hoe ga je op een veilige en ethische manier om met het opslaan van persoonsgegevens). Deze thema’s zijn essentieel om een webshop te ontwerpen die voldoet aan de wensen van zowel gebruikers als het bedrijf.
 
 De hoofdvraag die in dit onderzoek centraal staat is:
 > *Hoe ontwerp je een webshop die goed werkt, veilig is, makkelijk te gebruiken is en past bij wat de gebruikers en het bedrijf nodig hebben?*
-Om deze hoofdvraag te kunnen beantwoorden, zijn de volgende deelvragen opgesteld:  
-- **Software:** Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?  
-- **Gebruikersinteractie:** Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?  
-- **Ethiek:** Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?  
-  
-Voor de beantwoording van deze deelvragen is gebruikgemaakt van verschillende onderzoeksmethoden. Voor de deelvraag over software is er literatuuronderzoek gedaan naar code conventies en ontwerpprincipes. Voor gebruikersinteractie is een enquête uitgezet onder frequente online shoppers om inzicht te krijgen in hun voorkeuren en ervaringen. De deelvraag over ethiek is onderzocht aan de hand van wetgeving rondom de Algemene Verordening Gegevensbescherming (AVG), aangevuld met een gebruikersonderzoek en gesprekken met de product owners van 1-Mula over het verzamelen en verwerken van persoonsgegevens.  
+Om deze hoofdvraag te kunnen beantwoorden, zijn de volgende deelvragen opgesteld:
+- **Software:** Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
+- **Gebruikersinteractie:** Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?
+- **Ethiek:** Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
+
+Voor de beantwoording van deze deelvragen is gebruikgemaakt van verschillende onderzoeksmethoden. Voor de deelvraag over software is er literatuuronderzoek gedaan naar code conventies en ontwerpprincipes. Voor gebruikersinteractie is een enquête uitgezet onder frequente online shoppers om inzicht te krijgen in hun voorkeuren en ervaringen. De deelvraag over ethiek is onderzocht aan de hand van wetgeving rondom de Algemene Verordening Gegevensbescherming (AVG), aangevuld met een gebruikersonderzoek en gesprekken met de product owners van 1-Mula over het verzamelen en verwerken van persoonsgegevens.
 
 In dit verslag worden de deelvragen in de volgende volgorde behandeld: eerst de deelvraag over software, daarna de gebruikersinteractie en ten slotte de ethiek rondom persoonsgegevens. Na de uitwerking van de deelvragen volgt de conclusie waarin de hoofdvraag wordt beantwoord. Het verslag sluit af met een overzicht van de gebruikte bronnen en bijlagen.
 
@@ -162,7 +162,7 @@ Er is vergelijkend onderzoek uitgevoerd naar vier bestaande webshops, in deze we
 Bij deze webshops is er gekeken naar elementen zoals de navigatie, het betalingsproces, productpagina's, hoe eenvoudig het is om naar een product te navigeren, bruikbaarheid op telefoon of tablet.
 
 #### Bronnenonderzoek
-Tijdens dit onderzoek zijn diverse bronnen geraadpleegd vanuit technische bedrijven met onder andere "best practices". 
+Tijdens dit onderzoek zijn diverse bronnen geraadpleegd vanuit technische bedrijven met onder andere "best practices".
 Gebruikte bronnen:
 1. [Nielsen Norman Group -  E-commerce UX guidelines. Nielsen Norman Group](https://www.nngroup.com/articles/ecommerce-product-pages).
 2. [Baymard Institute - Top 10 checkout usability issues. Baymard Institute](https://baymard.com/blog/current-state-of-checkout-ux).
@@ -170,43 +170,43 @@ Gebruikte bronnen:
 Deze bronnen hebben een bijdrage geleverd aan het opstellen van de doelgroep van deze deelvraag, het opstellen van de interviewvragen en de manier waarop het vergelijkend onderzoek wordt beoordeeld.
 
 #### Analyse / Bevindingen
-Tijdens het literatuuronderzoek viel direct op dat maar liefst 70% van de gebruikers hun aankoop afbreken nadat een product in het winkelmandje is geplaatst.  
-Dit blijkt uit onderzoek van het Baymard Institute. De voornaamste oorzaken liggen bij het ontwerp en de gebruiksvriendelijkheid van het betaalproces.  
-Uit het onderzoek blijkt onder andere dat:  
-•	50% van de webshops gebruikers verplicht een account aan te maken om te kunnen afrekenen.  
-•	65% van de webshops te strenge of complexe wachtwoordeisen hanteert.  
-•	44% van de webshops ‘leveringssnelheid’ toont in plaats van een concrete leveringsdatum, wat tot verwarring of onzekerheid leidt.  
-•	77% van de webshops geen countdown toont tijdens het afrekenen. Dit maakt het voor klanten – met name bij internationale bestellingen – lastig om in te schatten wanneer een bestelling daadwerkelijk verzonden wordt.  
-•	95% van de webshops gebruikt geen +/- knop of tekstveld om aantallen aan te geven bij producten in het winkelmandje.  
-•	74% van de webshops geven niet duidelijk aan welke gegevensvelden verplicht of optioneel zijn.  
-•	61% van de webshops bieden geen uitleg over het aankopen van cadeaus voor anderen, wat tot verwarring kan leiden.  
+Tijdens het literatuuronderzoek viel direct op dat maar liefst 70% van de gebruikers hun aankoop afbreken nadat een product in het winkelmandje is geplaatst.
+Dit blijkt uit onderzoek van het Baymard Institute. De voornaamste oorzaken liggen bij het ontwerp en de gebruiksvriendelijkheid van het betaalproces.
+Uit het onderzoek blijkt onder andere dat:
+•	50% van de webshops gebruikers verplicht een account aan te maken om te kunnen afrekenen.
+•	65% van de webshops te strenge of complexe wachtwoordeisen hanteert.
+•	44% van de webshops ‘leveringssnelheid’ toont in plaats van een concrete leveringsdatum, wat tot verwarring of onzekerheid leidt.
+•	77% van de webshops geen countdown toont tijdens het afrekenen. Dit maakt het voor klanten – met name bij internationale bestellingen – lastig om in te schatten wanneer een bestelling daadwerkelijk verzonden wordt.
+•	95% van de webshops gebruikt geen +/- knop of tekstveld om aantallen aan te geven bij producten in het winkelmandje.
+•	74% van de webshops geven niet duidelijk aan welke gegevensvelden verplicht of optioneel zijn.
+•	61% van de webshops bieden geen uitleg over het aankopen van cadeaus voor anderen, wat tot verwarring kan leiden.
 
-Deze bevindingen benadrukken het belang van een eenvoudig, transparant en gebruiksvriendelijk winkelmandje en betaalproces voor een optimale gebruikerservaring.  
-Het artikel E-commerce UX Guidelines sluit hier goed op aan en biedt ontwikkelaars praktische richtlijnen voor het verbeteren van de gebruikerservaring.  
-Veel van de bevindingen uit het Baymard-onderzoek komen hierin terug. De focus ligt op het minimaliseren van frustraties en het optimaliseren van de flow van de gebruiker.  
-Het doel is om bezoekers te behouden en te converteren, in plaats van ze weg te jagen door onduidelijke of omslachtige processen.  
-Er is een duidelijk verschil tussen de technische focus van ontwikkelaars en de wensen van eindgebruikers.  
-In de gebruikersinterviews kwamen termen als “eenvoud” en “makkelijk” herhaaldelijk naar voren.  
+Deze bevindingen benadrukken het belang van een eenvoudig, transparant en gebruiksvriendelijk winkelmandje en betaalproces voor een optimale gebruikerservaring.
+Het artikel E-commerce UX Guidelines sluit hier goed op aan en biedt ontwikkelaars praktische richtlijnen voor het verbeteren van de gebruikerservaring.
+Veel van de bevindingen uit het Baymard-onderzoek komen hierin terug. De focus ligt op het minimaliseren van frustraties en het optimaliseren van de flow van de gebruiker.
+Het doel is om bezoekers te behouden en te converteren, in plaats van ze weg te jagen door onduidelijke of omslachtige processen.
+Er is een duidelijk verschil tussen de technische focus van ontwikkelaars en de wensen van eindgebruikers.
+In de gebruikersinterviews kwamen termen als “eenvoud” en “makkelijk” herhaaldelijk naar voren.
 Dit bevestigt het beeld uit de literatuur: gebruikers ervaren veel webshops als te ingewikkeld of onoverzichtelijk, vooral tijdens het afrekenen.
-Daarnaast blijkt uit de interviews dat gebruikers veel waarde hechten aan een intuïtieve navigatie. Zo gaf kandidaat #1 aan dat het zoeken naar een specifiek product op sommige websites onnodig omslachtig is. 
+Daarnaast blijkt uit de interviews dat gebruikers veel waarde hechten aan een intuïtieve navigatie. Zo gaf kandidaat #1 aan dat het zoeken naar een specifiek product op sommige websites onnodig omslachtig is.
 Als voorbeeld werd Zara genoemd: om een skinny jeans te vinden moet de klant eerst door verschillende lagen navigeren (geslacht, kledingcategorie, lichaamsdeel), zonder direct bij het gewenste product te komen.
 Kandidaten 2 en 3 benadrukten het belang van duidelijke informatie over levertijd en voorraad. Zij gaven aan dat dit soort gegevens idealiter al bij het product zichtbaar zijn en vervolgens ook terugkomen in het winkelmandje en het betaalproces. Dit voorkomt teleurstelling achteraf en draagt bij aan een gevoel van transparantie en betrouwbaarheid.
 
 #### Conclusie:
-De combinatie van literatuuronderzoek en gebruikersinzichten toont aan dat gebruiksvriendelijkheid in webshops vooral wordt bepaald door eenvoud, duidelijke informatievoorziening en een soepele navigatie.  
-Voor het ontwikkelteam zijn dit concrete aanknopingspunten om de webshop zodanig in te richten dat deze aansluit bij de wensen en verwachtingen van de doelgroep  
+De combinatie van literatuuronderzoek en gebruikersinzichten toont aan dat gebruiksvriendelijkheid in webshops vooral wordt bepaald door eenvoud, duidelijke informatievoorziening en een soepele navigatie.
+Voor het ontwikkelteam zijn dit concrete aanknopingspunten om de webshop zodanig in te richten dat deze aansluit bij de wensen en verwachtingen van de doelgroep
 
 #### Reflectie
-Tijdens dit onderzoek had ik een duidelijk plan voor ogen: ik wilde onderzoeken welke elementen bijdragen aan de gebruiksvriendelijkheid van een webshop, en hierbij specifiek ervaring opdoen met het afnemen van interviews.  
-In mijn Plan van Aanpak had ik een SMART-doel opgesteld en een planning met bijbehorende deadlines uitgewerkt.  
-Door het plotselinge overlijden van mijn opa en onverwachte problemen met een externe instantie, liep het proces echter anders dan gepland.  
-Mijn oorspronkelijke aanpak viel hierdoor in het water.  
-In plaats van fysieke interviews met kandidaat 2 en 3 heb ik moeten improviseren en hen een online vragenlijst laten invullen.  
-Deze ervaring heeft mij geleerd dat flexibiliteit in onderzoeksplannen essentieel is.  
-In de toekomst wil ik mijn oorspronkelijke plan opnieuw uitvoeren, maar dan met een ruimere planning die ruimte biedt voor onvoorziene omstandigheden.  
-Op die manier kan ik soortgelijke obstakels beter opvangen en toch kwalitatief onderzoek blijven doen.  
-Ondanks de uitdagingen heb ik met veel plezier onderzoek gedaan naar de elementen die bijdragen aan een positieve gebruikerservaring binnen webshops.  
-De verkregen informatie kan door het ontwikkelteam worden vertaald naar concrete functionaliteiten die de gebruiksvriendelijkheid van de webshop verbeteren en zo bijdragen aan een prettige klantervaring.  
+Tijdens dit onderzoek had ik een duidelijk plan voor ogen: ik wilde onderzoeken welke elementen bijdragen aan de gebruiksvriendelijkheid van een webshop, en hierbij specifiek ervaring opdoen met het afnemen van interviews.
+In mijn Plan van Aanpak had ik een SMART-doel opgesteld en een planning met bijbehorende deadlines uitgewerkt.
+Door het plotselinge overlijden van mijn opa en onverwachte problemen met een externe instantie, liep het proces echter anders dan gepland.
+Mijn oorspronkelijke aanpak viel hierdoor in het water.
+In plaats van fysieke interviews met kandidaat 2 en 3 heb ik moeten improviseren en hen een online vragenlijst laten invullen.
+Deze ervaring heeft mij geleerd dat flexibiliteit in onderzoeksplannen essentieel is.
+In de toekomst wil ik mijn oorspronkelijke plan opnieuw uitvoeren, maar dan met een ruimere planning die ruimte biedt voor onvoorziene omstandigheden.
+Op die manier kan ik soortgelijke obstakels beter opvangen en toch kwalitatief onderzoek blijven doen.
+Ondanks de uitdagingen heb ik met veel plezier onderzoek gedaan naar de elementen die bijdragen aan een positieve gebruikerservaring binnen webshops.
+De verkregen informatie kan door het ontwikkelteam worden vertaald naar concrete functionaliteiten die de gebruiksvriendelijkheid van de webshop verbeteren en zo bijdragen aan een prettige klantervaring.
 
 ## 3. Ethiek: Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
 ##### Gemaakt door: Anne
@@ -309,41 +309,41 @@ Door deze practices te blijven volgen, kan Starshop de gegevensverzameling uitvo
 
 ## Conclusie
 De hoofdvraag van dit onderzoek was:
-"Hoe ontwerp je een webshop die goed werkt, veilig is, makkelijk te gebruiken is en past bij wat de gebruikers en het bedrijf nodig hebben?"  
+"Hoe ontwerp je een webshop die goed werkt, veilig is, makkelijk te gebruiken is en past bij wat de gebruikers en het bedrijf nodig hebben?"
 
 Uit het onderzoek blijkt dat een goed ontworpen webshop meerdere aspecten combineert: een duidelijke en consistente vormgeving, een hoge mate van gebruiksvriendelijkheid, en een veilige en ethische omgang met persoonsgegevens.
 
-Uit deelvraag 1 blijkt dat een webshop eenduidig en professioneel aanvoelt wanneer er ontwerpafspraken worden gemaakt over bijvoorbeeld kleuren, typografie en layout.  
+Uit deelvraag 1 blijkt dat een webshop eenduidig en professioneel aanvoelt wanneer er ontwerpafspraken worden gemaakt over bijvoorbeeld kleuren, typografie en layout.
 Dit zorgt ervoor dat de webshop eruitziet alsof deze door één persoon is gemaakt, wat vertrouwen wekt bij gebruikers.
 
-In deelvraag 2 werd onderzocht wat frequente online shoppers belangrijk vinden aan een gebruiksvriendelijke webshop.  
+In deelvraag 2 werd onderzocht wat frequente online shoppers belangrijk vinden aan een gebruiksvriendelijke webshop.
 Hieruit bleek dat overzicht, snelheid, eenvoudige navigatie, en duidelijke productinformatie essentieel zijn voor een positieve gebruikerservaring.
 
-Deelvraag 3 richtte zich op veiligheid en privacy.  
+Deelvraag 3 richtte zich op veiligheid en privacy.
 Daaruit kwam naar voren dat het opslaan van de huidskleur van gebruikers niet toegestaan is, en dat het opslaan van gegevens zoals de haar- en oogkleur alleen met een geldige reden mag. Sinds Starshop hier geen reden voor heeft, wordt dit ook niet opgeslagen.
 Gegevens zoals het geslacht en de locatie worden wel opgeslagen, maar de gebruiker heeft de optie om ervoor te kiezen deze niet op te geven.
 Ook moet het wachtwoord beveiligd opgeslagen worden, en moet er een privacyverklaring geschreven worden zodat gebruikers toestemming geven tot het opslaan en gebruiken van hun persoonsgegevens.
 
 De conclusie:\
-Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij de wensen van zowel gebruikers als het bedrijf, wordt bereikt door:  
+Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij de wensen van zowel gebruikers als het bedrijf, wordt bereikt door:
 - Een consistente en professionele vormgeving,
 - Een gebruiksvriendelijke en intuïtieve gebruikerservaring,
 - En een veilige, transparante en wettelijk correcte omgang met persoonsgegevens.
 
-Door deze drie pijlers centraal te stellen, kan 1-Mula een succesvolle webshop ontwerpen die betrouwbaar, prettig in gebruik én toekomstbestendig is.  
+Door deze drie pijlers centraal te stellen, kan 1-Mula een succesvolle webshop ontwerpen die betrouwbaar, prettig in gebruik én toekomstbestendig is.
 
-## Literatuurlijst 
-Baymard Institute. (2024, 13 november). *Top 10 checkout usability issues*. https://baymard.com/blog/current-state-of-checkout-ux  
-Fellinger, E. (z.d.). *Ethiek - Knowledgebase*. Hogeschool van Amsterdam. https://knowledgebase.hbo-ict-hva.nl/2_professional_skills/toekomstgericht_organiseren/ethiek/0_to_ethiek/  
-Figma. (z.d.). *Consistency in design*. https://www.figma.com/resource-library/consistency-in-design/  
-Hogeschool van Amsterdam. (2023). *Code conventies CSS*. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_css/  
-Hogeschool van Amsterdam. (2023). *Code conventies HTML*. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_html/  
-Hogeschool van Amsterdam. (2023). *Code conventies TypeScript*. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_typescript/  
-Interview met PO (Anne, Milan, Lisa, Francesco [1-Mula], Interviewer). (2025, 4 april). *Interviewresultaten projectgroep 1-Mula*. GitLab. https://gitlab.fdmci.hva.nl/propedeuse-hbo-ict/onderwijs/student-projecten/2024-2025/out-f-cs-se/blok-4/naagooxeekuu77/-/blob/main/docs/testresultaten/interviewPO.md?ref_type=heads  
-Ministerie van Algemene Zaken. (2024, 18 november). *Handleiding Algemene verordening gegevensbescherming (AVG)* [Rapport]. Rijksoverheid. https://www.rijksoverheid.nl/documenten/rapporten/2018/01/22/handleiding-algemene-verordening-gegevensbescherming  
-Nielsen Norman Group. (2019, 24 november). *E-commerce UX guidelines*. https://www.nngroup.com/articles/ecommerce-product-pages  
-TypeScript Team. (z.d.). *Style guide*. ts.dev. https://ts.dev/style/#identifiers  
-Yang, S., Wang, Y., & Wei, J. (2014). Integration and consistency between web and mobile services. *Industrial Management & Data Systems, 114*(8), 1246–1269. https://doi.org/10.1108/IMDS-03-2014-0074  
+## Literatuurlijst
+Baymard Institute. (2024, 13 november). *Top 10 checkout usability issues*. https://baymard.com/blog/current-state-of-checkout-ux
+Fellinger, E. (z.d.). *Ethiek - Knowledgebase*. Hogeschool van Amsterdam. https://knowledgebase.hbo-ict-hva.nl/2_professional_skills/toekomstgericht_organiseren/ethiek/0_to_ethiek/
+Figma. (z.d.). *Consistency in design*. https://www.figma.com/resource-library/consistency-in-design/
+Hogeschool van Amsterdam. (2023). *Code conventies CSS*. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_css/
+Hogeschool van Amsterdam. (2023). *Code conventies HTML*. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_html/
+Hogeschool van Amsterdam. (2023). *Code conventies TypeScript*. Knowledgebase HBO-ICT. https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/realiseren/code_conventies/taalspecifiek/code_conventies_typescript/
+Interview met PO (Anne, Milan, Lisa, Francesco [1-Mula], Interviewer). (2025, 4 april). *Interviewresultaten projectgroep 1-Mula*. GitLab. https://gitlab.fdmci.hva.nl/propedeuse-hbo-ict/onderwijs/student-projecten/2024-2025/out-f-cs-se/blok-4/naagooxeekuu77/-/blob/main/docs/testresultaten/interviewPO.md?ref_type=heads
+Ministerie van Algemene Zaken. (2024, 18 november). *Handleiding Algemene verordening gegevensbescherming (AVG)* [Rapport]. Rijksoverheid. https://www.rijksoverheid.nl/documenten/rapporten/2018/01/22/handleiding-algemene-verordening-gegevensbescherming
+Nielsen Norman Group. (2019, 24 november). *E-commerce UX guidelines*. https://www.nngroup.com/articles/ecommerce-product-pages
+TypeScript Team. (z.d.). *Style guide*. ts.dev. https://ts.dev/style/#identifiers
+Yang, S., Wang, Y., & Wei, J. (2014). Integration and consistency between web and mobile services. *Industrial Management & Data Systems, 114*(8), 1246–1269. https://doi.org/10.1108/IMDS-03-2014-0074
 Your Europe. (2022, 1 januari). *AVG | Algemene Verordening Gegevensbescherming*. https://europa.eu/youreurope/business/dealing-with-customers/data-protection/data-protection-gdpr/index_nl.htm
 
 ## Bijlagen
