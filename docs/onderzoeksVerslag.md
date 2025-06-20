@@ -1,5 +1,5 @@
 # Hoe ontwerp je een webshop die goed werkt, veilig is, makkelijk te gebruiken is en past bij wat de gebruikers en het bedrijf nodig hebben?
-### Door: Anne Bakker, Milan Breuren en Lisa Hakhoff van 1-Mula
+### Door: Anne Bakker, Milan Breuren, Lisa Hakhoff en Francesco Pavlovic van 1-Mula
 
 ## Inhoudsopgave
 
@@ -15,7 +15,7 @@
 ## Samenvatting
 Dit onderzoek is uitgevoerd om te achterhalen hoe 1-Mula de webshop Starshop zo gebruiksvriendelijk, consistent en veilig mogelijk kan ontwerpen.
 De focus ligt hierbij op een prettige gebruikerservaring én het ethisch verantwoord omgaan met persoonsgegevens.
-Het onderzoek is opgedeeld in drie deelvragen:
+Het onderzoek is opgedeeld in vier deelvragen:
 
 1. Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
 Hiervoor zijn er codeconventies en ontwerpafspraken opgesteld, gericht op structurele, stilistische en interactieve consistentie.
@@ -32,6 +32,9 @@ In lijn met de AVG mogen gevoelige gegevens zoals huidskleur, oogkleur en haarkl
 Daarom is besloten deze gegevens niet te verzamelen. Wel worden naam, e-mailadres, geslacht en land opgeslagen, mits de gebruiker hier toestemming voor geeft.
 Het wachtwoord wordt versleuteld opgeslagen (hashing), en een privacyverklaring is verplicht voordat een account aangemaakt kan worden. Voor minderjarigen is ouderlijke toestemming vereist.
 
+4. Hoe worden Third Party API's gebruikt om de beveiliging van gebruikersgegevens, tijdens het betalingsproces, te garanderen?
+**TODO**
+
 ## Inleiding
 Dit onderzoek is gestart omdat 1-Mula de opdracht kreeg van LucaStars om de webshop Starshop te ontwikkelen. Deze webshop is bedoeld om licenties van de spellen, die door LucaStars ontwikkeld zijn, te verkopen. Omdat een webshop het visitekaartje is voor het bedrijf en direct invloed heeft op de verkoop en het vertrouwen van gebruikers, is het belangrijk dat de webshop gebruiksvriendelijk, veilig en betrouwbaar is.
 
@@ -45,6 +48,7 @@ Om deze hoofdvraag te kunnen beantwoorden, zijn de volgende deelvragen opgesteld
 - **Software:** Welke afspraken zijn er gemaakt om te zorgen dat de website eenduidig is, alsof deze door één persoon gemaakt is?
 - **Gebruikersinteractie:** Welke elementen dragen volgens frequente online shoppers (18–70 jaar) bij aan de gebruiksvriendelijkheid van een webshop?
 - **Ethiek:** Wat zijn best practices voor het veilig en ethisch opslaan van persoonsgegevens binnen een webshop, met oog op privacy, gebruikersbelang en toestemming?
+- **Infrastructuur:** Hoe worden Third Party API's gebruikt om de beveiliging van gebruikersgegevens, tijdens het betalingsproces, te garanderen?
 
 Voor de beantwoording van deze deelvragen is gebruikgemaakt van verschillende onderzoeksmethoden. Voor de deelvraag over software is er literatuuronderzoek gedaan naar code conventies en ontwerpprincipes. Voor gebruikersinteractie is een enquête uitgezet onder frequente online shoppers om inzicht te krijgen in hun voorkeuren en ervaringen. De deelvraag over ethiek is onderzocht aan de hand van wetgeving rondom de Algemene Verordening Gegevensbescherming (AVG), aangevuld met een gebruikersonderzoek en gesprekken met de product owners van 1-Mula over het verzamelen en verwerken van persoonsgegevens.
 
@@ -194,7 +198,7 @@ Kandidaten 2 en 3 benadrukten het belang van duidelijke informatie over levertij
 
 #### Conclusie:
 De combinatie van literatuuronderzoek en gebruikersinzichten toont aan dat gebruiksvriendelijkheid in webshops vooral wordt bepaald door eenvoud, duidelijke informatievoorziening en een soepele navigatie.
-Voor het ontwikkelteam zijn dit concrete aanknopingspunten om de webshop zodanig in te richten dat deze aansluit bij de wensen en verwachtingen van de doelgroep
+Voor het ontwikkelteam zijn dit concrete aanknopingspunten om de webshop zodanig in te richten dat deze aansluit bij de wensen en verwachtingen van de doelgroep.
 
 #### Reflectie
 Tijdens dit onderzoek had ik een duidelijk plan voor ogen: ik wilde onderzoeken welke elementen bijdragen aan de gebruiksvriendelijkheid van een webshop, en hierbij specifiek ervaring opdoen met het afnemen van interviews.
@@ -307,6 +311,26 @@ Uit het onderzoek blijken de volgende best practices voor de gegevensverzameling
 
 Door deze practices te blijven volgen, kan Starshop de gegevensverzameling uitvoeren op een manier die ethisch verantwoord is en gefocust is op de bescherming van privacy, toestemming en gebruikersbelang.
 
+## 4. Infrastructuur: Hoe worden Third Party API's gebruikt om de beveiliging van gebruikersgegevens, tijdens het betalingsproces, te garanderen?
+
+### Inleiding
+
+Deze deelvraag focust op het beveiligen van het betalingsproces, een onderdeel waarbij een zwakke uitvoering verantwoordelijk kan zijn voor grote schade. Voor monetaire redenen en angst voor reputatieschade voor het bedrijf, is het in de interesse van de ontwikkelaar om een veilige manier te vinden om een betalingsproces uit te werken. Het doel van de webshop is om geld te verdienen voor LucaStars. Een veilig betalingssysteem is essentieel voor het verloop van een werkende webshop. Een manier om een veilig betalingssysteem te implementeren is het gebruik van *Third Party API's* (TPA). Een *Application Programming Interface* (API) is een soort menukaart, met functionaliteiten of data. Een TPA houdt in dat het gemaakt is door een ontwikkelaar die verder niet bijdraagt aan het maken van het project. TPA's vormen een onderdeel van het *open source* ecosysteem voor ontwikkelaars.
+
+### Betalingsproces en de potentiële gevaren hierachter
+
+Bij een webshop is het gebruikelijk om te betalen met een digitale betalingsmethode (iDEAL, PayPal, Klarna). De klant betaalt voor het product en de winkel krijgt het geld. Een belangrijke middenman hier is de *Payment Service Provider* (PSP). Zonder deze PSP, moet de webshop eigenaar zelf een verbinding maken met een de digitale betalingsmethoden. Deze betalingen zijn van grote interesse voor hackers en fraudeurs. Een onveilig betalingssysteem kan hun toegang geven tot gegevens die misbruikt kunnen worden. Verder kan de privacy van een gebruikers betalingsgegevens ook misbruikt worden door de webshop eigenaar, als deze direct de betalingsinformatie gaat doorgeven aan een digitale betalingsmethode.
+
+### API beveiliging
+
+Om fraudeurs en hackers tegen te gaan, kunnen ontwikkelaars een PSP inschakelen. Om te verbinden met een PSP, moet er met een TPA gecommuniceerd worden. Alles dat betalingsinformatie aanraakt moet voldoen aan de Payment Card Industry Data Security Standards (PCI DSS). Deze entiteiten moeten aan de volgende regels voldoen:
+
+**TODO: SOM OP ALLE PCI DSS STANDARDS**
+
+### Conclusie
+
+
+
 ## Conclusie
 De hoofdvraag van dit onderzoek was:
 "Hoe ontwerp je een webshop die goed werkt, veilig is, makkelijk te gebruiken is en past bij wat de gebruikers en het bedrijf nodig hebben?"
@@ -323,6 +347,8 @@ Deelvraag 3 richtte zich op veiligheid en privacy.
 Daaruit kwam naar voren dat het opslaan van de huidskleur van gebruikers niet toegestaan is, en dat het opslaan van gegevens zoals de haar- en oogkleur alleen met een geldige reden mag. Sinds Starshop hier geen reden voor heeft, wordt dit ook niet opgeslagen.
 Gegevens zoals het geslacht en de locatie worden wel opgeslagen, maar de gebruiker heeft de optie om ervoor te kiezen deze niet op te geven.
 Ook moet het wachtwoord beveiligd opgeslagen worden, en moet er een privacyverklaring geschreven worden zodat gebruikers toestemming geven tot het opslaan en gebruiken van hun persoonsgegevens.
+
+Deelvraag 4 **TODO**
 
 De conclusie:\
 Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij de wensen van zowel gebruikers als het bedrijf, wordt bereikt door:
@@ -345,6 +371,12 @@ Nielsen Norman Group. (2019, 24 november). *E-commerce UX guidelines*. https://w
 TypeScript Team. (z.d.). *Style guide*. ts.dev. https://ts.dev/style/#identifiers
 Yang, S., Wang, Y., & Wei, J. (2014). Integration and consistency between web and mobile services. *Industrial Management & Data Systems, 114*(8), 1246–1269. https://doi.org/10.1108/IMDS-03-2014-0074
 Your Europe. (2022, 1 januari). *AVG | Algemene Verordening Gegevensbescherming*. https://europa.eu/youreurope/business/dealing-with-customers/data-protection/data-protection-gdpr/index_nl.htm
+Siriwardena, P. (2020). Advanced API Security : OAuth 2.0 and Beyond (2nd ed. 2020.). Apress. https://doi.org/10.1007/978-1-4842-2050-4
+Libby, A. (2019). Checking Out with the Payment Request API: A Practical Introduction to the HTML5 Payment Request API Using Real-World Examples (1st ed.). Apress L. P. https://doi.org/10.1007/978-1-4842-5184-3
+Priya, N., & Ahmed, J. (2021). A Survey on Digital Payments Security: Recent Trends and Future Opportunities. International Journal Of Computer Trends And Technology, 69(8), 26–34. https://doi.org/10.14445/22312803/ijctt-v69i8p107
+Seaman, J. (2020). Pci Dss: An Integrated Data Security Standard Guide (1st Edition). Apress L. P. https://doi.org/10.1007/978-1-4842-5808-8
+
+
 
 ## Bijlagen
 #### Bijlage 1: Gebruikersonderzoek gegevensverzameling
