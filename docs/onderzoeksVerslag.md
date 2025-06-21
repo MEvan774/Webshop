@@ -33,7 +33,7 @@ Daarom is besloten deze gegevens niet te verzamelen. Wel worden naam, e-mailadre
 Het wachtwoord wordt versleuteld opgeslagen (hashing), en een privacyverklaring is verplicht voordat een account aangemaakt kan worden. Voor minderjarigen is ouderlijke toestemming vereist.
 
 4. Hoe worden Third Party API's gebruikt om de beveiliging van gebruikersgegevens, tijdens het betalingsproces, te garanderen?
-**TODO**
+Er zijn protocollen en richtlijnen die ervoor zorgen dat het product veilig kan worden gemaakt, zoals OWASP, OAuth 2.0 en PCI DSS. Hoewel het mogelijk is om deze te implementeren in een connectie met digitale betaalmiddelen, is het makkelijker en veiliger om een Third Party API te gebruiken om met een PSP te communiceren. De API's worden gemaakt met strenge protocollen en leveren dus een veiliger product.
 
 ## Inleiding
 Dit onderzoek is gestart omdat 1-Mula de opdracht kreeg van LucaStars om de webshop Starshop te ontwikkelen. Deze webshop is bedoeld om licenties van de spellen, die door LucaStars ontwikkeld zijn, te verkopen. Omdat een webshop het visitekaartje is voor het bedrijf en direct invloed heeft op de verkoop en het vertrouwen van gebruikers, is het belangrijk dat de webshop gebruiksvriendelijk, veilig en betrouwbaar is.
@@ -319,17 +319,48 @@ Deze deelvraag focust op het beveiligen van het betalingsproces, een onderdeel w
 
 ### Betalingsproces en de potentiële gevaren hierachter
 
-Bij een webshop is het gebruikelijk om te betalen met een digitale betalingsmethode (iDEAL, PayPal, Klarna). De klant betaalt voor het product en de winkel krijgt het geld. Een belangrijke middenman hier is de *Payment Service Provider* (PSP). Zonder deze PSP, moet de webshop eigenaar zelf een verbinding maken met een de digitale betalingsmethoden. Deze betalingen zijn van grote interesse voor hackers en fraudeurs. Een onveilig betalingssysteem kan hun toegang geven tot gegevens die misbruikt kunnen worden. Verder kan de privacy van een gebruikers betalingsgegevens ook misbruikt worden door de webshop eigenaar, als deze direct de betalingsinformatie gaat doorgeven aan een digitale betalingsmethode.
+Bij een webshop is het gebruikelijk om te betalen met een digitale betalingsmethode (iDEAL, PayPal, Klarna). De klant betaalt voor het product en de winkel krijgt het geld. Een belangrijke middenman hier zijn de *Payment Service Providers* (PSP), zoals Mollie, Stripe en Worldline Payments (vroeger Ingenico). Zonder deze PSPs, moet de webshop eigenaar zelf een verbinding maken met een de digitale betalingsmethoden. Deze betalingen zijn van grote interesse voor hackers en fraudeurs. Een onveilig betalingssysteem kan hun toegang geven tot gegevens die misbruikt kunnen worden. Verder kan de privacy van een gebruikers betalingsgegevens ook misbruikt worden door de webshop eigenaar, als deze direct de betalingsinformatie gaat doorgeven aan een digitale betalingsmethode. De OWASP Foundation (2021) houdt een lijst bij van de vaakst voorkomende veiligheid kwetsbaarheden. De top tien hiervan zijn:
 
-### API beveiliging
+1. Broken Access Control, wanneer een hacker toegang krijgt tot functionaliteiten die hun niet horen te hebben
+2. Cryptographic Failures, wanneer privacygevoelige data, zoals betalingsgegevens, niet goed genoeg wordt versleuteld
+3. Injection, waarbij gebruikersinput niet gecontroleerd wordt, waardoor privacygevoelige data opgevraagd kan worden door iemand zonder de juiste authenticatie
+4. Insecure Design, een grootschalige classificatie die gebruikt wordt om fundamentele veiligheidsfouten in het geheel te omschrijven
+5. Security Misconfiguration, waaronder zwakke wachtwoorden, onnodige applicaties en uitgezette beveiligingsinstellingen vallen
+6. Vulnerable and Outdated Components, waarbij onderdelen niet de nieuwste versie hebben
+7. Identification and Authentication Failures, wanneer het identificatie- of authenticatieproces omzeild kan worden
+8. Software and Data Integrity Failures, wanneer een onderdeel of geheel afhankelijk is van een onveilige hulpmiddelen (plugins, libraries, API's)
+9. Security Logging and Monitoring Failures, wanneer hackers de beveiliging hebben doorbroken, door een gebrek aan goede monitoring en logging.
+10. Server-Side Request Forgery, wanneer een hacker een verzoek maakt aan de server (meestal via URL), die hun niet mogen maken
 
-Om fraudeurs en hackers tegen te gaan, kunnen ontwikkelaars een PSP inschakelen. Om te verbinden met een PSP, moet er met een TPA gecommuniceerd worden. Alles dat betalingsinformatie aanraakt moet voldoen aan de Payment Card Industry Data Security Standards (PCI DSS). Deze entiteiten moeten aan de volgende regels voldoen:
+Zelf verbinden aan een digitale betalingsmethode kan gevaarlijk uitpakken. Deze 10 kwetsbaarheden kunnen de ontwikkelaar helpen met het maken van een veilig programma, maar toch kan het ingewikkeld zijn om deze te implementeren. PSP's kunnen de ontwikkeling van het product versimpelen, versnellen en veiliger maken.
 
-**TODO: SOM OP ALLE PCI DSS STANDARDS**
+### Beveiligingsmaatregelen
+
+Om te verbinden met een PSP, moet er met een TPA gecommuniceerd worden. Alles dat betalingsinformatie aanraakt moet voldoen aan de Payment Card Industry Data Security Standards (PCI DSS). Volgens de PCI Security Standards Council moeten deze entiteiten voldoen aan de volgende regels:
+
+1. Maak en onderhoud een beveiligd netwerk en beveiligde systemen, door:
+    - een firewall in te stellen
+    - een veilig, niet-standaard wachtwoord te gebruiken (zoals admin, password)
+2. Bescherm de betalingsgegevens van de klant, door:
+    - opgeslagen betalingsgegevens te beschermen
+    - sterke encryptie protocollen te gebruiken tijdens het handelen van betalingsgegevens op publieke netwerken
+3. Onderhoud een kwetsbaarheidsmanagementprogramma, door:
+    - systemen te beschermen tegen malware met up-to-date antivirus programma's.
+    - veilige systemen te maken en onderhouden
+4. Implementeer strenge controles die controleren wie toegang krijgt tot betalingsgegevens, door:
+    - ervoor te zorgen dat partijen alleen toegang hebben tot betalingsgegevens die zij nodig hebben
+    - partijen te controleren op identificatie en authenticatie voor het geven van toegang
+    - fysieke toegang tot betalingsgegevens limiteren
+5. Test en monitor het netwerk, door:
+    - alle toegang tot netwerk resources en betalingsgegevens te traceren en monitoren
+    - beveiligingssystemen en beveiligingsprocessen frequent te testen
+6. Onderhoud een informatiebeveiligingsbeleid
+
+Met dit protocol kunnen ontwikkelaars en bedrijven omgaan met betalingsgegevens op een veilige manier. Deze maatregelen komen gedeeltelijk overeen met de gevaren die geïdentificeerd worden door OWASP. Regel 4 kan geïmplementeerd worden door het gebruik van het OAuth 2.0 authenticatie protocol. Dit is een protocol dat met *tokens*, een soort van tijdelijk wachtwoord, werkt om toegang te geven tot gegevens met limieten.
 
 ### Conclusie
 
-
+Er zijn protocollen en richtlijnen die ervoor zorgen dat het product veilig kan worden gemaakt, zoals OWASP, OAuth 2.0 en PCI DSS. Hoewel het mogelijk is om deze te implementeren in een connectie met digitale betaalmiddelen, is het makkelijker en veiliger om een Third Party API te gebruiken om met een PSP te communiceren. De API's worden gemaakt met strenge protocollen en leveren dus een veiliger product.
 
 ## Conclusie
 De hoofdvraag van dit onderzoek was:
@@ -348,7 +379,8 @@ Daaruit kwam naar voren dat het opslaan van de huidskleur van gebruikers niet to
 Gegevens zoals het geslacht en de locatie worden wel opgeslagen, maar de gebruiker heeft de optie om ervoor te kiezen deze niet op te geven.
 Ook moet het wachtwoord beveiligd opgeslagen worden, en moet er een privacyverklaring geschreven worden zodat gebruikers toestemming geven tot het opslaan en gebruiken van hun persoonsgegevens.
 
-Deelvraag 4 **TODO**
+Deelvraag 4 brengt inzichten in het gebruik van Third Party API's in het betaalproces.
+Hieruit bleek dat het gebruik van Third Party API's het product veiliger en makkelijker maakt, door de strenge protocollen waaraan Third Party API's zich houden.
 
 De conclusie:\
 Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij de wensen van zowel gebruikers als het bedrijf, wordt bereikt door:
@@ -372,10 +404,8 @@ TypeScript Team. (z.d.). *Style guide*. ts.dev. https://ts.dev/style/#identifier
 Yang, S., Wang, Y., & Wei, J. (2014). Integration and consistency between web and mobile services. *Industrial Management & Data Systems, 114*(8), 1246–1269. https://doi.org/10.1108/IMDS-03-2014-0074
 Your Europe. (2022, 1 januari). *AVG | Algemene Verordening Gegevensbescherming*. https://europa.eu/youreurope/business/dealing-with-customers/data-protection/data-protection-gdpr/index_nl.htm
 Siriwardena, P. (2020). Advanced API Security : OAuth 2.0 and Beyond (2nd ed. 2020.). Apress. https://doi.org/10.1007/978-1-4842-2050-4
-Libby, A. (2019). Checking Out with the Payment Request API: A Practical Introduction to the HTML5 Payment Request API Using Real-World Examples (1st ed.). Apress L. P. https://doi.org/10.1007/978-1-4842-5184-3
-Priya, N., & Ahmed, J. (2021). A Survey on Digital Payments Security: Recent Trends and Future Opportunities. International Journal Of Computer Trends And Technology, 69(8), 26–34. https://doi.org/10.14445/22312803/ijctt-v69i8p107
-Seaman, J. (2020). Pci Dss: An Integrated Data Security Standard Guide (1st Edition). Apress L. P. https://doi.org/10.1007/978-1-4842-5808-8
-
+PCI Security Standards Council. (2025). PCI DSS Quick Reference Guide. In pcisecuritystandards.org. https://listings.pcisecuritystandards.org/documents/PCIDSS_QRGv3_1.pdf
+OWASP Foundation. (2021). OWASP Top Ten. https://owasp.org/www-project-top-ten/
 
 
 ## Bijlagen
