@@ -34,7 +34,7 @@ Daarom is besloten deze gegevens niet te verzamelen. Wel worden naam, e-mailadre
 Het wachtwoord wordt versleuteld opgeslagen (hashing), en een privacyverklaring is verplicht voordat een account aangemaakt kan worden. Voor minderjarigen is ouderlijke toestemming vereist.
 
 4. Hoe worden Third Party API's gebruikt om de beveiliging van gebruikersgegevens, tijdens het betalingsproces, te garanderen?
-Er zijn protocollen en richtlijnen die ervoor zorgen dat het product veilig kan worden gemaakt, zoals OWASP, OAuth 2.0 en PCI DSS. Hoewel het mogelijk is om deze te implementeren in een connectie met digitale betaalmiddelen, is het makkelijker en veiliger om een Third Party API te gebruiken om met een PSP te communiceren. De API's worden gemaakt met strenge protocollen en leveren dus een veiliger product.
+Er zijn protocollen en richtlijnen die ervoor zorgen dat het product veilig kan worden gemaakt, zoals OWASP, OAuth 2.0 en PCI DSS. Hoewel het mogelijk is om deze te implementeren in een connectie met digitale betaalmiddelen, is het makkelijker en veiliger om een Third Party API te gebruiken om met een PSP te communiceren, mits de protocollen op de juiste manier zijn geïmplementeerd. Een Third Party API die niet voldoende veiligheidsprotocollen implementeert, kan voor datalekken en hacks zorgen.
 
 ## Inleiding
 Dit onderzoek is gestart omdat 1-Mula de opdracht kreeg van LucaStars om de webshop Starshop te ontwikkelen. Deze webshop is bedoeld om licenties van de spellen, die door LucaStars ontwikkeld zijn, te verkopen. Omdat een webshop het visitekaartje is voor het bedrijf en direct invloed heeft op de verkoop en het vertrouwen van gebruikers, is het belangrijk dat de webshop gebruiksvriendelijk, veilig en betrouwbaar is.
@@ -333,7 +333,7 @@ Bij een webshop is het gebruikelijk om te betalen met een digitale betalingsmeth
 9. Security Logging and Monitoring Failures, wanneer hackers de beveiliging hebben doorbroken, door een gebrek aan goede monitoring en logging.
 10. Server-Side Request Forgery, wanneer een hacker een verzoek maakt aan de server (meestal via URL), die hun niet mogen maken
 
-Zelf verbinden aan een digitale betalingsmethode kan gevaarlijk uitpakken. Deze 10 kwetsbaarheden kunnen de ontwikkelaar helpen met het maken van een veilig programma, maar toch kan het ingewikkeld zijn om deze te implementeren. PSP's kunnen de ontwikkeling van het product versimpelen, versnellen en veiliger maken.
+Zelf verbinden aan een digitale betalingsmethode kan gevaarlijk uitpakken. Deze 10 kwetsbaarheden kunnen de ontwikkelaar helpen met het maken van een veilig programma, maar toch kan het ingewikkeld zijn om deze te implementeren. PSP's kunnen de ontwikkeling van het product versimpelen, versnellen en veiliger maken. Toch zit er ook een gevaar achter het gebruik van TPA's om met de PSP te verbinden. De TPA's moeten de veiligheidsprotocollen correct implementeren. Hackers hadden toegang tot gebruikersgegevens, zoals naam, adres, e-mail, telefoonnummer, geboortedatum, accountnummer en andere abonnementsgegevens (T-Mobile, 2023). Er was een fout gemaakt bij het authenticatieproces. Naast een tekort aan goede authenticatie, is het ook mogelijk voor een hacker om toegang te krijgen door middel van manipulatie. Op deze manier heeft een hacker toegang gekregen tot gebruikersgegevens van ongeveer 7 miljoen klanten van het cryptocurrency- en aandelenplatform Robinhood (2021). Hoewel een TPA het ontwikkelproces veiliger en simpeler kan maken, zijn TPA's ook vatbaar voor datalekken. Hoewel de gelekte gegevens niet betreffen op de betalingsgegevens van gebruikers, laat het wel zien dat persoonsgegevens, zoals naam, adres en telefoonnummer, niet altijd voldoende beveiligd wordt. Deze lekken laten zien dat de veiligheidsprotocollen nodig zijn.
 
 ### Beveiligingsmaatregelen
 
@@ -359,9 +359,9 @@ Om te verbinden met een PSP, moet er met een TPA gecommuniceerd worden. Alles da
 
 Met dit protocol kunnen ontwikkelaars en bedrijven omgaan met betalingsgegevens op een veilige manier. Deze maatregelen komen gedeeltelijk overeen met de gevaren die geïdentificeerd worden door OWASP. Regel 4 kan geïmplementeerd worden door het gebruik van het OAuth 2.0 authenticatie protocol. Dit is een protocol dat met *tokens*, een soort van tijdelijk wachtwoord, werkt om toegang te geven tot gegevens met limieten.
 
-### Conclusie
+### Samengevat
 
-Er zijn protocollen en richtlijnen die ervoor zorgen dat het product veilig kan worden gemaakt, zoals OWASP, OAuth 2.0 en PCI DSS. Hoewel het mogelijk is om deze te implementeren in een connectie met digitale betaalmiddelen, is het makkelijker en veiliger om een Third Party API te gebruiken om met een PSP te communiceren. De API's worden gemaakt met strenge protocollen en leveren dus een veiliger product.
+Er zijn protocollen en richtlijnen die ervoor zorgen dat het product veilig kan worden gemaakt, zoals OWASP, OAuth 2.0 en PCI DSS. Hoewel het mogelijk is om deze te implementeren in een connectie met digitale betaalmiddelen, is het makkelijker en veiliger om een Third Party API te gebruiken om met een PSP te communiceren, mits de protocollen op de juiste manier zijn geïmplementeerd. Een Third Party API die niet voldoende veiligheidsprotocollen implementeert, kan voor datalekken en hacks zorgen.
 
 ## Conclusie
 De hoofdvraag van dit onderzoek was:
@@ -381,7 +381,7 @@ Gegevens zoals het geslacht en de locatie worden wel opgeslagen, maar de gebruik
 Ook moet het wachtwoord beveiligd opgeslagen worden, en moet er een privacyverklaring geschreven worden zodat gebruikers toestemming geven tot het opslaan en gebruiken van hun persoonsgegevens.
 
 Deelvraag 4 brengt inzichten in het gebruik van Third Party API's in het betaalproces.
-Hieruit bleek dat het gebruik van Third Party API's het product veiliger en makkelijker maakt, door de strenge protocollen waaraan Third Party API's zich houden.
+Hieruit bleek dat het gebruik van Third Party API's het product veiliger en makkelijker maakt, door de strenge protocollen waaraan Third Party API's zich houden. Dit geld alleen zolang de Third Party API's correct volgens deze protocollen geïmplementeerd worden.
 
 De conclusie:\
 Een webshop die goed werkt, veilig is, makkelijk te gebruiken is en aansluit bij de wensen van zowel gebruikers als het bedrijf, wordt bereikt door:
@@ -407,6 +407,8 @@ Your Europe. (2022, 1 januari). *AVG | Algemene Verordening Gegevensbescherming*
 Siriwardena, P. (2020). Advanced API Security : OAuth 2.0 and Beyond (2nd ed. 2020.). Apress. https://doi.org/10.1007/978-1-4842-2050-4
 PCI Security Standards Council. (2025). PCI DSS Quick Reference Guide. In pcisecuritystandards.org. https://listings.pcisecuritystandards.org/documents/PCIDSS_QRGv3_1.pdf
 OWASP Foundation. (2021). OWASP Top Ten. https://owasp.org/www-project-top-ten/
+Robinhood. (2021, November 16). Robinhood announces data security incident (Update). Robinhood Newsroom. https://newsroom.aboutrobinhood.com/robinhood-announces-data-security-incident-update/
+T-Mobile. (2023, January 19). T-Mobile Informing Impacted Customers about Unauthorized Activity - T-Mobile Newsroom. T-Mobile Newsroom. https://www.t-mobile.com/news/business/customer-information
 
 
 ## Bijlagen
