@@ -11,7 +11,7 @@ Een webshop die games van een api ophaald.
 
 ## 🧩 Features
 
-- Haald game data op via een api.
+- Haald game data op via een api en weergeeft ze op de website.
 - Frontend is geoptimized voor mobile view.
 
 ---
