@@ -1,4 +1,20 @@
-# Opdracht blok 4 HBO-ICT SE
+# Opdracht blok 4 HBO-ICT SE (Webshop)
+Een webshop die games van een api ophaald.
+
+---
+
+## Screenshot
+
+![Screenshot](screenshots/FrontPage.png)
+
+---
+
+## 🧩 Features
+
+- Haald game data op via een api.
+- Frontend is geoptimized voor mobile view.
+
+---
 
 ## Hoe is deze repository ingericht
 - Story-board. Via het menu links (Plan > Issues) vind je alle user stories.

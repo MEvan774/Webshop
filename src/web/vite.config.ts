@@ -47,6 +47,9 @@ export default defineConfig(config => {
         plugins: [
             tsconfigPaths(),
             typechecksPlugin({
+                // explicit project root for the typechecks plugin so it can
+                // resolve the tsconfig and included files correctly
+                rootDirectory: resolve(__dirname),
                 tsConfigPath: "./tsconfig.json",
                 includePatterns: [
                     "./global.d.ts",
