@@ -125,18 +125,79 @@
   }
 
 
-  .hero-side-list {
+.hero-side-list {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 12px;
     padding-left: 16px;
     overflow-y: auto;
+    max-height: 400px;
+}
+
+.side-game {
+    z-index: 10;
+    background-color: #121212;
+    min-height: 90px;
+    flex: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.side-game a {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.side-game a:hover {
+    opacity: 0.9;
+}
+
+.side-game img {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    border-right: 1px solid #f4b111;
+    flex-shrink: 0;
+}
+
+.side-game p {
+    width: 50%;
+    padding: 12px;
+    margin: 0;
+    font-size: 0.9rem;
+    color: #FFFAF0;
+    text-align: center;
+    background-color: #121212;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'TimesNewRoman';
+}
+
+@media screen and (max-width: 768px) {
+  .hero-banner {
+    flex-direction: column;
+    height: auto;
   }
 
-  @media screen and (max-width: 768px) {
+  .hero-main {
+    width: 100%;
+    height: auto;
+  }
+
+  .hero-main img {
+    height: auto;
+    max-height: 250px;
+  }
+
   .hero-text {
-    position: static; /* Remove absolute positioning */
+    position: static;
     width: 90%;
     margin: 12px auto 0 auto;
     background: rgba(0, 0, 0, 0.7);
@@ -161,39 +222,75 @@
     display: block;
     margin: 10px auto 0 auto;
   }
-}
 
+  .hero-side-list {
+    padding-left: 0;
+    margin-top: 16px;
+    flex-direction: column;
+    max-height: none;
+    overflow-y: visible;
+    width: 100%;
+  }
 
   .side-game {
-    z-index: 10;
-    display: flex;
-    flex-direction: row;
-    background-color: #121212;
-    height: 25%;
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.side-game img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-right: 1px solid #f4b111;
+    min-height: auto;
+  }
+
+  .side-game a {
+    flex-direction: column;
+  }
+
+  .side-game img {
+    width: 100%;
+    height: 120px;
+    border-right: none;
+    border-bottom: 1px solid #f4b111;
   }
 
   .side-game p {
-    padding: 6px;
-    margin: 0;
-    font-size: 0.9rem;
-    color: #FFFAF0;
-    text-align: center;
-    background-color: #121212;
-    z-index: 1;
-    width: 300px;
-    align-content: center;
-    font-family: 'RaleWay';
+    width: 100%;
+    padding: 12px;
   }
+
+  .discover {
+    width: 95%;
+  }
+
+  .horizontal-scroll {
+    width: 80%;
+    padding: 0;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scroll-arrow.left {
+    height: 60px;
+    width: 35px;
+    border-radius: 55px 0 0 55px;
+    background-color: #f4b111;
+  }
+
+  .scroll-arrow.right {
+    height: 60px;
+    width: 35px;
+    border-radius: 0 55px 55px 0;
+    background-color: #f4b111;
+  }
+
+  .horizontal-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .game-card {
+    flex: 0 0 auto;
+    width: 70vw;
+    max-width: 250px;
+    scroll-snap-align: start;
+  }
+}
 
 @media screen and (max-width: 768px) {
   .hero-banner {
@@ -224,7 +321,7 @@
     margin-top: 16px;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .side-game {
@@ -232,6 +329,7 @@
     width: 45%;
     height: auto;
     max-width: 180px;
+    min-width: 45%;
   }
 
   .side-game img {
@@ -242,6 +340,8 @@
 
   .side-game p {
     width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
   .discover {
