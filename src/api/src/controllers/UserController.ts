@@ -130,28 +130,12 @@ export class UserController {
             );
 
             if (userId) {
-            // Build the verification URL
-                const baseUrl: string = process.env.BASE_URL || "http://localhost:3000";
-                const verifyUrl: string = `${baseUrl}/verify.html?token=${verificationToken}`;
+                const sessionId: string | undefined = await this._sessionService.createSession(Number(userId));
+                res.cookie("session", sessionId, { httpOnly: true, secure: true });
 
-                // Try to send verification email via Resend
-                const emailService: EmailService = new EmailService();
-                const emailSent: boolean = await emailService.sendEmail(
-                    email,
-                    firstname,
-                    "Welkom bij Starshop",
-                `<h1>Welkom ${firstname} ${lastname}!</h1>
-                 <p>Bedankt voor het registreren bij Starshop.</p>
-                 <p>Klik <a href="${verifyUrl}">hier</a> om je registratie te bevestigen.</p>`
-                );
-
-                // Always return the verification URL as fallback
                 res.status(201).json({
                     message: "Gebruiker succesvol geregistreerd!",
                     userId,
-                    verificationToken,
-                    verifyUrl,
-                    emailSent,
                 });
             }
             else {
@@ -166,7 +150,6 @@ export class UserController {
             });
         }
     }
-
     /**
      * Edit the user information with the userService
      *

@@ -77,7 +77,7 @@ export class UserService {
         const connection: PoolConnection = await this._databaseService.openConnection();
         try {
             const result: ResultSetHeader = await this._databaseService.query<ResultSetHeader>(
-                connection, "INSERT INTO user (email, firstname, lastname, password, dob, gender, verificationToken, isVerified) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", email, fname, lname, password, dob, gender, verifyToken, false
+                connection, "INSERT INTO user (email, firstname, lastname, password, dob, gender, verificationToken, isVerified) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", email, fname, lname, password, dob, gender, verifyToken, true
             );
 
             if (result.affectedRows > 0) {

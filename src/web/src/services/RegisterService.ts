@@ -1,20 +1,7 @@
 import { RegisterResult, UserRegisterData } from "@shared/types";
 import { IRegisterService } from "@web/interfaces/IRegisterService";
 
-/**
- * Here all register-logic is placed
- */
 export class RegisterService implements IRegisterService {
-    /**
-     * Checks if all data is present and in correct format
-     * @param fname Firstname field
-     * @param lname Lastname field
-     * @param email Email field
-     * @param gender Gender field
-     * @param dob DoB field
-     * @param password Password field
-     * @param passwordRepeat Password verify field
-     */
     public checkData(fname: string, lname: string, email: string, gender: string, dob: string, password: string, passwordRepeat: string): { valid: boolean; messages: string[] } {
         const messages: string[] = [];
         if (!fname.trim()) {
@@ -44,11 +31,6 @@ export class RegisterService implements IRegisterService {
         return { valid: messages.length === 0, messages };
     }
 
-    /**
-     * Check whether an email exists in the system
-     * @param email Requires an email address
-     * @returns true or false to determine if an email is used already
-     */
     public async getUserByEmail(email: string): Promise<boolean> {
         try {
             const response: Response = await fetch(`${VITE_API_URL}user/exists/${email}`, {
@@ -68,23 +50,12 @@ export class RegisterService implements IRegisterService {
 
             throw new Error(`Onverwachte statuscode: ${response.status}`);
         }
-        catch (error) {
+        catch (error: unknown) {
             console.log("Bestaande gebruiker zoeken is mislukt:", error);
             return false;
         }
     }
 
-    /**
-     * This function actually registers a user into the system after all other checks are completed
-     * @param fname Firstname field
-     * @param lname Lastname field
-     * @param email Email field
-     * @param gender Gender field
-     * @param dob DoB field
-     * @param password Password field
-     * @param passwordRepeat Password verify field
-     * @returns true or false based off success
-     */
     public async registerUser(
         fname: string, lname: string, email: string,
         dob: string, gender: string, password: string
@@ -112,7 +83,7 @@ export class RegisterService implements IRegisterService {
 
             if (response.status === 201) {
                 const responseData: { verifyUrl: string; emailSent: boolean } =
-                await response.json() as { verifyUrl: string; emailSent: boolean };
+                    await response.json() as { verifyUrl: string; emailSent: boolean };
 
                 console.log("Account succesvol aangemaakt!");
                 return {

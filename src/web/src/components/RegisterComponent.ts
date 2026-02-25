@@ -1,3 +1,4 @@
+import { RegisterResult } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
 import { RegisterService } from "@web/services/RegisterService";
 
@@ -120,24 +121,14 @@ export class RegisterComponent extends HTMLElement {
                         return;
                     }
 
-                    const result: { success: boolean; verifyUrl?: string; emailSent?: boolean } = await registerService.registerUser(
-                        fnameInput.value, lnameInput.value, emailInput.value,
-                        dobInput.value, genderInput.value, passwordInput.value
-                    );
+                    if (!userExists) {
+                        const result: RegisterResult = await registerService.registerUser(
+                            fnameInput.value, lnameInput.value, emailInput.value,
+                            dobInput.value, genderInput.value, passwordInput.value
+                        );
 
-                    if (successDiv && result.success) {
-                        if (result.emailSent) {
-                            successDiv.innerHTML =
-                "Account succesvol aangemaakt! Check je email om je account te verifiëren.";
-                        }
-                        else {
-                            successDiv.innerHTML =
-                `Account succesvol aangemaakt! Verifieer je account via deze link:<br>
-                 <a href="${result.verifyUrl}" style="color: #ffcc00;">${result.verifyUrl}</a>`;
-                        }
-
-                        if (errorDiv) {
-                            errorDiv.textContent = "";
+                        if (result.success) {
+                            window.location.href = "/";
                         }
                     }
                 });
