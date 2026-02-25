@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
-import { getGameWithGameID } from "@api/services/CurrentGameService";
-import { GameResult } from "@shared/types";
-import { GamesService } from "@api/services/GamesService";
+import { GameResult, CheapSharkGameDetail } from "@shared/types";
+import { CheapSharkService } from "@web/services/CheapSharkService";
 
 /**
  * Class for the current game controller
  */
 export class CurrentGameController {
-    private readonly gameService: GamesService = new GamesService();
+    private readonly cheapSharkService: CheapSharkService = new CheapSharkService();
 
     /**
      * Get the current game with the gameID
@@ -20,42 +19,30 @@ export class CurrentGameController {
         const { gameID } = req.params;
 
         try {
-            const game: GameResult | null = await getGameWithGameID(gameID);
+            const gameDetail: CheapSharkGameDetail = await this.cheapSharkService.getGameById(gameID);
 
-            if (!game) {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if (!gameDetail || !gameDetail.info) {
                 res.status(404).json({ error: "Game not found" });
                 return;
             }
 
-            res.json(game);
-        }
-        catch (error: unknown) {
-            if (error instanceof Error) {
-                console.error("Failed to fetch game:", error.message);
-                res.status(500).json({ error: error.message });
-            }
-            else {
-                console.error("Unexpected error:", error);
-                res.status(500).json({ error: "Internal server error" });
-            }
-        }
-    }
-
-    /**
-     * Get the game with the given SKU
-     *
-     * @param SKU The SKU of the game as string
-     * @param res The response to send the result to
-     * @returns Void
-     */
-    public async getGameBySKU(SKU: string, res: Response): Promise<void> {
-        try {
-            const game: GameResult | null = await this.gameService.getGameWithSKU(SKU);
-
-            if (!game) {
-                res.status(404).json({ error: "Game not found" });
-                return;
-            }
+            const game: GameResult = {
+                gameId: gameID,
+                cheapSharkGameId: gameID,
+                SKU: gameDetail.deals[0]?.dealID || gameID,
+                title: gameDetail.info.title,
+                thumbnail: gameDetail.info.thumb,
+                images: null,
+                descriptionMarkdown: "",
+                descriptionHtml: "",
+                url: gameDetail.info.steamAppID
+                    ? `https://store.steampowered.com/app/${gameDetail.info.steamAppID}`
+                    : "",
+                authors: null,
+                tags: null,
+                reviews: null,
+            };
 
             res.json(game);
         }

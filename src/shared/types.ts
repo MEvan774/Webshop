@@ -76,9 +76,11 @@ export type LoginData = {
  * Represents a game
  */
 export type GameResult = {
-    /** ID of the game */
-    gameId: number;
-    /** SKU of the game */
+    /** Deal ID from CheapShark (replaces old gameId) */
+    gameId: string;
+    /** Internal game ID from CheapShark */
+    cheapSharkGameId: string;
+    /** SKU - using dealID as unique identifier */
     SKU: string;
     /** Title of the game */
     title: string;
@@ -90,9 +92,9 @@ export type GameResult = {
     descriptionMarkdown: string;
     /** The HTML of the game description */
     descriptionHtml: string;
-    /** The URL of the game */
+    /** The URL of the game (link to deal on store) */
     url: string;
-    /** The authors of the game */
+    /** The authors/developers of the game */
     authors: string[] | null;
     /** The tags of the game */
     tags: string[] | null;
@@ -136,9 +138,11 @@ export type UserResponse = {
 
 export type ProductPrice = {
     price: number;
-    productId: number;
+    productId: string;
     currency: string;
-    validUntil: Date;
+    normalPrice: number;
+    savings: string;
+    storeID: string;
 };
 
 export type GameWithPrices = {
@@ -147,7 +151,87 @@ export type GameWithPrices = {
 };
 
 export type SalePrices = {
-    gameId: number;
+    gameId: string;
     oldPrice: number;
     newPrice: number;
+};
+
+/**
+ * Represents a deal from CheapShark API
+ * This replaces the old GameResult + ProductPrice combo
+ */
+export type CheapSharkDeal = {
+    internalName: string;
+    title: string;
+    metacriticLink: string | null;
+    dealID: string;
+    storeID: string;
+    gameID: string;
+    salePrice: string;
+    normalPrice: string;
+    isOnSale: string;
+    savings: string;
+    metacriticScore: string;
+    steamRatingText: string | null;
+    steamRatingPercent: string;
+    steamRatingCount: string;
+    steamAppID: string | null;
+    releaseDate: number;
+    lastChange: number;
+    dealRating: string;
+    thumb: string;
+};
+
+/**
+ * Represents a game from CheapShark /games?id={id} endpoint
+ */
+export type CheapSharkGameDetail = {
+    info: {
+        title: string;
+        steamAppID: string | null;
+        thumb: string;
+    };
+    cheapestPriceEver: {
+        price: string;
+        date: number;
+    };
+    deals: CheapSharkGameDeal[];
+};
+
+/**
+ * Represents a single deal inside a game detail response
+ */
+export type CheapSharkGameDeal = {
+    storeID: string;
+    dealID: string;
+    price: string;
+    retailPrice: string;
+    savings: string;
+};
+
+/**
+ * Represents a game from CheapShark /games?title={title} search
+ */
+export type CheapSharkGameSearch = {
+    gameID: string;
+    steamAppID: string | null;
+    cheapest: string;
+    cheapestDealID: string;
+    external: string; // game title
+    internalName: string;
+    thumb: string;
+};
+
+/**
+ * Represents a store from CheapShark /stores endpoint
+ */
+export type CheapSharkStore = {
+    storeID: string;
+    storeName: string;
+    isActive: number;
+    images: {
+        banner: string;
+        logo: string;
+        icon: string;
+    };
 };

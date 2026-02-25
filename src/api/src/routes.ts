@@ -1,15 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Router } from "express";
 import { WelcomeController } from "./controllers/WelcomeController";
 import { requireValidSessionMiddleware, sessionMiddleware } from "./middleware/sessionMiddleware";
 import { UserController } from "./controllers/UserController";
 import { GamesController } from "./controllers/GamesController";
-import { getGameWithGameID } from "./services/CurrentGameService";
-import { GameResult, ProductPrice, TokenData, UserResult } from "@shared/types";
+import { TokenData, UserResult } from "@shared/types";
 import { checkEmail, getUser } from "./services/ProfileService";
 import { changePassword } from "./services/ProfileService";
 import { TokenController } from "./controllers/TokenController";
 import { LicenseController } from "./controllers/LicenseController";
-import { CurrentGameController } from "./controllers/CurrentGameController";
 import { UserService } from "./services/UserService";
 import { ShoppingCartController } from "./controllers/ShoppingCartController";
 
@@ -28,19 +27,18 @@ const gamesController: GamesController = new GamesController();
 const cartController: ShoppingCartController = new ShoppingCartController();
 const tokenController: TokenController = new TokenController();
 const licenseController: LicenseController = new LicenseController();
-const currentGameController: CurrentGameController = new CurrentGameController();
 
 // Check token after clicking link
 router.get("/token/:token", async (req, res) => {
     const { token } = req.params;
 
-    const TokenData: TokenData | undefined = await tokenController.checkToken(token);
+    const tokenData: TokenData | undefined = await tokenController.checkToken(token);
 
-    if (!TokenData) {
+    if (!tokenData) {
         return res.status(404).json({ error: "Game not found" });
     }
 
-    return res.json(TokenData);
+    return res.json(tokenData);
 });
 
 // Change the email of the user
@@ -50,26 +48,11 @@ const userService: UserService = new UserService();
 // Cancel the change the email of the user
 router.post("/user/cancel-email", async (req, res) => await userController.cancelEmail(req, res));
 
+router.get("/games/search", (req, res) => gamesController.searchGames(req, res));
+router.get("/stores", (req, res) => gamesController.getStores(req, res));
+
 // Get current game
-router.get("/games/:gameId", async (req, res) => {
-    const { gameId } = req.params;
-
-    try {
-        // Call the service function to get the game data
-        const game: GameResult | null = await getGameWithGameID(gameId);
-
-        if (!game) {
-            return res.status(404).json({ error: "Game not found" });
-        }
-
-        // Respond with the game data
-        return res.json(game);
-    }
-    catch (error) {
-        console.error("Error fetching game:", error);
-        return res.status(500).json({ error: "An error occurred while fetching the game." });
-    }
-});
+router.get("/games/:gameID", (req, res) => gamesController.getGameById(req, res));
 
 // Get the user by the sessionID
 router.get("/user/:sessionID", async (req, res) => {
@@ -94,33 +77,7 @@ router.get("/user/:sessionID", async (req, res) => {
 
 router.get("/products", (req, res) => gamesController.getAllGames(req, res));
 
-router.get("/products/prices/:gameId", async (req, res) => {
-    console.log("Incoming request headers:", req.headers);
-    const { gameId } = req.params;
-
-    try {
-        const response: Response = await fetch(`http://oege.ie.hva.nl:8580/api/productprices/${gameId}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-
-        console.log("Response status from OEGE API:", response.status);
-
-        if (!response.ok) {
-            return res.status(404).json({ error: "The expected data has not been found." });
-        }
-
-        const data: ProductPrice[] = await response.json() as ProductPrice[];
-
-        return res.json(data);
-    }
-    catch (error: unknown) {
-        console.error("Error fetching from OEGE API:", error);
-        return res.status(500).json({ error: `An error occured while fetching data ${error}` });
-    }
-});
+router.get("/products/prices/:gameId", (req, res) => gamesController.getProductPrices(req, res));
 
 router.post("/user/register", (req, res) => userController.registerUser(req, res));
 router.get("/user/exists/:email", (req, res) => userController.getUserByEmail(req, res));
@@ -212,17 +169,6 @@ router.get("/license/:userId", async (req, res) => {
     try {
         const { userId } = req.params;
         await licenseController.getLicensesByUser(userId, res);
-    }
-    catch (error) {
-        res.status(500).json({ message: "Internal server error:", error });
-    }
-});
-
-// Get the game with the given SKU
-router.get("/gamesSKU/:SKU", async (req, res) => {
-    try {
-        const { SKU } = req.params;
-        await currentGameController.getGameBySKU(SKU, res);
     }
     catch (error) {
         res.status(500).json({ message: "Internal server error:", error });

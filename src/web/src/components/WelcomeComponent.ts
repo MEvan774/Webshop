@@ -1,4 +1,4 @@
-import { GameResult, GameWithPrices, ProductPrice, SalePrices } from "@shared/types";
+import { GameResult, ProductPrice, SalePrices } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
 import { AllGameService } from "@web/services/AllGamesService";
 
@@ -17,36 +17,34 @@ export class WelcomeComponent extends HTMLElement {
     }
 
     private frontPageGames: GameResult[] = [];
-    private saleGamesWithPrices: GameWithPrices[] = [];
     private saleGamesGame: GameResult[] = [];
     private saleGames: SalePrices[] = [];
 
     private async addGames(): Promise<void> {
         const games: GameResult[] | null = await this.getAllGames();
-        if (!games) return;
+        if (!games || games.length === 0) return;
 
-        const frontPageIndexes: number[] = [36, 3, 5, 40, 41];
-        const saleIndexes: number[] = [12, 11, 8, 7, 9, 15, 19, 20];
+        // Use first 5 games as frontpage featured games
+        const frontPageCount: number = Math.min(5, games.length);
+        this.frontPageGames = games.slice(0, frontPageCount);
 
-        // 1. Vul frontPageGames met de juiste games
-        this.frontPageGames = frontPageIndexes.map(i => games[i]);
-
-        // 2. Pak sale games zonder prijzen
-        const saleGames: GameResult[] = saleIndexes.map(i => games[i]);
-
+        // Use the next 8 games as sale games
+        const saleStart: number = frontPageCount;
+        const saleEnd: number = Math.min(saleStart + 8, games.length);
+        const saleGames: GameResult[] = games.slice(saleStart, saleEnd);
         this.saleGamesGame = saleGames;
 
-        // 3. Filter geldige gameIDs (als numbers)
-        const validGameIds: number[] = saleGames
-            .filter(g => g.gameId && !isNaN(Number(g.gameId)))
-            .map(g => Number(g.gameId));
+        // Get game IDs for price fetching (now strings)
+        const validGameIds: string[] = saleGames
+            .filter((g: GameResult) => g.gameId)
+            .map((g: GameResult) => g.gameId);
 
         if (validGameIds.length === 0) {
             console.warn("Geen geldige gameIDs gevonden.");
             return;
         }
 
-        // 4. Haal alle prijzen in 1 call
+        // Haal alle prijzen op
         const pricesByGameId: Record<string, ProductPrice> | null = await this.getProductPrices(validGameIds);
 
         if (!pricesByGameId) {
@@ -54,20 +52,23 @@ export class WelcomeComponent extends HTMLElement {
             return;
         }
 
-        if (this.saleGamesWithPrices.length < 0) {
-            return;
-        }
-
+        // Build sale prices array
         for (let x: number = 0; x < this.saleGamesGame.length; x++) {
-            const salePrice: number = pricesByGameId[x].price / 4 * 3;
+            const gameId: string = this.saleGamesGame[x].gameId;
+            const priceData: ProductPrice | undefined = pricesByGameId[gameId];
 
-            const saleGame: SalePrices = {
-                gameId: this.saleGamesGame[x].gameId,
-                oldPrice: pricesByGameId[x].price,
-                newPrice: salePrice,
-            };
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            if (priceData) {
+                const salePrice: number = priceData.price * 0.75; // 25% discount
 
-            this.saleGames.push(saleGame);
+                const saleGame: SalePrices = {
+                    gameId: gameId,
+                    oldPrice: priceData.price,
+                    newPrice: salePrice,
+                };
+
+                this.saleGames.push(saleGame);
+            }
         }
     }
 
@@ -78,7 +79,7 @@ export class WelcomeComponent extends HTMLElement {
         return await allGames.getAllGames();
     }
 
-    private async getProductPrices(productIds: number[]): Promise<Record<number, ProductPrice> | null> {
+    private async getProductPrices(productIds: string[]): Promise<Record<string, ProductPrice> | null> {
         const productPrice: AllGameService = new AllGameService();
         return await productPrice.getGamePrices(productIds);
     }
