@@ -1,6 +1,5 @@
-import { UserRegisterData, UserRegistrationResponse } from "@shared/types";
+import { RegisterResult, UserRegisterData } from "@shared/types";
 import { IRegisterService } from "@web/interfaces/IRegisterService";
-import { EmailService } from "@web/services/EmailService";
 
 /**
  * Here all register-logic is placed
@@ -83,15 +82,18 @@ export class RegisterService implements IRegisterService {
      * @param gender Gender field
      * @param dob DoB field
      * @param password Password field
+     * @param passwordRepeat Password verify field
      * @returns true or false based off success
      */
-    public async registerUser(fname: string, lname: string, email: string, dob: string, gender: string, password: string): Promise<boolean> {
+    public async registerUser(
+        fname: string, lname: string, email: string,
+        dob: string, gender: string, password: string
+    ): Promise<RegisterResult> {
         const userData: UserRegisterData = {
             firstname: fname, lastname: lname, email, dob, gender, password,
             verificationToken: undefined,
             isVerified: undefined,
         };
-        const emailService: EmailService = new EmailService();
 
         try {
             const response: Response = await fetch(`${VITE_API_URL}user/register`, {
@@ -104,32 +106,27 @@ export class RegisterService implements IRegisterService {
             });
 
             if (response.status === 200) {
-                console.log("De gebruiker bestaat");
-                return true;
+                console.log("De gebruiker bestaat al");
+                return { success: false };
             }
 
-            console.log("Account succesvol aangemaakt!");
-            const responseData: UserRegistrationResponse = await response.json() as UserRegistrationResponse;
-            const verificationToken: string = responseData.verificationToken;
-            const verifyUrl: string = `https://naagooxeekuu77-pb4sef2425.hbo-ict.cloud/verify.html?token=${verificationToken}`;
+            if (response.status === 201) {
+                const responseData: { verifyUrl: string; emailSent: boolean } =
+                await response.json() as { verifyUrl: string; emailSent: boolean };
 
-            await emailService.sendVerifyEmail(
-                fname,
-                email,
-                "Welkom bij Starshop",
-                `<h1>Welkom ${fname} ${lname}!</h1><p>Bedankt voor het registreren bij Starshop.</p><p>Klik <a href="${verifyUrl}">hier</a> om je registratie te bevestigen. LET OP: Pas na het bevestigen van de registratie kan je inloggen.</p>`
-            );
+                console.log("Account succesvol aangemaakt!");
+                return {
+                    success: true,
+                    verifyUrl: responseData.verifyUrl,
+                    emailSent: responseData.emailSent,
+                };
+            }
 
-            return true;
+            return { success: false };
         }
         catch (error: unknown) {
-            if (error instanceof Error) {
-                console.error("Registratie mislukt:", error.message);
-            }
-            else {
-                console.error("Registratie mislukt, onbekende fout:", error);
-            }
-            return false;
+            console.log("Registratie is mislukt:", error);
+            return { success: false };
         }
     }
 }

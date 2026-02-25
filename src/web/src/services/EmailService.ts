@@ -1,33 +1,32 @@
 import { IEmailService } from "@web/interfaces/IEmailService";
 
 export class EmailService implements IEmailService {
+    /**
+     * Send an email through the API (which uses Resend server-side)
+     */
     public async sendVerifyEmail(name: string, email: string, subject: string, htmlBody: string): Promise<void> {
-        const response: Response = await fetch("https://api.hbo-ict.cloud/mail", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer pb4sef2425_naagooxeekuu77.h6itSLok4uSdXIdG",
-            },
-            body: JSON.stringify({
-                from: {
-                    name: "Starshop",
-                    address: "group@fys.cloud",
+        try {
+            const response: Response = await fetch(`${VITE_API_URL}email/send`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
                 },
-                to: [
-                    {
-                        name: name,
-                        address: email,
-                    },
-                ],
-                subject: subject,
-                html: htmlBody,
-            }),
-        });
+                credentials: "include",
+                body: JSON.stringify({
+                    to: email,
+                    toName: name,
+                    subject: subject,
+                    html: htmlBody,
+                }),
+            });
 
-        const data: unknown = await response.json();
-        console.log(data);
-        return;
-    };
+            const data: unknown = await response.json();
+            console.log("Email send result:", data);
+        }
+        catch (error) {
+            console.error("Failed to send email:", error);
+        }
+    }
 
     /**
       * Checks if email is in used when changing the email

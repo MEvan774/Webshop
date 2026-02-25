@@ -4,6 +4,7 @@ import { UserService } from "../services/UserService";
 import { SessionService } from "@api/services/SessionService";
 import bcrypt from "bcryptjs";
 import { randomBytes } from "crypto";
+import { EmailService } from "../services/EmailService";
 
 interface UserRegisterRequest extends Request {
     body: UserRegisterData;
@@ -124,10 +125,34 @@ export class UserController {
         const verificationToken: string = randomBytes(32).toString("hex");
 
         try {
-            const userId: string | undefined = await this._userService.registerUser(firstname, lastname, email, dob, gender, hashedPassword, verificationToken);
+            const userId: string | undefined = await this._userService.registerUser(
+                firstname, lastname, email, dob, gender, hashedPassword, verificationToken
+            );
 
             if (userId) {
-                res.status(201).json({ message: "Gebruiker succesvol geregistreerd!", userId, verificationToken });
+            // Build the verification URL
+                const baseUrl: string = process.env.BASE_URL || "http://localhost:3000";
+                const verifyUrl: string = `${baseUrl}/verify.html?token=${verificationToken}`;
+
+                // Try to send verification email via Resend
+                const emailService: EmailService = new EmailService();
+                const emailSent: boolean = await emailService.sendEmail(
+                    email,
+                    firstname,
+                    "Welkom bij Starshop",
+                `<h1>Welkom ${firstname} ${lastname}!</h1>
+                 <p>Bedankt voor het registreren bij Starshop.</p>
+                 <p>Klik <a href="${verifyUrl}">hier</a> om je registratie te bevestigen.</p>`
+                );
+
+                // Always return the verification URL as fallback
+                res.status(201).json({
+                    message: "Gebruiker succesvol geregistreerd!",
+                    userId,
+                    verificationToken,
+                    verifyUrl,
+                    emailSent,
+                });
             }
             else {
                 res.status(500).json({ error: "Er is iets misgegaan bij het registreren van de gebruiker." });

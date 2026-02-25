@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+import { EmailService } from "./services/EmailService";
 import { Router } from "express";
 import { WelcomeController } from "./controllers/WelcomeController";
 import { requireValidSessionMiddleware, sessionMiddleware } from "./middleware/sessionMiddleware";
@@ -82,6 +82,28 @@ router.get("/products/prices/:gameId", (req, res) => gamesController.getProductP
 router.post("/user/register", (req, res) => userController.registerUser(req, res));
 router.get("/user/exists/:email", (req, res) => userController.getUserByEmail(req, res));
 router.post("/user/login", (req, res) => userController.loginUser(req, res));
+
+router.post("/email/send", async (req, res) => {
+    const { to, toName, subject, html } = req.body as { to: string; toName?: string; subject: string; html: string };
+
+    if (!to || !subject || !html) {
+        return res.status(400).json({ error: "Missing required fields: to, subject, html" });
+    }
+
+    try {
+        const emailService: EmailService = new EmailService();
+        const sent: boolean = await emailService.sendEmail(to, toName || "", subject, html);
+
+        if (sent)
+            return res.status(200).json({ message: "Email sent successfully" });
+        else
+            return res.status(500).json({ error: "Failed to send email" });
+    }
+    catch (error) {
+        console.error("Email send error:", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
 
 // NOTE: After this line, all endpoints will check for a session.
 router.use(sessionMiddleware);

@@ -156,6 +156,12 @@ export type SalePrices = {
     newPrice: number;
 };
 
+export type RegisterResult = {
+    success: boolean;
+    verifyUrl?: string;
+    emailSent?: boolean;
+};
+
 /**
  * Represents a deal from CheapShark API
  * This replaces the old GameResult + ProductPrice combo

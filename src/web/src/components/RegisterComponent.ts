@@ -14,7 +14,6 @@ export class RegisterComponent extends HTMLElement {
         if (!this.shadowRoot) {
             return;
         }
-
         const element: HTMLElement = html`
         <form>
             <div class="registerForm">
@@ -121,10 +120,24 @@ export class RegisterComponent extends HTMLElement {
                         return;
                     }
 
-                    if (!userExists) {
-                        const userRegister: boolean = await registerService.registerUser(fnameInput.value, lnameInput.value, emailInput.value, dobInput.value, genderInput.value, passwordInput.value);
-                        if (successDiv && userRegister) {
-                            successDiv.textContent = "Account succesvol aangemaakt.";
+                    const result: { success: boolean; verifyUrl?: string; emailSent?: boolean } = await registerService.registerUser(
+                        fnameInput.value, lnameInput.value, emailInput.value,
+                        dobInput.value, genderInput.value, passwordInput.value
+                    );
+
+                    if (successDiv && result.success) {
+                        if (result.emailSent) {
+                            successDiv.innerHTML =
+                "Account succesvol aangemaakt! Check je email om je account te verifiëren.";
+                        }
+                        else {
+                            successDiv.innerHTML =
+                `Account succesvol aangemaakt! Verifieer je account via deze link:<br>
+                 <a href="${result.verifyUrl}" style="color: #ffcc00;">${result.verifyUrl}</a>`;
+                        }
+
+                        if (errorDiv) {
+                            errorDiv.textContent = "";
                         }
                     }
                 });
