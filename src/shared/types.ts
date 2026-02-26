@@ -1,98 +1,46 @@
 /**
- * Represents a session
- */
-export type SessionResponse = {
-    /** ID of the session */
-    sessionId: string;
-};
-
-/**
- * Represents a welcome message
- */
-export type WelcomeResponse = {
-    /** Contents of the welcome message */
-    message: string;
-};
-
-/**
- * Represents a secret message
- */
-export type SecretResponse = {
-    /** ID of the session */
-    sessionId: string;
-    /** ID of the user */
-    userId: string;
-};
-
-/**
- * Represents the user data
+ * Represents a user
  */
 export type UserResult = {
     userId: number;
-    firstname: string;
-    lastname: string;
     email: string;
     password: string;
+    fname: string;
+    lname: string;
     dob: string;
     gender: string;
-    country: string | null;
-    profilePicture: string | null;
-    isVerified: boolean;
+    country: string;
+    verified: boolean;
 };
 
 /**
- * Represents the user register data
+ * Represents a welcome response
  */
-export type UserRegisterData = {
-    firstname: string;
-    lastname: string;
-    email: string;
-    password: string;
-    dob: string;
-    gender: string;
-    verificationToken: string | undefined;
-    isVerified: boolean | undefined;
-};
-
-/**
- * Represents data given to user on registration
- */
-export type UserRegistrationResponse = {
+export type WelcomeResponse = {
     message: string;
-    userId: string;
-    verificationToken: string;
-    isVerified: boolean | undefined;
 };
 
 /**
- * Represents the login data
- */
-export type LoginData = {
-    email: string;
-    password: string;
-};
-
-/**
- * Represents a game
+ * Represents a game result
  */
 export type GameResult = {
-    /** Deal ID from CheapShark (replaces old gameId) */
+    /** The ID of the game */
     gameId: string;
-    /** Internal game ID from CheapShark */
+    /** The CheapShark game ID */
     cheapSharkGameId: string;
-    /** SKU - using dealID as unique identifier */
+    /** The SKU/dealID of the game */
     SKU: string;
-    /** Title of the game */
+    /** The title of the game */
     title: string;
-    /** Thumbnail of the game */
+    /** The thumbnail of the game */
     thumbnail: string;
-    /** Other images of the game */
+    /** The images of the game */
     images: string[] | null;
-    /** The markdown of the game description */
+    /** The description of the game in markdown */
     descriptionMarkdown: string;
-    /** The HTML of the game description */
+    /** The description of the game in html */
     descriptionHtml: string;
-    /** The URL of the game (link to deal on store) */
+    /** The URL to the store page */
     url: string;
     /** The authors/developers of the game */
     authors: string[] | null;
@@ -100,6 +48,45 @@ export type GameResult = {
     tags: string[] | null;
     /** The reviews of the game */
     reviews: string[] | null;
+};
+
+/**
+ * Extended game result with additional detail from CheapShark.
+ * Used on the game detail page to show richer information.
+ */
+export type GameDetailResult = GameResult & {
+    /** Steam rating text, e.g. "Very Positive" */
+    steamRatingText: string | null;
+    /** Steam rating as a percentage, e.g. "92" */
+    steamRatingPercent: string | null;
+    /** Number of Steam reviews */
+    steamRatingCount: string | null;
+    /** Metacritic score, e.g. "85" */
+    metacriticScore: string | null;
+    /** Link to the Metacritic page */
+    metacriticLink: string | null;
+    /** Release date as a Unix timestamp */
+    releaseDate: number | null;
+    /** The cheapest price this game has ever been */
+    cheapestPriceEver: {
+        price: string;
+        date: number;
+    } | null;
+    /** All current deals across different stores */
+    storeDeals: StoreDeal[] | null;
+};
+
+/**
+ * Represents a deal from a specific store for the game detail page
+ */
+export type StoreDeal = {
+    storeID: string;
+    storeName: string;
+    storeIcon: string;
+    dealID: string;
+    price: string;
+    retailPrice: string;
+    savings: string;
 };
 
 /**
@@ -186,6 +173,39 @@ export type CheapSharkDeal = {
     lastChange: number;
     dealRating: string;
     thumb: string;
+};
+
+/**
+ * Represents the detailed response from CheapShark /deals?id={dealID}
+ */
+export type CheapSharkDealDetail = {
+    gameInfo: {
+        storeID: string;
+        gameID: string;
+        name: string;
+        steamAppID: string | null;
+        salePrice: string;
+        retailPrice: string;
+        steamRatingText: string | null;
+        steamRatingPercent: string;
+        steamRatingCount: string;
+        metacriticScore: string;
+        metacriticLink: string | null;
+        releaseDate: number;
+        publisher: string | null;
+        steamworks: string | null;
+        thumb: string;
+    };
+    cheaperStores: {
+        dealID: string;
+        storeID: string;
+        salePrice: string;
+        retailPrice: string;
+    }[];
+    cheapestPrice: {
+        price: string;
+        date: number;
+    };
 };
 
 /**

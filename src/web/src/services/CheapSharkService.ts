@@ -1,4 +1,4 @@
-import { CheapSharkDeal, CheapSharkGameDetail, CheapSharkGameSearch, CheapSharkStore } from "@shared/types";
+import { CheapSharkDeal, CheapSharkDealDetail, CheapSharkGameDetail, CheapSharkGameSearch, CheapSharkStore } from "@shared/types";
 
 const CHEAPSHARK_BASE_URL: string = "https://www.cheapshark.com/api/1.0";
 
@@ -35,23 +35,28 @@ export class CheapSharkService {
             throw new Error(`CheapShark API error: ${response.status} ${response.statusText}`);
         }
 
-        return await response.json() as CheapSharkDeal[];
+        const data: CheapSharkDeal[] = await response.json() as CheapSharkDeal[];
+
+        return data;
     }
 
     /**
      * Get a specific deal by dealID.
+     * Returns enriched deal info including metacritic, steam ratings, publisher, etc.
      *
      * @param dealID The deal ID string
-     * @returns The deal details
+     * @returns The detailed deal info
      */
-    public async getDealById(dealID: string): Promise<CheapSharkDeal> {
+    public async getDealById(dealID: string): Promise<CheapSharkDealDetail> {
         const response: Response = await fetch(`${CHEAPSHARK_BASE_URL}/deals?id=${encodeURIComponent(dealID)}`);
 
         if (!response.ok) {
             throw new Error(`CheapShark API error: ${response.status} ${response.statusText}`);
         }
 
-        return await response.json() as CheapSharkDeal;
+        const data: CheapSharkDealDetail = await response.json() as CheapSharkDealDetail;
+
+        return data;
     }
 
     /**
@@ -67,7 +72,9 @@ export class CheapSharkService {
             throw new Error(`CheapShark API error: ${response.status} ${response.statusText}`);
         }
 
-        return await response.json() as CheapSharkGameDetail;
+        const data: CheapSharkGameDetail = await response.json() as CheapSharkGameDetail;
+
+        return data;
     }
 
     /**
@@ -95,7 +102,9 @@ export class CheapSharkService {
             throw new Error(`CheapShark API error: ${response.status} ${response.statusText}`);
         }
 
-        return await response.json() as CheapSharkGameSearch[];
+        const data: CheapSharkGameSearch[] = await response.json() as CheapSharkGameSearch[];
+
+        return data;
     }
 
     /**
@@ -110,6 +119,8 @@ export class CheapSharkService {
             throw new Error(`CheapShark API error: ${response.status} ${response.statusText}`);
         }
 
-        return await response.json() as CheapSharkStore[];
+        const data: CheapSharkStore[] = await response.json() as CheapSharkStore[];
+
+        return data;
     }
 }
