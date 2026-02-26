@@ -4,7 +4,6 @@ import { UserService } from "../services/UserService";
 import { SessionService } from "@api/services/SessionService";
 import bcrypt from "bcryptjs";
 import { randomBytes } from "crypto";
-import { EmailService } from "../services/EmailService";
 
 interface UserRegisterRequest extends Request {
     body: UserRegisterData;
@@ -150,6 +149,7 @@ export class UserController {
             });
         }
     }
+
     /**
      * Edit the user information with the userService
      *
