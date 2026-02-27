@@ -53,7 +53,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
     flex-wrap: wrap;
     gap: 12px;
 }
@@ -93,6 +93,33 @@ body {
     border-color: var(--light-gold);
 }
 
+/* ===== Active Filters Display ===== */
+.browse-active-filters {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 8px 14px;
+    background-color: rgba(28, 37, 148, 0.06);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 6px 6px 0;
+    flex-wrap: wrap;
+}
+
+.browse-filter-label {
+    font-family: 'TimesNewRoman';
+    font-size: 0.9rem;
+    color: var(--blue);
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.browse-filter-tags {
+    font-family: 'TimesNewRoman';
+    font-size: 0.9rem;
+    color: var(--black);
+}
+
 /* ===== Game Grid ===== */
 .browse-grid {
     display: grid;
@@ -101,9 +128,9 @@ body {
 }
 
 /*
- * Override .game-card from welcome.css for grid context.
- * In welcome.css the card uses flex: 0 0 auto with a fixed width
- * for the horizontal scroll. Here we let it fill the grid cell.
+ * Override .game-card width from welcome.css for grid context.
+ * In welcome.css the card uses a fixed width for horizontal scroll.
+ * Here we let it fill the grid cell.
  */
 .browse-grid .game-card {
     width: 100%;

@@ -1,11 +1,15 @@
 import { GameResult, ProductPrice } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
 import { AllGameService } from "@web/services/AllGamesService";
+import { WebshopEvent } from "@web/enums/WebshopEvent";
+import { WebshopEventService } from "@web/services/WebshopEventService";
+import { FilterData } from "@web/types/FilterData";
 
 /**
  * Component for browsing all available game deals.
  * Displays games in a grid layout with sorting, pagination, and price info.
  * Reuses the same .game-card styling from the landing page (welcome.css).
+ * Listens for FilterChange events from the sidebar to filter the grid.
  */
 export class BrowseComponent extends HTMLElement {
     /** All loaded games */
@@ -23,22 +27,49 @@ export class BrowseComponent extends HTMLElement {
     /** Number of games per page */
     private readonly pageSize: number = 20;
 
+    /** Whether the component is currently loading */
+    // private isLoading: boolean = true;
+
     /** Game service instance */
     private readonly gameService: AllGameService = new AllGameService();
 
+    /** Event service for listening to sidebar filter changes */
+    private readonly eventService: WebshopEventService = new WebshopEventService();
+
+    /** Current active filters from sidebar */
+    private activeFilters: FilterData = {
+        minPrice: null, maxPrice: null, labels: [],
+        sortBy: null,
+    };
+
     /**
-     * Attach the Shadow, load games and render
+     * Attach the Shadow, load games, listen for filter events and render
      */
     public async connectedCallback(): Promise<void> {
         this.attachShadow({ mode: "open" });
         this.renderLoading();
+
+        // Listen for filter changes from the sidebar
+        this.eventService.addEventListener<FilterData>(WebshopEvent.FilterChange, (filterData: FilterData) => {
+            this.activeFilters = filterData;
+
+            if (filterData.sortBy) {
+                this.currentSort = filterData.sortBy;
+            }
+
+            this.currentPage = 0;
+            this.render();
+        });
+
         await this.loadGames();
         // this.isLoading = false;
         this.render();
     }
 
     /**
-     * Load games from the API and fetch their prices
+     * Load games from the API and fetch their prices in batches.
+     * The backend makes a separate CheapShark API call per game ID,
+     * so sending all IDs at once causes timeouts. We batch in groups of 5.
      */
     private async loadGames(): Promise<void> {
         try {
@@ -51,18 +82,13 @@ export class BrowseComponent extends HTMLElement {
 
             this.games = games;
 
-            // Fetch prices for all games
+            // Fetch prices in small batches to avoid backend timeouts
             const validGameIds: string[] = games
                 .filter((g: GameResult) => g.gameId)
                 .map((g: GameResult) => g.gameId);
 
             if (validGameIds.length > 0) {
-                const pricesById: Record<string, ProductPrice> | null =
-                    await this.gameService.getGamePrices(validGameIds);
-
-                if (pricesById) {
-                    this.prices = pricesById;
-                }
+                await this.loadPricesInBatches(validGameIds, 5);
             }
         }
         catch (error) {
@@ -72,12 +98,96 @@ export class BrowseComponent extends HTMLElement {
     }
 
     /**
+     * Fetch prices in batches to avoid overloading the backend.
+     * Each batch is fetched sequentially; results are merged into this.prices.
+     * The page re-renders after each batch so prices appear progressively.
+     *
+     * @param gameIds All game IDs to fetch prices for
+     * @param batchSize Number of IDs per batch
+     */
+    private async loadPricesInBatches(gameIds: string[], batchSize: number): Promise<void> {
+        for (let i: number = 0; i < gameIds.length; i += batchSize) {
+            const batch: string[] = gameIds.slice(i, i + batchSize);
+
+            try {
+                const pricesById: Record<string, ProductPrice> | null =
+                    await this.gameService.getGamePrices(batch);
+
+                if (pricesById) {
+                    // Merge into existing prices
+                    for (const [key, value] of Object.entries(pricesById)) {
+                        this.prices[key] = value;
+                    }
+
+                    // Re-render so prices appear progressively
+                    this.render();
+                }
+            }
+            catch (error) {
+                console.error(`Fout bij het ophalen van prijzen batch ${i / batchSize + 1}:`, error);
+            }
+        }
+    }
+
+    /**
+     * Get filtered games based on the current active sidebar filters.
+     *
+     * @returns Array of games that pass all active filters
+     */
+    private getFilteredGames(): GameResult[] {
+        let filtered: GameResult[] = [...this.games];
+
+        // Price filter
+        if (this.activeFilters.minPrice !== null || this.activeFilters.maxPrice !== null) {
+            filtered = filtered.filter((game: GameResult) => {
+                const price: ProductPrice | undefined = this.prices[game.gameId];
+
+                // If no price data, exclude when a price filter is active
+                if (!price) {
+                    return false;
+                }
+
+                const gamePrice: number = price.price;
+
+                if (this.activeFilters.minPrice !== null && gamePrice < this.activeFilters.minPrice) {
+                    return false;
+                }
+
+                if (this.activeFilters.maxPrice !== null && gamePrice > this.activeFilters.maxPrice) {
+                    return false;
+                }
+
+                return true;
+            });
+        }
+
+        // Steam rating filter: game must match at least one selected rating
+        if (this.activeFilters.labels.length > 0) {
+            filtered = filtered.filter((game: GameResult) => {
+                if (!game.tags || game.tags.length === 0) {
+                    return false;
+                }
+
+                // Check if any of the game's tags match any selected rating
+                // Uses exact match (case-insensitive) to prevent e.g. "Negative" matching "Very Negative"
+                return this.activeFilters.labels.some((label: string) =>
+                    game.tags!.some((tag: string) =>
+                        tag.toLowerCase() === label.toLowerCase()
+                    )
+                );
+            });
+        }
+
+        return filtered;
+    }
+
+    /**
      * Get sorted games based on the current sort option
      *
-     * @returns Sorted array of games
+     * @returns Sorted array of games (already filtered)
      */
     private getSortedGames(): GameResult[] {
-        const sorted: GameResult[] = [...this.games];
+        const sorted: GameResult[] = this.getFilteredGames();
 
         switch (this.currentSort) {
             case "title-az":
@@ -103,7 +213,6 @@ export class BrowseComponent extends HTMLElement {
                 });
                 break;
             default:
-                // Default "Deal Rating" order from the API
                 break;
         }
 
@@ -123,12 +232,12 @@ export class BrowseComponent extends HTMLElement {
     }
 
     /**
-     * Get the total number of pages
+     * Get the total number of pages (based on filtered results)
      *
      * @returns Total page count
      */
     private getTotalPages(): number {
-        return Math.ceil(this.games.length / this.pageSize);
+        return Math.ceil(this.getFilteredGames().length / this.pageSize);
     }
 
     /**
@@ -200,7 +309,6 @@ export class BrowseComponent extends HTMLElement {
 
         let paginationHtml: string = "<div class=\"browse-pagination\">";
 
-        // Previous button
         paginationHtml += `
             <button class="browse-page-btn" data-page="prev"
                 ${this.currentPage === 0 ? "disabled" : ""}>
@@ -208,7 +316,6 @@ export class BrowseComponent extends HTMLElement {
             </button>
         `;
 
-        // Page numbers (show max 5 pages around current)
         const startPage: number = Math.max(0, this.currentPage - 2);
         const endPage: number = Math.min(totalPages - 1, this.currentPage + 2);
 
@@ -239,7 +346,6 @@ export class BrowseComponent extends HTMLElement {
             `;
         }
 
-        // Next button
         paginationHtml += `
             <button class="browse-page-btn" data-page="next"
                 ${this.currentPage === totalPages - 1 ? "disabled" : ""}>
@@ -250,6 +356,38 @@ export class BrowseComponent extends HTMLElement {
         paginationHtml += "</div>";
 
         return paginationHtml;
+    }
+
+    /**
+     * Build a summary of the active filters for the user
+     *
+     * @returns HTML string showing which filters are active, or empty string
+     */
+    private buildActiveFiltersDisplay(): string {
+        const parts: string[] = [];
+
+        if (this.activeFilters.minPrice !== null) {
+            parts.push(`Min: €${this.activeFilters.minPrice.toFixed(2)}`);
+        }
+
+        if (this.activeFilters.maxPrice !== null) {
+            parts.push(`Max: €${this.activeFilters.maxPrice.toFixed(2)}`);
+        }
+
+        if (this.activeFilters.labels.length > 0) {
+            parts.push(this.activeFilters.labels.join(", "));
+        }
+
+        if (parts.length === 0) {
+            return "";
+        }
+
+        return `
+            <div class="browse-active-filters">
+                <span class="browse-filter-label">Actieve filters:</span>
+                <span class="browse-filter-tags">${parts.join(" · ")}</span>
+            </div>
+        `;
     }
 
     /**
@@ -306,14 +444,14 @@ export class BrowseComponent extends HTMLElement {
         }
 
         const paginatedGames: GameResult[] = this.getPaginatedGames();
+        const filteredTotal: number = this.getFilteredGames().length;
 
         const gameCardsHtml: string = paginatedGames.length > 0
             ? paginatedGames.map((game: GameResult) => this.buildGameCard(game)).join("")
-            : "<p class=\"browse-no-results\">Geen games gevonden.</p>";
+            : "<p class=\"browse-no-results\">Geen games gevonden met deze filters.</p>";
 
-        const totalResults: number = this.games.length;
-        const showingFrom: number = this.currentPage * this.pageSize + 1;
-        const showingTo: number = Math.min((this.currentPage + 1) * this.pageSize, totalResults);
+        const showingFrom: number = filteredTotal > 0 ? this.currentPage * this.pageSize + 1 : 0;
+        const showingTo: number = Math.min((this.currentPage + 1) * this.pageSize, filteredTotal);
 
         const element: HTMLElement = html`
             <div class="browse-container">
@@ -324,32 +462,13 @@ export class BrowseComponent extends HTMLElement {
 
                 <div class="browse-toolbar">
                     <span class="browse-results-count">
-                        ${totalResults > 0
-                ? `${showingFrom}–${showingTo} van ${totalResults} games`
+                        ${filteredTotal > 0
+                ? `${showingFrom}–${showingTo} van ${filteredTotal} games`
                 : "Geen resultaten"}
-            </span>
-
-                    <div class="browse-sort">
-                        <label for="sort-select">Sorteer op:</label>
-                        <select id="sort-select">
-                            <option value="Deal Rating" ${this.currentSort === "Deal Rating" ? "selected" : ""}>
-                                Beste deal
-                            </option>
-                            <option value="title-az" ${this.currentSort === "title-az" ? "selected" : ""}>
-                                Titel A–Z
-                            </option>
-                            <option value="title-za" ${this.currentSort === "title-za" ? "selected" : ""}>
-                                Titel Z–A
-                            </option>
-                            <option value="price-low" ${this.currentSort === "price-low" ? "selected" : ""}>
-                                Prijs laag–hoog
-                            </option>
-                            <option value="price-high" ${this.currentSort === "price-high" ? "selected" : ""}>
-                                Prijs hoog–laag
-                            </option>
-                        </select>
-                    </div>
+                    </span>
                 </div>
+
+                ${this.buildActiveFiltersDisplay()}
 
                 <div class="browse-grid">
                     ${gameCardsHtml}
@@ -383,16 +502,6 @@ export class BrowseComponent extends HTMLElement {
             return;
         }
 
-        // Sort select
-        const sortSelect: HTMLSelectElement | null =
-            this.shadowRoot.querySelector<HTMLSelectElement>("#sort-select");
-
-        sortSelect?.addEventListener("change", () => {
-            this.currentSort = sortSelect.value;
-            this.currentPage = 0;
-            this.render();
-        });
-
         // Pagination buttons
         const pageButtons: NodeListOf<HTMLButtonElement> =
             this.shadowRoot.querySelectorAll<HTMLButtonElement>(".browse-page-btn");
@@ -417,7 +526,6 @@ export class BrowseComponent extends HTMLElement {
 
                 this.render();
 
-                // Scroll back to the top of the grid
                 this.shadowRoot?.querySelector(".browse-container")?.scrollIntoView({
                     behavior: "smooth",
                     block: "start",

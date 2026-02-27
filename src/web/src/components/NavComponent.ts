@@ -170,11 +170,11 @@ export class NavComponent extends HTMLElement {
       <label for="hamburger-toggle" class="hamburger-icon">
   <img src="/assets/img/icons/HamburgerIcon.svg" alt="Menu" width="24" height="24" />
 </label>
-      <!-- Browse link -->
-      <a href="/browse.html" class="navbar-browse-link">Alle Games</a>
 
-      <!-- Center Search Bar (Hidden on mobile) -->
-      <div class="navbar-center">
+<!-- Center Search Bar (Hidden on mobile) -->
+<div class="navbar-center">
+<!-- Browse link -->
+<a href="/browse.html" class="navbar-browse-link">Browse</a>
         <div class="searchbar">
           <button id="desktop-search-btn">
             <img src="/assets/img/icons/SearchIcon.png" alt="Search" />

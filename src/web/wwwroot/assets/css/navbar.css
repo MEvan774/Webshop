@@ -401,12 +401,15 @@ button .navbar {
 .navbar-browse-link {
     font-family: 'TimesNewRoman';
     font-size: 1rem;
+    font-weight: bold;
     color: #FFFAF0;
     text-decoration: none;
     padding: 6px 14px;
     border-radius: 8px;
     transition: background-color 0.2s ease, color 0.2s ease;
     white-space: nowrap;
+    float: right;
+    margin-right: 5px;
 }
 
 .navbar-browse-link:hover {

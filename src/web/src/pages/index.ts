@@ -31,7 +31,6 @@ export class IndexPageComponent extends HTMLElement {
 
                 <div>
                     <webshop-welcome></webshop-welcome>
-                    <webshop-sidebar></webshop-sidebar>
                 </div>
             </div>
         `;
