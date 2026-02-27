@@ -43,12 +43,10 @@ router.get("/token/:token", async (req, res) => {
     return res.json(tokenData);
 });
 
-// Change the email of the user
-// router.post("/user/change-email", async (req, res) => await userController.changeEmail(req, res));
-const userService: UserService = new UserService();
-
 // Cancel the change the email of the user
 // router.post("/user/cancel-email", async (req, res) => await userController.cancelEmail(req, res));
+
+const userService: UserService = new UserService();
 
 router.get("/games/search", (req, res) => gamesController.searchGames(req, res));
 router.get("/stores", (req, res) => gamesController.getStores(req, res));
@@ -61,14 +59,12 @@ router.get("/user/:sessionID", async (req, res) => {
     const { sessionID } = req.params;
 
     try {
-        // Call the service function to get the game data
         const user: UserResult | undefined = await getUser(sessionID);
 
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
 
-        // Respond with the user data
         return res.json(user);
     }
     catch (error) {
@@ -139,11 +135,15 @@ router.get("/verify", async (req, res) => {
     }
 });
 
-// NOTE: After this line, all endpoints will require a valid session.
-router.use(requireValidSessionMiddleware);
-
+// ====================================================================
+// Payment endpoints — BEFORE requireValidSessionMiddleware so guests
+// can checkout without being logged in.
+// ====================================================================
 router.post("/payment/create-checkout", (req, res) => paymentController.createCheckout(req, res));
 router.get("/payment/session-status/:sessionId", (req, res) => paymentController.getSessionStatus(req, res));
+
+// NOTE: After this line, all endpoints will require a valid session.
+router.use(requireValidSessionMiddleware);
 
 router.get("/secret", (req, res) => welcomeController.getSecret(req, res));
 router.delete("/user/logout", (req, res) => userController.logoutUser(req, res));
@@ -173,10 +173,7 @@ router.post("/user/change-password", async (req, res) => await changePassword(re
 router.get("/user/check-email/:email", async (req, res) => {
     const { email } = req.params;
     try {
-        // Call the service function to get the game data
         const emailFree: boolean = await checkEmail(email);
-
-        // Respond with the game data
         return res.json(emailFree);
     }
     catch (error) {

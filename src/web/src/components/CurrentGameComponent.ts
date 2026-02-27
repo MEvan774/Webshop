@@ -410,7 +410,25 @@ export class CurrentGameComponent extends HTMLElement {
         if (buyButton) {
             buyButton.addEventListener("click", (): void => {
                 const cartService: ShoppingCartService = new ShoppingCartService();
-                void cartService.addToCart();
+
+                // Use the game data already fetched for this page
+                const gameId: string = currentGame.gameId || currentGame.cheapSharkGameId || "";
+                const title: string = currentGame.title || "Onbekend spel";
+                const thumbnail: string = currentGame.thumbnail || "";
+                const price: number = pageData.currentPrice ?? 0;
+
+                const success: boolean = cartService.addToCart(gameId, title, thumbnail, price);
+                window.dispatchEvent(new CustomEvent("cart-updated"));
+
+                if (success) {
+                    buyButton.textContent = "✓ Toegevoegd!";
+                    buyButton.style.backgroundColor = "#2ecc71";
+
+                    setTimeout((): void => {
+                        buyButton.innerHTML = "<span class=\"btn-icon\">&#128722;</span> In winkelwagen";
+                        buyButton.style.backgroundColor = "";
+                    }, 1500);
+                }
             });
         }
 

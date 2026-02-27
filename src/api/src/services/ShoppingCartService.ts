@@ -1,79 +1,170 @@
-import { IShoppingCartService } from "@api/interfaces/IShoppingCartService";
-import { DatabaseService } from "./DatabaseService";
-import { PoolConnection, ResultSetHeader } from "mysql2/promise";
+/**
+ * Represents a single item stored in the shopping cart (localStorage).
+ */
+export type CartItem = {
+    gameId: string;
+    title: string;
+    thumbnail: string;
+    price: number;
+    quantity: number;
+};
 
-export class ShoppingCartService implements IShoppingCartService {
-    private readonly _databaseService: DatabaseService = new DatabaseService();
+const CART_STORAGE_KEY: string = "shoppingCart";
 
-    public async addToCart(gameId: number, userId: number): Promise<boolean> {
-        const connection: PoolConnection = await this._databaseService.openConnection();
-
+/**
+ * Shopping cart service that persists cart data in localStorage.
+ * No API calls needed — everything is stored client-side.
+ */
+export class ShoppingCartService {
+    /**
+     * Get all items currently in the cart.
+     *
+     * @returns Array of CartItem objects
+     */
+    public getCartItems(): CartItem[] {
         try {
-            const result: ResultSetHeader = await this._databaseService.query<ResultSetHeader>(connection,
-                "INSERT INTO cart (userId, gameId) VALUES (?, ?)", userId, gameId
-            );
+            const raw: string | null = localStorage.getItem(CART_STORAGE_KEY);
 
-            if (result.affectedRows > 0) {
-                return true;
+            if (!raw) {
+                return [];
             }
-            else {
-                throw new Error("Failed to add game to cart, no rows affected.");
-            }
+
+            return JSON.parse(raw) as CartItem[];
         }
         catch (error) {
-            console.error(error);
-            return false;
-        }
-        finally {
-            connection.release();
+            console.error("Fout bij het laden van de winkelwagen:", error);
+            return [];
         }
     }
 
-    public async removeFromCart(gameId: number, userId: number): Promise<boolean> {
-        const connection: PoolConnection = await this._databaseService.openConnection();
+    /**
+     * Save the cart items array to localStorage.
+     *
+     * @param items The full cart array to persist
+     */
+    private saveCartItems(items: CartItem[]): void {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+    }
 
+    /**
+     * Add a game to the cart. If it already exists, increment the quantity.
+     *
+     * @param gameId    The CheapShark game ID
+     * @param title     Display title of the game
+     * @param thumbnail Thumbnail URL
+     * @param price     Price in euros
+     * @returns true if successful
+     */
+    public addToCart(gameId: string, title: string, thumbnail: string, price: number): boolean {
         try {
-            const result: ResultSetHeader = await this._databaseService.query(connection,
-                "DELETE FROM cart WHERE (userId, gameId) VALUES (?, ?)", userId, gameId
-            );
+            const items: CartItem[] = this.getCartItems();
+            const existing: CartItem | undefined = items.find((item: CartItem) => item.gameId === gameId);
 
-            if (result.affectedRows > 0) {
-                return true;
+            if (existing) {
+                existing.quantity += 1;
             }
             else {
-                throw new Error("Removing game from cart failed");
+                items.push({ gameId, title, thumbnail, price, quantity: 1 });
             }
+
+            this.saveCartItems(items);
+            console.log("addToCart succesvol:", title);
+            return true;
         }
         catch (error) {
-            console.error(error);
+            console.error("Fout bij het toevoegen aan de winkelwagen:", error);
             return false;
-        }
-        finally {
-            connection.release();
         }
     }
 
-    public async removeAllFromCart(userId: number): Promise<boolean> {
-        const connection: PoolConnection = await this._databaseService.openConnection();
-
+    /**
+     * Remove one quantity of a game from the cart.
+     * If quantity reaches 0, the item is removed entirely.
+     *
+     * @param gameId The game ID to remove
+     * @returns true if successful
+     */
+    public removeFromCart(gameId: string): boolean {
         try {
-            const result: ResultSetHeader = await this._databaseService.query(connection,
-                "DELETE FROM cart WHERE userId = ?", userId
-            );
+            let items: CartItem[] = this.getCartItems();
+            const existing: CartItem | undefined = items.find((item: CartItem) => item.gameId === gameId);
 
-            if (result.affectedRows > 0) {
-                return true;
+            if (existing) {
+                existing.quantity -= 1;
+
+                if (existing.quantity <= 0) {
+                    items = items.filter((item: CartItem) => item.gameId !== gameId);
+                }
             }
-            else {
-                throw new Error("Removing game from cart failed");
-            }
+
+            this.saveCartItems(items);
+            console.log("removeFromCart succesvol:", gameId);
+            return true;
         }
         catch (error) {
-            console.error(error);
+            console.error("Fout bij het verwijderen uit de winkelwagen:", error);
             return false;
         }
-        finally {
-            connection.release();
+    }
+
+    /**
+     * Completely remove a game from the cart (regardless of quantity).
+     *
+     * @param gameId The game ID to delete
+     * @returns true if successful
+     */
+    public deleteFromCart(gameId: string): boolean {
+        try {
+            const items: CartItem[] = this.getCartItems().filter(
+                (item: CartItem) => item.gameId !== gameId
+            );
+
+            this.saveCartItems(items);
+            console.log("deleteFromCart succesvol:", gameId);
+            return true;
         }
+        catch (error) {
+            console.error("Fout bij het verwijderen uit de winkelwagen:", error);
+            return false;
+        }
+    }
+
+    /**
+     * Remove all items from the cart.
+     *
+     * @returns true if successful
+     */
+    public removeAllFromCart(): boolean {
+        try {
+            localStorage.removeItem(CART_STORAGE_KEY);
+            console.log("removeAllFromCart succesvol");
+            return true;
+        }
+        catch (error) {
+            console.error("Fout bij het legen van de winkelwagen:", error);
+            return false;
+        }
+    }
+
+    /**
+     * Get the total number of items in the cart.
+     *
+     * @returns Total quantity across all items
+     */
+    public getCartCount(): number {
+        return this.getCartItems().reduce(
+            (total: number, item: CartItem) => total + item.quantity, 0
+        );
+    }
+
+    /**
+     * Get the total price of all items in the cart.
+     *
+     * @returns Total price in euros
+     */
+    public getCartTotal(): number {
+        return this.getCartItems().reduce(
+            (total: number, item: CartItem) => total + (item.price * item.quantity), 0
+        );
     }
 }

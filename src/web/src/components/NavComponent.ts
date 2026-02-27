@@ -1,7 +1,8 @@
 import { html } from "@web/helpers/webComponents";
 import { LogoutService } from "../services/LogoutService";
 import { AllGameService } from "@web/services/AllGamesService";
-import { CheapSharkGameSearch } from "@shared/types";
+import { ShoppingCartService } from "@web/services/ShoppingCartService";
+import { GameResult } from "@shared/types";
 
 export class NavComponent extends HTMLElement {
     private searchTimeout: number | null = null;
@@ -16,8 +17,41 @@ export class NavComponent extends HTMLElement {
         // Wire up search right away
         this.setupSearch();
 
+        // Show initial cart count
+        this.updateCartCount();
+
+        // Listen for cart changes from other components
+        window.addEventListener("cart-updated", (): void => {
+            this.updateCartCount();
+        });
+
         // Check session in the background, then render the correct buttons
         await this.checkSessionAndUpdate();
+    }
+
+    /**
+     * Updates the cart counter badge in both desktop and mobile nav.
+     * Reads the count from localStorage via ShoppingCartService.
+     */
+    private updateCartCount(): void {
+        if (!this.shadowRoot) return;
+
+        const cartService: ShoppingCartService = new ShoppingCartService();
+        const count: number = cartService.getCartCount();
+
+        // Desktop badge
+        const desktopBadge: HTMLSpanElement | null = this.shadowRoot.querySelector("#cart-count-desktop");
+        if (desktopBadge) {
+            desktopBadge.textContent = count.toString();
+            desktopBadge.style.display = count > 0 ? "inline-flex" : "none";
+        }
+
+        // Mobile badge
+        const mobileBadge: HTMLSpanElement | null = this.shadowRoot.querySelector("#cart-count-mobile");
+        if (mobileBadge) {
+            mobileBadge.textContent = count.toString();
+            mobileBadge.style.display = count > 0 ? "inline-flex" : "none";
+        }
     }
 
     /**
@@ -196,12 +230,22 @@ export class NavComponent extends HTMLElement {
   </div>
 </div>
 
+      <!-- Cart button (desktop) -->
+      <a href="/payment.html" class="navbar-cart" id="cart-link-desktop">
+        <span class="cart-icon">&#128722;</span>
+        <span class="cart-badge" id="cart-count-desktop" style="display: none;">0</span>
+      </a>
+
       <!-- Right Buttons (empty until session check completes) -->
       <div class="navbar-right" id="auth-section"></div>
 
       <!-- Mobile Menu (Dropdown under hamburger) -->
       <div class="mobile-menu">
       <a href="/browse.html" class="mobile-menu-link">Alle Games</a>
+        <a href="/payment.html" class="mobile-menu-link">
+            Winkelwagen
+            <span class="cart-badge-mobile" id="cart-count-mobile" style="display: none;">0</span>
+        </a>
         <div id="mobile-auth-section" class="mobile-auth"></div>
       </div>
     </div>
@@ -269,209 +313,207 @@ export class NavComponent extends HTMLElement {
                 border-radius: 6px;
                 margin-right: 12px;
                 flex-shrink: 0;
-                background-color: #e0d6c6;
             }
 
             .search-result-info {
                 display: flex;
                 flex-direction: column;
                 gap: 2px;
-                overflow: hidden;
             }
 
             .search-result-title {
-                font-family: 'TimesNewRoman', serif;
+                font-family: 'TimesNewRoman';
                 font-size: 0.95rem;
-                font-weight: bold;
+                font-weight: 600;
                 color: #1C2594;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
             }
 
             .search-result-price {
-                font-family: 'TimesNewRoman', serif;
-                font-size: 0.8rem;
-                color: #555;
+                font-family: 'TimesNewRoman';
+                font-size: 0.85rem;
+                color: #666;
             }
 
-            .search-no-results,
-            .search-loading {
+            .search-no-results {
                 padding: 16px;
                 text-align: center;
                 color: #888;
-                font-family: 'TimesNewRoman', serif;
-                font-size: 0.95rem;
+                font-family: 'TimesNewRoman';
             }
 
-            @media (max-width: 768px) {
-                .search-dropdown {
-                    max-width: 100%;
-                    left: 0;
-                    transform: none;
-                    border-radius: 0 0 8px 8px;
-                }
+            /* ======== Cart icon + badge (desktop) ======== */
+            .navbar-cart {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 8px;
+                padding: 0 !important;
+                width: auto !important;
+                height: auto !important;
+                background: transparent !important;
+                text-decoration: none;
+                cursor: pointer;
+                line-height: 1;
+            }
+
+            .cart-icon {
+                font-size: 1.6rem;
+                color: #FFFAF0;
+                filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
+                transition: transform 0.2s ease;
+            }
+
+            .navbar-cart:hover .cart-icon {
+                transform: scale(1.15);
+            }
+
+            .cart-badge {
+                position: absolute;
+                top: -6px;
+                right: -10px;
+                background-color: #FF9900;
+                color: #fff;
+                font-size: 0.7rem;
+                font-weight: 700;
+                font-family: 'TimesNewRoman', serif;
+                min-width: 18px;
+                height: 18px;
+                border-radius: 9px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0 5px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                line-height: 1;
+            }
+
+            /* ======== Cart badge (mobile menu) ======== */
+            .cart-badge-mobile {
+                background-color: #FF9900;
+                color: #fff;
+                font-size: 0.7rem;
+                font-weight: 700;
+                font-family: 'TimesNewRoman', serif;
+                min-width: 18px;
+                height: 18px;
+                border-radius: 9px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0 5px;
+                margin-left: 8px;
+                vertical-align: middle;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+                line-height: 1;
             }
         `;
 
-        this.shadowRoot.firstChild?.remove();
-        this.shadowRoot.append(element);
+        this.shadowRoot.innerHTML = "";
         this.shadowRoot.appendChild(styleLink);
         this.shadowRoot.appendChild(searchStyles);
+        this.shadowRoot.append(element);
     }
 
+    /**
+     * Set up desktop and mobile search input listeners.
+     */
     private setupSearch(): void {
         if (!this.shadowRoot) return;
 
-        const dropdownContainer: HTMLElement | null = this.shadowRoot.getElementById("search-dropdown-container");
-        if (!dropdownContainer) return;
-
-        const dropdown: HTMLDivElement = document.createElement("div");
-        dropdown.className = "search-dropdown";
-        dropdown.id = "search-dropdown";
-        dropdownContainer.appendChild(dropdown);
-
-        const desktopInput: HTMLInputElement | null = this.shadowRoot.getElementById("desktop-search-input") as HTMLInputElement | null;
-        const desktopButton: HTMLElement | null = this.shadowRoot.getElementById("desktop-search-btn");
-        const mobileInput: HTMLInputElement | null = this.shadowRoot.getElementById("mobile-search-input") as HTMLInputElement | null;
-        const mobileButton: HTMLElement | null = this.shadowRoot.getElementById("mobile-search-btn");
+        const desktopInput: HTMLInputElement | null = this.shadowRoot.querySelector("#desktop-search-input");
+        const mobileInput: HTMLInputElement | null = this.shadowRoot.querySelector("#mobile-search-input");
 
         if (desktopInput) {
-            desktopInput.addEventListener("input", (e: Event) => {
-                e.stopPropagation();
-                this.debounceSearch(desktopInput.value, dropdown);
+            desktopInput.addEventListener("input", (): void => {
+                this.handleSearchInput(desktopInput.value);
             });
 
-            desktopInput.addEventListener("keydown", (e: KeyboardEvent) => {
-                if (e.key === "Enter") {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    if (this.searchTimeout) window.clearTimeout(this.searchTimeout);
-                    void this.handleSearch(desktopInput.value, dropdown);
-                }
-            });
-
-            desktopInput.addEventListener("click", (e: Event) => {
-                e.stopPropagation();
-            });
-        }
-
-        if (desktopButton && desktopInput) {
-            desktopButton.addEventListener("click", (e: Event) => {
-                e.stopPropagation();
-                if (this.searchTimeout) window.clearTimeout(this.searchTimeout);
-                void this.handleSearch(desktopInput.value, dropdown);
+            desktopInput.addEventListener("blur", (): void => {
+                setTimeout((): void => this.hideSearchDropdown(), 200);
             });
         }
 
         if (mobileInput) {
-            mobileInput.addEventListener("input", (e: Event) => {
-                e.stopPropagation();
-                this.debounceSearch(mobileInput.value, dropdown);
+            mobileInput.addEventListener("input", (): void => {
+                this.handleSearchInput(mobileInput.value);
             });
 
-            mobileInput.addEventListener("keydown", (e: KeyboardEvent) => {
-                if (e.key === "Enter") {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    if (this.searchTimeout) window.clearTimeout(this.searchTimeout);
-                    void this.handleSearch(mobileInput.value, dropdown);
-                }
-            });
-
-            mobileInput.addEventListener("click", (e: Event) => {
-                e.stopPropagation();
+            mobileInput.addEventListener("blur", (): void => {
+                setTimeout((): void => this.hideSearchDropdown(), 200);
             });
         }
-
-        if (mobileButton && mobileInput) {
-            mobileButton.addEventListener("click", (e: Event) => {
-                e.stopPropagation();
-                if (this.searchTimeout) window.clearTimeout(this.searchTimeout);
-                void this.handleSearch(mobileInput.value, dropdown);
-            });
-        }
-
-        dropdown.addEventListener("click", (e: Event) => {
-            e.stopPropagation();
-        });
-
-        document.addEventListener("click", () => {
-            dropdown.classList.remove("active");
-        });
-
-        this.shadowRoot.addEventListener("click", (e: Event) => {
-            const target: HTMLElement | null = e.target as HTMLElement | null;
-            if (!target) return;
-
-            const isSearchInput: boolean = target.id === "desktop-search-input" || target.id === "mobile-search-input";
-            const isDropdown: boolean = target.closest("#search-dropdown-container") !== null;
-
-            if (!isSearchInput && !isDropdown) {
-                dropdown.classList.remove("active");
-            }
-        });
     }
 
-    private debounceSearch(query: string, dropdown: HTMLDivElement): void {
+    private hideSearchDropdown(): void {
+        if (!this.shadowRoot) return;
+        const dropdown: HTMLElement | null = this.shadowRoot.querySelector(".search-dropdown");
+        if (dropdown) {
+            dropdown.classList.remove("active");
+        }
+    }
+
+    private handleSearchInput(query: string): void {
         if (this.searchTimeout) {
-            window.clearTimeout(this.searchTimeout);
+            clearTimeout(this.searchTimeout);
         }
-        this.searchTimeout = window.setTimeout(() => {
-            void this.handleSearch(query, dropdown);
-        }, 300);
-    }
 
-    private async handleSearch(query: string, dropdown: HTMLDivElement): Promise<void> {
-        const trimmedQuery: string = query.trim();
-
-        if (trimmedQuery.length < 2) {
-            dropdown.classList.remove("active");
-            dropdown.innerHTML = "";
+        if (query.trim().length < 2) {
+            this.hideSearchDropdown();
             return;
         }
 
-        dropdown.innerHTML = "<div class=\"search-loading\">Zoeken...</div>";
+        this.searchTimeout = window.setTimeout((): void => {
+            void this.performSearch(query.trim());
+        }, 300);
+    }
+
+    private async performSearch(query: string): Promise<void> {
+        if (!this.shadowRoot) return;
+
+        let dropdown: HTMLElement | null = this.shadowRoot.querySelector(".search-dropdown");
+        const container: HTMLElement | null = this.shadowRoot.querySelector("#search-dropdown-container");
+
+        if (!container) return;
+
+        if (!dropdown) {
+            dropdown = document.createElement("div");
+            dropdown.classList.add("search-dropdown");
+            container.appendChild(dropdown);
+        }
+
+        dropdown.innerHTML = "<div class=\"search-no-results\">Zoeken...</div>";
         dropdown.classList.add("active");
 
         try {
-            const results: CheapSharkGameSearch[] =
-                await this.allGameService.searchGames(trimmedQuery) as unknown as CheapSharkGameSearch[];
+            const games: GameResult[] = await this.allGameService.searchGames(query);
 
             dropdown.innerHTML = "";
 
-            if (results.length === 0) {
+            if (games.length === 0) {
                 dropdown.innerHTML = "<div class=\"search-no-results\">Geen resultaten gevonden</div>";
-                dropdown.classList.add("active");
                 return;
             }
 
-            const maxResults: number = Math.min(results.length, 8);
-
-            for (let i: number = 0; i < maxResults; i++) {
-                const game: CheapSharkGameSearch = results[i];
-
+            for (const game of games.slice(0, 8)) {
                 const item: HTMLAnchorElement = document.createElement("a");
-                item.className = "search-result-item";
-                item.href = `/currentGame.html?gameId=${game.gameID}`;
+                item.classList.add("search-result-item");
+                item.href = `/currentGame.html?gameId=${game.gameId}`;
 
                 const img: HTMLImageElement = document.createElement("img");
-                img.src = game.thumb || "/assets/img/icons/LogoIcon.png";
-                img.alt = game.external || "Game";
-                img.onerror = (): void => {
-                    img.src = "/assets/img/icons/LogoIcon.png";
-                };
+                img.src = game.thumbnail;
+                img.alt = game.title;
 
                 const info: HTMLDivElement = document.createElement("div");
-                info.className = "search-result-info";
+                info.classList.add("search-result-info");
 
                 const titleSpan: HTMLSpanElement = document.createElement("span");
-                titleSpan.className = "search-result-title";
-                titleSpan.textContent = game.external || "Onbekende game";
+                titleSpan.classList.add("search-result-title");
+                titleSpan.textContent = game.title;
 
                 const priceSpan: HTMLSpanElement = document.createElement("span");
-                priceSpan.className = "search-result-price";
-                priceSpan.textContent = game.cheapest ? `Vanaf $${game.cheapest}` : "";
+                priceSpan.classList.add("search-result-price");
+                priceSpan.textContent = "";
 
                 info.appendChild(titleSpan);
                 info.appendChild(priceSpan);

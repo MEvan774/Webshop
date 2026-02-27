@@ -1,94 +1,170 @@
+/**
+ * Represents a single item stored in the shopping cart (localStorage).
+ */
+export type CartItem = {
+    gameId: string;
+    title: string;
+    thumbnail: string;
+    price: number;
+    quantity: number;
+};
+
+const CART_STORAGE_KEY: string = "shoppingCart";
+
+/**
+ * Shopping cart service that persists cart data in localStorage.
+ * No API calls needed — everything is stored client-side.
+ */
 export class ShoppingCartService {
-    public async addToCart(): Promise<boolean> {
+    /**
+     * Get all items currently in the cart.
+     *
+     * @returns Array of CartItem objects
+     */
+    public getCartItems(): CartItem[] {
         try {
-            const gameId: number = this.getGameId();
-            const session: string = this.getSession();
+            const raw: string | null = localStorage.getItem(CART_STORAGE_KEY);
 
-            const response: Response = await fetch(`${VITE_API_URL}cart/add`, {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify({ gameId, session }),
-            });
+            if (!raw) {
+                return [];
+            }
 
-            if (response.status === 200) {
-                console.log("addToCart succesvol");
-                return true;
-            }
-            else {
-                throw new Error("onbekende fout bij het toevoegen aan de winkelwagen, webservice");
-            }
+            return JSON.parse(raw) as CartItem[];
         }
         catch (error) {
-            console.error(error);
+            console.error("Fout bij het laden van de winkelwagen:", error);
+            return [];
+        }
+    }
+
+    /**
+     * Save the cart items array to localStorage.
+     *
+     * @param items The full cart array to persist
+     */
+    private saveCartItems(items: CartItem[]): void {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+    }
+
+    /**
+     * Add a game to the cart. If it already exists, increment the quantity.
+     *
+     * @param gameId    The CheapShark game ID
+     * @param title     Display title of the game
+     * @param thumbnail Thumbnail URL
+     * @param price     Price in euros
+     * @returns true if successful
+     */
+    public addToCart(gameId: string, title: string, thumbnail: string, price: number): boolean {
+        try {
+            const items: CartItem[] = this.getCartItems();
+            const existing: CartItem | undefined = items.find((item: CartItem) => item.gameId === gameId);
+
+            if (existing) {
+                existing.quantity += 1;
+            }
+            else {
+                items.push({ gameId, title, thumbnail, price, quantity: 1 });
+            }
+
+            this.saveCartItems(items);
+            console.log("addToCart succesvol:", title);
+            return true;
+        }
+        catch (error) {
+            console.error("Fout bij het toevoegen aan de winkelwagen:", error);
             return false;
         }
     }
 
-    public async removeFromCart(): Promise<boolean> {
+    /**
+     * Remove one quantity of a game from the cart.
+     * If quantity reaches 0, the item is removed entirely.
+     *
+     * @param gameId The game ID to remove
+     * @returns true if successful
+     */
+    public removeFromCart(gameId: string): boolean {
         try {
-            const gameId: number = this.getGameId();
-            const session: string = this.getSession();
+            let items: CartItem[] = this.getCartItems();
+            const existing: CartItem | undefined = items.find((item: CartItem) => item.gameId === gameId);
 
-            const response: Response = await fetch(`${VITE_API_URL}cart/remove`, {
-                method: "DELETE",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify({ gameId, session }),
-            });
-            if (response.status === 200) {
-                console.log("removeFromCart succesvol");
-                return true;
+            if (existing) {
+                existing.quantity -= 1;
+
+                if (existing.quantity <= 0) {
+                    items = items.filter((item: CartItem) => item.gameId !== gameId);
+                }
             }
-            else {
-                throw new Error("Onbekende fout bij het verwijderen van de winkelwagen, webservice");
-            }
+
+            this.saveCartItems(items);
+            console.log("removeFromCart succesvol:", gameId);
+            return true;
         }
         catch (error) {
-            console.error(error);
+            console.error("Fout bij het verwijderen uit de winkelwagen:", error);
             return false;
         }
     }
 
-    public async removeAllFromCart(): Promise<boolean> {
+    /**
+     * Completely remove a game from the cart (regardless of quantity).
+     *
+     * @param gameId The game ID to delete
+     * @returns true if successful
+     */
+    public deleteFromCart(gameId: string): boolean {
         try {
-            const session: string = this.getSession();
+            const items: CartItem[] = this.getCartItems().filter(
+                (item: CartItem) => item.gameId !== gameId
+            );
 
-            const response: Response = await fetch(`${VITE_API_URL}cart/remove/all`, {
-                method: "DELETE",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify({ session }),
-            });
-            if (response.status === 200) {
-                console.log("removeAllFromCart succesvol");
-                return true;
-            }
-            else {
-                throw new Error("Onbekende fout bij het verwijderen van de winkelwagen, webservice");
-            }
+            this.saveCartItems(items);
+            console.log("deleteFromCart succesvol:", gameId);
+            return true;
         }
         catch (error) {
-            console.error(error);
+            console.error("Fout bij het verwijderen uit de winkelwagen:", error);
             return false;
         }
     }
 
-    private getSession(): string {
-        const session: string = document.cookie.split("=;")[1];
-
-        if (!session) {
-            throw new Error("Sessie niet gevonden in cookies");
+    /**
+     * Remove all items from the cart.
+     *
+     * @returns true if successful
+     */
+    public removeAllFromCart(): boolean {
+        try {
+            localStorage.removeItem(CART_STORAGE_KEY);
+            console.log("removeAllFromCart succesvol");
+            return true;
         }
-
-        return session;
+        catch (error) {
+            console.error("Fout bij het legen van de winkelwagen:", error);
+            return false;
+        }
     }
 
-    private getGameId(): number {
-        const gameIdString: string | null = localStorage.getItem("gameID");
-        return gameIdString ? Number(gameIdString) : -1;
+    /**
+     * Get the total number of items in the cart.
+     *
+     * @returns Total quantity across all items
+     */
+    public getCartCount(): number {
+        return this.getCartItems().reduce(
+            (total: number, item: CartItem) => total + item.quantity, 0
+        );
+    }
+
+    /**
+     * Get the total price of all items in the cart.
+     *
+     * @returns Total price in euros
+     */
+    public getCartTotal(): number {
+        return this.getCartItems().reduce(
+            (total: number, item: CartItem) => total + (item.price * item.quantity), 0
+        );
     }
 }
