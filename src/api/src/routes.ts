@@ -11,6 +11,7 @@ import { TokenController } from "./controllers/TokenController";
 import { LicenseController } from "./controllers/LicenseController";
 import { UserService } from "./services/UserService";
 import { ShoppingCartController } from "./controllers/ShoppingCartController";
+import { PaymentController } from "./controllers/PaymentController";
 
 // Create a router
 export const router: Router = Router();
@@ -27,6 +28,7 @@ const gamesController: GamesController = new GamesController();
 const cartController: ShoppingCartController = new ShoppingCartController();
 const tokenController: TokenController = new TokenController();
 const licenseController: LicenseController = new LicenseController();
+const paymentController: PaymentController = new PaymentController();
 
 // Check token after clicking link
 router.get("/token/:token", async (req, res) => {
@@ -139,6 +141,9 @@ router.get("/verify", async (req, res) => {
 
 // NOTE: After this line, all endpoints will require a valid session.
 router.use(requireValidSessionMiddleware);
+
+router.post("/payment/create-checkout", (req, res) => paymentController.createCheckout(req, res));
+router.get("/payment/session-status/:sessionId", (req, res) => paymentController.getSessionStatus(req, res));
 
 router.get("/secret", (req, res) => welcomeController.getSecret(req, res));
 router.delete("/user/logout", (req, res) => userController.logoutUser(req, res));

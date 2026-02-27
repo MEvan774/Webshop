@@ -1,14 +1,15 @@
 import { html } from "@web/helpers/webComponents";
 import "@web/components/PaymentTileComponent";
 import { ShoppingCartService } from "@web/services/ShoppingCartService";
+import { StripePaymentService, CheckoutItem } from "@web/services/StripePaymentService";
 
 export class PaymentComponent extends HTMLElement {
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
-        this.render();
+        void this.render();
     }
 
-    private render(): void {
+    private async render(): Promise<void> {
         if (!this.shadowRoot) return;
 
         this.shadowRoot.innerHTML = "";
@@ -51,6 +52,12 @@ export class PaymentComponent extends HTMLElement {
 
         const removeAllItems: HTMLAnchorElement = document.querySelector("a")!;
         removeAllItems.addEventListener("click", () => new ShoppingCartService().removeAllFromCart());
+
+        const paymentService: StripePaymentService = new StripePaymentService();
+        const items: CheckoutItem[] = [
+            { name: "Game Title", price: 19.99, quantity: 1 },
+        ];
+        await paymentService.startCheckout(items);
     }
 }
 
