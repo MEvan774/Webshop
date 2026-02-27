@@ -170,6 +170,8 @@ export class NavComponent extends HTMLElement {
       <label for="hamburger-toggle" class="hamburger-icon">
   <img src="/assets/img/icons/HamburgerIcon.svg" alt="Menu" width="24" height="24" />
 </label>
+      <!-- Browse link -->
+      <a href="/browse.html" class="navbar-browse-link">Alle Games</a>
 
       <!-- Center Search Bar (Hidden on mobile) -->
       <div class="navbar-center">
@@ -199,6 +201,7 @@ export class NavComponent extends HTMLElement {
 
       <!-- Mobile Menu (Dropdown under hamburger) -->
       <div class="mobile-menu">
+      <a href="/browse.html" class="mobile-menu-link">Alle Games</a>
         <div id="mobile-auth-section" class="mobile-auth"></div>
       </div>
     </div>

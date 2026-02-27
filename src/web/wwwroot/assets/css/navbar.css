@@ -397,4 +397,40 @@ button .navbar {
   }
 }
 
+/* Browse link in navbar */
+.navbar-browse-link {
+    font-family: 'TimesNewRoman';
+    font-size: 1rem;
+    color: #FFFAF0;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+}
 
+.navbar-browse-link:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Hide on mobile (shown in hamburger menu instead) */
+@media (max-width: 768px) {
+    .navbar-browse-link {
+        display: none;
+    }
+}
+
+/* Browse link in mobile dropdown menu */
+.mobile-menu-link {
+    display: block;
+    padding: 12px 20px;
+    font-family: 'TimesNewRoman';
+    font-size: 1.1rem;
+    color: #1C2594;
+    text-decoration: none;
+    border-bottom: 1px solid #ece3d4;
+}
+
+.mobile-menu-link:hover {
+    background-color: #f0e6d6;
+}

@@ -1,0 +1,267 @@
+@import "colors.css";
+
+@font-face {
+    font-family: 'TimesNewRoman';
+    src: url('/assets/fonts/TimesNewRoman.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('/assets/fonts/Raleway-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: Raleway, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: var(--white);
+}
+
+/* ===== Browse Container ===== */
+.browse-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 32px 48px;
+}
+
+/* ===== Header ===== */
+.browse-header {
+    margin-bottom: 16px;
+}
+
+.browse-header h1 {
+    font-family: 'TimesNewRoman';
+    font-size: 2.2rem;
+    color: var(--black);
+    margin: 0 0 4px;
+}
+
+.browse-header p {
+    font-family: 'TimesNewRoman';
+    font-size: 1rem;
+    color: #555;
+    margin: 0;
+}
+
+/* ===== Toolbar (sort + result count) ===== */
+.browse-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.browse-results-count {
+    font-family: 'TimesNewRoman';
+    font-size: 0.95rem;
+    color: #666;
+}
+
+.browse-sort {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.browse-sort label {
+    font-family: 'TimesNewRoman';
+    font-size: 0.95rem;
+    color: var(--black);
+}
+
+.browse-sort select {
+    font-family: 'TimesNewRoman';
+    font-size: 0.95rem;
+    padding: 6px 12px;
+    border: 2px solid var(--gold);
+    border-radius: 6px;
+    background-color: var(--white);
+    color: var(--black);
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.browse-sort select:focus {
+    border-color: var(--light-gold);
+}
+
+/* ===== Game Grid ===== */
+.browse-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(209px, 1fr));
+    gap: 20px;
+}
+
+/*
+ * Override .game-card from welcome.css for grid context.
+ * In welcome.css the card uses flex: 0 0 auto with a fixed width
+ * for the horizontal scroll. Here we let it fill the grid cell.
+ */
+.browse-grid .game-card {
+    width: 100%;
+    height: 290px;
+}
+
+.browse-grid .game-card img {
+    width: 100%;
+}
+
+/* ===== No Results ===== */
+.browse-no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-family: 'TimesNewRoman';
+    font-size: 1.1rem;
+    color: #888;
+    padding: 60px 20px;
+}
+
+/* ===== Pagination ===== */
+.browse-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.browse-page-btn {
+    font-family: 'TimesNewRoman';
+    font-size: 0.95rem;
+    padding: 8px 14px;
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    background-color: var(--white);
+    color: var(--black);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.browse-page-btn:hover:not(:disabled) {
+    background-color: var(--gold);
+    color: var(--white);
+}
+
+.browse-page-btn.active {
+    background-color: var(--gold);
+    color: var(--white);
+    font-weight: bold;
+}
+
+.browse-page-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.browse-page-dots {
+    font-family: 'TimesNewRoman';
+    font-size: 1rem;
+    color: #999;
+    padding: 0 4px;
+}
+
+/* ===== Skeleton Loading ===== */
+.browse-grid .game-card.skeleton {
+    pointer-events: none;
+    background: #1a1a2e;
+}
+
+.skeleton-img {
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(90deg, #2a2a3e 25%, #3a3a4e 50%, #2a2a3e 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+}
+
+.skeleton-info {
+    padding: 12px;
+}
+
+.skeleton-text {
+    height: 14px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #2a2a3e 25%, #3a3a4e 50%, #2a2a3e 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    width: 80%;
+}
+
+.skeleton-text.short {
+    width: 50%;
+    margin-top: 8px;
+}
+
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+    .browse-container {
+        padding: 20px 24px 40px;
+    }
+
+    .browse-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .browse-container {
+        padding: 16px 16px 32px;
+    }
+
+    .browse-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .browse-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .browse-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 12px;
+    }
+
+    .browse-grid .game-card {
+        height: 250px;
+    }
+
+    .browse-pagination {
+        gap: 4px;
+    }
+
+    .browse-page-btn {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .browse-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .browse-grid .game-card {
+        height: 220px;
+    }
+}

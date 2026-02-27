@@ -42,11 +42,11 @@ router.get("/token/:token", async (req, res) => {
 });
 
 // Change the email of the user
-router.post("/user/change-email", async (req, res) => await userController.changeEmail(req, res));
+// router.post("/user/change-email", async (req, res) => await userController.changeEmail(req, res));
 const userService: UserService = new UserService();
 
 // Cancel the change the email of the user
-router.post("/user/cancel-email", async (req, res) => await userController.cancelEmail(req, res));
+// router.post("/user/cancel-email", async (req, res) => await userController.cancelEmail(req, res));
 
 router.get("/games/search", (req, res) => gamesController.searchGames(req, res));
 router.get("/stores", (req, res) => gamesController.getStores(req, res));

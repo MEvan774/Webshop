@@ -553,3 +553,43 @@
     color: #a1a1aa; /* soft gray */
     margin-bottom: 0px;
   }
+
+  /* ===== Browse CTA Section ===== */
+.browse-cta {
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 20px;
+}
+
+.browse-cta h2 {
+    font-family: 'TimesNewRoman';
+    font-size: 2rem;
+    color: #121212;
+    margin: 0 0 8px;
+}
+
+.browse-cta p {
+    font-family: 'TimesNewRoman';
+    font-size: 1rem;
+    color: #555;
+    margin: 0 0 20px;
+    padding-left: 0;
+}
+
+.browse-cta-button {
+    display: inline-block;
+    font-family: 'TimesNewRoman';
+    font-size: 1.1rem;
+    color: #FFFAF0;
+    background-image: linear-gradient(to right, #1C2594, #5BCAF3);
+    padding: 12px 32px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(28, 37, 148, 0.25);
+}
+
+.browse-cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(28, 37, 148, 0.35);
+}

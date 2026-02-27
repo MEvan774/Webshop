@@ -1,6 +1,15 @@
 import { PoolConnection, ResultSetHeader } from "mysql2/promise";
 import { DatabaseService } from "./DatabaseService";
-import { UserRegistrationResponse, UserResult } from "@shared/types";
+import { UserResult } from "@shared/types";
+
+/**
+ * Represents a row returned when querying for verification data.
+ * This is a local type since it only maps to a specific SELECT query.
+ */
+interface VerifyUserRow {
+    userId: number;
+    isVerified: boolean;
+}
 
 /**
  * This service interacts with the database
@@ -133,7 +142,6 @@ export class UserService {
         const connection: PoolConnection = await this._databaseService.openConnection();
 
         try {
-            // Use parameterized query to prevent SQL injection
             const result: ResultSetHeader = await this._databaseService.query(connection,
                 "UPDATE user SET password = ? WHERE userId = ?",
                 password, userId
@@ -226,7 +234,6 @@ export class UserService {
         const connection: PoolConnection = await this._databaseService.openConnection();
 
         try {
-            // Use parameterized query to prevent SQL injection
             const result: ResultSetHeader = await this._databaseService.query(connection,
                 "UPDATE user SET email = ? WHERE userId = ?",
                 email, userId
@@ -239,17 +246,34 @@ export class UserService {
         }
     }
 
+    /**
+     * Verify a user by their verification token
+     *
+     * @param verificationToken The token to verify
+     * @returns Boolean whether verification was successful
+     */
     public async verifyUser(verificationToken: string): Promise<boolean> {
         const connection: PoolConnection = await this._databaseService.openConnection();
         try {
-            const result: UserRegistrationResponse[] = await this._databaseService.query<UserRegistrationResponse[]>(connection, "SELECT userId, isVerified FROM user WHERE verificationToken = ?", verificationToken);
+            const result: VerifyUserRow[] = await this._databaseService.query<VerifyUserRow[]>(
+                connection,
+                "SELECT userId, isVerified FROM user WHERE verificationToken = ?",
+                verificationToken
+            );
+
             if (result.length > 0) {
-                const user: UserRegistrationResponse = result[0];
+                const user: VerifyUserRow = result[0];
+
                 if (user.isVerified) {
                     throw new Error("Uw account is reeds geverifieerd.");
                 }
 
-                await this._databaseService.query(connection, "UPDATE user SET isVerified = true WHERE userId = ?", user.userId);
+                await this._databaseService.query(
+                    connection,
+                    "UPDATE user SET isVerified = true WHERE userId = ?",
+                    user.userId
+                );
+
                 return true;
             }
             else {
@@ -263,7 +287,7 @@ export class UserService {
             else {
                 console.error("Onbekende fout bij verificatie:", error);
             }
-            throw error; // Hergooi de fout zodat deze afgehandeld kan worden in de route
+            throw error;
         }
         finally {
             connection.release();
@@ -280,7 +304,6 @@ export class UserService {
         const connection: PoolConnection = await this._databaseService.openConnection();
 
         try {
-            // Use parameterized query to prevent SQL injection
             const result: ResultSetHeader = await this._databaseService.query(connection,
                 "DELETE FROM token WHERE userId = ?",
                 userId
@@ -299,14 +322,13 @@ export class UserService {
     /**
      * Delete the tokens by email
      *
-     * @param userId UserId of the user as string
+     * @param email Email of the user as string
      * @returns Boolean whether the change was succesful
      */
     public async deleteTokenByEmail(email: string): Promise<boolean> {
         const connection: PoolConnection = await this._databaseService.openConnection();
 
         try {
-            // Use parameterized query to prevent SQL injection
             const result: ResultSetHeader = await this._databaseService.query(connection,
                 "DELETE FROM token WHERE email = ?",
                 email

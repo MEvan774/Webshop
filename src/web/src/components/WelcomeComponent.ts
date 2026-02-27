@@ -265,6 +265,12 @@ export class WelcomeComponent extends HTMLElement {
 </div>
 </div>
 </section>
+  <!-- Browse All Games CTA -->
+  <section class="browse-cta">
+    <h2>Meer ontdekken?</h2>
+    <p>Bekijk ons volledige aanbod aan games en deals.</p>
+    <a href="/browse.html" class="browse-cta-button">Bekijk alle games</a>
+  </section>
 </div>
         `;
 
