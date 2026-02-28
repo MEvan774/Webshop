@@ -200,7 +200,7 @@ export class NavComponent extends HTMLElement {
             document.head.appendChild(globalStyle);
         }
 
-        const element: HTMLElement = html`
+const element: HTMLElement = html`
   <div>
     <div class="navbar">
       <!-- Left (Logo + Brand) -->
@@ -220,16 +220,14 @@ export class NavComponent extends HTMLElement {
         <img src="/assets/img/icons/SearchWhiteIcon.svg" alt="Search" width="34" height="34" />
       </label>
 
-      <!-- Hamburger Menu Toggle -->
-      <input type="checkbox" id="hamburger-toggle" class="hamburger-toggle" />
+      <!-- Hamburger label stays inside navbar for layout -->
       <label for="hamburger-toggle" class="hamburger-icon">
-  <img src="/assets/img/icons/HamburgerIcon.svg" alt="Menu" width="24" height="24" />
-</label>
+        <img src="/assets/img/icons/HamburgerIcon.svg" alt="Menu" width="24" height="24" />
+      </label>
 
-<!-- Center Search Bar (Hidden on mobile) -->
-<div class="navbar-center">
-<!-- Browse link -->
-<a href="/browse.html" class="navbar-browse-link">Browse</a>
+      <!-- Center Search Bar (Hidden on mobile) -->
+      <div class="navbar-center">
+        <a href="/browse.html" class="navbar-browse-link">Browse</a>
         <div class="searchbar">
           <button id="desktop-search-btn">
             <img src="/assets/img/icons/SearchIcon.png" alt="Search" />
@@ -239,36 +237,37 @@ export class NavComponent extends HTMLElement {
       </div>
 
       <!-- Search Overlay -->
-<div class="mobile-search-overlay">
-  <div class="mobile-searchbar-container">
-    <button id="mobile-search-btn">
-      <img src="/assets/img/icons/SearchIcon.png" alt="Search" />
-    </button>
-    <input type="text" placeholder="Zoek game..." id="mobile-search-input" />
-    <label for="mobile-search-toggle" class="close-search">
-      <img src="/assets/img/icons/CloseIcon.svg" alt="Close" />
-    </label>
-  </div>
-</div>
-
-
-<!-- Cart button (desktop) -->
-<a href="/payment.html" class="navbar-cart" id="cart-link-desktop">
-  <span class="cart-icon"><img src="/assets/img/icons/ShoppingCart.svg" width="40" height="40" alt="Cart" /></span>
-  <span class="cart-badge" id="cart-count-desktop" style="display: none;">0</span>
-</a>
-      <!-- Right Buttons (empty until session check completes) -->
-      <div class="navbar-right" id="auth-section"></div>
-
-      <!-- Mobile Menu (Dropdown under hamburger) -->
-      <div class="mobile-menu">
-      <a href="/browse.html" class="mobile-menu-link">Browse</a>
-        <a href="/payment.html" class="mobile-menu-link">
-            Winkelwagen
-            <span class="cart-badge-mobile" id="cart-count-mobile" style="display: none;">0</span>
-        </a>
-        <div id="mobile-auth-section" class="mobile-auth"></div>
+      <div class="mobile-search-overlay">
+        <div class="mobile-searchbar-container">
+          <button id="mobile-search-btn">
+            <img src="/assets/img/icons/SearchIcon.png" alt="Search" />
+          </button>
+          <input type="text" placeholder="Zoek game..." id="mobile-search-input" />
+          <label for="mobile-search-toggle" class="close-search">
+            <img src="/assets/img/icons/CloseIcon.svg" alt="Close" />
+          </label>
+        </div>
       </div>
+
+      <!-- Cart button (desktop) -->
+      <a href="/payment.html" class="navbar-cart" id="cart-link-desktop">
+        <span class="cart-icon"><img src="/assets/img/icons/ShoppingCart.svg" width="40" height="40" alt="Cart" /></span>
+        <span class="cart-badge" id="cart-count-desktop" style="display: none;">0</span>
+      </a>
+
+      <!-- Right Buttons -->
+      <div class="navbar-right" id="auth-section"></div>
+    </div>
+
+    <!-- Checkbox + Mobile Menu OUTSIDE navbar, but inside root div -->
+    <input type="checkbox" id="hamburger-toggle" class="hamburger-toggle" />
+    <div class="mobile-menu">
+      <a href="/browse.html" class="mobile-menu-link">Browse</a>
+      <a href="/payment.html" class="mobile-menu-link">
+        Winkelwagen
+        <span class="cart-badge-mobile" id="cart-count-mobile" style="display: none;">0</span>
+      </a>
+      <div id="mobile-auth-section" class="mobile-auth"></div>
     </div>
 
     <!-- Search dropdown below navbar -->
