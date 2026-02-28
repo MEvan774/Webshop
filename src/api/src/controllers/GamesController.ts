@@ -134,7 +134,26 @@ export class GamesController {
 
         try {
             const results: CheapSharkGameSearch[] = await this._cheapSharkService.searchGames(title);
-            res.status(200).json(results);
+
+            // Map CheapSharkGameSearch to GameResult format for frontend compatibility
+            const games: GameResult[] = results.map((result: CheapSharkGameSearch): GameResult => ({
+                gameId: result.gameID,
+                cheapSharkGameId: result.gameID,
+                SKU: result.cheapestDealID,
+                title: result.external,
+                thumbnail: result.thumb,
+                images: null,
+                descriptionMarkdown: "",
+                descriptionHtml: "",
+                url: result.steamAppID
+                    ? `https://store.steampowered.com/app/${result.steamAppID}`
+                    : `https://www.cheapshark.com/redirect?dealID=${result.cheapestDealID}`,
+                authors: null,
+                tags: null,
+                reviews: null,
+            }));
+
+            res.status(200).json(games);
         }
         catch (e: unknown) {
             console.error("Error searching games:", e);
