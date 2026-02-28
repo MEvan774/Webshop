@@ -179,6 +179,27 @@ export class NavComponent extends HTMLElement {
     private renderNavbar(): void {
         if (!this.shadowRoot) return;
 
+        // Ensure fonts are available at the document level (needed for Shadow DOM)
+        if (!document.querySelector("#nav-global-fonts")) {
+            const globalStyle: HTMLStyleElement = document.createElement("style");
+            globalStyle.id = "nav-global-fonts";
+            globalStyle.textContent = `
+        @font-face {
+            font-family: 'Pacifico';
+            src: url('/assets/fonts/Pacifico.ttf');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Times New Roman';
+            src: url('/assets/fonts/TimesNewRoman.ttf');
+            font-weight: normal;
+            font-style: normal;
+        }
+    `;
+            document.head.appendChild(globalStyle);
+        }
+
         const element: HTMLElement = html`
   <div>
     <div class="navbar">
@@ -230,18 +251,18 @@ export class NavComponent extends HTMLElement {
   </div>
 </div>
 
-      <!-- Cart button (desktop) -->
-      <a href="/payment.html" class="navbar-cart" id="cart-link-desktop">
-        <span class="cart-icon">&#128722;</span>
-        <span class="cart-badge" id="cart-count-desktop" style="display: none;">0</span>
-      </a>
 
+<!-- Cart button (desktop) -->
+<a href="/payment.html" class="navbar-cart" id="cart-link-desktop">
+  <span class="cart-icon"><img src="/assets/img/icons/ShoppingCart.svg" width="40" height="40" alt="Cart" /></span>
+  <span class="cart-badge" id="cart-count-desktop" style="display: none;">0</span>
+</a>
       <!-- Right Buttons (empty until session check completes) -->
       <div class="navbar-right" id="auth-section"></div>
 
       <!-- Mobile Menu (Dropdown under hamburger) -->
       <div class="mobile-menu">
-      <a href="/browse.html" class="mobile-menu-link">Alle Games</a>
+      <a href="/browse.html" class="mobile-menu-link">Browse</a>
         <a href="/payment.html" class="mobile-menu-link">
             Winkelwagen
             <span class="cart-badge-mobile" id="cart-count-mobile" style="display: none;">0</span>
@@ -359,6 +380,7 @@ export class NavComponent extends HTMLElement {
 
             .cart-icon {
                 font-size: 1.6rem;
+                float: right;
                 color: #FFFAF0;
                 filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
                 transition: transform 0.2s ease;
@@ -367,6 +389,12 @@ export class NavComponent extends HTMLElement {
             .navbar-cart:hover .cart-icon {
                 transform: scale(1.15);
             }
+
+            @media (max-width: 768px) {
+    .navbar-cart {
+        display: none;
+    }
+}
 
             .cart-badge {
                 position: absolute;

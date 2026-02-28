@@ -1,119 +1,237 @@
 @import "colors.css";
 
-#tileContainer {
-    display: flex;
-    justify-content: space-evenly;
-    padding-top: 20px;
+/* ============================================
+   Payment / Shopping Cart Page
+   LucaStars Webshop — Refreshed Design
+   ============================================ */
 
+@font-face {
+    font-family: 'TimesNewRoman';
+    src: url('/assets/fonts/TimesNewRoman.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TimesNewRomanBold';
+    src: url('/assets/fonts/TimesNewRomanBold.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'RaleWay';
+    src: url('/assets/fonts/Raleway-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ---- Layout ---- */
+
+#tileContainer {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    grid-template-rows: auto auto;
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+    font-family: 'TimesNewRoman', serif;
+    color: var(--black);
 }
 
 #tileContainer h1 {
-    margin-top: 0;
-    margin-left: 0;
+    font-family: 'TimesNewRomanBold', serif;
+    font-size: 1.8rem;
+    margin: 0 0 20px 0;
+    color: var(--blue);
 }
 
+/* ---- Shopping cart (left column) ---- */
+
 #shoppingCart {
+    grid-row: 1 / 3;
     display: flex;
     flex-direction: column;
 }
 
 #shoppingCart a {
+    display: inline-block;
+    margin-top: 16px;
+    color: var(--blue);
+    font-size: 0.9rem;
     text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s ease;
 }
+
+#shoppingCart a:hover {
+    color: #e74c3c;
+}
+
+/* ---- Price summary (right column) ---- */
 
 #priceContainer {
-    border: 1px var(--black) solid;
-}
-
-#price {
+    background: linear-gradient(135deg, rgba(28, 37, 148, 0.04), rgba(91, 202, 243, 0.04));
+    border: 2px solid var(--blue);
+    border-radius: 12px;
+    padding: 20px 24px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 4px;
+    align-self: start;
+    position: sticky;
+    top: 90px;
 }
 
-#discountAmount {
-    display: flex;
-    justify-content: space-between;
-}
-
-#discountInput {
-    display: flex;
-    justify-content: space-between;
-}
-
+#price,
+#discountAmount,
+#discountInput,
 #totalPrice {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
 }
 
-    #priceContainer input {
-border: 2px solid #f4b111;
-    }
+#price p,
+#discountAmount p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #555;
+}
 
-    .checkout {
-        position: absolute;
-        margin-top: 210px;
-        right: 10.3%;
-        background-color: #f4b111;
-        width: 260px;
-        height: 65px;
-        text-align: center;
-        font-size: 32px;
-        line-height: 60px;
-        text-decoration: none;
-        color: #121212;
-    }
+#price p:last-child,
+#discountAmount p:last-child {
+    font-weight: bold;
+    color: var(--black);
+}
+
+#discountAmount {
+    border-bottom: 1px solid rgba(28, 37, 148, 0.12);
+    padding-bottom: 12px;
+}
+
+#discountInput {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 12px 0;
+}
+
+#discountInput p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #777;
+}
+
+#discountInput input {
+    padding: 8px 12px;
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    font-family: 'RaleWay', sans-serif;
+    font-size: 0.9rem;
+    background-color: var(--white);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#discountInput input:focus {
+    border-color: var(--light-gold);
+    box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.15);
+}
+
+#discountInput input::placeholder {
+    color: #bbb;
+}
+
+#totalPrice {
+    border-top: 2px solid var(--blue);
+    margin-top: 8px;
+    padding-top: 14px;
+}
+
+#totalPrice p {
+    margin: 0;
+    font-family: 'TimesNewRomanBold', serif;
+}
+
+#totalPrice p:first-child {
+    font-size: 1.05rem;
+    color: var(--black);
+}
+
+#totalPrice p:last-child {
+    font-size: 1.3rem;
+    color: var(--blue);
+}
+
+/* ---- Checkout button ---- */
+
+.checkout {
+    grid-column: 2;
+    display: block;
+    background: var(--blue-gradient);
+    color: var(--white);
+    text-align: center;
+    font-family: 'TimesNewRomanBold', serif;
+    font-size: 1.15rem;
+    text-decoration: none;
+    padding: 16px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    box-shadow: 0 4px 16px rgba(28, 37, 148, 0.25);
+    align-self: start;
+}
+
+.checkout:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(28, 37, 148, 0.35);
+}
+
+.checkout:active {
+    transform: translateY(0);
+    opacity: 0.9;
+}
+
+/* ---- Empty / loading states ---- */
+
+.empty-cart,
+.loading-text {
+    font-family: 'RaleWay', sans-serif;
+    font-size: 1rem;
+    color: #888;
+    text-align: center;
+    padding: 40px 0;
+}
+
+.loading-text {
+    font-style: italic;
+}
+
+/* ---- Responsive ---- */
 
 @media (max-width: 768px) {
     #tileContainer {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr;
+        padding: 20px 16px 40px;
     }
-    
-    #shoppingCart,
+
+    #shoppingCart {
+        grid-row: auto;
+    }
+
     #priceContainer {
-        width: 90%;
-        margin-bottom: 20px;
-    }
-
-    #price {
-        margin-top: -10px;
-        margin-bottom: -10px;
-        padding-left: 5px;
-        padding-right: 5px;
-    }
-
-    #discountAmount {
-        margin-top: -25px;
-        margin-bottom: -10px;
-        border-bottom: 1px solid black;
-                padding-left: 5px;
-        padding-right: 5px;
-    }
-
-        #discountInput {
-        margin-top: 25px;
-        margin-bottom: -10px;
-                padding-left: 5px;
-        padding-right: 5px;
-    }
-
-            #totalPrice {
-        margin-bottom: -10px;
-                padding-left: 5px;
-        padding-right: 5px;
+        position: static;
     }
 
     .checkout {
-                right: 0;
-        position: relative;
-        background-color: #f4b111;
-        margin-top: 0;
-        width: 90%;
-        height: 65px;
-        text-align: center;
-        font-size: 32px;
-          line-height: 60px;
-            text-decoration: none; /* no underline */
-            color: #121212;
+        grid-column: 1;
+        width: 100%;
+    }
+
+    #tileContainer h1 {
+        font-size: 1.4rem;
     }
 }

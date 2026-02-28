@@ -155,7 +155,7 @@ button .navbar {
 }
 
 .navbar-right {
-    flex: 1;
+    flex: unset;
     justify-content: flex-end;
 }
 
@@ -182,7 +182,18 @@ button .navbar {
     background-color: #cacaca;
 }
 
+/* Desktop cart positioning */
+.navbar-cart {
+    order: 0;
+    margin-left: 0;
+    margin-right: 8px;
+}
 
+/* Keep auth buttons after cart */
+.navbar-right {
+    flex: unset; /* Remove flex:1 so it doesn't push cart away */
+    gap: 0;
+}
 
 /* Hide hamburger and mobile menu by default */
 .hamburger-icon {
@@ -198,26 +209,36 @@ button .navbar {
 
 /* Mobile menu container */
 .mobile-menu {
-  position: absolute;
-  top: 65px; /* Below navbar */
-  left: 0;
-  width: 100%;
-  background-color: #FFFAF0;
-  border-bottom: 2px solid #1C2594;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-  box-sizing: border-box;
-  max-width: 100vw;
-  overflow-x: hidden;
-  z-index: 999;
-  
-  /* Animation properties */
-  transform: translateY(-100%);
-  opacity: 0;
-  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    background-color: #FFFAF0;
+    border-bottom: 2px solid #1C2594;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    box-sizing: border-box;
+    max-width: 100vw;
+    overflow-x: hidden;
+    z-index: 1;
+
+    /* Start hidden above */
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0s linear 0.3s;
+}
+
+.hamburger-toggle:checked ~ .mobile-menu {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out, visibility 0s linear 0s;
 }
 
 /* General mobile menu links */
@@ -423,15 +444,18 @@ button .navbar {
     }
 }
 
+    .navbar-cart {
+        display: none;
+    }
+
 /* Browse link in mobile dropdown menu */
 .mobile-menu-link {
     display: block;
     padding: 12px 20px;
     font-family: 'TimesNewRoman';
     font-size: 1.1rem;
-    color: #1C2594;
+    border-bottom: 1px solid #1C2594;
     text-decoration: none;
-    border-bottom: 1px solid #ece3d4;
 }
 
 .mobile-menu-link:hover {

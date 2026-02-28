@@ -1,3 +1,9 @@
+@import "colors.css";
+
+/* ============================================
+   Login Page — LucaStars Webshop Refreshed
+   ============================================ */
+
 @font-face {
     font-family: 'Pacifico';
     src: url('/assets/fonts/Pacifico.ttf');
@@ -6,114 +12,189 @@
 }
 
 @font-face {
-  font-family: 'RaleWay';
-  src: url('/assets/fonts/Raleway-Regular.ttf');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'RaleWay';
+    src: url('/assets/fonts/Raleway-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'TimesNewRoman';
+    src: url('/assets/fonts/TimesNewRoman.ttf');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body {
-    font-family: Raleway, sans-serif;
+    font-family: 'RaleWay', sans-serif;
     min-height: 100vh;
+    background-color: var(--white);
 }
 
 webshop-page-login {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 40px;
+    padding: 0 16px;
 }
+
+/* ---- Form container ---- */
 
 .loginForm {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    background-image: linear-gradient(to top right, rgba(28, 37, 148, 0.3), rgba(91, 202, 243, 0.3));
+    max-width: 440px;
+    width: 100%;
+    background-color: #FFFAF0;
+    border: 1px solid #e0d6c6;
     border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 40px rgba(28, 37, 148, 0.08);
+    padding: 40px 36px 32px;
 }
+
+.loginForm h1 {
+    text-align: center;
+    font-family: 'TimesNewRoman', serif;
+    font-size: 1.8rem;
+    color: var(--blue);
+    margin: 0 0 28px;
+}
+
+/* ---- Form fields ---- */
 
 .login-grid {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: 80%;
-    margin: 20px auto 0px;
-}
-
-.login-grid label {
-    font-weight: bold;
-    font-size: 32px;
+    gap: 18px;
+    width: 100%;
 }
 
 .login-grid > div {
     display: flex;
     flex-direction: column;
+    gap: 6px;
+}
+
+.login-grid label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--black);
+    font-family: 'RaleWay', sans-serif;
 }
 
 .login-grid input {
-    width: calc(100% - 6px);
-    height: 30px;
-    border: 1px solid #ff9900;
-    font-size: 22px;
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    border: 2px solid #e0d6c6;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'RaleWay', sans-serif;
+    background-color: #fff;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
 }
 
-/* Knop styling */
+.login-grid input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.12);
+}
+
+/* ---- Button ---- */
+
 button.loginBtn {
-    padding: 10px 20px;
-    background-color: #ff9900;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(90deg, #1C2594, #5BCAF3);
     border: none;
-    font-size: 16px;
+    border-radius: 10px;
+    font-family: 'TimesNewRoman', serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--white);
     cursor: pointer;
-    color: black;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-    align-self: center;
-    scale: 1.5;
+    margin-top: 24px;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 16px rgba(28, 37, 148, 0.2);
 }
 
 button.loginBtn:hover {
-    background-color: #ffcc00;
-    transition: background-color 0.3s ease;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(28, 37, 148, 0.3);
 }
 
+button.loginBtn:active {
+    transform: translateY(0);
+}
+
+/* ---- Messages ---- */
+
 .error-message {
-    margin-top: 10px;
-    color: red;
-    font-size: 14px;
+    margin-top: 12px;
+    color: #e74c3c;
+    font-size: 0.85rem;
     text-align: center;
 }
 
 .success-message {
-    margin-top: 10px;
-    color: green;
-    font-size: 14px;
+    margin-top: 12px;
+    color: #2ecc71;
+    font-size: 0.85rem;
     text-align: center;
 }
 
-.loginForm h1 {
+/* ---- Links ---- */
+
+.loginForm .full-width {
     text-align: center;
-    margin-bottom: 20px;
+    margin-top: 16px;
 }
 
 .loginForm .full-width h3 {
-    text-align: center;
-    margin-top: 20px;
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: #666;
+    margin: 0;
 }
 
 .loginForm .full-width .redirectRegister {
-    color: #ff9900;
+    color: var(--gold);
     text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
 }
 
 .loginForm .full-width .redirectRegister:hover {
+    color: var(--light-gold);
     text-decoration: underline;
-    color: #ffcc00;
 }
 
 .loginForm #lostPassword {
-    color: #ff9900;
+    color: var(--blue);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.loginForm #lostPassword:hover {
+    color: var(--light-blue);
+    text-decoration: underline;
 }
 
 #terms {
-font-family: "RaleWay";
+    font-family: "RaleWay", sans-serif;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 480px) {
+    .loginForm {
+        padding: 28px 20px 24px;
+    }
+
+    .loginForm h1 {
+        font-size: 1.5rem;
+    }
 }
