@@ -29,7 +29,11 @@ export class WelcomeController {
         }
 
         res
-            .cookie("session", sessionId, { httpOnly: true, secure: false }) // secure: true in productie
+            .cookie("session", sessionId, {
+                httpOnly: true,
+                secure: true,
+                sameSite: "none",
+            })
             .json({
                 sessionId,
             });
