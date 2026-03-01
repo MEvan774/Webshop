@@ -13,6 +13,7 @@
         "test:ui": "vitest --coverage --ui"
     },
     "devDependencies": {
+        "vite-tsconfig-paths": "^5.1.4",
         "@hboictcloud/vite-plugin-typechecks": "^2.0.0",
         "@testing-library/dom": "10.4.0",
         "@testing-library/user-event": "14.6.1",
