@@ -191,7 +191,7 @@ button .navbar {
 
 /* Keep auth buttons after cart */
 .navbar-right {
-    flex: unset; /* Remove flex:1 so it doesn't push cart away */
+    flex: unset;
     gap: 0;
 }
 

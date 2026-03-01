@@ -60,6 +60,11 @@
     background-color: #121212;
 }
 
+.hero-main a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .hero-main img {
     width: 100%;
     height: 100%;
@@ -290,6 +295,11 @@
     max-width: 250px;
     scroll-snap-align: start;
   }
+
+  .game-card a {
+    text-decoration: none;
+    color: inherit;
+}
 }
 
 @media screen and (max-width: 768px) {
@@ -461,6 +471,7 @@
     padding: 0;
     margin-top: 2px;
     transform-origin: 30% 50%;
+    transition: filter 0.2s ease;
   }
 
   .scroll-arrow.left img {
@@ -471,7 +482,15 @@
     margin-top: 2px;
     transform-origin: 30% 50%;
     rotate: 180deg;
-    transform: translateX(-4px);
+    transition: filter 0.2s ease;
+  }
+
+    .scroll-arrow.left img:hover {
+    filter: brightness(0) saturate(100%) invert(88%) sepia(26%) saturate(208%) hue-rotate(323deg) brightness(103%) contrast(112%);
+  }
+
+      .scroll-arrow.right img:hover {
+    filter: brightness(0) saturate(100%) invert(88%) sepia(26%) saturate(208%) hue-rotate(323deg) brightness(103%) contrast(112%);
   }
 
   .game-card {
@@ -486,6 +505,12 @@
     background-color: #121212;
     background: linear-gradient(180deg,rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 94%, rgba(237, 221, 83, 0) 76%);
   }
+
+  .game-card a {
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.3s ease;
+}
 
   .game-card img {
     width: 100%;
@@ -510,6 +535,10 @@
     color: #FFFAF0;
     margin-bottom: 0%;
   }
+
+  .game-card a:hover {
+    opacity: 0.9;
+}
 
   .price-wrapper {
     position: absolute;
@@ -585,11 +614,9 @@
     padding: 12px 32px;
     border-radius: 10px;
     text-decoration: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 2px 8px rgba(28, 37, 148, 0.25);
+    transition: transform 0.2s ease;
 }
 
 .browse-cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(28, 37, 148, 0.35);
 }

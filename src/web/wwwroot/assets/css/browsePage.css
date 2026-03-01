@@ -141,6 +141,42 @@ body {
     width: 100%;
 }
 
+.browse-grid .game-card .price-wrapper {
+    width: 20%;
+    bottom: 10%;
+    right: 5%;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+    margin-right: 2px;
+}
+
+.browse-grid .game-card .discount {
+    font-size: 0.75rem;
+    padding: 2px 2px;
+    height: auto;
+}
+
+.browse-grid .game-card .original-price {
+    margin-left: 0;
+}
+
+.browse-grid .game-card .discounted-price {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 1rem;
+    line-height: 1.2;
+}
+
+.browse-grid .game-card p {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 0 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* ===== No Results ===== */
 .browse-no-results {
     grid-column: 1 / -1;

@@ -200,7 +200,7 @@ export class NavComponent extends HTMLElement {
             document.head.appendChild(globalStyle);
         }
 
-const element: HTMLElement = html`
+        const element: HTMLElement = html`
   <div>
     <div class="navbar">
       <!-- Left (Logo + Brand) -->
@@ -381,12 +381,11 @@ const element: HTMLElement = html`
                 font-size: 1.6rem;
                 float: right;
                 color: #FFFAF0;
-                filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
-                transition: transform 0.2s ease;
+                transition: filter 0.2s ease;
             }
 
             .navbar-cart:hover .cart-icon {
-                transform: scale(1.15);
+                filter: brightness(0) saturate(100%) invert(53%) sepia(66%) saturate(330%) hue-rotate(194deg) brightness(89%) contrast(90%);
             }
 
             @media (max-width: 768px) {
