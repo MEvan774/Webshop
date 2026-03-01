@@ -1,0 +1,5 @@
+[phases.build]
+cmds = ["npm install", "npm run build:vercel --workspace=@webshop/api"]
+
+[start]
+cmd = "node dist/api/index.js"
