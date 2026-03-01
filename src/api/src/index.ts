@@ -18,6 +18,7 @@ const allowedOrigins: string[] = [
     "http://localhost:3000",
     "https://dev-naagooxeekuu77-pb4sef2425.hbo-ict.cloud",
     "https://naagooxeekuu77-pb4sef2425.hbo-ict.cloud",
+    "https://your-app.vercel.app",
 ];
 
 // Enable CORS headers
