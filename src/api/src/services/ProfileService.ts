@@ -22,7 +22,7 @@ export async function getUser(sessionID: string): Promise<UserResult | undefined
     const currentUserId: number | undefined = await sessionService.getUserIdBySession(sessionID);
 
     if (!currentUserId) {
-        return;
+        return undefined;
     }
 
     const currentUser: UserResult | undefined = await userService.getUserById(currentUserId);
@@ -31,7 +31,7 @@ export async function getUser(sessionID: string): Promise<UserResult | undefined
         return currentUser;
     }
 
-    return;
+    return undefined;
 }
 
 /**
