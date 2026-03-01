@@ -46,7 +46,7 @@ export class ProfileEditingComponent extends BaseProfileComponent {
         }
 
         this.shadowRoot.innerHTML = `
-            <link rel="stylesheet" href="src/web/wwwroot/assets/css/profile.css">
+            <link rel="stylesheet" href="/assets/css/profile.css">
 
             <div id="profileEditBox">
                     <img id="profilePicture" src="${profilePicture}" width="35%" height="35%"><br>

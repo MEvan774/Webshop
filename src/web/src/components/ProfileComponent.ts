@@ -32,7 +32,7 @@ export class ProfileComponent extends BaseProfileComponent {
         const gender: string = this.ProfileService.getGender(user.gender);
 
         this.shadowRoot.innerHTML = `
-            <link rel="stylesheet" href="src/web/wwwroot/assets/css/profile.css">
+            <link rel="stylesheet" href="/assets/css/profile.css">
 
             <div class="main-content">
                 <div class="pictureDiv">

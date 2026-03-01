@@ -277,7 +277,7 @@ export class NavComponent extends HTMLElement {
 
         const styleLink: HTMLLinkElement = document.createElement("link");
         styleLink.setAttribute("rel", "stylesheet");
-        styleLink.setAttribute("href", "src/web/wwwroot/assets/css/navbar.css");
+        styleLink.setAttribute("href", "/assets/css/navbar.css");
 
         const searchStyles: HTMLStyleElement = document.createElement("style");
         searchStyles.textContent = `

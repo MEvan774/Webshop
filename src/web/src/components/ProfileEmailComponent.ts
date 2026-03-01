@@ -36,7 +36,7 @@ export class ProfileEmailComponent extends BaseProfileComponent {
         await this.getCurrentUser();
 
         this.shadowRoot.innerHTML = `
-            <link rel="stylesheet" href="src/web/wwwroot/assets/css/profile.css">
+            <link rel="stylesheet" href="/assets/css/profile.css">
             <div id="emailWarning">
                 <h1 id="emailH">Email wijzigen:</h1>
                 Bij het wijzigen van uw email wordt er een bevestiging naar het nieuwe emailadres gestuurd.<br>
