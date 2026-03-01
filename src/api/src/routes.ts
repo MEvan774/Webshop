@@ -222,3 +222,20 @@ router.get("/profile", async (req, res) => {
     const user: UserResult | undefined = await getUser(sessionId);
     return res.status(200).json({ user });
 });
+
+router.get("/test-stripe", async (_req, res) => {
+    try {
+        const response: Response = await fetch("https://api.stripe.com/v1/balance", {
+            headers: {
+                Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}`,
+            },
+        });
+        // eslint-disable-next-line @typescript-eslint/typedef, @typescript-eslint/no-unsafe-assignment
+        const data = await response.json();
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        res.json({ status: response.status, data });
+    }
+    catch (error) {
+        res.json({ error: String(error) });
+    }
+});
