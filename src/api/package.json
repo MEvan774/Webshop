@@ -6,7 +6,7 @@
         "dev": "esbuild-scripts watch",
         "build": "esbuild-scripts build",
         "preview": "node ../../dist/api/index.js",
-        "build:vercel": "esbuild src/index.ts --bundle --platform=node --format=js --outfile=../../dist/api/index.js",
+        "build:vercel": "esbuild src/index.ts --bundle --platform=node --format=cjs --outfile=../../dist/api/index.cjs",
         "test": "vitest --run --coverage",
         "test:watch": "vitest",
         "test:watch-with-coverage": "vitest --coverage",
