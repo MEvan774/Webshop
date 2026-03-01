@@ -17,9 +17,15 @@ export default defineConfig(config => {
     // Gather all environment variables
     const defines: Record<string, string> = loadEnv(config.mode, process.cwd(), "VITE");
 
+    
     // BUGFIX: Vite assumes al defines are objects by default
     for (const define of Object.entries(defines)) {
         defines[define[0]] = JSON.stringify(define[1]);
+    }
+    
+    // After the loadEnv loop
+    if (process.env.VITE_API_URL && !defines['VITE_API_URL']) {
+        defines['VITE_API_URL'] = JSON.stringify(process.env.VITE_API_URL);
     }
 
     return {
