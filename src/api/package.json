@@ -2,9 +2,7 @@
     "name": "@webshop/api",
     "version": "1.0.0",
     "private": true,
-    "type": "module",
     "scripts": {
-        "start": "node ../../dist/api/index.js",
         "dev": "esbuild-scripts watch",
         "build": "esbuild-scripts build",
         "preview": "node ../../dist/api/index.js",
