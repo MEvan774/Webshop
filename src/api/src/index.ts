@@ -19,6 +19,7 @@ const allowedOrigins: string[] = [
     "https://dev-naagooxeekuu77-pb4sef2425.hbo-ict.cloud",
     "https://naagooxeekuu77-pb4sef2425.hbo-ict.cloud",
     "https://webshopapi-production.up.railway.app",
+    "https://webshop-api-4vlr.vercel.app/",
 ];
 
 // Enable CORS headers
