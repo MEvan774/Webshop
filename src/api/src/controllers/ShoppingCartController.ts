@@ -4,13 +4,14 @@ import { Request, Response } from "express";
 export class ShoppingCartController {
     private readonly cartService: ShoppingCartService = new ShoppingCartService();
 
-    public async addToCart(req: Request, res: Response): Promise<boolean> {
+    public addToCart(req: Request, res: Response): boolean {
         try {
-            const { gameId, userId } = req.body as { gameId: number; userId: number };
-            await this.cartService.addToCart(gameId, userId);
+            const { gameId, title, thumbnail, price } = req.body as {
+                gameId: string; title: string; thumbnail: string; price: number;
+            };
+            this.cartService.addToCart(gameId, title, thumbnail, price);
 
             res.status(200).json({ message: "addToCart succesvol (api_controller)" });
-
             return true;
         }
         catch (error) {
@@ -20,10 +21,10 @@ export class ShoppingCartController {
         }
     }
 
-    public async removeFromCart(req: Request, res: Response): Promise<void> {
+    public removeFromCart(req: Request, res: Response): void {
         try {
-            const { gameId, userId } = req.body as { gameId: number; userId: number };
-            await this.cartService.removeFromCart(gameId, userId);
+            const { gameId } = req.body as { gameId: string };
+            this.cartService.removeFromCart(gameId);
             res.status(200).json({ message: "removeFromCart succesvol (api_controller)" });
         }
         catch (error) {
@@ -32,11 +33,9 @@ export class ShoppingCartController {
         }
     }
 
-    public async removeAllFromCart(req: Request, res: Response): Promise<void> {
+    public removeAllFromCart(_req: Request, res: Response): void {
         try {
-            const { userId } = req.body as { userId: number };
-
-            await this.cartService.removeAllFromCart(userId);
+            this.cartService.removeAllFromCart();
             res.status(200).json({ message: "removeAllFromCart succesvol (api_controller)" });
         }
         catch (error) {

@@ -39,8 +39,7 @@ export class LoginService implements ILoginService {
             if (!sessionResponse.ok) {
                 throw new Error("Kon sessie niet ophalen.");
             }
-
-            const sessionData: SessionResponse = await sessionResponse.json() as SessionResponse;
+            const sessionData: SessionResponse = await sessionResponse.json() as unknown as SessionResponse;
             console.log("Ingelogd met sessie-ID:", sessionData.sessionId);
         }
         catch (error) {

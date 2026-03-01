@@ -5,11 +5,12 @@ export type UserResult = {
     userId: number;
     email: string;
     password: string;
-    fname: string;
-    lname: string;
+    firstname: string;
+    lastname: string;
     dob: string;
     gender: string;
-    country: string;
+    country?: string;
+    profilePicture?: string;
     verified: boolean;
 };
 
@@ -260,4 +261,30 @@ export type CheapSharkStore = {
         logo: string;
         icon: string;
     };
+};
+
+// Add these missing types:
+export type LoginData = {
+    email: string;
+    password: string;
+};
+
+export type SessionResponse = {
+    sessionId: string;
+};
+
+export type SecretResponse = {
+    userId: number;
+    sessionId: string;
+};
+
+export type UserRegisterData = {
+    firstname: string;
+    lastname: string;
+    email: string;
+    dob: string;
+    gender: string;
+    password: string;
+    verificationToken: string | undefined;
+    isVerified: boolean | undefined;
 };
