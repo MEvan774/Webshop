@@ -189,7 +189,7 @@ export class PaymentComponent extends HTMLElement {
 
         const styleLink: HTMLLinkElement = document.createElement("link");
         styleLink.setAttribute("rel", "stylesheet");
-        styleLink.setAttribute("href", "/wwwroot/assets/css/paymentPage.css");
+        styleLink.setAttribute("href", "src/web/wwwroot/assets/css/paymentPage.css");
 
         const extraStyles: HTMLStyleElement = document.createElement("style");
         extraStyles.textContent = `

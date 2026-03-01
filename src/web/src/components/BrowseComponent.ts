@@ -423,11 +423,11 @@ export class BrowseComponent extends HTMLElement {
 
         const welcomeStyle: HTMLLinkElement = document.createElement("link");
         welcomeStyle.setAttribute("rel", "stylesheet");
-        welcomeStyle.setAttribute("href", "/wwwroot/assets/css/welcome.css");
+        welcomeStyle.setAttribute("href", "src/web/wwwroot/assets/css/welcome.css");
 
         const browseStyle: HTMLLinkElement = document.createElement("link");
         browseStyle.setAttribute("rel", "stylesheet");
-        browseStyle.setAttribute("href", "/wwwroot/assets/css/browsePage.css");
+        browseStyle.setAttribute("href", "src/web/wwwroot/assets/css/browsePage.css");
 
         this.shadowRoot.innerHTML = "";
         this.shadowRoot.append(element);
@@ -480,11 +480,11 @@ export class BrowseComponent extends HTMLElement {
 
         const welcomeStyle: HTMLLinkElement = document.createElement("link");
         welcomeStyle.setAttribute("rel", "stylesheet");
-        welcomeStyle.setAttribute("href", "/wwwroot/assets/css/welcome.css");
+        welcomeStyle.setAttribute("href", "src/web/wwwroot/assets/css/welcome.css");
 
         const browseStyle: HTMLLinkElement = document.createElement("link");
         browseStyle.setAttribute("rel", "stylesheet");
-        browseStyle.setAttribute("href", "/wwwroot/assets/css/browsePage.css");
+        browseStyle.setAttribute("href", "src/web/wwwroot/assets/css/browsePage.css");
 
         this.shadowRoot.innerHTML = "";
         this.shadowRoot.append(element);
