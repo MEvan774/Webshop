@@ -25,7 +25,7 @@ class RegisterPageComponent extends HTMLElement {
 
         const styleLink: HTMLLinkElement = document.createElement("link");
         styleLink.setAttribute("rel", "stylesheet");
-        styleLink.setAttribute("href", "/assets/css/registerFromPages.css");
+        styleLink.setAttribute("href", "/wwwroot/assets/css/registerFromPages.css");
 
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);

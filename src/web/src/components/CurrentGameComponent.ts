@@ -290,7 +290,7 @@ export class CurrentGameComponent extends HTMLElement {
 
             const styleLink: HTMLLinkElement = document.createElement("link");
             styleLink.setAttribute("rel", "stylesheet");
-            styleLink.setAttribute("href", "/assets/css/currentGame.css");
+            styleLink.setAttribute("href", "/wwwroot/assets/css/currentGame.css");
             this.shadowRoot.appendChild(styleLink);
             return;
         }
@@ -399,7 +399,7 @@ export class CurrentGameComponent extends HTMLElement {
 
         const styleLink: HTMLLinkElement = document.createElement("link");
         styleLink.setAttribute("rel", "stylesheet");
-        styleLink.setAttribute("href", "/assets/css/currentGame.css");
+        styleLink.setAttribute("href", "/wwwroot/assets/css/currentGame.css");
 
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);

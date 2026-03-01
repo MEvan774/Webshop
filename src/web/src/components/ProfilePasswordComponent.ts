@@ -38,7 +38,7 @@ export class ProfilePasswordComponent extends BaseProfileComponent {
         if (!user) return;
 
         this.shadowRoot.innerHTML = `
-            <link rel="stylesheet" href="/assets/css/profile.css">
+            <link rel="stylesheet" href="/wwwroot/assets/css/profile.css">
 
             <div id="passwordDiv">
                 <h1 id="passwordH">Wachtwoord wijzigen:</h1>

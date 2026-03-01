@@ -283,7 +283,7 @@ export class WelcomeComponent extends HTMLElement {
 
         const styleLink: HTMLLinkElement = document.createElement("link");
         styleLink.setAttribute("rel", "stylesheet");
-        styleLink.setAttribute("href", "/assets/css/welcome.css");
+        styleLink.setAttribute("href", "/wwwroot/assets/css/welcome.css");
 
         // Clear existing content first
         this.shadowRoot.innerHTML = "";

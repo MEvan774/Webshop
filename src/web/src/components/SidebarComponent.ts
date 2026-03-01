@@ -69,7 +69,7 @@ export class SidebarComponent extends HTMLElement {
 
         const styleLink: HTMLLinkElement = document.createElement("link");
         styleLink.setAttribute("rel", "stylesheet");
-        styleLink.setAttribute("href", "/assets/css/sidebar.css");
+        styleLink.setAttribute("href", "/wwwroot/assets/css/sidebar.css");
 
         this.shadowRoot.firstChild?.remove();
         this.shadowRoot.append(element);
