@@ -24,14 +24,21 @@ export class WelcomeComponent extends HTMLElement {
         const games: GameResult[] | null = await this.getAllGames();
         if (!games || games.length === 0) return;
 
-        // Use first 5 games as frontpage featured games
-        const frontPageCount: number = Math.min(5, games.length);
-        this.frontPageGames = games.slice(0, frontPageCount);
+        // Shuffle games using Fisher-Yates algorithm
+        const shuffled: GameResult[] = [...games];
+        for (let i: number = shuffled.length - 1; i > 0; i--) {
+            const j: number = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
 
-        // Use the next 8 games as sale games
+        // Use first 5 shuffled games as frontpage featured games
+        const frontPageCount: number = Math.min(5, shuffled.length);
+        this.frontPageGames = shuffled.slice(0, frontPageCount);
+
+        // Use the next 8 games as sale games (no overlap with frontpage)
         const saleStart: number = frontPageCount;
-        const saleEnd: number = Math.min(saleStart + 8, games.length);
-        const saleGames: GameResult[] = games.slice(saleStart, saleEnd);
+        const saleEnd: number = Math.min(saleStart + 8, shuffled.length);
+        const saleGames: GameResult[] = shuffled.slice(saleStart, saleEnd);
         this.saleGamesGame = saleGames;
 
         // Get game IDs for price fetching (now strings)
