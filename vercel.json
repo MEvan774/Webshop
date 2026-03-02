@@ -1,5 +1,5 @@
 {
-    "installCommand": "npm install --workspaces",
+    "installCommand": "npm install --include=dev",
     "buildCommand": "npm run build --workspace=@webshop/web",
     "outputDirectory": "dist/web",
     "functions": {
