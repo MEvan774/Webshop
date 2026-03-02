@@ -49,7 +49,6 @@ router.get("/token/:token", async (req, res) => {
 const userService: UserService = new UserService();
 
 router.get("/games/search", (req, res) => gamesController.searchGames(req, res));
-router.get("/stores", (req, res) => gamesController.getStores(req, res));
 
 // Get current game
 router.get("/games/:gameID", (req, res) => gamesController.getGameById(req, res));

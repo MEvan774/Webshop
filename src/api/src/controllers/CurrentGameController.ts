@@ -1,60 +1,84 @@
-import { Request, Response } from "express";
-import { GameResult, CheapSharkGameDetail } from "@shared/types";
-import { CheapSharkService } from "@web/services/CheapSharkService";
+import { GameDetailResult, ProductPrice } from "@shared/types";
 
 /**
- * Class for the current game controller
+ * Fetch result containing both the game data and its price info.
  */
-export class CurrentGameController {
-    private readonly cheapSharkService: CheapSharkService = new CheapSharkService();
+export type GamePageData = {
+    game: GameDetailResult;
+    /** The best (cheapest) current price found, or null */
+    currentPrice: number | null;
+    /** The normal retail price, or null */
+    retailPrice: number | null;
+    /** Savings percentage, or null */
+    savingsPercent: number | null;
+};
 
-    /**
-     * Get the current game with the gameID
-     *
-     * @param req Request with the gameID in the params
-     * @param res Response to send the status to
-     * @returns Void
-     */
-    public async getGameByID(req: Request, res: Response): Promise<void> {
-        const { gameID } = req.params;
+/**
+ * Get the current game for currentGameComponent.ts with the gameID.
+ * Fetches the enriched game detail from Steam Store API + SteamSpy
+ * AND also fetches prices via the prices endpoint to ensure prices always display.
+ *
+ * @returns The game page data, or null if no game is found
+ */
+export async function getGamePageData(): Promise<GamePageData | null> {
+    const urlParams: URLSearchParams = new URLSearchParams(window.location.search);
+    const gameID: string | null = urlParams.get("gameId");
 
-        try {
-            const gameDetail: CheapSharkGameDetail = await this.cheapSharkService.getGameById(gameID);
+    if (!gameID) {
+        console.error("Geen gameId gevonden in de URL");
+        return null;
+    }
 
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            if (!gameDetail || !gameDetail.info) {
-                res.status(404).json({ error: "Game not found" });
-                return;
-            }
+    try {
+        // Fetch game detail and prices in parallel
+        const API_BASE: string = (import.meta as unknown as { env: { VITE_API_URL: string } }).env.VITE_API_URL;
 
-            const game: GameResult = {
-                gameId: gameID,
-                cheapSharkGameId: gameID,
-                SKU: gameDetail.deals[0]?.dealID || gameID,
-                title: gameDetail.info.title,
-                thumbnail: gameDetail.info.thumb,
-                images: null,
-                descriptionMarkdown: "",
-                descriptionHtml: "",
-                url: gameDetail.info.steamAppID
-                    ? `https://store.steampowered.com/app/${gameDetail.info.steamAppID}`
-                    : "",
-                authors: null,
-                tags: null,
-                reviews: null,
-            };
+        const [gameResponse, priceResponse]: [Response, Response] = await Promise.all([
+            fetch(`${API_BASE}games/${gameID}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+            }),
+            fetch(`${API_BASE}products/prices/${gameID}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            }),
+        ]);
 
-            res.json(game);
+        if (!gameResponse.ok) {
+            console.error(`Error fetching game with ID ${gameID}:`, gameResponse.statusText);
+            return null;
         }
-        catch (error: unknown) {
-            if (error instanceof Error) {
-                console.error("Failed to fetch game:", error.message);
-                res.status(500).json({ error: error.message });
-            }
-            else {
-                console.error("Unexpected error:", error);
-                res.status(500).json({ error: "Internal server error" });
+
+        const gameData: GameDetailResult = await gameResponse.json() as GameDetailResult;
+
+        // Try to get price data from the prices endpoint (Steam Store prices)
+        let currentPrice: number | null = null;
+        let retailPrice: number | null = null;
+        let savingsPercent: number | null = null;
+
+        if (priceResponse.ok) {
+            const pricesById: Record<string, ProductPrice> = await priceResponse.json() as Record<string, ProductPrice>;
+            const priceData: ProductPrice | undefined = pricesById[gameID];
+
+            currentPrice = priceData.price;
+            retailPrice = priceData.normalPrice;
+
+            const savingsValue: number = parseFloat(priceData.savings);
+            if (savingsValue > 0) {
+                savingsPercent = savingsValue;
             }
         }
+
+        return {
+            game: gameData,
+            currentPrice: currentPrice,
+            retailPrice: retailPrice,
+            savingsPercent: savingsPercent,
+        };
+    }
+    catch (error: unknown) {
+        console.error("Error fetching game page data:", error);
+        return null;
     }
 }

@@ -1,33 +1,48 @@
 import { Request, Response } from "express";
-import { CheapSharkDeal, CheapSharkGameDeal, CheapSharkGameDetail, CheapSharkGameSearch, CheapSharkStore, GameResult, ProductPrice } from "@shared/types";
-import { CheapSharkService } from "@web/services/CheapSharkService";
+import { GameDetailResult, GameResult, ProductPrice } from "@shared/types";
+import { SteamStoreService, SteamAppDetails } from "@api/services/SteamStoreService";
+import { SteamSpyService, SteamSpyAppDetails } from "@api/services/SteamSpyService";
 
 /**
  * Controller for game-related endpoints.
- * Now uses CheapShark API instead of local database + OegeDockerService.
+ * Now uses Steam Store API + SteamSpy instead of CheapShark.
+ *
+ * - Steam Store `appdetails` → game metadata, descriptions, images, genres, metacritic
+ * - SteamSpy → positive/negative reviews to derive steam ratings + tags + owner data
  */
 export class GamesController {
-    private readonly _cheapSharkService: CheapSharkService = new CheapSharkService();
+    private readonly _steamStoreService: SteamStoreService = new SteamStoreService();
+    private readonly _steamSpyService: SteamSpyService = new SteamSpyService();
 
     /**
-     * GET /products - Get all games (deals list)
-     * Maps CheapShark deals to the GameResult format for backward compatibility.
+     * GET /products - Get all games (featured / popular list)
+     * Uses Steam featured endpoint to get a list of current popular games,
+     * then maps them to the GameResult format for backward compatibility.
      */
     public async getAllGames(req: Request, res: Response): Promise<void> {
         try {
-            const page: number = parseInt(req.query.page as string) || 0;
-            const pageSize: number = parseInt(req.query.pageSize as string) || 40;
-            const sortBy: string = (req.query.sortBy as string) || "Deal Rating";
+            const featured: { id: number; name: string; header_image: string; large_capsule_image: string }[] = await this._steamStoreService.getFeaturedGames();
 
-            const deals: CheapSharkDeal[] = await this._cheapSharkService.getDeals(page, pageSize, sortBy);
-
-            // Map CheapShark deals to GameResult format for frontend compatibility
-            const games: GameResult[] = deals.map((deal: CheapSharkDeal) => this.mapDealToGameResult(deal));
+            // Map featured games to GameResult format
+            const games: GameResult[] = featured.map((app): GameResult => ({
+                gameId: app.id.toString(),
+                steamAppId: app.id.toString(),
+                SKU: app.id.toString(),
+                title: app.name,
+                thumbnail: app.header_image || app.large_capsule_image,
+                images: null,
+                descriptionMarkdown: "",
+                descriptionHtml: "",
+                url: `https://store.steampowered.com/app/${app.id}`,
+                authors: null,
+                tags: null,
+                reviews: null,
+            }));
 
             res.status(200).json(games);
         }
         catch (e: unknown) {
-            console.error("Error fetching games from CheapShark:", e);
+            console.error("Error fetching featured games from Steam:", e);
             res.status(500).json({
                 error: "Failed to fetch games",
                 details: e instanceof Error ? e.message : "Unknown error",
@@ -36,37 +51,96 @@ export class GamesController {
     }
 
     /**
-     * GET /games/:gameID - Get a specific game by CheapShark game ID
-     * Returns detailed game info including deals from multiple stores.
+     * GET /games/:gameID - Get a specific game by Steam App ID.
+     * Combines Steam Store appdetails + SteamSpy for full detail.
+     * Returns a GameDetailResult for the game detail page.
      */
     public async getGameById(req: Request, res: Response): Promise<void> {
         const { gameID } = req.params;
 
         try {
-            const gameDetail: CheapSharkGameDetail = await this._cheapSharkService.getGameById(gameID);
+            // Fetch Steam Store details and SteamSpy data in parallel
+            const [storeData, spyData]: [SteamAppDetails | null, SteamSpyAppDetails] =
+                await Promise.all([
+                    this._steamStoreService.getAppDetails(gameID),
+                    this._steamSpyService.getAppDetails(gameID),
+                ]);
 
-            // Map to GameResult format
-            const game: GameResult = {
+            if (!storeData) {
+                res.status(404).json({ error: "Game not found on Steam Store" });
+                return;
+            }
+
+            // Derive Steam rating from SteamSpy positive/negative counts
+            const totalReviews: number = spyData.positive + spyData.negative;
+            const ratingPercent: string = totalReviews > 0
+                ? ((spyData.positive / totalReviews) * 100).toFixed(0)
+                : "0";
+            const ratingText: string = SteamSpyService.deriveRatingText(
+                spyData.positive,
+                spyData.negative
+            );
+
+            // Parse release date to Unix timestamp
+            let releaseTimestamp: number | null = null;
+            if (storeData.release_date?.date) {
+                const parsed: number = Date.parse(storeData.release_date.date);
+                if (!isNaN(parsed)) {
+                    releaseTimestamp = Math.floor(parsed / 1000);
+                }
+            }
+
+            // Build tags from Steam genres + SteamSpy tags
+            const tags: string[] = [];
+            if (storeData.genres) {
+                for (const genre of storeData.genres) {
+                    tags.push(genre.description);
+                }
+            }
+            for (const tagName of Object.keys(spyData.tags)) {
+                if (!tags.includes(tagName)) {
+                    tags.push(tagName);
+                }
+            }
+
+            // Build the full GameDetailResult
+            const game: GameDetailResult = {
                 gameId: gameID,
-                cheapSharkGameId: gameID,
-                SKU: gameDetail.deals[0]?.dealID || gameID,
-                title: gameDetail.info.title,
-                thumbnail: gameDetail.info.thumb,
-                images: null,
-                descriptionMarkdown: "",
-                descriptionHtml: "",
-                url: gameDetail.info.steamAppID
-                    ? `https://store.steampowered.com/app/${gameDetail.info.steamAppID}`
-                    : "",
-                authors: null,
-                tags: null,
-                reviews: null,
+                steamAppId: gameID,
+                SKU: gameID,
+                title: storeData.name,
+                thumbnail: storeData.header_image,
+                images: storeData.screenshots
+                    ? storeData.screenshots.map(s => s.path_full)
+                    : null,
+                descriptionMarkdown: storeData.short_description || "",
+                descriptionHtml: storeData.detailed_description || "",
+                url: `https://store.steampowered.com/app/${gameID}`,
+                authors: storeData.developers || storeData.publishers || null,
+                tags: tags.length > 0 ? tags : null,
+                reviews: storeData.recommendations
+                    ? [`${storeData.recommendations.total} recommendations`]
+                    : null,
+
+                // Extended detail fields
+                steamRatingText: ratingText,
+                steamRatingPercent: ratingPercent,
+                steamRatingCount: totalReviews.toString(),
+                metacriticScore: storeData.metacritic
+                    ? storeData.metacritic.score.toString()
+                    : null,
+                metacriticLink: storeData.metacritic
+                    ? storeData.metacritic.url
+                    : null,
+                releaseDate: releaseTimestamp,
+                cheapestPriceEver: null, // Not available without CheapShark / GG.deals
+                storeDeals: null, // Single-store (Steam only) — no multi-store deals
             };
 
             res.status(200).json(game);
         }
         catch (e: unknown) {
-            console.error("Error fetching game from CheapShark:", e);
+            console.error("Error fetching game detail:", e);
             res.status(500).json({
                 error: "Failed to fetch game",
                 details: e instanceof Error ? e.message : "Unknown error",
@@ -75,45 +149,60 @@ export class GamesController {
     }
 
     /**
-     * GET /products/prices/:gameId - Get prices for a game from all stores
-     * Returns an object of ProductPrice mapped from CheapShark deals.
+     * GET /products/prices/:gameId - Get prices for one or more games.
+     * Uses the Steam Store appdetails price_overview filter for lightweight price fetches.
+     * Supports comma-separated game IDs.
      */
     public async getProductPrices(req: Request, res: Response): Promise<void> {
         const { gameId } = req.params;
 
         try {
-            // Support comma-separated game IDs
             const gameIds: string[] = gameId.split(",");
-
             const pricesById: Record<string, ProductPrice> = {};
 
             for (const id of gameIds) {
                 const trimmedId: string = id.trim();
-                const gameDetail: CheapSharkGameDetail = await this._cheapSharkService.getGameById(trimmedId);
 
-                if (gameDetail.deals.length > 0) {
-                    // Use the cheapest deal as the main price
-                    const cheapestDeal: CheapSharkGameDeal = gameDetail.deals.reduce(
-                        (min: CheapSharkGameDeal, deal: CheapSharkGameDeal) =>
-                            parseFloat(deal.price) < parseFloat(min.price) ? deal : min,
-                        gameDetail.deals[0]
-                    );
+                try {
+                    const priceData: { final: number; initial: number; discount_percent: number; currency: string } | null | undefined = await this._steamStoreService.getPriceOverview(trimmedId);
 
-                    pricesById[trimmedId] = {
-                        price: parseFloat(cheapestDeal.retailPrice),
-                        productId: trimmedId,
-                        currency: "USD",
-                        normalPrice: parseFloat(cheapestDeal.retailPrice),
-                        savings: cheapestDeal.savings,
-                        storeID: cheapestDeal.storeID,
-                    };
+                    if (priceData) {
+                        // Steam prices are in cents, convert to whole units
+                        const finalPrice: number = priceData.final / 100;
+                        const initialPrice: number = priceData.initial / 100;
+                        const savings: number = priceData.discount_percent;
+
+                        pricesById[trimmedId] = {
+                            price: finalPrice,
+                            productId: trimmedId,
+                            currency: priceData.currency,
+                            normalPrice: initialPrice,
+                            savings: savings.toString(),
+                            storeID: "steam",
+                        };
+                    }
+                    else {
+                        // Game might be free or not found
+                        pricesById[trimmedId] = {
+                            price: 0,
+                            productId: trimmedId,
+                            currency: "USD",
+                            normalPrice: 0,
+                            savings: "0",
+                            storeID: "steam",
+                        };
+                    }
+                }
+                catch (priceError: unknown) {
+                    console.error(`Error fetching price for ${trimmedId}:`, priceError);
+                    // Skip this game silently — the frontend handles missing prices
                 }
             }
 
             res.status(200).json(pricesById);
         }
         catch (e: unknown) {
-            console.error("Error fetching prices from CheapShark:", e);
+            console.error("Error fetching prices:", e);
             res.status(500).json({
                 error: "Failed to fetch prices",
                 details: e instanceof Error ? e.message : "Unknown error",
@@ -122,7 +211,8 @@ export class GamesController {
     }
 
     /**
-     * GET /games/search?title={title} - Search games by title
+     * GET /games/search?title={title} - Search games by title.
+     * Uses the Steam storesearch endpoint (no key required).
      */
     public async searchGames(req: Request, res: Response): Promise<void> {
         const title: string = req.query.title as string;
@@ -133,21 +223,19 @@ export class GamesController {
         }
 
         try {
-            const results: CheapSharkGameSearch[] = await this._cheapSharkService.searchGames(title);
+            const results: { appid: string; name: string; img: string }[] = await this._steamStoreService.searchGames(title, 20);
 
-            // Map CheapSharkGameSearch to GameResult format for frontend compatibility
-            const games: GameResult[] = results.map((result: CheapSharkGameSearch): GameResult => ({
-                gameId: result.gameID,
-                cheapSharkGameId: result.gameID,
-                SKU: result.cheapestDealID,
-                title: result.external,
-                thumbnail: result.thumb,
+            // Map search results to GameResult format for frontend compatibility
+            const games: GameResult[] = results.map((result): GameResult => ({
+                gameId: result.appid,
+                steamAppId: result.appid,
+                SKU: result.appid,
+                title: result.name,
+                thumbnail: result.img,
                 images: null,
                 descriptionMarkdown: "",
                 descriptionHtml: "",
-                url: result.steamAppID
-                    ? `https://store.steampowered.com/app/${result.steamAppID}`
-                    : `https://www.cheapshark.com/redirect?dealID=${result.cheapestDealID}`,
+                url: `https://store.steampowered.com/app/${result.appid}`,
                 authors: null,
                 tags: null,
                 reviews: null,
@@ -162,47 +250,5 @@ export class GamesController {
                 details: e instanceof Error ? e.message : "Unknown error",
             });
         }
-    }
-
-    /**
-     * GET /stores - Get all stores tracked by CheapShark
-     */
-    public async getStores(_req: Request, res: Response): Promise<void> {
-        try {
-            const stores: CheapSharkStore[] = await this._cheapSharkService.getStores();
-            res.status(200).json(stores);
-        }
-        catch (e: unknown) {
-            console.error("Error fetching stores:", e);
-            res.status(500).json({
-                error: "Failed to fetch stores",
-                details: e instanceof Error ? e.message : "Unknown error",
-            });
-        }
-    }
-
-    /**
-     * Maps a CheapShark deal to the existing GameResult format.
-     * This ensures backward compatibility with the frontend.
-     */
-    private mapDealToGameResult(deal: CheapSharkDeal): GameResult {
-        return {
-            gameId: deal.gameID,
-            cheapSharkGameId: deal.gameID,
-            SKU: deal.dealID,
-            title: deal.title,
-            thumbnail: deal.thumb,
-            images: null,
-            descriptionMarkdown: "",
-            descriptionHtml: "",
-            url: deal.steamAppID
-                ? `https://store.steampowered.com/app/${deal.steamAppID}`
-                : `https://www.cheapshark.com/redirect?dealID=${deal.dealID}`,
-            authors: null,
-            tags: deal.steamRatingText ? [deal.steamRatingText] : null,
-            reviews: deal.metacriticScore && deal.metacriticScore !== "0"
-                ? [`Metacritic: ${deal.metacriticScore}`]
-                : null,
-        };
     }
 }

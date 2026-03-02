@@ -22,63 +22,65 @@ export type WelcomeResponse = {
 };
 
 /**
- * Represents a game result
+ * Represents a game result.
+ * Now sourced from Steam Store API + SteamSpy instead of CheapShark.
  */
 export type GameResult = {
-    /** The ID of the game */
+    /** The ID of the game (Steam App ID) */
     gameId: string;
-    /** The CheapShark game ID */
-    cheapSharkGameId: string;
-    /** The SKU/dealID of the game */
+    /** The Steam App ID (replaces cheapSharkGameId) */
+    steamAppId: string;
+    /** The SKU of the game (Steam App ID used as SKU) */
     SKU: string;
     /** The title of the game */
     title: string;
-    /** The thumbnail of the game */
+    /** The thumbnail / header image of the game */
     thumbnail: string;
-    /** The images of the game */
+    /** Screenshot URLs from the Steam store page */
     images: string[] | null;
-    /** The description of the game in markdown */
+    /** The short description of the game (plain text) */
     descriptionMarkdown: string;
-    /** The description of the game in html */
+    /** The detailed description of the game (HTML from Steam) */
     descriptionHtml: string;
-    /** The URL to the store page */
+    /** The URL to the Steam store page */
     url: string;
-    /** The authors/developers of the game */
+    /** The developers / publishers of the game */
     authors: string[] | null;
-    /** The tags of the game */
+    /** Genre + tag labels */
     tags: string[] | null;
-    /** The reviews of the game */
+    /** Review summary strings */
     reviews: string[] | null;
 };
 
 /**
- * Extended game result with additional detail from CheapShark.
+ * Extended game result with additional detail from Steam Store API + SteamSpy.
  * Used on the game detail page to show richer information.
  */
 export type GameDetailResult = GameResult & {
-    /** Steam rating text, e.g. "Very Positive" */
+    /** Steam rating text, e.g. "Very Positive" (derived from SteamSpy) */
     steamRatingText: string | null;
-    /** Steam rating as a percentage, e.g. "92" */
+    /** Steam rating as a percentage, e.g. "92" (derived from SteamSpy) */
     steamRatingPercent: string | null;
-    /** Number of Steam reviews */
+    /** Number of Steam reviews (derived from SteamSpy positive + negative) */
     steamRatingCount: string | null;
-    /** Metacritic score, e.g. "85" */
+    /** Metacritic score, e.g. "85" (from Steam Store API) */
     metacriticScore: string | null;
-    /** Link to the Metacritic page */
+    /** Link to the Metacritic page (from Steam Store API) */
     metacriticLink: string | null;
-    /** Release date as a Unix timestamp */
+    /** Release date as a Unix timestamp (from Steam Store API) */
     releaseDate: number | null;
-    /** The cheapest price this game has ever been */
+    /** The cheapest price this game has ever been (null — not available without CheapShark/GG.deals) */
     cheapestPriceEver: {
         price: string;
         date: number;
     } | null;
-    /** All current deals across different stores */
+    /** All current deals across different stores (null — Steam-only pricing) */
     storeDeals: StoreDeal[] | null;
 };
 
 /**
- * Represents a deal from a specific store for the game detail page
+ * Represents a deal from a specific store for the game detail page.
+ * Kept for backward compatibility — currently only Steam deals are populated.
  */
 export type StoreDeal = {
     storeID: string;
@@ -113,7 +115,7 @@ export type TokenData = {
 };
 
 /**
- * Respresents a game license
+ * Represents a game license
  */
 export type LicenseResult = {
     SKU: string;
@@ -124,12 +126,22 @@ export type UserResponse = {
     user: UserResult;
 };
 
+/**
+ * Represents the price of a product.
+ * Now sourced from Steam Store API price_overview.
+ */
 export type ProductPrice = {
+    /** Current (possibly discounted) price */
     price: number;
+    /** The Steam App ID */
     productId: string;
+    /** Currency code (e.g. "USD", "EUR") */
     currency: string;
+    /** Original price before discount */
     normalPrice: number;
+    /** Discount percentage as string (e.g. "25") */
     savings: string;
+    /** Store identifier (always "steam" for now) */
     storeID: string;
 };
 
@@ -150,120 +162,10 @@ export type RegisterResult = {
     emailSent?: boolean;
 };
 
-/**
- * Represents a deal from CheapShark API
- * This replaces the old GameResult + ProductPrice combo
- */
-export type CheapSharkDeal = {
-    internalName: string;
-    title: string;
-    metacriticLink: string | null;
-    dealID: string;
-    storeID: string;
-    gameID: string;
-    salePrice: string;
-    normalPrice: string;
-    isOnSale: string;
-    savings: string;
-    metacriticScore: string;
-    steamRatingText: string | null;
-    steamRatingPercent: string;
-    steamRatingCount: string;
-    steamAppID: string | null;
-    releaseDate: number;
-    lastChange: number;
-    dealRating: string;
-    thumb: string;
-};
+// ============================================================
+// Auth & session types
+// ============================================================
 
-/**
- * Represents the detailed response from CheapShark /deals?id={dealID}
- */
-export type CheapSharkDealDetail = {
-    gameInfo: {
-        storeID: string;
-        gameID: string;
-        name: string;
-        steamAppID: string | null;
-        salePrice: string;
-        retailPrice: string;
-        steamRatingText: string | null;
-        steamRatingPercent: string;
-        steamRatingCount: string;
-        metacriticScore: string;
-        metacriticLink: string | null;
-        releaseDate: number;
-        publisher: string | null;
-        steamworks: string | null;
-        thumb: string;
-    };
-    cheaperStores: {
-        dealID: string;
-        storeID: string;
-        salePrice: string;
-        retailPrice: string;
-    }[];
-    cheapestPrice: {
-        price: string;
-        date: number;
-    };
-};
-
-/**
- * Represents a game from CheapShark /games?id={id} endpoint
- */
-export type CheapSharkGameDetail = {
-    info: {
-        title: string;
-        steamAppID: string | null;
-        thumb: string;
-    };
-    cheapestPriceEver: {
-        price: string;
-        date: number;
-    };
-    deals: CheapSharkGameDeal[];
-};
-
-/**
- * Represents a single deal inside a game detail response
- */
-export type CheapSharkGameDeal = {
-    storeID: string;
-    dealID: string;
-    price: string;
-    retailPrice: string;
-    savings: string;
-};
-
-/**
- * Represents a game from CheapShark /games?title={title} search
- */
-export type CheapSharkGameSearch = {
-    gameID: string;
-    steamAppID: string | null;
-    cheapest: string;
-    cheapestDealID: string;
-    external: string; // game title
-    internalName: string;
-    thumb: string;
-};
-
-/**
- * Represents a store from CheapShark /stores endpoint
- */
-export type CheapSharkStore = {
-    storeID: string;
-    storeName: string;
-    isActive: number;
-    images: {
-        banner: string;
-        logo: string;
-        icon: string;
-    };
-};
-
-// Add these missing types:
 export type LoginData = {
     email: string;
     password: string;

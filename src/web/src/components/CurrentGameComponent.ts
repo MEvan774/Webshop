@@ -7,6 +7,7 @@ import { ShoppingCartService } from "@web/services/ShoppingCartService";
  * Class for the current game page, extends HTMLElement.
  * Displays a full webshop product page with price, ratings,
  * deals across stores, and reviews.
+ * Now uses Steam Store API + SteamSpy data instead of CheapShark.
  */
 export class CurrentGameComponent extends HTMLElement {
     /**
@@ -82,7 +83,6 @@ export class CurrentGameComponent extends HTMLElement {
         const currentPrice: number | null = pageData.currentPrice;
         const retailPrice: number | null = pageData.retailPrice;
         const savingsPercent: number | null = pageData.savingsPercent;
-        const game: GameDetailResult = pageData.game;
 
         if (currentPrice === null) {
             return `
@@ -110,9 +110,9 @@ export class CurrentGameComponent extends HTMLElement {
             ? `<span class="price-original">€${retailPrice.toFixed(2)}</span>`
             : "";
 
-        // Cheapest price ever
+        // Cheapest price ever (not available with Steam-only data, but kept for future GG.deals integration)
         let cheapestEverHTML: string = "";
-        const cheapestEver: GameDetailResult["cheapestPriceEver"] = game.cheapestPriceEver;
+        const cheapestEver: GameDetailResult["cheapestPriceEver"] = pageData.game.cheapestPriceEver;
         if (cheapestEver) {
             const cheapestEverPrice: number = parseFloat(cheapestEver.price);
             const cheapestEverText: string = cheapestEverPrice === 0
@@ -139,12 +139,15 @@ export class CurrentGameComponent extends HTMLElement {
     }
 
     /**
-     * Build the store deals HTML section
+     * Build the store deals HTML section.
+     * Since we now use Steam-only pricing, this section links directly to
+     * the Steam store page instead of CheapShark redirect URLs.
      *
      * @param storeDeals Array of store deals
+     * @param steamUrl The Steam store page URL for this game
      * @returns HTML string for the deals table
      */
-    private buildStoreDealsHTML(storeDeals: StoreDeal[]): string {
+    private buildStoreDealsHTML(storeDeals: StoreDeal[], steamUrl: string): string {
         if (storeDeals.length === 0) {
             return "";
         }
@@ -179,7 +182,7 @@ export class CurrentGameComponent extends HTMLElement {
                         ${retailDisplay}
                         ${priceDisplay}
                     </div>
-                    <a href="https://www.cheapshark.com/redirect?dealID=${deal.dealID}" target="_blank" rel="noopener noreferrer" class="deal-buy-btn">
+                    <a href="${steamUrl}" target="_blank" rel="noopener noreferrer" class="deal-buy-btn">
                         Bekijk deal
                     </a>
                 </div>
@@ -208,12 +211,12 @@ export class CurrentGameComponent extends HTMLElement {
             const color: string = this.getMetacriticColor(game.metacriticScore);
             const metacriticLink: string | null = game.metacriticLink;
             const metacriticLinkHTML: string = metacriticLink
-                ? `<a href="https://www.metacritic.com${metacriticLink}" target="_blank" rel="noopener noreferrer" class="metacritic-link">Bekijk op Metacritic &rarr;</a>`
+                ? `<a href="${metacriticLink}" target="_blank" rel="noopener noreferrer" class="metacritic-link">Bekijk op Metacritic</a>`
                 : "";
 
             sections.push(`
                 <div class="rating-card metacritic-card">
-                    <div class="rating-badge" style="background-color: ${color};">
+                    <div class="metacritic-badge" style="background-color: ${color};">
                         ${game.metacriticScore}
                     </div>
                     <div class="rating-info">
@@ -224,8 +227,8 @@ export class CurrentGameComponent extends HTMLElement {
             `);
         }
 
-        // Steam rating
-        if (game.steamRatingText) {
+        // Steam rating (now derived from SteamSpy positive/negative counts)
+        if (game.steamRatingText && game.steamRatingText !== "No Reviews") {
             const color: string = this.getSteamRatingColor(game.steamRatingText);
             const percentText: string = game.steamRatingPercent
                 ? ` (${game.steamRatingPercent}%)`
@@ -308,38 +311,58 @@ export class CurrentGameComponent extends HTMLElement {
             ? this.formatDate(currentGame.releaseDate)
             : "Onbekend";
 
-        // Store URL link
+        // Store URL link (now always points to Steam)
         const storeLink: string = currentGame.url
-            ? `<a href="${currentGame.url}" target="_blank" rel="noopener noreferrer" class="store-page-link">Bekijk op Steam &rarr;</a>`
+            ? `<a href="${currentGame.url}" target="_blank" rel="noopener noreferrer" class="store-link">
+                    Bekijk op Steam &#8599;
+               </a>`
             : "";
 
-        // Price box HTML (uses fetched price data)
+        // Build sub-sections
         const priceBoxHTML: string = this.buildPriceBoxHTML(pageData);
-
-        // Ratings HTML
         const ratingsHTML: string = this.buildRatingsHTML(currentGame);
+        const storeDealsHTML: string = currentGame.storeDeals
+            ? this.buildStoreDealsHTML(currentGame.storeDeals, currentGame.url)
+            : "";
 
-        // Store deals HTML
-        const storeDealsList: StoreDeal[] = currentGame.storeDeals || [];
-        const storeDealsHTML: string = this.buildStoreDealsHTML(storeDealsList);
+        // Build reviews section
+        const reviewsHTML: string = currentGame.reviews && currentGame.reviews.length > 0
+            ? currentGame.reviews.map((review: string) => `<p class="review-item">${review}</p>`).join("")
+            : "<p class=\"no-reviews\">Geen reviews beschikbaar.</p>";
 
-        // Reviews section
-        const hasReviews: boolean = currentGame.reviews !== null && currentGame.reviews.length > 0;
-        let reviewsHTML: string = "<p class=\"no-reviews\">Er zijn nog geen reviews beschikbaar.</p>";
-        if (hasReviews) {
-            reviewsHTML = (currentGame.reviews as string[])
-                .map((review: string) => `<div class="review-item">${review}</div>`)
-                .join("");
-        }
+        // Build description section
+        const descriptionHTML: string = currentGame.descriptionHtml
+            ? `<div class="game-detail-section">
+                    <h2 class="section-title">Beschrijving</h2>
+                    <div class="game-description">${currentGame.descriptionHtml}</div>
+               </div>`
+            : "";
+
+        // Build tags section
+        const tagsHTML: string = currentGame.tags && currentGame.tags.length > 0
+            ? `<div class="game-tags">
+                    ${currentGame.tags.map((tag: string) => `<span class="tag-badge">${tag}</span>`).join("")}
+               </div>`
+            : "";
+
+        // Build screenshots section
+        const screenshotsHTML: string = currentGame.images && currentGame.images.length > 0
+            ? `<div class="game-detail-section">
+                    <h2 class="section-title">Screenshots</h2>
+                    <div class="screenshots-grid">
+                        ${currentGame.images.slice(0, 4).map((img: string) =>
+                            `<img src="${img}" alt="Screenshot" class="screenshot-thumb" loading="lazy">`
+            ).join("")}
+                    </div>
+               </div>`
+            : "";
 
         element = html`
             <div class="game-detail-page">
-                <!-- Back navigation -->
-                <a href="/" class="back-link">&larr; Terug naar de winkel</a>
+                <a href="/browse" class="back-link">&larr; Terug naar de winkel</a>
 
-                <!-- Main content area -->
                 <div class="game-detail-main">
-                    <!-- Left column: Image, price, actions -->
+                    <!-- Left column: Image + price -->
                     <div class="game-detail-left">
                         <div class="game-thumbnail-wrapper">
                             <img src="${currentGame.thumbnail}" alt="${currentGame.title}" class="game-thumbnail">
@@ -379,6 +402,9 @@ export class CurrentGameComponent extends HTMLElement {
                             </div>
                         </div>
 
+                        <!-- Tags -->
+                        ${tagsHTML}
+
                         <!-- Ratings section -->
                         ${ratingsHTML}
 
@@ -391,6 +417,12 @@ export class CurrentGameComponent extends HTMLElement {
                         </div>
                     </div>
                 </div>
+
+                <!-- Description section (Steam HTML) -->
+                ${descriptionHTML}
+
+                <!-- Screenshots section -->
+                ${screenshotsHTML}
 
                 <!-- Deals comparison section (only if storeDeals available) -->
                 ${storeDealsHTML}
@@ -411,8 +443,8 @@ export class CurrentGameComponent extends HTMLElement {
             buyButton.addEventListener("click", (): void => {
                 const cartService: ShoppingCartService = new ShoppingCartService();
 
-                // Use the game data already fetched for this page
-                const gameId: string = currentGame.gameId || currentGame.cheapSharkGameId || "";
+                // Use the Steam App ID as the game identifier
+                const gameId: string = currentGame.gameId || currentGame.steamAppId || "";
                 const title: string = currentGame.title || "Onbekend spel";
                 const thumbnail: string = currentGame.thumbnail || "";
                 const price: number = pageData.currentPrice ?? 0;
