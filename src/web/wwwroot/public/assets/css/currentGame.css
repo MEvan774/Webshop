@@ -319,20 +319,13 @@ a:hover {
     overflow-wrap: break-word;
 }
 
-/* Constrain ALL images inside Steam's HTML description */
+/* Steam bb_img images: full width, override inline attributes */
 .game-description img {
     width: 100%;
-    height: auto;
+    height: auto !important;
     display: block;
     border-radius: 6px;
     margin: 12px 0;
-}
-
-.game-description img.bb_img {
-    width: 100% !important;
-    height: auto !important;
-    max-width: 100% !important;
-    display: block;
 }
 
 /* Constrain iframes (e.g. embedded YouTube videos from Steam) */
@@ -342,12 +335,32 @@ a:hover {
     margin: 12px 0;
 }
 
-/* Handle Steam's inline styles that might set fixed widths */
+/* Override any inline width/height Steam sets on elements */
 .game-description * {
     max-width: 100% !important;
+    height: auto !important;
 }
 
-/* Clean up Steam's default styling for headers inside descriptions */
+/* Restore height for text elements so they aren't affected by the wildcard */
+.game-description p,
+.game-description span,
+.game-description div,
+.game-description h1,
+.game-description h2,
+.game-description h3,
+.game-description h4,
+.game-description ul,
+.game-description ol,
+.game-description li,
+.game-description a,
+.game-description strong,
+.game-description em,
+.game-description b,
+.game-description i,
+.game-description br {
+    height: unset !important;
+}
+
 .game-description h1,
 .game-description h2,
 .game-description h3 {
@@ -356,17 +369,9 @@ a:hover {
     margin: 16px 0 8px;
 }
 
-.game-description h1 {
-    font-size: 1.3rem;
-}
-
-.game-description h2 {
-    font-size: 1.15rem;
-}
-
-.game-description h3 {
-    font-size: 1.05rem;
-}
+.game-description h1 { font-size: 1.3rem; }
+.game-description h2 { font-size: 1.15rem; }
+.game-description h3 { font-size: 1.05rem; }
 
 .game-description p {
     margin-bottom: 10px;

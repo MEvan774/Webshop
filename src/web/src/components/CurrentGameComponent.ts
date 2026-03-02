@@ -374,7 +374,7 @@ export class CurrentGameComponent extends HTMLElement {
                         <!-- Buy & wishlist buttons -->
                         <div class="game-actions">
                             <button id="currentGameBuyButton" class="btn-buy">
-                                <span class="btn-icon">&#128722;</span>
+                                <img src="/assets/img/icons/ShoppingCart.svg" alt="Cart" class="btn-cart-icon">
                                 In winkelwagen
                             </button>
                             <button id="currentGameHeartButton" class="btn-wishlist">
@@ -457,7 +457,7 @@ export class CurrentGameComponent extends HTMLElement {
                     buyButton.style.backgroundColor = "#2ecc71";
 
                     setTimeout((): void => {
-                        buyButton.innerHTML = "<span class=\"btn-icon\">&#128722;</span> In winkelwagen";
+                        buyButton.innerHTML = "<img src=\"/assets/img/icons/ShoppingCart.svg\" alt=\"Cart\" class=\"btn-cart-icon\"> In winkelwagen";
                         buyButton.style.backgroundColor = "";
                     }, 1500);
                 }
