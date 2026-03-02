@@ -43,14 +43,27 @@ export class StripeService {
             bodyParams.append(`line_items[${index}][quantity]`, item.quantity.toString());
         });
 
-        const response: Response = await fetch(`${this._stripeApiUrl}/checkout/sessions`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Authorization": `Bearer ${this.getSecretKey()}`,
-            },
-            body: bodyParams.toString(),
-        });
+        const controller: AbortController = new AbortController();
+        const timeout: NodeJS.Timeout = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+        let response: Response;
+
+        try {
+            response = await fetch(`${this._stripeApiUrl}/checkout/sessions`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Authorization": `Bearer ${this.getSecretKey()}`,
+                },
+                body: bodyParams.toString(),
+                signal: controller.signal,
+            });
+            clearTimeout(timeout);
+        }
+        catch (error) {
+            clearTimeout(timeout);
+            console.error("Stripe fetch failed:", error);
+            throw error;
+        }
 
         if (!response.ok) {
             const errorBody: string = await response.text();
