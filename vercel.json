@@ -1,0 +1,9 @@
+{
+    "buildCommand": "cd src/web && npm run build",
+    "outputDirectory": "dist/web",
+    "functions": {
+        "api/*.js": {
+            "runtime": "@vercel/node@3"
+        }
+    }
+}

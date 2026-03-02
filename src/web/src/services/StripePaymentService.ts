@@ -1,6 +1,7 @@
 /**
  * Frontend service for Stripe payments.
- * Creates checkout sessions and checks payment status.
+ * Now calls Vercel serverless functions at /api/* instead of the Railway API,
+ * because Railway blocks outbound HTTPS to api.stripe.com.
  */
 export class StripePaymentService {
     /**
@@ -9,7 +10,8 @@ export class StripePaymentService {
      * @param items Array of cart items
      */
     public async startCheckout(items: CheckoutItem[]): Promise<void> {
-        const response: Response = await fetch(`${VITE_API_URL}payment/create-checkout`, {
+        // Call the Vercel serverless function (same origin, so no CORS issues)
+        const response: Response = await fetch("/api/create-checkout", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
@@ -34,7 +36,8 @@ export class StripePaymentService {
      * @returns The payment status
      */
     public async getSessionStatus(sessionId: string): Promise<{ status: string; paymentStatus: string }> {
-        const response: Response = await fetch(`${VITE_API_URL}payment/session-status/${sessionId}`, {
+        // Call the Vercel serverless function
+        const response: Response = await fetch(`/api/session-status?sessionId=${encodeURIComponent(sessionId)}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
