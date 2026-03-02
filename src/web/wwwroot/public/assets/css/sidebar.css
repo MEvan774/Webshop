@@ -274,8 +274,7 @@
 
     .sidebar-content {
         padding: 16px 14px;
-        margin-top: auto;
-        margin-bottom: auto;
+        margin-top: 80px;
     }
 
     .sidebar-content h2 {
@@ -294,7 +293,8 @@
     }
 
     .price-input {
-        width: 100%;
+        width: 80%;
+        height: 60px;
     }
 
     .sidebar-sort-select {
