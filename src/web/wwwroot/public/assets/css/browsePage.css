@@ -121,37 +121,51 @@ body {
 }
 
 /* ===== Game Grid ===== */
+.browse-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(209px, 1fr));
+    gap: 20px;
+}
+
+/*
+ * Override .game-card width from welcome.css for grid context.
+ * In welcome.css the card uses a fixed width for horizontal scroll.
+ * Here we let it fill the grid cell.
+ */
+.browse-grid .game-card {
+    width: 100%;
+    height: 290px;
+}
+
+.browse-grid .game-card img {
+    width: 100%;
+}
+
 .browse-grid .game-card .price-wrapper {
-    width: auto;
-    bottom: 28px;
-    right: 6px;
-    left: 6px;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 5px;
+    width: 20%;
+    bottom: 10%;
+    right: 5%;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+    margin-right: 2px;
 }
 
 .browse-grid .game-card .discount {
-    font-size: 0.7rem;
-    padding: 2px 5px;
+    font-size: 0.75rem;
+    padding: 2px 2px;
     height: auto;
-    flex-shrink: 0;
 }
 
 .browse-grid .game-card .original-price {
     margin-left: 0;
-    font-size: 0.75rem;
-    flex-shrink: 0;
 }
 
 .browse-grid .game-card .discounted-price {
     padding-top: 0;
     padding-bottom: 0;
-    font-size: 0.85rem;
+    font-size: 1rem;
     line-height: 1.2;
-    flex-shrink: 0;
 }
 
 .browse-grid .game-card p {
@@ -302,6 +316,39 @@ body {
         padding: 6px 10px;
         font-size: 0.85rem;
     }
+
+    .browse-grid .game-card .price-wrapper {
+    width: auto;
+    bottom: 28px;
+    right: 6px;
+    left: 6px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.browse-grid .game-card .discount {
+    font-size: 0.7rem;
+    padding: 2px 5px;
+    height: auto;
+    flex-shrink: 0;
+}
+
+.browse-grid .game-card .original-price {
+    margin-left: 0;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.browse-grid .game-card .discounted-price {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    flex-shrink: 0;
+}
 }
 
 @media (max-width: 480px) {
