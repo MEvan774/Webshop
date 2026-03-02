@@ -250,4 +250,66 @@
     background-color: #ffcc00;
 }
 
+@media (max-width: 768px) {
+    .sidebar {
+        width: 260px;
+        left: -280px;
+        top: 65px;
+        height: calc(100% - 65px);
+        transform: none;
+        z-index: 998;
+    }
 
+    .sidebar.open {
+        left: 0;
+    }
+
+    .sidebar-btn {
+        top: auto;
+        bottom: 24px;
+        left: 0;
+        z-index: 999;
+    }
+
+    .sidebar-btn.shifted {
+        left: 265px;
+    }
+
+    .sidebar-content {
+        padding: 16px 14px;
+    }
+
+    .sidebar-content h2 {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+
+    .sidebar-content h3 {
+        font-size: 0.95rem;
+        margin-top: 14px;
+        margin-bottom: 8px;
+    }
+
+    .price-range-boxes {
+        width: 100%;
+    }
+
+    .price-input {
+        width: 100%;
+    }
+
+    .sidebar-sort-select {
+        font-size: 0.9rem;
+        padding: 6px 10px;
+    }
+
+    .checkbox-grid {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .filter-reset-btn {
+        margin-top: 20px;
+        width: 100%;
+    }
+}
