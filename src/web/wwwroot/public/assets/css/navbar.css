@@ -373,8 +373,7 @@ button .navbar {
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-top: 10px;
-  left: 15px;
+  margin-top: 0;
   padding: 0;
 }
 
@@ -393,11 +392,6 @@ button .navbar {
   height: 25px;
   gap: 8px;
 }
-
-.mobile-searchbar-container img{
-  bottom: 15px;
-}
-
 
 /* Close "X" button */
 .close-search {
