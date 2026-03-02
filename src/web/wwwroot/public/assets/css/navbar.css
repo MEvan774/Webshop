@@ -395,8 +395,7 @@ button .navbar {
 }
 
 .mobile-searchbar-container img{
-  margin-top: auto;
-  margin-bottom: auto;
+  bottom: 15px;
 }
 
 

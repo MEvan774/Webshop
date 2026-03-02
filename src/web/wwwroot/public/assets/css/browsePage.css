@@ -319,7 +319,7 @@ body {
 
     .browse-grid .game-card .price-wrapper {
     width: auto;
-    bottom: 34px;
+    bottom: 20px;
     right: 6px;
     left: 6px;
     flex-direction: row;
