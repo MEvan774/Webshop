@@ -224,11 +224,14 @@
 
     #priceContainer {
         position: static;
+        width: 100%;
     }
 
     .checkout {
         grid-column: 1;
         width: 100%;
+        box-sizing: border-box;
+        padding: 16px 16px;
     }
 
     #tileContainer h1 {
