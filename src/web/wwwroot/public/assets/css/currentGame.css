@@ -322,7 +322,7 @@ a:hover {
 /* Steam bb_img images: full width, override inline attributes */
 .game-description img {
     width: 100%;
-    height: auto !important;
+    height: auto;
     display: block;
     border-radius: 6px;
     margin: 12px 0;

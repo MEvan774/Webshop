@@ -295,6 +295,11 @@ export class CurrentGameComponent extends HTMLElement {
             styleLink.setAttribute("rel", "stylesheet");
             styleLink.setAttribute("href", "/assets/css/currentGame.css");
             this.shadowRoot.appendChild(styleLink);
+            const descriptionImages: NodeListOf<HTMLImageElement> = this.shadowRoot.querySelectorAll(".game-description img");
+            descriptionImages.forEach((img: HTMLImageElement): void => {
+                img.removeAttribute("width");
+                img.removeAttribute("height");
+            });
             return;
         }
 
@@ -476,7 +481,7 @@ export class CurrentGameComponent extends HTMLElement {
             });
         }
 
-       // Screenshot lightbox — appended to document.body so it renders
+        // Screenshot lightbox — appended to document.body so it renders
         // on top of everything (outside Shadow DOM), like Steam's overlay.
         const screenshotThumbs: NodeListOf<HTMLImageElement> = this.shadowRoot.querySelectorAll(".screenshot-thumb");
 
