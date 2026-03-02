@@ -359,7 +359,7 @@ export class CurrentGameComponent extends HTMLElement {
 
         element = html`
             <div class="game-detail-page">
-                <a href="/browse" class="back-link">&larr; Terug naar de winkel</a>
+                <a href="/browse.html" class="back-link">&larr; Terug naar de winkel</a>
 
                 <div class="game-detail-main">
                     <!-- Left column: Image + price -->
@@ -418,11 +418,20 @@ export class CurrentGameComponent extends HTMLElement {
                     </div>
                 </div>
 
-                <!-- Description section (Steam HTML) -->
-                ${descriptionHTML}
-
                 <!-- Screenshots section -->
                 ${screenshotsHTML}
+
+                <!-- Lightbox overlay for fullscreen screenshots -->
+                <div class="screenshot-lightbox" id="screenshotLightbox">
+                    <button class="lightbox-close" id="lightboxClose">&times;</button>
+                    <button class="lightbox-nav prev" id="lightboxPrev">&#8249;</button>
+                    <button class="lightbox-nav next" id="lightboxNext">&#8250;</button>
+                    <img class="lightbox-image" id="lightboxImage" src="" alt="Screenshot fullscreen">
+                    <span class="lightbox-counter" id="lightboxCounter"></span>
+                </div>
+
+                <!-- Description section (Steam HTML) -->
+                ${descriptionHTML}
 
                 <!-- Deals comparison section (only if storeDeals available) -->
                 ${storeDealsHTML}
@@ -474,6 +483,83 @@ export class CurrentGameComponent extends HTMLElement {
                     icon.innerHTML = isWishlisted ? "&#9829;" : "&#9825;";
                 }
             });
+        }
+
+        // Screenshot lightbox functionality
+        const lightbox: HTMLElement | null = this.shadowRoot.querySelector("#screenshotLightbox");
+        const lightboxImage: HTMLImageElement | null = this.shadowRoot.querySelector("#lightboxImage");
+        const lightboxCounter: HTMLElement | null = this.shadowRoot.querySelector("#lightboxCounter");
+        const lightboxClose: HTMLElement | null = this.shadowRoot.querySelector("#lightboxClose");
+        const lightboxPrev: HTMLElement | null = this.shadowRoot.querySelector("#lightboxPrev");
+        const lightboxNext: HTMLElement | null = this.shadowRoot.querySelector("#lightboxNext");
+        const screenshotThumbs: NodeListOf<HTMLImageElement> = this.shadowRoot.querySelectorAll(".screenshot-thumb");
+
+        if (lightbox && lightboxImage && screenshotThumbs.length > 0) {
+            let currentIndex: number = 0;
+            const images: string[] = Array.from(screenshotThumbs).map((img: HTMLImageElement) => img.src);
+            const totalImages: number = images.length;
+
+            function showImage(index: number): void {
+                currentIndex = index;
+                lightboxImage!.src = images[currentIndex];
+                if (lightboxCounter) {
+                    lightboxCounter.textContent = `${currentIndex + 1} / ${totalImages}`;
+                }
+            };
+
+            function openLightbox(index: number): void {
+                showImage(index);
+                lightbox?.classList.add("active");
+            };
+
+            function closeLightbox(): void {
+                lightbox?.classList.remove("active");
+            }
+
+            // Click on thumbnail to open
+            screenshotThumbs.forEach((thumb: HTMLImageElement, index: number) => {
+                thumb.addEventListener("click", (): void => {
+                    openLightbox(index);
+                });
+            });
+
+            // Close button
+            lightboxClose?.addEventListener("click", (e: Event): void => {
+                e.stopPropagation();
+                closeLightbox();
+            });
+
+            // Click on backdrop to close
+            lightbox.addEventListener("click", (e: Event): void => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+
+            // Previous / Next buttons
+            lightboxPrev?.addEventListener("click", (e: Event): void => {
+                e.stopPropagation();
+                showImage((currentIndex - 1 + totalImages) % totalImages);
+            });
+
+            lightboxNext?.addEventListener("click", (e: Event): void => {
+                e.stopPropagation();
+                showImage((currentIndex + 1) % totalImages);
+            });
+
+            // Keyboard navigation
+            const handleKeyDown: (e: KeyboardEvent) => void = (e: KeyboardEvent): void => {
+                if (!lightbox.classList.contains("active")) return;
+
+                if (e.key === "Escape")
+                    closeLightbox();
+                else if (e.key === "ArrowLeft")
+                    showImage((currentIndex - 1 + totalImages) % totalImages);
+                else if (e.key === "ArrowRight")
+                    showImage((currentIndex + 1) % totalImages);
+            };
+
+            document.addEventListener("keydown", handleKeyDown);
         }
     }
 }
