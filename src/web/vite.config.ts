@@ -1,10 +1,9 @@
-import typechecksPlugin from "@hboictcloud/vite-plugin-typechecks";
 import { globSync } from "glob";
 import { resolve } from "path";
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv, type PluginOption } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-export default defineConfig(config => {
+export default defineConfig((async (config: { mode: string; }) => {
     // Gather all entry points
     const input: Record<string, string> = {};
 
@@ -17,15 +16,38 @@ export default defineConfig(config => {
     // Gather all environment variables
     const defines: Record<string, string> = loadEnv(config.mode, process.cwd(), "VITE");
 
-    
     // BUGFIX: Vite assumes al defines are objects by default
     for (const define of Object.entries(defines)) {
         defines[define[0]] = JSON.stringify(define[1]);
     }
-    
+
     // After the loadEnv loop
-    if (process.env.VITE_API_URL && !defines['VITE_API_URL']) {
-        defines['VITE_API_URL'] = JSON.stringify(process.env.VITE_API_URL);
+    if (process.env.VITE_API_URL && !defines["VITE_API_URL"]) {
+        defines["VITE_API_URL"] = JSON.stringify(process.env.VITE_API_URL);
+    }
+
+    // Only load the typechecks plugin when NOT on Vercel
+    const plugins: PluginOption[] = [tsconfigPaths()];
+
+    if (!process.env.VERCEL) {
+        try {
+            const { default: typechecksPlugin } = await import("@hboictcloud/vite-plugin-typechecks");
+            plugins.push(
+                typechecksPlugin({
+                    rootDirectory: resolve(__dirname),
+                    tsConfigPath: "./tsconfig.json",
+                    includePatterns: [
+                        "./global.d.ts",
+                        "./src/**/*.ts",
+                        "../shared/**/*.ts",
+                    ],
+                    lintOnBuild: true,
+                    lintOnWatchDelay: 200,
+                })
+            );
+        } catch {
+            console.warn("Skipping typechecks plugin (not available).");
+        }
     }
 
     return {
@@ -50,20 +72,7 @@ export default defineConfig(config => {
                 "top-level-await": true,
             },
         },
-        plugins: [
-    tsconfigPaths(),
-    ...(!process.env.VERCEL ? [typechecksPlugin({
-        rootDirectory: resolve(__dirname),
-        tsConfigPath: "./tsconfig.json",
-        includePatterns: [
-            "./global.d.ts",
-            "./src/**/*.ts",
-            "../shared/**/*.ts",
-        ],
-        lintOnBuild: true,
-        lintOnWatchDelay: 200,
-    })] : []),
-],
+        plugins: plugins,
         define: defines,
         server: {
             strictPort: true,
@@ -74,4 +83,4 @@ export default defineConfig(config => {
             port: 3000,
         },
     };
-});
+}) as any);
