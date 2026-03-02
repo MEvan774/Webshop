@@ -1,14 +1,22 @@
 import { GameResult, ProductPrice } from "@shared/types";
 import { IGameService } from "@web/interfaces/IGameService";
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
+const VITE_API_URL: string = (import.meta as any).env.VITE_API_URL as string;
+
 /**
  * Service for fetching game data and prices.
- * The API backend now proxies CheapShark, so no frontend changes needed
- * for the actual fetch URLs - they stay the same.
+ * The API backend now proxies Steam Store API + SteamSpy.
+ *
+ * The /products endpoint returns both games AND prices bundled together,
+ * so the browse page can load everything in a single request.
  */
 export class AllGameService implements IGameService {
     /**
-     * Haal alle games op (nu via CheapShark achter de API)
+     * Haal alle games op.
+     * The backend now returns { games, prices } but this method
+     * returns only the games array for backward compatibility
+     * with WelcomeComponent and other consumers.
      *
      * @returns Een array met games, of een lege array bij fout
      */
@@ -27,8 +35,10 @@ export class AllGameService implements IGameService {
                 return [];
             }
 
-            const gameData: GameResult[] = await response.json() as GameResult[];
-            return gameData;
+            const data: { games: GameResult[]; prices: Record<string, ProductPrice> } =
+                await response.json() as { games: GameResult[]; prices: Record<string, ProductPrice> };
+
+            return data.games;
         }
         catch (error) {
             console.error("Netwerk- of serverfout:", error);
@@ -37,9 +47,43 @@ export class AllGameService implements IGameService {
     }
 
     /**
-     * Haal prijzen op voor een lijst van game IDs (nu via CheapShark achter de API)
+     * Haal alle games én hun prijzen op in één keer.
+     * Used by BrowseComponent to avoid separate price-fetching calls.
      *
-     * @param gameIds Array of game IDs (now strings from CheapShark)
+     * @returns Object with games array and prices record, or null on error
+     */
+    public async getAllGamesWithPrices(): Promise<{ games: GameResult[]; prices: Record<string, ProductPrice> } | null> {
+        try {
+            const response: Response = await fetch(`${VITE_API_URL}products`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+            });
+
+            if (!response.ok) {
+                console.error("Fout bij ophalen van games:", response.statusText);
+                return null;
+            }
+
+            const data: { games: GameResult[]; prices: Record<string, ProductPrice> } =
+                await response.json() as { games: GameResult[]; prices: Record<string, ProductPrice> };
+
+            return data;
+        }
+        catch (error) {
+            console.error("Netwerk- of serverfout:", error);
+            return null;
+        }
+    }
+
+    /**
+     * Haal prijzen op voor een lijst van game IDs.
+     * Still used by WelcomeComponent and CurrentGameService for
+     * individual or small-batch price lookups.
+     *
+     * @param gameIds Array of game IDs (Steam App IDs as strings)
      * @returns Record van gameId naar ProductPrice, of null bij fout
      */
     public async getGamePrices(gameIds: string[]): Promise<Record<string, ProductPrice> | null> {

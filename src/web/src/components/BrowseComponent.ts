@@ -10,6 +10,9 @@ import { FilterData } from "@web/types/FilterData";
  * Displays games in a grid layout with sorting, pagination, and price info.
  * Reuses the same .game-card styling from the landing page (welcome.css).
  * Listens for FilterChange events from the sidebar to filter the grid.
+ *
+ * Games and prices are fetched in a single API call to avoid jittering
+ * and reduce the number of requests to the Steam API.
  */
 export class BrowseComponent extends HTMLElement {
     /** All loaded games */
@@ -26,9 +29,6 @@ export class BrowseComponent extends HTMLElement {
 
     /** Number of games per page */
     private readonly pageSize: number = 20;
-
-    /** Whether the component is currently loading */
-    // private isLoading: boolean = true;
 
     /** Game service instance */
     private readonly gameService: AllGameService = new AllGameService();
@@ -62,141 +62,86 @@ export class BrowseComponent extends HTMLElement {
         });
 
         await this.loadGames();
-        // this.isLoading = false;
         this.render();
     }
 
     /**
-     * Load games from the API and fetch their prices in batches.
-     * The backend makes a separate CheapShark API call per game ID,
-     * so sending all IDs at once causes timeouts. We batch in groups of 5.
+     * Load games AND prices from the API in a single request.
+     * The backend bundles both in one response from the Steam
+     * featuredcategories endpoint, so no separate price fetching is needed.
      */
     private async loadGames(): Promise<void> {
         try {
-            const games: GameResult[] | null = await this.gameService.getAllGames();
+            const result: { games: GameResult[]; prices: Record<string, ProductPrice> } | null = await this.gameService.getAllGamesWithPrices();
 
-            if (games.length === 0) {
+            if (!result || result.games.length === 0) {
                 this.games = [];
+                this.prices = {};
                 return;
             }
 
-            this.games = games;
-
-            // Fetch prices in small batches to avoid backend timeouts
-            const validGameIds: string[] = games
-                .filter((g: GameResult) => g.gameId)
-                .map((g: GameResult) => g.gameId);
-
-            if (validGameIds.length > 0) {
-                await this.loadPricesInBatches(validGameIds, 5);
-            }
+            this.games = result.games;
+            this.prices = result.prices;
         }
         catch (error) {
             console.error("Fout bij het laden van games:", error);
             this.games = [];
-        }
-    }
-
-    /**
-     * Fetch prices in batches to avoid overloading the backend.
-     * Each batch is fetched sequentially; results are merged into this.prices.
-     * The page re-renders after each batch so prices appear progressively.
-     *
-     * @param gameIds All game IDs to fetch prices for
-     * @param batchSize Number of IDs per batch
-     */
-    private async loadPricesInBatches(gameIds: string[], batchSize: number): Promise<void> {
-        for (let i: number = 0; i < gameIds.length; i += batchSize) {
-            const batch: string[] = gameIds.slice(i, i + batchSize);
-
-            try {
-                const pricesById: Record<string, ProductPrice> | null =
-                    await this.gameService.getGamePrices(batch);
-
-                if (pricesById) {
-                    // Merge into existing prices
-                    for (const [key, value] of Object.entries(pricesById)) {
-                        this.prices[key] = value;
-                    }
-
-                    // Re-render so prices appear progressively
-                    this.render();
-                }
-            }
-            catch (error) {
-                console.error(`Fout bij het ophalen van prijzen batch ${i / batchSize + 1}:`, error);
-            }
+            this.prices = {};
         }
     }
 
     /**
      * Get filtered games based on the current active sidebar filters.
      *
-     * @returns Array of games that pass all active filters
+     * @returns Filtered array of games
      */
     private getFilteredGames(): GameResult[] {
-        let filtered: GameResult[] = [...this.games];
+        return this.games.filter((game: GameResult) => {
+            const price: ProductPrice | undefined = this.prices[game.gameId];
 
-        // Price filter
-        if (this.activeFilters.minPrice !== null || this.activeFilters.maxPrice !== null) {
-            filtered = filtered.filter((game: GameResult) => {
-                const price: ProductPrice | undefined = this.prices[game.gameId];
-
-                // If no price data, exclude when a price filter is active
-                if (!price) {
+            // Price range filter
+            if (this.activeFilters.minPrice !== null && price) {
+                if (price.price < this.activeFilters.minPrice) {
                     return false;
                 }
+            }
 
-                const gamePrice: number = price.price;
-
-                if (this.activeFilters.minPrice !== null && gamePrice < this.activeFilters.minPrice) {
+            if (this.activeFilters.maxPrice !== null && price) {
+                if (price.price > this.activeFilters.maxPrice) {
                     return false;
                 }
+            }
 
-                if (this.activeFilters.maxPrice !== null && gamePrice > this.activeFilters.maxPrice) {
-                    return false;
-                }
-
-                return true;
-            });
-        }
-
-        // Steam rating filter: game must match at least one selected rating
-        if (this.activeFilters.labels.length > 0) {
-            filtered = filtered.filter((game: GameResult) => {
-                if (!game.tags || game.tags.length === 0) {
-                    return false;
-                }
-
-                // Check if any of the game's tags match any selected rating
-                // Uses exact match (case-insensitive) to prevent e.g. "Negative" matching "Very Negative"
-                return this.activeFilters.labels.some((label: string) =>
-                    game.tags!.some((tag: string) =>
-                        tag.toLowerCase() === label.toLowerCase()
-                    )
+            // Label / tag filter
+            if (this.activeFilters.labels.length > 0 && game.tags) {
+                const hasMatchingTag: boolean = this.activeFilters.labels.some(
+                    (label: string) => game.tags!.includes(label)
                 );
-            });
-        }
 
-        return filtered;
+                if (!hasMatchingTag) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
     }
 
     /**
-     * Get sorted games based on the current sort option
+     * Get sorted games (after filtering)
      *
-     * @returns Sorted array of games (already filtered)
+     * @returns Sorted array of games
      */
     private getSortedGames(): GameResult[] {
-        const sorted: GameResult[] = this.getFilteredGames();
+        const filtered: GameResult[] = this.getFilteredGames();
+        const sorted: GameResult[] = [...filtered];
 
         switch (this.currentSort) {
             case "title-az":
-                sorted.sort((a: GameResult, b: GameResult) =>
-                    a.title.localeCompare(b.title));
+                sorted.sort((a: GameResult, b: GameResult) => a.title.localeCompare(b.title));
                 break;
             case "title-za":
-                sorted.sort((a: GameResult, b: GameResult) =>
-                    b.title.localeCompare(a.title));
+                sorted.sort((a: GameResult, b: GameResult) => b.title.localeCompare(a.title));
                 break;
             case "price-low":
                 sorted.sort((a: GameResult, b: GameResult) => {
@@ -272,6 +217,13 @@ export class BrowseComponent extends HTMLElement {
                     </div>
                 `;
             }
+        }
+        else if (price && price.price === 0) {
+            priceHtml = `
+                <div class="price-wrapper">
+                    <p class="discounted-price free">Gratis</p>
+                </div>
+            `;
         }
         else {
             priceHtml = `
@@ -495,7 +447,7 @@ export class BrowseComponent extends HTMLElement {
     }
 
     /**
-     * Attach event listeners to sorting dropdown, pagination buttons, etc.
+     * Attach event listeners to pagination buttons
      */
     private setupEventListeners(): void {
         if (!this.shadowRoot) {

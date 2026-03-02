@@ -5,9 +5,10 @@ import { SteamSpyService, SteamSpyAppDetails } from "@api/services/SteamSpyServi
 
 /**
  * Controller for game-related endpoints.
- * Now uses Steam Store API + SteamSpy instead of CheapShark.
+ * Uses Steam Store API + SteamSpy instead of CheapShark.
  *
- * - Steam Store `featuredcategories` → browse/landing page game lists (specials, top_sellers, new_releases)
+ * - Steam Store `featuredcategories` → browse/landing page game lists
+ *   (specials, top_sellers, new_releases) — includes prices in the response
  * - Steam Store `appdetails` → game detail page metadata
  * - SteamSpy → positive/negative reviews to derive steam ratings + tags
  */
@@ -17,31 +18,55 @@ export class GamesController {
 
     /**
      * GET /products - Get all games (featured / popular list).
-     * Uses Steam featuredcategories endpoint which returns specials, top_sellers,
+     * Uses Steam featuredcategories which returns specials, top_sellers,
      * and new_releases — typically 40-60+ games combined.
      * Filters out adult/NSFW content.
+     *
+     * Returns { games: GameResult[], prices: Record<string, ProductPrice> }
+     * so the frontend can render everything in a single request without
+     * needing to batch-fetch prices separately.
      */
     public async getAllGames(_req: Request, res: Response): Promise<void> {
         try {
             const featured: SteamFeaturedItem[] = await this._steamStoreService.getFeaturedGames(true);
 
-            // Map featured games to GameResult format
-            const games: GameResult[] = featured.map((app: SteamFeaturedItem): GameResult => ({
-                gameId: app.id.toString(),
-                steamAppId: app.id.toString(),
-                SKU: app.id.toString(),
-                title: app.name,
-                thumbnail: app.header_image || app.large_capsule_image || app.small_capsule_image,
-                images: null,
-                descriptionMarkdown: "",
-                descriptionHtml: "",
-                url: `https://store.steampowered.com/app/${app.id}`,
-                authors: null,
-                tags: null,
-                reviews: null,
-            }));
+            const games: GameResult[] = [];
+            const prices: Record<string, ProductPrice> = {};
 
-            res.status(200).json(games);
+            for (const app of featured) {
+                const appId: string = app.id.toString();
+
+                // Map to GameResult
+                games.push({
+                    gameId: appId,
+                    steamAppId: appId,
+                    SKU: appId,
+                    title: app.name,
+                    thumbnail: app.header_image || app.large_capsule_image || app.small_capsule_image,
+                    images: null,
+                    descriptionMarkdown: "",
+                    descriptionHtml: "",
+                    url: `https://store.steampowered.com/app/${appId}`,
+                    authors: null,
+                    tags: null,
+                    reviews: null,
+                });
+
+                // Extract price from the featured item (prices are in cents)
+                const finalPrice: number = app.final_price !== null ? app.final_price / 100 : 0;
+                const originalPrice: number = app.original_price !== null ? app.original_price / 100 : finalPrice;
+
+                prices[appId] = {
+                    price: finalPrice,
+                    productId: appId,
+                    currency: app.currency || "EUR",
+                    normalPrice: originalPrice,
+                    savings: app.discount_percent.toString(),
+                    storeID: "steam",
+                };
+            }
+
+            res.status(200).json({ games, prices });
         }
         catch (e: unknown) {
             console.error("Error fetching featured games from Steam:", e);
@@ -154,6 +179,10 @@ export class GamesController {
      * GET /products/prices/:gameId - Get prices for one or more games.
      * Uses the Steam Store appdetails price_overview filter for lightweight price fetches.
      * Supports comma-separated game IDs.
+     *
+     * Note: For the browse page this endpoint is no longer needed since
+     * /products now bundles prices. This is kept for the detail page
+     * and shopping cart which still fetch prices individually.
      */
     public async getProductPrices(req: Request, res: Response): Promise<void> {
         const { gameId } = req.params;

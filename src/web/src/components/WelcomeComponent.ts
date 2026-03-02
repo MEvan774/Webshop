@@ -3,13 +3,11 @@ import { html } from "@web/helpers/webComponents";
 import { AllGameService } from "@web/services/AllGamesService";
 
 /**
- * This component demonstrates the use of sessions, cookies and Services.
- *
- * @remarks This class should be removed from the final product!
+ * Landing page component.
+ * Shows featured hero games and a horizontal scrolling sale section.
+ * Now fetches games and prices in a single API call to reduce load.
  */
 export class WelcomeComponent extends HTMLElement {
-    // private salePrices: Record<number, ProductPrice[]> = {};
-
     public async connectedCallback(): Promise<void> {
         this.attachShadow({ mode: "open" });
         await this.addGames();
@@ -21,8 +19,13 @@ export class WelcomeComponent extends HTMLElement {
     private saleGames: SalePrices[] = [];
 
     private async addGames(): Promise<void> {
-        const games: GameResult[] | null = await this.getAllGames();
-        if (!games || games.length === 0) return;
+        const allGames: AllGameService = new AllGameService();
+        const result: { games: GameResult[]; prices: Record<string, ProductPrice> } | null = await allGames.getAllGamesWithPrices();
+
+        if (!result || result.games.length === 0) return;
+
+        const games: GameResult[] = result.games;
+        const pricesByGameId: Record<string, ProductPrice> = result.prices;
 
         // Shuffle games using Fisher-Yates algorithm
         const shuffled: GameResult[] = [...games];
@@ -41,25 +44,7 @@ export class WelcomeComponent extends HTMLElement {
         const saleGames: GameResult[] = shuffled.slice(saleStart, saleEnd);
         this.saleGamesGame = saleGames;
 
-        // Get game IDs for price fetching (now strings)
-        const validGameIds: string[] = saleGames
-            .filter((g: GameResult) => g.gameId)
-            .map((g: GameResult) => g.gameId);
-
-        if (validGameIds.length === 0) {
-            console.warn("Geen geldige gameIDs gevonden.");
-            return;
-        }
-
-        // Haal alle prijzen op
-        const pricesByGameId: Record<string, ProductPrice> | null = await this.getProductPrices(validGameIds);
-
-        if (!pricesByGameId) {
-            console.warn("Kon geen prijzen ophalen voor sale games.");
-            return;
-        }
-
-        // Build sale prices array
+        // Build sale prices array using the bundled price data
         for (let x: number = 0; x < this.saleGamesGame.length; x++) {
             const gameId: string = this.saleGamesGame[x].gameId;
             const priceData: ProductPrice | undefined = pricesByGameId[gameId];
@@ -79,22 +64,28 @@ export class WelcomeComponent extends HTMLElement {
         }
     }
 
-    // private welcomeService: WelcomeService = new WelcomeService();
-
-    private async getAllGames(): Promise<GameResult[] | null> {
-        const allGames: AllGameService = new AllGameService();
-        return await allGames.getAllGames();
-    }
-
-    private async getProductPrices(productIds: string[]): Promise<Record<string, ProductPrice> | null> {
-        const productPrice: AllGameService = new AllGameService();
-        return await productPrice.getGamePrices(productIds);
-    }
-
-    // public games: GameResult = await getAllGames();
-
     private render(): void {
         if (!this.shadowRoot) {
+            return;
+        }
+
+        // Guard: if we don't have enough games, show a fallback
+        if (this.frontPageGames.length < 5 || this.saleGames.length < 8) {
+            const element: HTMLElement = html`
+                <div class="frontpage">
+                    <h1>Welkom bij LucaStars</h1>
+                    <p>Games worden geladen...</p>
+                    <a href="/browse.html" class="browse-cta-button">Bekijk alle games</a>
+                </div>
+            `;
+
+            const styleLink: HTMLLinkElement = document.createElement("link");
+            styleLink.setAttribute("rel", "stylesheet");
+            styleLink.setAttribute("href", "/assets/css/welcome.css");
+
+            this.shadowRoot.innerHTML = "";
+            this.shadowRoot.appendChild(element);
+            this.shadowRoot.appendChild(styleLink);
             return;
         }
 
@@ -130,7 +121,7 @@ export class WelcomeComponent extends HTMLElement {
     </a>
     </div>
     <div class="side-game">
-    <a href="/currentGame.html?gameId=${this.frontPageGames[4].gameId}">
+    <a href="/currentGame.html?gameId=${this.frontPageGames[3].gameId}">
       <img src=${this.frontPageGames[3].thumbnail} alt="Game 3" />
       <p>${this.frontPageGames[3].title}</p>
     </a>
@@ -167,93 +158,93 @@ export class WelcomeComponent extends HTMLElement {
         <img src="assets/img/ui/Bottom.svg">
         </div>
     </div>
-      <div class="game-card">
+    <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[1].gameId}">
-        <img src=${this.saleGamesGame[1].thumbnail} alt="Game 2" />
+        <img src= ${this.saleGamesGame[1].thumbnail} alt="Game 2" />
         <p>${this.saleGamesGame[1].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[1].oldPrice}</p>
             <p class="discounted-price">€${this.saleGames[1].newPrice.toFixed(2)}</p>
-      </div>
+            </div>
       </a>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
-      </div>
-      <div class="game-card">
+    </div>
+    <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[2].gameId}">
-        <img src=${this.saleGamesGame[2].thumbnail} alt="Game 2" />
+        <img src= ${this.saleGamesGame[2].thumbnail} alt="Game 3" />
         <p>${this.saleGamesGame[2].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[2].oldPrice}</p>
-            <p class="discounted-price">€${this.saleGames[2].newPrice.toFixed(2)}</p>
-        </div>
-        </a>
+            <p class="discounted-price">€${this.saleGames[2].newPrice.toFixed(2)}</p>  
+    </div>
+      </a>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
-      </div>
-      <div class="game-card">
+    </div>
+    <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[3].gameId}">
-        <img src=${this.saleGamesGame[3].thumbnail} alt="Game 2" />
+        <img src= ${this.saleGamesGame[3].thumbnail} alt="Game 4" />
         <p>${this.saleGamesGame[3].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[3].oldPrice}</p>
-            <p class="discounted-price">€${this.saleGames[3].newPrice.toFixed(2)}</p>
-        </div>
-        </a>
+            <p class="discounted-price">€${this.saleGames[3].newPrice.toFixed(2)}</p>  
+    </div>
+      </a>
         <div class="bottom">
         <img src="assets/img/ui/Bottom.svg">
         </div>
-      </div>
-      <div class="game-card">
+    </div>
+    <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[4].gameId}">
-        <img src=${this.saleGamesGame[4].thumbnail} alt="Game 2" />
+        <img src= ${this.saleGamesGame[4].thumbnail} alt="Game 5" />
         <p>${this.saleGamesGame[4].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[4].oldPrice}</p>
-            <p class="discounted-price">€${this.saleGames[4].newPrice.toFixed(2)}</p>
-      </div>
+            <p class="discounted-price">€${this.saleGames[4].newPrice.toFixed(2)}</p>  
+    </div>
       </a>
-      <div class="bottom">
-      <img src="assets/img/ui/Bottom.svg">
-      </div>
+        <div class="bottom">
+        <img src="assets/img/ui/Bottom.svg">
+        </div>
     </div>
     <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[5].gameId}">
-        <img src=${this.saleGamesGame[5].thumbnail} alt="Game 2" />
+        <img src= ${this.saleGamesGame[5].thumbnail} alt="Game 6" />
         <p>${this.saleGamesGame[5].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[5].oldPrice}</p>
-            <p class="discounted-price">€${this.saleGames[5].newPrice.toFixed(2)}</p>
-            </div>
+            <p class="discounted-price">€${this.saleGames[5].newPrice.toFixed(2)}</p>  
+    </div>
       </a>
-      <div class="bottom">
-      <img src="assets/img/ui/Bottom.svg">
-      </div>
+        <div class="bottom">
+        <img src="assets/img/ui/Bottom.svg">
+        </div>
     </div>
     <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[6].gameId}">
-        <img src=${this.saleGamesGame[6].thumbnail} alt="Game 2" />
+        <img src= ${this.saleGamesGame[6].thumbnail} alt="Game 7" />
         <p>${this.saleGamesGame[6].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
             <p class="original-price">€${this.saleGames[6].oldPrice}</p>
-            <p class="discounted-price">€${this.saleGames[6].newPrice.toFixed(2)}</p>
-      </div>
+            <p class="discounted-price">€${this.saleGames[6].newPrice.toFixed(2)}</p>  
+    </div>
       </a>
-      <div class="bottom">
-      <img src="assets/img/ui/Bottom.svg">
-      </div>
+        <div class="bottom">
+        <img src="assets/img/ui/Bottom.svg">
+        </div>
     </div>
     <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[7].gameId}">
-        <img src=${this.saleGamesGame[7].thumbnail} alt="Game 2" />
+        <img src= ${this.saleGamesGame[7].thumbnail} alt="Game 8" />
         <p>${this.saleGamesGame[7].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
