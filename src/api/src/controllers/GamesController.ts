@@ -1,35 +1,37 @@
 import { Request, Response } from "express";
 import { GameDetailResult, GameResult, ProductPrice } from "@shared/types";
-import { SteamStoreService, SteamAppDetails } from "@api/services/SteamStoreService";
+import { SteamStoreService, SteamAppDetails, SteamFeaturedItem } from "@api/services/SteamStoreService";
 import { SteamSpyService, SteamSpyAppDetails } from "@api/services/SteamSpyService";
 
 /**
  * Controller for game-related endpoints.
  * Now uses Steam Store API + SteamSpy instead of CheapShark.
  *
- * - Steam Store `appdetails` → game metadata, descriptions, images, genres, metacritic
- * - SteamSpy → positive/negative reviews to derive steam ratings + tags + owner data
+ * - Steam Store `featuredcategories` → browse/landing page game lists (specials, top_sellers, new_releases)
+ * - Steam Store `appdetails` → game detail page metadata
+ * - SteamSpy → positive/negative reviews to derive steam ratings + tags
  */
 export class GamesController {
     private readonly _steamStoreService: SteamStoreService = new SteamStoreService();
     private readonly _steamSpyService: SteamSpyService = new SteamSpyService();
 
     /**
-     * GET /products - Get all games (featured / popular list)
-     * Uses Steam featured endpoint to get a list of current popular games,
-     * then maps them to the GameResult format for backward compatibility.
+     * GET /products - Get all games (featured / popular list).
+     * Uses Steam featuredcategories endpoint which returns specials, top_sellers,
+     * and new_releases — typically 40-60+ games combined.
+     * Filters out adult/NSFW content.
      */
-    public async getAllGames(req: Request, res: Response): Promise<void> {
+    public async getAllGames(_req: Request, res: Response): Promise<void> {
         try {
-            const featured: { id: number; name: string; header_image: string; large_capsule_image: string }[] = await this._steamStoreService.getFeaturedGames();
+            const featured: SteamFeaturedItem[] = await this._steamStoreService.getFeaturedGames(true);
 
             // Map featured games to GameResult format
-            const games: GameResult[] = featured.map((app): GameResult => ({
+            const games: GameResult[] = featured.map((app: SteamFeaturedItem): GameResult => ({
                 gameId: app.id.toString(),
                 steamAppId: app.id.toString(),
                 SKU: app.id.toString(),
                 title: app.name,
-                thumbnail: app.header_image || app.large_capsule_image,
+                thumbnail: app.header_image || app.large_capsule_image || app.small_capsule_image,
                 images: null,
                 descriptionMarkdown: "",
                 descriptionHtml: "",
@@ -133,8 +135,8 @@ export class GamesController {
                     ? storeData.metacritic.url
                     : null,
                 releaseDate: releaseTimestamp,
-                cheapestPriceEver: null, // Not available without CheapShark / GG.deals
-                storeDeals: null, // Single-store (Steam only) — no multi-store deals
+                cheapestPriceEver: null,
+                storeDeals: null,
             };
 
             res.status(200).json(game);
@@ -164,7 +166,7 @@ export class GamesController {
                 const trimmedId: string = id.trim();
 
                 try {
-                    const priceData: { final: number; initial: number; discount_percent: number; currency: string } | null | undefined = await this._steamStoreService.getPriceOverview(trimmedId);
+                    const priceData: SteamAppDetails["price_overview"] | null = await this._steamStoreService.getPriceOverview(trimmedId);
 
                     if (priceData) {
                         // Steam prices are in cents, convert to whole units
@@ -195,7 +197,6 @@ export class GamesController {
                 }
                 catch (priceError: unknown) {
                     console.error(`Error fetching price for ${trimmedId}:`, priceError);
-                    // Skip this game silently — the frontend handles missing prices
                 }
             }
 
@@ -225,7 +226,6 @@ export class GamesController {
         try {
             const results: { appid: string; name: string; img: string }[] = await this._steamStoreService.searchGames(title, 20);
 
-            // Map search results to GameResult format for frontend compatibility
             const games: GameResult[] = results.map((result): GameResult => ({
                 gameId: result.appid,
                 steamAppId: result.appid,
