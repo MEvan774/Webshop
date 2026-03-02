@@ -317,48 +317,22 @@ a:hover {
     overflow: hidden;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    text-align: center;
 }
 
-/* Steam bb_img images: full width, override inline attributes */
 .game-description img {
-    width: 100%;
+    display: inline-block;
+    max-width: 100%;
     height: auto;
-    display: block;
     border-radius: 6px;
-    margin: 12px 0;
+    margin: 12px auto;
 }
 
-/* Constrain iframes (e.g. embedded YouTube videos from Steam) */
 .game-description iframe {
     max-width: 100%;
     border-radius: 6px;
-    margin: 12px 0;
-}
-
-/* Override any inline width/height Steam sets on elements */
-.game-description * {
-    max-width: 100% !important;
-    height: auto !important;
-}
-
-/* Restore height for text elements so they aren't affected by the wildcard */
-.game-description p,
-.game-description span,
-.game-description div,
-.game-description h1,
-.game-description h2,
-.game-description h3,
-.game-description h4,
-.game-description ul,
-.game-description ol,
-.game-description li,
-.game-description a,
-.game-description strong,
-.game-description em,
-.game-description b,
-.game-description i,
-.game-description br {
-    height: unset !important;
+    margin: 12px auto;
+    display: block;
 }
 
 .game-description h1,
@@ -367,20 +341,24 @@ a:hover {
     font-family: 'TimesNewRomanBold', serif;
     color: var(--black);
     margin: 16px 0 8px;
+    text-align: left;
 }
 
 .game-description h1 { font-size: 1.3rem; }
 .game-description h2 { font-size: 1.15rem; }
 .game-description h3 { font-size: 1.05rem; }
 
-.game-description p {
-    margin-bottom: 10px;
+.game-description p,
+.game-description div,
+.game-description span {
+    text-align: left;
 }
 
 .game-description ul,
 .game-description ol {
     padding-left: 20px;
     margin-bottom: 10px;
+    text-align: left;
 }
 
 .game-description li {
