@@ -421,15 +421,6 @@ export class CurrentGameComponent extends HTMLElement {
                 <!-- Screenshots section -->
                 ${screenshotsHTML}
 
-                <!-- Lightbox overlay for fullscreen screenshots -->
-                <div class="screenshot-lightbox" id="screenshotLightbox">
-                    <button class="lightbox-close" id="lightboxClose">&times;</button>
-                    <button class="lightbox-nav prev" id="lightboxPrev">&#8249;</button>
-                    <button class="lightbox-nav next" id="lightboxNext">&#8250;</button>
-                    <img class="lightbox-image" id="lightboxImage" src="" alt="Screenshot fullscreen">
-                    <span class="lightbox-counter" id="lightboxCounter"></span>
-                </div>
-
                 <!-- Description section (Steam HTML) -->
                 ${descriptionHTML}
 
@@ -485,38 +476,162 @@ export class CurrentGameComponent extends HTMLElement {
             });
         }
 
-        // Screenshot lightbox functionality
-        const lightbox: HTMLElement | null = this.shadowRoot.querySelector("#screenshotLightbox");
-        const lightboxImage: HTMLImageElement | null = this.shadowRoot.querySelector("#lightboxImage");
-        const lightboxCounter: HTMLElement | null = this.shadowRoot.querySelector("#lightboxCounter");
-        const lightboxClose: HTMLElement | null = this.shadowRoot.querySelector("#lightboxClose");
-        const lightboxPrev: HTMLElement | null = this.shadowRoot.querySelector("#lightboxPrev");
-        const lightboxNext: HTMLElement | null = this.shadowRoot.querySelector("#lightboxNext");
+       // Screenshot lightbox — appended to document.body so it renders
+        // on top of everything (outside Shadow DOM), like Steam's overlay.
         const screenshotThumbs: NodeListOf<HTMLImageElement> = this.shadowRoot.querySelectorAll(".screenshot-thumb");
 
-        if (lightbox && lightboxImage && screenshotThumbs.length > 0) {
-            let currentIndex: number = 0;
+        if (screenshotThumbs.length > 0) {
             const images: string[] = Array.from(screenshotThumbs).map((img: HTMLImageElement) => img.src);
             const totalImages: number = images.length;
+            let currentIndex: number = 0;
+
+            // Create the lightbox element and inject scoped styles into body
+            const lightbox: HTMLDivElement = document.createElement("div");
+            lightbox.id = "game-screenshot-lightbox";
+            lightbox.innerHTML = `
+                <style>
+                    #game-screenshot-lightbox {
+                        display: none;
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100vw;
+                        height: 100vh;
+                        z-index: 99999;
+                        background-color: rgba(0, 0, 0, 0.92);
+                        backdrop-filter: blur(8px);
+                        -webkit-backdrop-filter: blur(8px);
+                        align-items: center;
+                        justify-content: center;
+                        cursor: zoom-out;
+                        animation: lb-fade-in 0.2s ease;
+                    }
+
+                    #game-screenshot-lightbox.active {
+                        display: flex;
+                    }
+
+                    @keyframes lb-fade-in {
+                        from { opacity: 0; }
+                        to { opacity: 1; }
+                    }
+
+                    @keyframes lb-zoom-in {
+                        from { transform: scale(0.92); opacity: 0; }
+                        to { transform: scale(1); opacity: 1; }
+                    }
+
+                    #game-screenshot-lightbox .lb-image {
+                        max-width: 90vw;
+                        max-height: 85vh;
+                        object-fit: contain;
+                        border-radius: 4px;
+                        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+                        animation: lb-zoom-in 0.25s ease;
+                        cursor: default;
+                    }
+
+                    #game-screenshot-lightbox .lb-close {
+                        position: absolute;
+                        top: 16px;
+                        right: 24px;
+                        background: rgba(255, 255, 255, 0.08);
+                        border: none;
+                        color: #fff;
+                        font-size: 1.6rem;
+                        font-weight: 300;
+                        cursor: pointer;
+                        line-height: 1;
+                        width: 40px;
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 6px;
+                        transition: background-color 0.2s ease;
+                    }
+
+                    #game-screenshot-lightbox .lb-close:hover {
+                        background-color: rgba(255, 255, 255, 0.18);
+                    }
+
+                    #game-screenshot-lightbox .lb-nav {
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        background: rgba(255, 255, 255, 0.08);
+                        border: none;
+                        color: #fff;
+                        font-size: 2rem;
+                        font-weight: 300;
+                        cursor: pointer;
+                        width: 48px;
+                        height: 64px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 6px;
+                        transition: background-color 0.2s ease;
+                        user-select: none;
+                    }
+
+                    #game-screenshot-lightbox .lb-nav:hover {
+                        background-color: rgba(255, 255, 255, 0.18);
+                    }
+
+                    #game-screenshot-lightbox .lb-prev {
+                        left: 16px;
+                    }
+
+                    #game-screenshot-lightbox .lb-next {
+                        right: 16px;
+                    }
+
+                    #game-screenshot-lightbox .lb-counter {
+                        position: absolute;
+                        bottom: 20px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        color: rgba(255, 255, 255, 0.6);
+                        font-family: sans-serif;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                        letter-spacing: 0.05em;
+                    }
+                </style>
+                <button class="lb-close">&times;</button>
+                <button class="lb-nav lb-prev">&#8249;</button>
+                <button class="lb-nav lb-next">&#8250;</button>
+                <img class="lb-image" src="" alt="Screenshot">
+                <span class="lb-counter"></span>
+            `;
+
+            document.body.appendChild(lightbox);
+
+            const lbImage: HTMLImageElement = lightbox.querySelector(".lb-image") as HTMLImageElement;
+            const lbCounter: HTMLElement = lightbox.querySelector(".lb-counter") as HTMLElement;
+            const lbClose: HTMLElement = lightbox.querySelector(".lb-close") as HTMLElement;
+            const lbPrev: HTMLElement = lightbox.querySelector(".lb-prev") as HTMLElement;
+            const lbNext: HTMLElement = lightbox.querySelector(".lb-next") as HTMLElement;
 
             function showImage(index: number): void {
                 currentIndex = index;
-                lightboxImage!.src = images[currentIndex];
-                if (lightboxCounter) {
-                    lightboxCounter.textContent = `${currentIndex + 1} / ${totalImages}`;
-                }
+                lbImage.src = images[currentIndex];
+                lbCounter.textContent = `${currentIndex + 1} / ${totalImages}`;
             };
 
             function openLightbox(index: number): void {
                 showImage(index);
-                lightbox?.classList.add("active");
+                lightbox.classList.add("active");
+                document.body.style.overflow = "hidden";
             };
 
             function closeLightbox(): void {
-                lightbox?.classList.remove("active");
-            }
+                lightbox.classList.remove("active");
+                document.body.style.overflow = "";
+            };
 
-            // Click on thumbnail to open
+            // Open on thumbnail click
             screenshotThumbs.forEach((thumb: HTMLImageElement, index: number) => {
                 thumb.addEventListener("click", (): void => {
                     openLightbox(index);
@@ -524,30 +639,30 @@ export class CurrentGameComponent extends HTMLElement {
             });
 
             // Close button
-            lightboxClose?.addEventListener("click", (e: Event): void => {
+            lbClose.addEventListener("click", (e: Event): void => {
                 e.stopPropagation();
                 closeLightbox();
             });
 
-            // Click on backdrop to close
+            // Click backdrop to close
             lightbox.addEventListener("click", (e: Event): void => {
                 if (e.target === lightbox) {
                     closeLightbox();
                 }
             });
 
-            // Previous / Next buttons
-            lightboxPrev?.addEventListener("click", (e: Event): void => {
+            // Prev / Next
+            lbPrev.addEventListener("click", (e: Event): void => {
                 e.stopPropagation();
                 showImage((currentIndex - 1 + totalImages) % totalImages);
             });
 
-            lightboxNext?.addEventListener("click", (e: Event): void => {
+            lbNext.addEventListener("click", (e: Event): void => {
                 e.stopPropagation();
                 showImage((currentIndex + 1) % totalImages);
             });
 
-            // Keyboard navigation
+            // Keyboard: Escape, ArrowLeft, ArrowRight
             const handleKeyDown: (e: KeyboardEvent) => void = (e: KeyboardEvent): void => {
                 if (!lightbox.classList.contains("active")) return;
 
