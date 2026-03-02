@@ -322,6 +322,7 @@ body {
     bottom: 28px;
     right: 6px;
     left: 6px;
+    margin-top: 5px;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
