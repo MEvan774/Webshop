@@ -321,7 +321,7 @@ a:hover {
 
 /* Constrain ALL images inside Steam's HTML description */
 .game-description img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     display: block;
     border-radius: 6px;
