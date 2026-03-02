@@ -32,6 +32,7 @@ export class GamesController {
 
             const games: GameResult[] = [];
             const prices: Record<string, ProductPrice> = {};
+            const MAX_PRICE: number = 80;
 
             for (const app of featured) {
                 const appId: string = app.id.toString();
@@ -56,6 +57,10 @@ export class GamesController {
                 const finalPrice: number = app.final_price !== null ? app.final_price / 100 : 0;
                 const originalPrice: number = app.original_price !== null ? app.original_price / 100 : finalPrice;
 
+                // Skip games that exceed the price cap
+                if (finalPrice > MAX_PRICE || originalPrice > MAX_PRICE) {
+                    continue;
+                }
                 prices[appId] = {
                     price: finalPrice,
                     productId: appId,
