@@ -274,6 +274,8 @@
 
     .sidebar-content {
         padding: 16px 14px;
+        margin-top: auto;
+        margin-bottom: auto;
     }
 
     .sidebar-content h2 {
