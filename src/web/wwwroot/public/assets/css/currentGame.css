@@ -328,6 +328,13 @@ a:hover {
     margin: 12px 0;
 }
 
+.game-description img.bb_img {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    display: block;
+}
+
 /* Constrain iframes (e.g. embedded YouTube videos from Steam) */
 .game-description iframe {
     max-width: 100%;
