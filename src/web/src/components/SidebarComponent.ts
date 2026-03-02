@@ -50,19 +50,24 @@ export class SidebarComponent extends HTMLElement {
                             <span>—</span>
                             <label><input type="number" class="price-input" id="max-price" placeholder="max" min="0" /></label>
                         </div>
-                        <h3>Beoordeling</h3>
+                        <h3>Korting</h3>
                         <div class="sort-select-wrapper">
-                            <select id="sidebar-sort" class="sidebar-sort-select">
-                                <option value="Overwhelmingly Positive">Overweldigend positief</option>
-                                <option value="Very Positive">Zeer positief</option>
-                                <option value="Mostly Positive">Grotendeels positief</option>
-                                <option value="Positive">Positief</option>
-                                <option value="Mixed">Gemengd</option>
-                                <option value="Negative">Negatief</option>
+                            <select id="sidebar-discount" class="sidebar-sort-select">
+                                <option value="">Alle</option>
+                                <option value="10">10%+ korting</option>
+                                <option value="25">25%+ korting</option>
+                                <option value="50">50%+ korting</option>
+                                <option value="75">75%+ korting</option>
                             </select>
                         </div>
-                        <button class="filter-reset-btn" id="reset-filters">Filters wissen</button>
+                        <div class="checkbox-grid" style="margin-top: 12px;">
+                            <label>
+                                <input type="checkbox" class="checkbox" id="free-only" value="free" />
+                                Gratis
+                            </label>
                         </div>
+                        <button class="filter-reset-btn" id="reset-filters">Filters wissen</button>
+                    </div>
                 </div>
             </section>
         `;
@@ -110,6 +115,7 @@ export class SidebarComponent extends HTMLElement {
         if (!this.shadowRoot) return;
 
         const sortSelect: HTMLSelectElement | null = this.shadowRoot.querySelector<HTMLSelectElement>("#sidebar-sort");
+        const discountSelect: HTMLSelectElement | null = this.shadowRoot.querySelector<HTMLSelectElement>("#sidebar-discount");
         const minPriceInput: HTMLInputElement | null = this.shadowRoot.querySelector<HTMLInputElement>("#min-price");
         const maxPriceInput: HTMLInputElement | null = this.shadowRoot.querySelector<HTMLInputElement>("#max-price");
         const checkboxes: NodeListOf<HTMLInputElement> = this.shadowRoot.querySelectorAll<HTMLInputElement>(".checkbox");
@@ -117,6 +123,11 @@ export class SidebarComponent extends HTMLElement {
 
         // Sort select: dispatch immediately on change
         sortSelect?.addEventListener("change", () => {
+            this.dispatchFilterEvent();
+        });
+
+        // Discount select: dispatch immediately on change
+        discountSelect?.addEventListener("change", () => {
             this.dispatchFilterEvent();
         });
 
@@ -144,6 +155,7 @@ export class SidebarComponent extends HTMLElement {
         // Reset button: clear all inputs and dispatch
         resetBtn?.addEventListener("click", () => {
             if (sortSelect) sortSelect.value = "Deal Rating";
+            if (discountSelect) discountSelect.value = "";
             if (minPriceInput) minPriceInput.value = "";
             if (maxPriceInput) maxPriceInput.value = "";
 
@@ -162,17 +174,26 @@ export class SidebarComponent extends HTMLElement {
         if (!this.shadowRoot) return;
 
         const sortSelect: HTMLSelectElement | null = this.shadowRoot.querySelector<HTMLSelectElement>("#sidebar-sort");
+        const discountSelect: HTMLSelectElement | null = this.shadowRoot.querySelector<HTMLSelectElement>("#sidebar-discount");
         const minPriceInput: HTMLInputElement | null = this.shadowRoot.querySelector<HTMLInputElement>("#min-price");
         const maxPriceInput: HTMLInputElement | null = this.shadowRoot.querySelector<HTMLInputElement>("#max-price");
         const checkboxes: NodeListOf<HTMLInputElement> = this.shadowRoot.querySelectorAll<HTMLInputElement>(".checkbox:checked");
 
         const minValue: string = minPriceInput?.value.trim() ?? "";
         const maxValue: string = maxPriceInput?.value.trim() ?? "";
+        const discountValue: string = discountSelect?.value ?? "";
+
+        const labels: string[] = Array.from(checkboxes).map((cb: HTMLInputElement) => cb.value);
+
+        // Add discount as a special label so BrowseComponent can read it
+        if (discountValue !== "") {
+            labels.push(`discount:${discountValue}`);
+        }
 
         const filterData: FilterData = {
             minPrice: minValue !== "" ? parseFloat(minValue) : null,
             maxPrice: maxValue !== "" ? parseFloat(maxValue) : null,
-            labels: Array.from(checkboxes).map((cb: HTMLInputElement) => cb.value),
+            labels: labels,
             sortBy: sortSelect?.value ?? null,
         };
 
