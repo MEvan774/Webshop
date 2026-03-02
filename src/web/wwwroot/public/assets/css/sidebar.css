@@ -254,9 +254,6 @@
     .sidebar {
         width: 260px;
         left: -280px;
-        top: 65px;
-        height: calc(100% - 65px);
-        transform: none;
         z-index: 998;
     }
 
