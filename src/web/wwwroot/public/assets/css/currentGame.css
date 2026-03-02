@@ -238,6 +238,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     gap: 18px;
+    min-width: 0; /* Prevent flex child from overflowing */
 }
 
 .game-title {
@@ -281,12 +282,131 @@ a:hover {
     font-weight: 500;
 }
 
+/* ---- Tags ---- */
+
+.game-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag-badge {
+    display: inline-block;
+    font-family: 'RaleWay', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background-color: rgba(28, 37, 148, 0.08);
+    color: var(--blue);
+    border: 1px solid rgba(28, 37, 148, 0.15);
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+}
+
+.tag-badge:hover {
+    background-color: rgba(28, 37, 148, 0.14);
+}
+
 /* ---- Description section ---- */
 
 .game-description {
     font-size: 0.95rem;
     line-height: 1.65;
     color: #444;
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Constrain ALL images inside Steam's HTML description */
+.game-description img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+    margin: 12px 0;
+}
+
+/* Constrain iframes (e.g. embedded YouTube videos from Steam) */
+.game-description iframe {
+    max-width: 100%;
+    border-radius: 6px;
+    margin: 12px 0;
+}
+
+/* Handle Steam's inline styles that might set fixed widths */
+.game-description * {
+    max-width: 100% !important;
+}
+
+/* Clean up Steam's default styling for headers inside descriptions */
+.game-description h1,
+.game-description h2,
+.game-description h3 {
+    font-family: 'TimesNewRomanBold', serif;
+    color: var(--black);
+    margin: 16px 0 8px;
+}
+
+.game-description h1 {
+    font-size: 1.3rem;
+}
+
+.game-description h2 {
+    font-size: 1.15rem;
+}
+
+.game-description h3 {
+    font-size: 1.05rem;
+}
+
+.game-description p {
+    margin-bottom: 10px;
+}
+
+.game-description ul,
+.game-description ol {
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.game-description li {
+    margin-bottom: 4px;
+}
+
+.game-description a {
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+.game-description a:hover {
+    color: var(--light-blue);
+}
+
+/* ---- Screenshots section ---- */
+
+.screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.screenshot-thumb {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid #e0d6c6;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.screenshot-thumb:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 /* ---- Section titles ---- */
@@ -590,5 +710,21 @@ a:hover {
     .deal-buy-btn {
         padding: 8px 14px;
         font-size: 0.8rem;
+    }
+
+    /* Screenshots: single column on mobile */
+    .screenshots-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    /* Tags: tighter spacing on mobile */
+    .game-tags {
+        gap: 6px;
+    }
+
+    .tag-badge {
+        font-size: 0.72rem;
+        padding: 4px 10px;
     }
 }
