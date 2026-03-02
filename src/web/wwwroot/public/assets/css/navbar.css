@@ -394,6 +394,12 @@ button .navbar {
   gap: 8px;
 }
 
+.mobile-searchbar-container img{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+
 /* Close "X" button */
 .close-search {
   cursor: pointer;
