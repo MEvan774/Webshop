@@ -2,7 +2,7 @@ import { html } from "@web/helpers/webComponents";
 import { LoginService } from "@web/services/LoginService";
 
 /**
- * The content for the register-page is made here. Logic such as scripts go in RegisterService
+ * The content for the login-page is made here. Logic such as scripts go in LoginService
  */
 export class LoginComponent extends HTMLElement {
     public connectedCallback(): void {
@@ -72,8 +72,19 @@ export class LoginComponent extends HTMLElement {
                     else {
                         if (errorDiv) errorDiv.textContent = "";
                     }
-                    await loginUser.loginUser(emailInput.value, passwordInput.value);
-                    window.location.href = "/index.html";
+
+                    try {
+                        await loginUser.loginUser(emailInput.value, passwordInput.value);
+                        window.location.href = "/index.html";
+                    }
+                    catch (error: unknown) {
+                        if (errorDiv) {
+                            const message: string = error instanceof Error
+                                ? error.message
+                                : "Er ging iets mis bij het inloggen.";
+                            errorDiv.textContent = message;
+                        }
+                    }
                 });
             }
         }
