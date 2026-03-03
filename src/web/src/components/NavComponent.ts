@@ -519,13 +519,17 @@ export class NavComponent extends HTMLElement {
                 box-shadow: 0 1px 3px rgba(0,0,0,0.2);
                 line-height: 1;
             }
-
             @media (max-width: 768px) {
                 .search-dropdown {
                     max-width: 100%;
                     left: 0;
                     transform: none;
                     border-radius: 0 0 8px 8px;
+                }
+
+                .navbar-cart,
+                .navbar-favorites {
+                    display: none;
                 }
             }
         `;
