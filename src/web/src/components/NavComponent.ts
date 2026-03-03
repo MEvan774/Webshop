@@ -159,7 +159,7 @@ export class NavComponent extends HTMLElement {
             userLink.href = "/profile.html";
 
             const userImg: HTMLImageElement = document.createElement("img");
-            userImg.src = "/assets/images/userButton.png";
+            userImg.src = "/assets/img/icons/userButton.png";
             userImg.width = 50;
             userLink.appendChild(userImg);
 

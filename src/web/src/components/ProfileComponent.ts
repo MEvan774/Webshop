@@ -25,7 +25,7 @@ export class ProfileComponent extends BaseProfileComponent {
         const gamesHTML: string = await this.profileGamesService.createGamesHTML(user.userId);
 
         // Set variables
-        const profilePicture: string = user.profilePicture ?? "/assets/images/userImage.png";
+        const profilePicture: string = user.profilePicture ?? "/assets/img/icons/userImage.png";
         const name: string = user.firstname + " " + user.lastname;
         const date: string = this.ProfileService.formatDate(user.dob);
         const country: string = user.country ?? "Locatie onbekend";

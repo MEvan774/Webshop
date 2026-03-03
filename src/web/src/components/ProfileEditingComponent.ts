@@ -37,7 +37,7 @@ export class ProfileEditingComponent extends BaseProfileComponent {
         if (!user) return;
 
         // Set variables
-        const profilePicture: string = user.profilePicture ?? "/assets/images/userImage.png";
+        const profilePicture: string = user.profilePicture ?? "/assets/img/icons/userImage.png";
         const genderSelect: string = this.profileEditService.getGenderSelect(user);
         let country: string = "placeholder='Locatie'";
 
