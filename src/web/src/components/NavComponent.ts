@@ -260,13 +260,13 @@ export class NavComponent extends HTMLElement {
 
       <!-- Favorites button (desktop) — left of cart -->
       <a href="/favorites.html" class="navbar-favorites" id="favorites-link-desktop">
-        <img src="/assets/img/icons/heart.svg" width="40" height="40" alt="Favorieten" class="favorites-icon" />
+        <img src="/assets/img/icons/heart.svg" alt="Favorieten" class="favorites-icon" />
         <span class="favorites-badge" id="favorites-count-desktop" style="display: none;">0</span>
       </a>
 
       <!-- Cart button (desktop) -->
       <a href="/payment.html" class="navbar-cart" id="cart-link-desktop">
-        <span class="cart-icon"><img src="/assets/img/icons/ShoppingCart.svg" width="40" height="40" alt="Cart" /></span>
+        <span class="cart-icon"><img src="/assets/img/icons/ShoppingCart.svg" width="25" height="25" alt="Cart" /></span>
         <span class="cart-badge" id="cart-count-desktop" style="display: none;">0</span>
       </a>
 
