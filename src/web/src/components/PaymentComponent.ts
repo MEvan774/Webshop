@@ -2,38 +2,88 @@ import { html } from "@web/helpers/webComponents";
 import "@web/components/PaymentTileComponent";
 import { ShoppingCartService, CartItem } from "@web/services/ShoppingCartService";
 import { StripePaymentService, CheckoutItem } from "@web/services/StripePaymentService";
+import { AllGameService } from "@web/services/AllGamesService";
+import { ProductPrice } from "@shared/types";
 
 /**
  * Payment page component.
  * Reads the shopping cart from localStorage and renders each item as a <payment-tile>.
+ * Fetches fresh prices from the API to ensure correct amounts are displayed.
  * Shows price summary and triggers Stripe checkout on "Afrekenen".
  */
 export class PaymentComponent extends HTMLElement {
     private readonly _cartService: ShoppingCartService = new ShoppingCartService();
     private readonly _paymentService: StripePaymentService = new StripePaymentService();
+    private readonly _gameService: AllGameService = new AllGameService();
 
     public connectedCallback(): void {
         this.attachShadow({ mode: "open" });
 
         // Re-render when a tile fires "cart-updated" (item removed)
         this.addEventListener("cart-updated", (): void => {
-            this.render();
+            void this.render();
         });
 
-        this.render();
+        void this.render();
     }
 
-    private render(): void {
+    /**
+     * Main render method. Fetches fresh prices from the API, updates the
+     * cart in localStorage, then renders tiles and totals with correct prices.
+     */
+    private async render(): Promise<void> {
         if (!this.shadowRoot) return;
 
         this.shadowRoot.innerHTML = "";
 
         const items: CartItem[] = this._cartService.getCartItems();
 
-        // Calculate totals using stored prices
+        // Show loading state while fetching prices
+        if (items.length > 0) {
+            const loadingElement: HTMLElement = html`
+            <div id="tileContainer">
+                <div id="shoppingCart">
+                    <h1>Mijn winkelwagen</h1>
+                    <p class="loading-text">Prijzen ophalen...</p>
+                </div>
+            </div>
+            `;
+
+            const loadingStyleLink: HTMLLinkElement = document.createElement("link");
+            loadingStyleLink.setAttribute("rel", "stylesheet");
+            loadingStyleLink.setAttribute("href", "/assets/css/paymentPage.css");
+
+            const loadingExtraStyles: HTMLStyleElement = document.createElement("style");
+            loadingExtraStyles.textContent = `
+                .loading-text {
+                    color: #666;
+                    font-style: italic;
+                    padding: 20px 0;
+                }
+                .empty-cart {
+                    color: #666;
+                    padding: 20px 0;
+                }
+            `;
+
+            this.shadowRoot.appendChild(loadingStyleLink);
+            this.shadowRoot.appendChild(loadingExtraStyles);
+            this.shadowRoot.append(loadingElement);
+
+            // Fetch fresh prices and update cart
+            await this.refreshCartPrices(items);
+
+            // Clear loading state and re-read updated items
+            this.shadowRoot.innerHTML = "";
+        }
+
+        // Re-read items (now with updated prices)
+        const updatedItems: CartItem[] = this._cartService.getCartItems();
+
+        // Calculate totals using fresh prices
         let subtotal: number = 0;
 
-        for (const item of items) {
+        for (const item of updatedItems) {
             subtotal += item.price * item.quantity;
         }
 
@@ -43,11 +93,11 @@ export class PaymentComponent extends HTMLElement {
         // Build tiles HTML
         let tilesHTML: string = "";
 
-        if (items.length === 0) {
+        if (updatedItems.length === 0) {
             tilesHTML = "<p class=\"empty-cart\">Je winkelwagen is leeg.</p>";
         }
         else {
-            for (const item of items) {
+            for (const item of updatedItems) {
                 tilesHTML += `
                     <payment-tile
                         game-id="${item.gameId}"
@@ -67,7 +117,9 @@ export class PaymentComponent extends HTMLElement {
             <div id="shoppingCart">
                 <h1>Mijn winkelwagen</h1>
                 ${tilesHTML}
-                ${items.length > 0 ? "<a id=\"removeAll\">Verwijder alle spellen</a>" : ""}
+                ${updatedItems.length > 0
+                    ? "<a id=\"removeAll\">Verwijder alle spellen</a>"
+: ""}
             </div>
             <div id="priceContainer">
                 <div id="price">
@@ -87,7 +139,7 @@ export class PaymentComponent extends HTMLElement {
                     <p>$${total.toFixed(2)}</p>
                 </div>
             </div>
-            ${items.length > 0
+            ${updatedItems.length > 0
                 ? "<a class=\"checkout\" id=\"checkoutBtn\">Afrekenen</a>"
                 : ""}
         </div>
@@ -122,7 +174,7 @@ export class PaymentComponent extends HTMLElement {
         if (removeAllLink) {
             removeAllLink.addEventListener("click", (): void => {
                 this._cartService.removeAllFromCart();
-                this.render();
+                void this.render();
             });
         }
 
@@ -154,6 +206,45 @@ export class PaymentComponent extends HTMLElement {
                     alert("Er ging iets mis bij het afrekenen. Probeer het opnieuw.");
                 }
             });
+        }
+    }
+
+    /**
+     * Fetch fresh prices from the API for all cart items and update
+     * the cart in localStorage with the correct prices.
+     *
+     * @param items The current cart items (mutated in place with fresh prices)
+     */
+    private async refreshCartPrices(items: CartItem[]): Promise<void> {
+        try {
+            const gameIds: string[] = items.map((item: CartItem) => item.gameId);
+            const prices: Record<string, ProductPrice> | null = await this._gameService.getGamePrices(gameIds);
+
+            if (!prices) {
+                console.error("Kon prijzen niet ophalen van de API.");
+                return;
+            }
+
+            // Update each cart item with the fresh price
+            let updated: boolean = false;
+
+            for (const item of items) {
+                const freshPrice: ProductPrice | undefined = prices[item.gameId];
+
+                // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+                if (freshPrice !== undefined && freshPrice.price !== item.price) {
+                    item.price = freshPrice.price;
+                    updated = true;
+                }
+            }
+
+            // Persist updated prices back to localStorage
+            if (updated) {
+                localStorage.setItem("shoppingCart", JSON.stringify(items));
+            }
+        }
+        catch (error) {
+            console.error("Fout bij het ophalen van prijzen:", error);
         }
     }
 }

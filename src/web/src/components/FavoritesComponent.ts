@@ -3,6 +3,8 @@ import { html } from "@web/helpers/webComponents";
 import "@web/components/FavoritesTileComponent";
 import { FavoritesService, FavoriteItem } from "@web/services/FavoritesService";
 import { ShoppingCartService } from "@web/services/ShoppingCartService";
+import { AllGameService } from "@web/services/AllGamesService";
+import { ProductPrice } from "@shared/types";
 
 /**
  * Favorites page component.
@@ -99,19 +101,46 @@ export class FavoritesComponent extends HTMLElement {
             });
         }
 
-        // "Add all to cart" button
+        // "Add all to cart" button — now fetches real prices before adding
         const addAllBtn: HTMLAnchorElement | null = this.shadowRoot.querySelector("#addAllToCart");
 
         if (addAllBtn) {
-            addAllBtn.addEventListener("click", (): void => {
+            addAllBtn.addEventListener("click", async (): Promise<void> => {
                 const favorites: FavoriteItem[] = this._favoritesService.getFavorites();
 
-                for (const fav of favorites) {
-                    this._cartService.addToCart(fav.gameId, fav.title, fav.thumbnail, 0);
+                if (favorites.length === 0) {
+                    return;
                 }
 
-                window.dispatchEvent(new CustomEvent("cart-updated"));
-                alert(`${favorites.length} ${favorites.length === 1 ? "game" : "games"} toegevoegd aan je winkelwagen!`);
+                // Disable button and show loading state
+                addAllBtn.style.opacity = "0.6";
+                addAllBtn.style.pointerEvents = "none";
+                addAllBtn.textContent = "Prijzen ophalen...";
+
+                try {
+                    // Fetch prices for all favorited games in one batch
+                    const gameIds: string[] = favorites.map((fav: FavoriteItem) => fav.gameId);
+                    const gameService: AllGameService = new AllGameService();
+                    const prices: Record<string, ProductPrice> | null = await gameService.getGamePrices(gameIds);
+
+                    for (const fav of favorites) {
+                        const price: number = prices?.[fav.gameId]?.price ?? 0;
+                        this._cartService.addToCart(fav.gameId, fav.title, fav.thumbnail, price);
+                    }
+
+                    window.dispatchEvent(new CustomEvent("cart-updated"));
+                    alert(`${favorites.length} ${favorites.length === 1 ? "game" : "games"} toegevoegd aan je winkelwagen!`);
+                }
+                catch (error) {
+                    console.error("Fout bij ophalen prijzen:", error);
+                    alert("Kon de prijzen niet ophalen. Probeer het opnieuw.");
+                }
+                finally {
+                    // Restore button state
+                    addAllBtn.style.opacity = "1";
+                    addAllBtn.style.pointerEvents = "auto";
+                    addAllBtn.textContent = "Alles in winkelwagen";
+                }
             });
         }
     }

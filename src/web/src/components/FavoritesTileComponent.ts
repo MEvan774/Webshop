@@ -1,4 +1,6 @@
+import { ProductPrice } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
+import { AllGameService } from "@web/services/AllGamesService";
 import { FavoritesService } from "@web/services/FavoritesService";
 import { ShoppingCartService } from "@web/services/ShoppingCartService";
 
@@ -183,9 +185,12 @@ export class FavoritesTileComponent extends HTMLElement {
         const cartButton: HTMLButtonElement | null = this.shadowRoot.querySelector("#addToCart");
 
         if (cartButton) {
-            cartButton.addEventListener("click", (): void => {
+            cartButton.addEventListener("click", async (): Promise<void> => {
                 const cartService: ShoppingCartService = new ShoppingCartService();
-                cartService.addToCart(gameId, title, image, 0);
+                const gameService: AllGameService = new AllGameService();
+                const prices: Record<string, ProductPrice> | null = await gameService.getGamePrices([gameId]);
+                const price: number = prices?.[gameId]?.price ?? 0;
+                cartService.addToCart(gameId, title, image, price);
 
                 // Notify the navbar to update cart badge
                 window.dispatchEvent(new CustomEvent("cart-updated"));
