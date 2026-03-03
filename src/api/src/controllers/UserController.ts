@@ -37,13 +37,6 @@ interface LogoutRequest extends Request {
     body: { sessionId: string };
 }
 
-/*
-interface ChangeEmailBody {
-    userId: number;
-    email: string;
-}
-    */
-
 export class UserController {
     private readonly _userService: UserService = new UserService();
     private readonly _sessionService: SessionService = new SessionService();
@@ -80,14 +73,10 @@ export class UserController {
                 return;
             }
 
-            if (!user.verified) {
-                res.status(403).json({ error: "Je account is nog niet geverifieerd. Controleer je email om je account te verifiëren." });
-            }
-            else {
-                const sessionId: string | undefined = await this._sessionService.createSession(user.userId);
-                res.cookie("session", sessionId, { httpOnly: true, secure: true });
-                res.status(200).json({ message: "Login succesvol." });
-            }
+            // Skip verification check — log in immediately regardless of verified status
+            const sessionId: string | undefined = await this._sessionService.createSession(user.userId);
+            res.cookie("session", sessionId, { httpOnly: true, secure: true });
+            res.status(200).json({ message: "Login succesvol." });
         }
         catch (error: unknown) {
             console.error("Login fout:", error);
@@ -150,6 +139,7 @@ export class UserController {
             );
 
             if (userId) {
+                // Create session immediately — no verification needed
                 const sessionId: string | undefined = await this._sessionService.createSession(Number(userId));
                 res.cookie("session", sessionId, { httpOnly: true, secure: true });
 
