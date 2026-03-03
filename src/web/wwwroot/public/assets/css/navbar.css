@@ -177,6 +177,7 @@ button .navbar {
     justify-content: flex-end;
     gap: 8px;
     margin-right: 10px;
+    margin-left: -12px;
 }
 
 .navbar-right a {
@@ -206,11 +207,16 @@ a#user:hover {
     background-color: transparent !important;
 }
 
-/* Desktop cart positioning */
+/* Desktop cart positioning — override inline styles */
 .navbar-cart {
     order: 0;
     margin-left: 0;
-    margin-right: 8px;
+    margin-right: 0 !important;
+}
+
+/* Tighten favorites icon spacing */
+a.navbar-favorites {
+    margin-right: 0 !important;
 }
 
 /* Hide hamburger and mobile menu by default */
