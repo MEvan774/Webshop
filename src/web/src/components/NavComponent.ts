@@ -2,6 +2,7 @@ import { html } from "@web/helpers/webComponents";
 import { LogoutService } from "../services/LogoutService";
 import { AllGameService } from "@web/services/AllGamesService";
 import { ShoppingCartService } from "@web/services/ShoppingCartService";
+import { FavoritesService } from "@web/services/FavoritesService";
 import { GameResult } from "@shared/types";
 
 export class NavComponent extends HTMLElement {
@@ -17,12 +18,18 @@ export class NavComponent extends HTMLElement {
         // Wire up search right away
         this.setupSearch();
 
-        // Show initial cart count
+        // Show initial cart + favorites count
         this.updateCartCount();
+        this.updateFavoritesCount();
 
         // Listen for cart changes from other components
         window.addEventListener("cart-updated", (): void => {
             this.updateCartCount();
+        });
+
+        // Listen for favorites changes from other components
+        window.addEventListener("favorites-updated", (): void => {
+            this.updateFavoritesCount();
         });
 
         // Check session in the background, then render the correct buttons
@@ -31,7 +38,6 @@ export class NavComponent extends HTMLElement {
 
     /**
      * Updates the cart counter badge in both desktop and mobile nav.
-     * Reads the count from localStorage via ShoppingCartService.
      */
     private updateCartCount(): void {
         if (!this.shadowRoot) return;
@@ -55,9 +61,31 @@ export class NavComponent extends HTMLElement {
     }
 
     /**
+     * Updates the favorites counter badge in both desktop and mobile nav.
+     */
+    private updateFavoritesCount(): void {
+        if (!this.shadowRoot) return;
+
+        const favoritesService: FavoritesService = new FavoritesService();
+        const count: number = favoritesService.getFavoritesCount();
+
+        // Desktop badge
+        const desktopBadge: HTMLSpanElement | null = this.shadowRoot.querySelector("#favorites-count-desktop");
+        if (desktopBadge) {
+            desktopBadge.textContent = count.toString();
+            desktopBadge.style.display = count > 0 ? "inline-flex" : "none";
+        }
+
+        // Mobile badge
+        const mobileBadge: HTMLSpanElement | null = this.shadowRoot.querySelector("#favorites-count-mobile");
+        if (mobileBadge) {
+            mobileBadge.textContent = count.toString();
+            mobileBadge.style.display = count > 0 ? "inline-flex" : "none";
+        }
+    }
+
+    /**
      * Check session in the background.
-     * On success: show logged-in buttons.
-     * On failure: show logged-out buttons (Inloggen / Registreren).
      */
     private async checkSessionAndUpdate(): Promise<void> {
         try {
@@ -179,27 +207,6 @@ export class NavComponent extends HTMLElement {
     private renderNavbar(): void {
         if (!this.shadowRoot) return;
 
-        // Ensure fonts are available at the document level (needed for Shadow DOM)
-        if (!document.querySelector("#nav-global-fonts")) {
-            const globalStyle: HTMLStyleElement = document.createElement("style");
-            globalStyle.id = "nav-global-fonts";
-            globalStyle.textContent = `
-        @font-face {
-            font-family: 'Pacifico';
-            src: url('/assets/fonts/Pacifico.ttf');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'Times New Roman';
-            src: url('/assets/fonts/TimesNewRoman.ttf');
-            font-weight: normal;
-            font-style: normal;
-        }
-    `;
-            document.head.appendChild(globalStyle);
-        }
-
         const element: HTMLElement = html`
   <div>
     <div class="navbar">
@@ -220,13 +227,15 @@ export class NavComponent extends HTMLElement {
         <img src="/assets/img/icons/SearchWhiteIcon.svg" alt="Search" width="34" height="34" />
       </label>
 
-      <!-- Hamburger label stays inside navbar for layout -->
+      <!-- Hamburger Menu Toggle -->
+      <input type="checkbox" id="hamburger-toggle" class="hamburger-toggle" />
       <label for="hamburger-toggle" class="hamburger-icon">
         <img src="/assets/img/icons/HamburgerIcon.svg" alt="Menu" width="24" height="24" />
       </label>
 
       <!-- Center Search Bar (Hidden on mobile) -->
       <div class="navbar-center">
+        <!-- Browse link -->
         <a href="/browse.html" class="navbar-browse-link">Browse</a>
         <div class="searchbar">
           <button id="desktop-search-btn">
@@ -249,25 +258,34 @@ export class NavComponent extends HTMLElement {
         </div>
       </div>
 
+      <!-- Favorites button (desktop) — left of cart -->
+      <a href="/favorites.html" class="navbar-favorites" id="favorites-link-desktop">
+        <img src="/assets/img/icons/heart.svg" alt="Favorieten" class="favorites-icon" />
+        <span class="favorites-badge" id="favorites-count-desktop" style="display: none;">0</span>
+      </a>
+
       <!-- Cart button (desktop) -->
       <a href="/payment.html" class="navbar-cart" id="cart-link-desktop">
-        <span class="cart-icon"><img src="/assets/img/icons/ShoppingCart.svg" width="40" height="40" alt="Cart" /></span>
+        <span class="cart-icon">&#128722;</span>
         <span class="cart-badge" id="cart-count-desktop" style="display: none;">0</span>
       </a>
 
-      <!-- Right Buttons -->
+      <!-- Right Buttons (empty until session check completes) -->
       <div class="navbar-right" id="auth-section"></div>
-    </div>
 
-    <!-- Checkbox + Mobile Menu OUTSIDE navbar, but inside root div -->
-    <input type="checkbox" id="hamburger-toggle" class="hamburger-toggle" />
-    <div class="mobile-menu">
-      <a href="/browse.html" class="mobile-menu-link">Browse</a>
-      <a href="/payment.html" class="mobile-menu-link">
-        Winkelwagen
-        <span class="cart-badge-mobile" id="cart-count-mobile" style="display: none;">0</span>
-      </a>
-      <div id="mobile-auth-section" class="mobile-auth"></div>
+      <!-- Mobile Menu (Dropdown under hamburger) -->
+      <div class="mobile-menu">
+        <a href="/browse.html" class="mobile-menu-link">Alle Games</a>
+        <a href="/favorites.html" class="mobile-menu-link">
+            Favorieten
+            <span class="favorites-badge-mobile" id="favorites-count-mobile" style="display: none;">0</span>
+        </a>
+        <a href="/payment.html" class="mobile-menu-link">
+            Winkelwagen
+            <span class="cart-badge-mobile" id="cart-count-mobile" style="display: none;">0</span>
+        </a>
+        <div id="mobile-auth-section" class="mobile-auth"></div>
+      </div>
     </div>
 
     <!-- Search dropdown below navbar -->
@@ -333,32 +351,106 @@ export class NavComponent extends HTMLElement {
                 border-radius: 6px;
                 margin-right: 12px;
                 flex-shrink: 0;
+                background-color: #e0d6c6;
             }
 
             .search-result-info {
                 display: flex;
                 flex-direction: column;
                 gap: 2px;
+                overflow: hidden;
             }
 
             .search-result-title {
-                font-family: 'TimesNewRoman';
+                font-family: 'TimesNewRoman', serif;
                 font-size: 0.95rem;
-                font-weight: 600;
+                font-weight: bold;
                 color: #1C2594;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .search-result-price {
-                font-family: 'TimesNewRoman';
-                font-size: 0.85rem;
-                color: #666;
+                font-family: 'TimesNewRoman', serif;
+                font-size: 0.8rem;
+                color: #555;
             }
 
-            .search-no-results {
+            .search-no-results,
+            .search-loading {
                 padding: 16px;
                 text-align: center;
                 color: #888;
-                font-family: 'TimesNewRoman';
+                font-family: 'TimesNewRoman', serif;
+                font-size: 0.95rem;
+            }
+
+            /* ======== Favorites icon + badge (desktop) ======== */
+            .navbar-favorites {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 4px;
+                padding: 0 !important;
+                width: auto !important;
+                height: auto !important;
+                background: transparent !important;
+                text-decoration: none;
+                cursor: pointer;
+                line-height: 1;
+            }
+
+            .favorites-icon {
+                width: 24px;
+                height: 24px;
+                filter: brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0,0,0,0.25));
+                transition: transform 0.2s ease;
+            }
+
+            .navbar-favorites:hover .favorites-icon {
+                transform: scale(1.15);
+            }
+
+            .favorites-badge {
+                position: absolute;
+                top: -6px;
+                right: -10px;
+                background-color: #e74c3c;
+                color: #fff;
+                font-size: 0.7rem;
+                font-weight: 700;
+                font-family: 'TimesNewRoman', serif;
+                min-width: 18px;
+                height: 18px;
+                border-radius: 9px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0 5px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                line-height: 1;
+            }
+
+            /* ======== Favorites badge (mobile menu) ======== */
+            .favorites-badge-mobile {
+                background-color: #e74c3c;
+                color: #fff;
+                font-size: 0.7rem;
+                font-weight: 700;
+                font-family: 'TimesNewRoman', serif;
+                min-width: 18px;
+                height: 18px;
+                border-radius: 9px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0 5px;
+                margin-left: 8px;
+                vertical-align: middle;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+                line-height: 1;
             }
 
             /* ======== Cart icon + badge (desktop) ======== */
@@ -379,20 +471,14 @@ export class NavComponent extends HTMLElement {
 
             .cart-icon {
                 font-size: 1.6rem;
-                float: right;
                 color: #FFFAF0;
-                transition: filter 0.2s ease;
+                filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25));
+                transition: transform 0.2s ease;
             }
 
             .navbar-cart:hover .cart-icon {
-                filter: brightness(0) saturate(100%) invert(53%) sepia(66%) saturate(330%) hue-rotate(194deg) brightness(89%) contrast(90%);
+                transform: scale(1.15);
             }
-
-            @media (max-width: 768px) {
-    .navbar-cart {
-        display: none;
-    }
-}
 
             .cart-badge {
                 position: absolute;
@@ -432,6 +518,15 @@ export class NavComponent extends HTMLElement {
                 vertical-align: middle;
                 box-shadow: 0 1px 3px rgba(0,0,0,0.2);
                 line-height: 1;
+            }
+
+            @media (max-width: 768px) {
+                .search-dropdown {
+                    max-width: 100%;
+                    left: 0;
+                    transform: none;
+                    border-radius: 0 0 8px 8px;
+                }
             }
         `;
 

@@ -2,6 +2,7 @@ import { GameDetailResult, StoreDeal } from "@shared/types";
 import { html } from "@web/helpers/webComponents";
 import { GamePageData, getGamePageData } from "@web/services/CurrentGameService";
 import { ShoppingCartService } from "@web/services/ShoppingCartService";
+import { FavoritesService } from "@web/services/FavoritesService";
 
 /**
  * Class for the current game page, extends HTMLElement.
@@ -471,13 +472,37 @@ export class CurrentGameComponent extends HTMLElement {
 
         const heartButton: HTMLButtonElement | null = this.shadowRoot.querySelector("#currentGameHeartButton");
         if (heartButton) {
-            heartButton.addEventListener("click", (): void => {
-                heartButton.classList.toggle("wishlisted");
+            const favoritesService: FavoritesService = new FavoritesService();
+            const gameId: string = currentGame.gameId || currentGame.steamAppId || "";
+            const gameTitle: string = currentGame.title;
+            const gameThumbnail: string = currentGame.thumbnail;
+
+            // Set initial state based on localStorage
+            if (favoritesService.isFavorited(gameId)) {
+                heartButton.classList.add("wishlisted");
                 const icon: HTMLSpanElement | null = heartButton.querySelector(".btn-icon");
                 if (icon) {
-                    const isWishlisted: boolean = heartButton.classList.contains("wishlisted");
-                    icon.innerHTML = isWishlisted ? "&#9829;" : "&#9825;";
+                    icon.innerHTML = "&#9829;";
                 }
+            }
+
+            heartButton.addEventListener("click", (): void => {
+                const isNowFavorited: boolean = favoritesService.toggleFavorite(gameId, gameTitle, gameThumbnail);
+
+                if (isNowFavorited) {
+                    heartButton.classList.add("wishlisted");
+                }
+                else {
+                    heartButton.classList.remove("wishlisted");
+                }
+
+                const icon: HTMLSpanElement | null = heartButton.querySelector(".btn-icon");
+                if (icon) {
+                    icon.innerHTML = isNowFavorited ? "&#9829;" : "&#9825;";
+                }
+
+                // Notify the navbar to update the favorites badge
+                window.dispatchEvent(new CustomEvent("favorites-updated"));
             });
         }
 
