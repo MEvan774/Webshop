@@ -38,11 +38,20 @@ interface LogoutRequest extends Request {
 }
 
 /**
- * Determine if the server is running in production (HTTPS) or development (HTTP).
- * Only set secure: true on cookies when using HTTPS, otherwise the browser
- * silently rejects the cookie on http://localhost.
+ * Cookie options for the session cookie.
+ * sameSite: "none" + secure: true is REQUIRED because the frontend (Vercel)
+ * and API (Railway) are on different domains. Without this, the browser
+ * silently rejects the cookie on cross-origin requests.
  */
-const isProduction: boolean = process.env.NODE_ENV === "production";
+const SESSION_COOKIE_OPTIONS: {
+    httpOnly: boolean;
+    secure: boolean;
+    sameSite: "none";
+} = {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+};
 
 export class UserController {
     private readonly _userService: UserService = new UserService();
@@ -82,11 +91,7 @@ export class UserController {
 
             // No verification check — log in immediately
             const sessionId: string | undefined = await this._sessionService.createSession(user.userId);
-            res.cookie("session", sessionId, {
-                httpOnly: true,
-                secure: isProduction,
-                sameSite: isProduction ? "strict" : "lax",
-            });
+            res.cookie("session", sessionId, SESSION_COOKIE_OPTIONS);
             res.status(200).json({ message: "Login succesvol." });
         }
         catch (error: unknown) {
@@ -152,11 +157,7 @@ export class UserController {
             if (userId) {
                 // Create session immediately — no verification needed
                 const sessionId: string | undefined = await this._sessionService.createSession(Number(userId));
-                res.cookie("session", sessionId, {
-                    httpOnly: true,
-                    secure: isProduction,
-                    sameSite: isProduction ? "strict" : "lax",
-                });
+                res.cookie("session", sessionId, SESSION_COOKIE_OPTIONS);
 
                 res.status(201).json({
                     message: "Gebruiker succesvol geregistreerd!",
