@@ -1,3 +1,4 @@
+/* eslint-disable @stylistic/quotes */
 import { html } from "@web/helpers/webComponents";
 import "@web/components/FavoritesTileComponent";
 import { FavoritesService, FavoriteItem } from "@web/services/FavoritesService";

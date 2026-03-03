@@ -260,7 +260,7 @@ export class NavComponent extends HTMLElement {
 
       <!-- Favorites button (desktop) — left of cart -->
       <a href="/favorites.html" class="navbar-favorites" id="favorites-link-desktop">
-        <img src="/assets/img/icons/heart.svg"  width="40" height="40" alt="Favorieten" class="favorites-icon" />
+        <img src="/assets/img/icons/heart.svg" width="40" height="40" alt="Favorieten" class="favorites-icon" />
         <span class="favorites-badge" id="favorites-count-desktop" style="display: none;">0</span>
       </a>
 

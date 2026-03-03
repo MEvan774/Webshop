@@ -1,19 +1,25 @@
 @import "colors.css";
 
 @font-face {
-    font-family: "TimesNewRoman";
-    src: url("/assets/fonts/TimesNewRomanRegular.ttf");
+    font-family: 'Pacifico';
+    src: url('/assets/fonts/Pacifico.ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+@font-face {
+    font-family: 'Times New Roman';
+    src: url('/assets/fonts/TimesNewRoman.ttf');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-    font-family: "TimesNewRomanBold";
-    src: url("/assets/fonts/TimesNewRomanBold.ttf");
-}
-
-@font-face {
-    font-family: "RaleWay";
-    src: url("/assets/fonts/RaleWay.ttf");
-}
+    font-family: 'TimesNewRomanBold';
+    src: url('/assets/fonts/TimesNewRomanBold.ttf');
+    font-weight: normal;
+    font-style: normal;
+  }
 
 /* ======== Page layout ======== */
 #favoritesContainer {
