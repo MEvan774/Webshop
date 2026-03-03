@@ -37,6 +37,13 @@ interface LogoutRequest extends Request {
     body: { sessionId: string };
 }
 
+/**
+ * Determine if the server is running in production (HTTPS) or development (HTTP).
+ * Only set secure: true on cookies when using HTTPS, otherwise the browser
+ * silently rejects the cookie on http://localhost.
+ */
+const isProduction: boolean = process.env.NODE_ENV === "production";
+
 export class UserController {
     private readonly _userService: UserService = new UserService();
     private readonly _sessionService: SessionService = new SessionService();
@@ -73,9 +80,13 @@ export class UserController {
                 return;
             }
 
-            // Skip verification check — log in immediately regardless of verified status
+            // No verification check — log in immediately
             const sessionId: string | undefined = await this._sessionService.createSession(user.userId);
-            res.cookie("session", sessionId, { httpOnly: true, secure: true });
+            res.cookie("session", sessionId, {
+                httpOnly: true,
+                secure: isProduction,
+                sameSite: isProduction ? "strict" : "lax",
+            });
             res.status(200).json({ message: "Login succesvol." });
         }
         catch (error: unknown) {
@@ -141,7 +152,11 @@ export class UserController {
             if (userId) {
                 // Create session immediately — no verification needed
                 const sessionId: string | undefined = await this._sessionService.createSession(Number(userId));
-                res.cookie("session", sessionId, { httpOnly: true, secure: true });
+                res.cookie("session", sessionId, {
+                    httpOnly: true,
+                    secure: isProduction,
+                    sameSite: isProduction ? "strict" : "lax",
+                });
 
                 res.status(201).json({
                     message: "Gebruiker succesvol geregistreerd!",
@@ -163,9 +178,6 @@ export class UserController {
 
     /**
      * Edit the user information with the userService
-     *
-     * @param req Request with UserEditData of the user as the body
-     * @param res Response to send the status to
      */
     public async editUser(req: Request<unknown, unknown, UserEditData>, res: Response): Promise<void> {
         console.log("Incoming request body:", req.body);
