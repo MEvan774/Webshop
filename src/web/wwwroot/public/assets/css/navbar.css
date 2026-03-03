@@ -13,17 +13,33 @@
 }
 
 
+/* ======== User button (logged-in) — override .navbar-right a styles ======== */
 a#user {
-background: transparent;
-padding: 0;
-margin: 0;
-display: inline-block; /* Prevent inline whitespace issues */
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    border-radius: 0 !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center;
 }
 
 a#user img {
-display: block; /* Removes whitespace below the image */
-background: transparent;
+    display: block;
+    background: transparent;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
 }
+
+/* ======== Logout link (logged-in) — keep pill style but remove excess margin ======== */
+a#logout {
+    margin-right: 10px !important;
+    margin-left: 0 !important;
+}
+
 .navbar {
     position: sticky;
     top: 0;
@@ -156,12 +172,15 @@ button .navbar {
 
 .navbar-right {
     flex: unset;
+    display: flex;
+    align-items: center;
     justify-content: flex-end;
+    gap: 8px;
+    margin-right: 10px;
 }
 
 .navbar-right a {
     padding: 8px 16px;
-    margin-right: 15px;
     background-color: #FFFAF0;
     color: #000000;
     width: 104px;
@@ -182,17 +201,16 @@ button .navbar {
     background-color: #cacaca;
 }
 
+/* User icon hover — no background change since it's transparent */
+a#user:hover {
+    background-color: transparent !important;
+}
+
 /* Desktop cart positioning */
 .navbar-cart {
     order: 0;
     margin-left: 0;
     margin-right: 8px;
-}
-
-/* Keep auth buttons after cart */
-.navbar-right {
-    flex: unset;
-    gap: 0;
 }
 
 /* Hide hamburger and mobile menu by default */

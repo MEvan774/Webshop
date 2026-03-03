@@ -160,7 +160,7 @@ export class NavComponent extends HTMLElement {
 
             const userImg: HTMLImageElement = document.createElement("img");
             userImg.src = "/assets/img/icons/userButton.png";
-            userImg.width = 50;
+            userImg.width = 28;
             userLink.appendChild(userImg);
 
             const logoutLink: HTMLAnchorElement = document.createElement("a");
