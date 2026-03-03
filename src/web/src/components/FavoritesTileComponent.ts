@@ -38,7 +38,7 @@ export class FavoritesTileComponent extends HTMLElement {
             </div>
             <div class="tile-actions">
                 <button class="btn-cart" id="addToCart" title="Toevoegen aan winkelwagen">
-                    <img class="btn-icon" src="/assets/img/icons/ShoppingCart.svg" width="25" height="25" alt="Winkelwagen" />
+                    <img class="btn-icon" src="/assets/img/icons/ShoppingCart.svg" width="16" height="16" alt="Winkelwagen" />
                 </button>
                 <button class="btn-remove" id="removeFromFavorites" title="Verwijderen uit verlanglijst">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
