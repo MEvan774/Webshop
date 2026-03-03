@@ -266,7 +266,7 @@ export class NavComponent extends HTMLElement {
 
       <!-- Cart button (desktop) -->
       <a href="/payment.html" class="navbar-cart" id="cart-link-desktop">
-        <span class="cart-icon">&#128722;</span>
+        <span class="cart-icon"><img src="/assets/img/icons/ShoppingCart.svg" width="40" height="40" alt="Cart" /></span>
         <span class="cart-badge" id="cart-count-desktop" style="display: none;">0</span>
       </a>
 
