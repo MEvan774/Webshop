@@ -118,6 +118,7 @@ export class SidebarComponent extends HTMLElement {
         const discountSelect: HTMLSelectElement | null = this.shadowRoot.querySelector<HTMLSelectElement>("#sidebar-discount");
         const minPriceInput: HTMLInputElement | null = this.shadowRoot.querySelector<HTMLInputElement>("#min-price");
         const maxPriceInput: HTMLInputElement | null = this.shadowRoot.querySelector<HTMLInputElement>("#max-price");
+        const freeOnlyCheckbox: HTMLInputElement | null = this.shadowRoot.querySelector<HTMLInputElement>("#free-only");
         const checkboxes: NodeListOf<HTMLInputElement> = this.shadowRoot.querySelectorAll<HTMLInputElement>(".checkbox");
         const resetBtn: HTMLButtonElement | null = this.shadowRoot.querySelector<HTMLButtonElement>("#reset-filters");
 
@@ -128,6 +129,11 @@ export class SidebarComponent extends HTMLElement {
 
         // Discount select: dispatch immediately on change
         discountSelect?.addEventListener("change", () => {
+            this.dispatchFilterEvent();
+        });
+
+        // Free-only checkbox: dispatch immediately on change
+        freeOnlyCheckbox?.addEventListener("change", () => {
             this.dispatchFilterEvent();
         });
 
@@ -145,11 +151,13 @@ export class SidebarComponent extends HTMLElement {
         minPriceInput?.addEventListener("input", handlePriceChange);
         maxPriceInput?.addEventListener("input", handlePriceChange);
 
-        // Label checkboxes: dispatch immediately on change
+        // Label checkboxes (excluding the free-only checkbox): dispatch immediately on change
         checkboxes.forEach((cb: HTMLInputElement) => {
-            cb.addEventListener("change", () => {
-                this.dispatchFilterEvent();
-            });
+            if (cb.id !== "free-only") {
+                cb.addEventListener("change", () => {
+                    this.dispatchFilterEvent();
+                });
+            }
         });
 
         // Reset button: clear all inputs and dispatch
@@ -168,7 +176,13 @@ export class SidebarComponent extends HTMLElement {
     }
 
     /**
-     * Gather current filter state and dispatch a FilterChange event
+     * Gather current filter state and dispatch a FilterChange event.
+     *
+     * FIX: Discount and free-only are now sent as dedicated fields on FilterData
+     * instead of being hacked into the labels array. Previously, discount was
+     * added as "discount:25" in labels and "free" was added as a label, but
+     * BrowseComponent only matched labels against game.tags — so neither
+     * discount filtering nor free filtering actually worked.
      */
     private dispatchFilterEvent(): void {
         if (!this.shadowRoot) return;
@@ -177,24 +191,25 @@ export class SidebarComponent extends HTMLElement {
         const discountSelect: HTMLSelectElement | null = this.shadowRoot.querySelector<HTMLSelectElement>("#sidebar-discount");
         const minPriceInput: HTMLInputElement | null = this.shadowRoot.querySelector<HTMLInputElement>("#min-price");
         const maxPriceInput: HTMLInputElement | null = this.shadowRoot.querySelector<HTMLInputElement>("#max-price");
+        const freeOnlyCheckbox: HTMLInputElement | null = this.shadowRoot.querySelector<HTMLInputElement>("#free-only");
         const checkboxes: NodeListOf<HTMLInputElement> = this.shadowRoot.querySelectorAll<HTMLInputElement>(".checkbox:checked");
 
         const minValue: string = minPriceInput?.value.trim() ?? "";
         const maxValue: string = maxPriceInput?.value.trim() ?? "";
         const discountValue: string = discountSelect?.value ?? "";
 
-        const labels: string[] = Array.from(checkboxes).map((cb: HTMLInputElement) => cb.value);
-
-        // Add discount as a special label so BrowseComponent can read it
-        if (discountValue !== "") {
-            labels.push(`discount:${discountValue}`);
-        }
+        // Only collect tag/label checkboxes (exclude the free-only checkbox)
+        const labels: string[] = Array.from(checkboxes)
+            .filter((cb: HTMLInputElement) => cb.id !== "free-only")
+            .map((cb: HTMLInputElement) => cb.value);
 
         const filterData: FilterData = {
             minPrice: minValue !== "" ? parseFloat(minValue) : null,
             maxPrice: maxValue !== "" ? parseFloat(maxValue) : null,
             labels: labels,
             sortBy: sortSelect?.value ?? null,
+            minDiscount: discountValue !== "" ? parseFloat(discountValue) : null,
+            freeOnly: freeOnlyCheckbox?.checked ?? false,
         };
 
         this._eventService.dispatchEvent<FilterData>(WebshopEvent.FilterChange, filterData);

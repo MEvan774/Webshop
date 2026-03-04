@@ -39,7 +39,7 @@ export class BrowseComponent extends HTMLElement {
     /** Current active filters from sidebar */
     private activeFilters: FilterData = {
         minPrice: null, maxPrice: null, labels: [],
-        sortBy: null,
+        sortBy: null, minDiscount: null, freeOnly: false,
     };
 
     /**
@@ -93,26 +93,61 @@ export class BrowseComponent extends HTMLElement {
     /**
      * Get filtered games based on the current active sidebar filters.
      *
+     * FIX 1 (Free filter): The "Gratis" checkbox now properly filters on
+     * price === 0 instead of trying to match "free" against game.tags.
+     *
+     * FIX 2 (Discount filter): The discount dropdown now properly compares
+     * against the numeric savings value from the price data, instead of
+     * trying to match "discount:25" against game.tags.
+     *
+     * FIX 3 (Price filter): The price range now compares against the actual
+     * final price (price.price), which is the already-discounted price from
+     * the Steam API. This is consistent with what's displayed on cards.
+     *
+     * FIX 4 (Games without price): Games without price data are now excluded
+     * when any price-related filter is active, instead of silently passing.
+     *
      * @returns Filtered array of games
      */
     private getFilteredGames(): GameResult[] {
         return this.games.filter((game: GameResult) => {
             const price: ProductPrice | undefined = this.prices[game.gameId];
 
-            // Price range filter
-            if (this.activeFilters.minPrice !== null && price) {
-                if (price.price < this.activeFilters.minPrice) {
+            // Free-only filter: only show games with price === 0
+            if (this.activeFilters.freeOnly) {
+                if (!price || price.price !== 0) {
                     return false;
                 }
             }
 
-            if (this.activeFilters.maxPrice !== null && price) {
-                if (price.price > this.activeFilters.maxPrice) {
+            // Price range filter — compare against the final price (already discounted)
+            if (this.activeFilters.minPrice !== null) {
+                if (!price || price.price < this.activeFilters.minPrice) {
                     return false;
                 }
             }
 
-            // Label / tag filter
+            if (this.activeFilters.maxPrice !== null) {
+                if (!price || price.price > this.activeFilters.maxPrice) {
+                    return false;
+                }
+            }
+
+            // Discount filter: check that the game's savings percentage
+            // meets or exceeds the selected minimum discount
+            if (this.activeFilters.minDiscount !== null) {
+                if (!price) {
+                    return false;
+                }
+
+                const savings: number = parseFloat(price.savings);
+
+                if (isNaN(savings) || savings < this.activeFilters.minDiscount) {
+                    return false;
+                }
+            }
+
+            // Label / tag filter (only for actual game tags, not special filters)
             if (this.activeFilters.labels.length > 0 && game.tags) {
                 const hasMatchingTag: boolean = this.activeFilters.labels.some(
                     (label: string) => game.tags!.includes(label)
@@ -189,6 +224,13 @@ export class BrowseComponent extends HTMLElement {
      * Build the HTML for a single game card.
      * Uses the same .game-card structure as the landing page sale cards.
      *
+     * FIX 5 (Double-discount): The API already returns price.price as the
+     * final discounted price and price.normalPrice as the original price.
+     * Previously, the code treated price.price as the original and applied
+     * savings again (price.price - price.price * savings / 100), resulting
+     * in a double-discount. Now we use price.normalPrice as the original
+     * and price.price as the already-discounted final price.
+     *
      * @param game The game to render
      * @returns HTML string for the game card
      */
@@ -200,13 +242,14 @@ export class BrowseComponent extends HTMLElement {
         if (price && price.price > 0) {
             const savings: number = parseFloat(price.savings);
 
-            if (savings > 0) {
-                const salePrice: number = price.price - (price.price * savings / 100);
+            if (savings > 0 && price.normalPrice > price.price) {
+                // price.price is already the final discounted price from the API
+                // price.normalPrice is the original price before discount
                 priceHtml = `
                     <div class="price-wrapper">
                         <p class="discount">${Math.round(savings)}%</p>
-                        <p class="original-price">€${price.price.toFixed(2)}</p>
-                        <p class="discounted-price">€${salePrice.toFixed(2)}</p>
+                        <p class="original-price">€${price.normalPrice.toFixed(2)}</p>
+                        <p class="discounted-price">€${price.price.toFixed(2)}</p>
                     </div>
                 `;
             }
@@ -318,12 +361,20 @@ export class BrowseComponent extends HTMLElement {
     private buildActiveFiltersDisplay(): string {
         const parts: string[] = [];
 
+        if (this.activeFilters.freeOnly) {
+            parts.push("Gratis");
+        }
+
         if (this.activeFilters.minPrice !== null) {
             parts.push(`Min: €${this.activeFilters.minPrice.toFixed(2)}`);
         }
 
         if (this.activeFilters.maxPrice !== null) {
             parts.push(`Max: €${this.activeFilters.maxPrice.toFixed(2)}`);
+        }
+
+        if (this.activeFilters.minDiscount !== null) {
+            parts.push(`${this.activeFilters.minDiscount}%+ korting`);
         }
 
         if (this.activeFilters.labels.length > 0) {

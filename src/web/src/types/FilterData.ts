@@ -10,4 +10,8 @@ export interface FilterData {
     labels: string[];
     /** Sort option (null means keep current/default) */
     sortBy: string | null;
+    /** Minimum discount percentage filter (null means no minimum discount) */
+    minDiscount: number | null;
+    /** Whether to show only free games */
+    freeOnly: boolean;
 }
