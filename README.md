@@ -1,67 +1,103 @@
-# Opdracht blok 4 HBO-ICT SE (Webshop)
-Een webshop die games van een api ophaald.
+# Starshop
 
----
+A webshop for browsing and purchasing game licenses, built as a group project (team "1-Mula") during HBO-ICT (Block 4). The main learning goal was working with third-party APIs.
 
-## Screenshot
+![Starshop Landing Page](screenshots/WebshopLanding.png)
 
-![Screenshot](screenshots/FrontPage.png)
+## About
 
----
+Starshop lets users browse, search, and purchase game licenses, with all game data pulled live from external sources and payments handled through Stripe. The stack is TypeScript throughout — an Express backend and a Lit-based frontend — deployed on Railway (API) and Vercel (frontend + serverless payment functions).
 
-## 🧩 Features
+**Live demo:** [webshop-api-4vlr.vercel.app](https://webshop-api-4vlr.vercel.app)
 
-- Haald game data op via een api en weergeeft ze op de website.
-- Frontend is geoptimized voor mobile view.
+## Features
 
----
+- Browse and search game catalog with live data from Steam
+- View detailed game information including community stats
+- Shopping cart and checkout flow
+- Stripe payment integration
+- Responsive mobile-optimized frontend
+- Client-server architecture with API proxy pattern
 
-## Hoe is deze repository ingericht
-- Story-board. Via het menu links (Plan > Issues) vind je alle user stories.
-- Broncode in de map `src` (Repository) voor een client- en server applicatie.
-- Documentatie in de map `docs` (Repository). Hier houden jullie gezamenlijk documentatie bij voor dit project.
+## Tech Stack
 
-## Project voor de eerste keer opstarten
-1. Installeer Visual Studio Code, deze kun je downloaden via https://code.visualstudio.com/.
+| Layer | Technology |
+|-------|-----------|
+| Language | TypeScript (79%), CSS (17.2%), JavaScript (2.4%), HTML (1.4%) |
+| Frontend | Lit (Web Components) |
+| Backend | Express.js (Node.js) |
+| Build Tools | Vite (client), esbuild (server) |
+| Payments | Stripe API |
+| Game Data | Steam Store API, SteamSpy API |
+| Database | SQL |
+| Deployment | Vercel (frontend), Railway (API) |
+| CI/CD | GitLab CI |
 
-2. Installeer de volgende plugins voor Visual Studio Code. Dit kan via de browser, of vanuit Visual Studio Code zelf in de `Extensions` sectie van de linker menubalk:
-    - ESLint: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
-    - EditorConfig: https://marketplace.visualstudio.com/items?itemName=editorconfig.editorconfig
-    - lit-plugin: https://marketplace.visualstudio.com/items?itemName=runem.lit-plugin
+## Third-Party APIs
 
-3. Installeer NodeJS, deze kun je voor jouw systeem downloaden via https://nodejs.org/en/download/prebuilt-installer. 
-   - **Let op!** Installeer versie `20.x.x`!
+**Steam Store API** — Primary data source for game information and pricing. The backend proxies requests to Steam's endpoints so the frontend never talks to Steam directly.
 
-4. Installeer Git, voor uitleg zie de [HBO-ICT Knowledgebase](https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/manage_and_control/git/installeren/git_installeren/#git-installeren).
+**SteamSpy API** — Used alongside the Steam Store API to get community data like review scores, player counts, and genre tags that Steam's own API doesn't expose easily.
 
-5. Configureer Git, voor uitleg zie de [HBO-ICT Knowledgebase](https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/manage_and_control/git/installeren/git_installeren/#git-configureren).
+**Stripe API** — Handles the entire checkout and payment flow. A dedicated StripeService on the backend creates Checkout Sessions and verifies payment status, keeping the secret key server-side.
 
-6. Maak een SSH key aan en koppel deze aan GitLab, voor uitleg zie de [HBO-ICT Knowledgebase](https://knowledgebase.hbo-ict-hva.nl/1_beroepstaken/software/manage_and_control/git/installeren/git_installeren/#git-koppelen-aan-gitlab).
+## Getting Started
 
-7. Clone dit project met Git naar je computer, dit kan je via de terminal doen met een `git clone` commando, vanuit Visual Studio Code zelf of met een visueel programma als Fork (https://git-fork.com/).
+### Prerequisites
 
-8. Open na het clonen de map in Visual Studio Code met `File > Open Folder...`.
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Node.js](https://nodejs.org/) (version `20.x.x`)
+- [Git](https://git-scm.com/)
 
-9. Ga in de menubalk naar `View > Open View...` en zoek naar "NPM". Als je nu in de `Explorer` sectie van de linker menubalk op de `package.json` klikt, krijg je een extra paneel erbij met de naam "NPM Scripts". 
+### Recommended VS Code Extensions
 
-10. In het "NPM Scripts"-paneel, klik met rechts op `package.json` en klik op `Run Install`, of voer handmatig `npm install` in een terminal uit.
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [EditorConfig](https://marketplace.visualstudio.com/items?itemName=editorconfig.editorconfig)
+- [lit-plugin](https://marketplace.visualstudio.com/items?itemName=runem.lit-plugin)
 
-11. In [database.sql](database.sql) staat een sql script om een database aan te maken met een session tabel.
+### Installation
 
-12. In [.env](src/api/.env) dien je de database connectie te configuren.
+```bash
+git clone https://github.com/MEvan774/Webshop.git
+cd Webshop
+npm install
+```
 
-13. Start de server applicatie. Klik nu op de pijl achter `dev` onder `src\api\package.json`, of voer handmatig `npm run dev` vanuit de juiste map in een termimal uit.
-    - Via de build tool [esbuild](https://esbuild.github.io/) wordt er een lokale server opgestart. Als je de URL uit de terminal (als het goed is: http://127.0.0.1:3001) in de browser opent, zie je de tekst "Welcome to the API!". Wijzigingen die je maakt in de code worden nu realtime (direct) herladen!
+Set up the database using `database.sql`, then configure the database connection in `src/api/.env`.
 
-14. Start de client applicatie. Klik nu op de pijl achter `dev` onder `src\web\package.json`, of voer handmatig `npm run dev` vanuit de juiste map in een termimal uit.
-    - Via de build tool [Vite](https://vitejs.dev/) wordt er een lokale server opgestart. Als je de URL uit de terminal (als het goed is: http://127.0.0.1:3000) in de browser opent, zie je welcomePagina.
+Start the server:
+```bash
+cd src/api
+npm run dev
+# API available at http://127.0.0.1:3001
+```
 
-15. Om de homepagina staan een aantal knopppen waarmee je een sessie kan maken, een sessie kan verwijderen en een tekst kan ophalen waarvoor je een sessie moet hebben. Dit dient als voorbeeld.
+Start the client:
+```bash
+cd src/web
+npm run dev
+# App available at http://127.0.0.1:3000
+```
 
-## Projectbeschrijving en studiemateriaal
+## Project Structure
 
-Alle benodigde informatie is te vinden op de [HBO-ICT Knowledgebase](https://knowledgebase.hbo-ict-hva.nl/3_onderwijs/se/opdracht4/).
+```
+Webshop/
+├── src/
+│   ├── api/         # Express.js backend
+│   └── web/         # Lit-based frontend
+├── docs/            # Project documentation
+├── screenshots/     # Application screenshots
+├── database.sql     # Database setup script
+├── vercel.json      # Vercel deployment config
+├── nixpacks.toml    # Railway deployment config
+└── package.json
+```
 
-## Studiehandleiding
+## What I Learned
 
-In de Studiehandleiding op de DLO staat beschreven welke competenties je gaat ontwikkelen en wat de leeruitkomsten zijn voor dit blok.
+- Integrating and orchestrating multiple third-party APIs
+- Secure payment processing with Stripe (server-side secret key management)
+- API proxy pattern to abstract external services from the frontend
+- Deploying a full-stack application across multiple platforms (Vercel + Railway)
+- Collaborative development with GitLab CI/CD pipelines
