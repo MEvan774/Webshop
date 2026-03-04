@@ -3,9 +3,40 @@ import { html } from "@web/helpers/webComponents";
 import { AllGameService } from "@web/services/AllGamesService";
 
 /**
+ * Fallback placeholder image used when a game thumbnail fails to load.
+ */
+const FALLBACK_IMAGE: string = "/assets/img/temp/Frontpage.png";
+
+/**
+ * Inline onerror handler that swaps a broken image to the fallback.
+ * Sets onerror to null first to prevent infinite loops if the fallback
+ * itself is missing.
+ */
+const IMG_ONERROR: string = `onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}';"`;
+
+/**
+ * Check whether a game has a usable thumbnail URL.
+ * Filters out games with empty, missing, or obviously invalid thumbnails
+ * so they never appear on the front page in the first place.
+ *
+ * @param game The game to check
+ * @returns true if the thumbnail looks valid
+ */
+function hasValidThumbnail(game: GameResult): boolean {
+    return typeof game.thumbnail === "string" &&
+      game.thumbnail.trim() !== "" &&
+      game.thumbnail.startsWith("http");
+}
+
+/**
  * Landing page component.
  * Shows featured hero games and a horizontal scrolling sale section.
  * Now fetches games and prices in a single API call to reduce load.
+ *
+ * FIX: Games with broken/missing thumbnails are filtered out during
+ * selection so they are replaced by other games with valid images.
+ * An onerror fallback is also added to all <img> tags as a safety net
+ * in case an image URL exists but the server returns a 404 at runtime.
  */
 export class WelcomeComponent extends HTMLElement {
     public async connectedCallback(): Promise<void> {
@@ -27,8 +58,12 @@ export class WelcomeComponent extends HTMLElement {
         const games: GameResult[] = result.games;
         const pricesByGameId: Record<string, ProductPrice> = result.prices;
 
+        // FIX: Only consider games that have a valid thumbnail URL.
+        // This prevents broken images from appearing on the front page.
+        const gamesWithThumbnails: GameResult[] = games.filter(hasValidThumbnail);
+
         // Shuffle games using Fisher-Yates algorithm
-        const shuffled: GameResult[] = [...games];
+        const shuffled: GameResult[] = [...gamesWithThumbnails];
         for (let i: number = shuffled.length - 1; i > 0; i--) {
             const j: number = Math.floor(Math.random() * (i + 1));
             [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
@@ -98,7 +133,7 @@ export class WelcomeComponent extends HTMLElement {
   <!-- Left: Main featured game -->
   <div class="hero-main" id="hero-main">
     <a href="/currentGame.html?gameId=${this.frontPageGames[0].gameId}">
-    <img src=${this.frontPageGames[0].thumbnail} alt="Featured Game" />
+    <img src=${this.frontPageGames[0].thumbnail} alt="Featured Game" ${IMG_ONERROR} />
     <div class="hero-text">
       <h1>${this.frontPageGames[0].title}</h1>
       <button>Koop nu!</button>
@@ -110,25 +145,25 @@ export class WelcomeComponent extends HTMLElement {
   <div class="hero-side-list">
     <div class="side-game">
     <a href="/currentGame.html?gameId=${this.frontPageGames[1].gameId}">
-      <img src=${this.frontPageGames[1].thumbnail} alt="Game 1" />
+      <img src=${this.frontPageGames[1].thumbnail} alt="Game 1" ${IMG_ONERROR} />
       <p>${this.frontPageGames[1].title}</p>
     </a>
     </div>
     <div class="side-game">
     <a href="/currentGame.html?gameId=${this.frontPageGames[2].gameId}">
-      <img src=${this.frontPageGames[2].thumbnail} alt="Game 2" />
+      <img src=${this.frontPageGames[2].thumbnail} alt="Game 2" ${IMG_ONERROR} />
       <p>${this.frontPageGames[2].title}</p>
     </a>
     </div>
     <div class="side-game">
     <a href="/currentGame.html?gameId=${this.frontPageGames[3].gameId}">
-      <img src=${this.frontPageGames[3].thumbnail} alt="Game 3" />
+      <img src=${this.frontPageGames[3].thumbnail} alt="Game 3" ${IMG_ONERROR} />
       <p>${this.frontPageGames[3].title}</p>
     </a>
     </div>
     <div class="side-game">
     <a href="/currentGame.html?gameId=${this.frontPageGames[4].gameId}">
-      <img src=${this.frontPageGames[4].thumbnail} alt="Game 4" />
+      <img src=${this.frontPageGames[4].thumbnail} alt="Game 4" ${IMG_ONERROR} />
       <p>${this.frontPageGames[4].title}</p>
     </a>
     </div>
@@ -146,7 +181,7 @@ export class WelcomeComponent extends HTMLElement {
     <div class="horizontal-scroll">
       <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[0].gameId}">
-        <img src= ${this.saleGamesGame[0].thumbnail} alt="Game 1" />
+        <img src= ${this.saleGamesGame[0].thumbnail} alt="Game 1" ${IMG_ONERROR} />
         <p>${this.saleGamesGame[0].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
@@ -160,7 +195,7 @@ export class WelcomeComponent extends HTMLElement {
     </div>
     <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[1].gameId}">
-        <img src= ${this.saleGamesGame[1].thumbnail} alt="Game 2" />
+        <img src= ${this.saleGamesGame[1].thumbnail} alt="Game 2" ${IMG_ONERROR} />
         <p>${this.saleGamesGame[1].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
@@ -174,7 +209,7 @@ export class WelcomeComponent extends HTMLElement {
     </div>
     <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[2].gameId}">
-        <img src= ${this.saleGamesGame[2].thumbnail} alt="Game 3" />
+        <img src= ${this.saleGamesGame[2].thumbnail} alt="Game 3" ${IMG_ONERROR} />
         <p>${this.saleGamesGame[2].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
@@ -188,7 +223,7 @@ export class WelcomeComponent extends HTMLElement {
     </div>
     <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[3].gameId}">
-        <img src= ${this.saleGamesGame[3].thumbnail} alt="Game 4" />
+        <img src= ${this.saleGamesGame[3].thumbnail} alt="Game 4" ${IMG_ONERROR} />
         <p>${this.saleGamesGame[3].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
@@ -202,7 +237,7 @@ export class WelcomeComponent extends HTMLElement {
     </div>
     <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[4].gameId}">
-        <img src= ${this.saleGamesGame[4].thumbnail} alt="Game 5" />
+        <img src= ${this.saleGamesGame[4].thumbnail} alt="Game 5" ${IMG_ONERROR} />
         <p>${this.saleGamesGame[4].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
@@ -216,7 +251,7 @@ export class WelcomeComponent extends HTMLElement {
     </div>
     <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[5].gameId}">
-        <img src= ${this.saleGamesGame[5].thumbnail} alt="Game 6" />
+        <img src= ${this.saleGamesGame[5].thumbnail} alt="Game 6" ${IMG_ONERROR} />
         <p>${this.saleGamesGame[5].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
@@ -230,7 +265,7 @@ export class WelcomeComponent extends HTMLElement {
     </div>
     <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[6].gameId}">
-        <img src= ${this.saleGamesGame[6].thumbnail} alt="Game 7" />
+        <img src= ${this.saleGamesGame[6].thumbnail} alt="Game 7" ${IMG_ONERROR} />
         <p>${this.saleGamesGame[6].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>
@@ -244,7 +279,7 @@ export class WelcomeComponent extends HTMLElement {
     </div>
     <div class="game-card">
       <a href="/currentGame.html?gameId=${this.saleGamesGame[7].gameId}">
-        <img src= ${this.saleGamesGame[7].thumbnail} alt="Game 8" />
+        <img src= ${this.saleGamesGame[7].thumbnail} alt="Game 8" ${IMG_ONERROR} />
         <p>${this.saleGamesGame[7].title}</p>
         <div class="price-wrapper">
             <p class="discount">25%</p>

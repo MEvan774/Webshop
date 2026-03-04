@@ -279,7 +279,8 @@ export class BrowseComponent extends HTMLElement {
         return `
             <div class="game-card">
                 <a href="/currentGame.html?gameId=${game.gameId}">
-                    <img src="${game.thumbnail}" alt="${game.title}" loading="lazy" />
+                    <img src="${game.thumbnail}" alt="${game.title}" loading="lazy"
+                         onerror="this.onerror=null;this.src='/assets/img/temp/Frontpage.png';" />
                     <p>${game.title}</p>
                     ${priceHtml}
                 </a>
